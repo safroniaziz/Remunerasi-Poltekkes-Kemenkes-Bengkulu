@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    activity()->log('Look mum, I logged something');
+
     return view('backend.dashboard');
 })->name('dashboard');
 
