@@ -12,3 +12,15 @@
         <span>Data Dosen</span>
     </a>
 </li>
+<li class="{{ set_active('jabatandt') }}">
+    <a href="{{ route('jabatandt') }}">
+        <i class="fa fa-users"></i>
+        <span>Data Jabatan DT</span>
+    </a>
+</li>
+<li class="{{ set_active('jabatands') }}">
+    <a href="{{ route('jabatands') }}">
+        <i class="fa fa-users"></i>
+        <span>Data Jabatan DS</span>
+    </a>
+</li>
