@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class PegawaiController extends Controller
 {
@@ -67,6 +68,7 @@ class PegawaiController extends Controller
 
         $simpan = Pegawai::create([
             'nama'                  =>  $request->nama,
+            'slug'                  =>  Str::slug($request->nama),
             'nip'                   =>  $request->nip,
             'nidn'                  =>  $request->nidn,
             'email'                 =>  $request->email,
