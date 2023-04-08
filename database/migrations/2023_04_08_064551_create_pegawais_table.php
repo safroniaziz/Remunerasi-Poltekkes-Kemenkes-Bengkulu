@@ -15,15 +15,16 @@ return new class extends Migration
             $table->string('nip',18)->unique();
             $table->string('nidn');
             $table->string('nama');
+            $table->string('slug');
+            $table->string('email')->unique();
             $table->enum('jenis_kelamin',['L','P']);
-            $table->string('jurusan');
+            $table->enum('jurusan',['gizi','kebidanan','keperawatan','analis_kesehatan','promosi_kesehatan','kesehatan_lingkungan']);
             $table->string('nomor_rekening');
             $table->string('npwp');
-            $table->enum('serdos',['0','1']);
-            $table->string('no_sertifikat_serdos');
+            $table->boolean('is_serdos');
+            $table->string('no_sertifikat_serdos')->nullable();
             $table->string('no_whatsapp');
-            $table->boolean('is_active');
-            $table->string('email');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

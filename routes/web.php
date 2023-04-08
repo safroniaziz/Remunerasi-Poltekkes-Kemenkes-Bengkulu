@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,10 @@ Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->name('dashboard');
 
-Route::controller(OrderController::class)->group(function () {
-    Route::get('/orders/{id}', 'show');
-    Route::post('/orders', 'store');
+Route::controller(PegawaiController::class)->group(function () {
+    Route::get('/dosen', 'index')->name('dosen');
+    Route::get('/dosen/create', 'create')->name('dosen.create');
+    Route::post('/dosen', 'store')->name('dosen.store');
+    Route::patch('/dosen/{dosen}/set_active', 'setActive')->name('dosen.set_active');
+    Route::patch('/dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
 });

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nilai__ewmps', function (Blueprint $table) {
+        Schema::create('nilai_ewmps', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('kelompok_rubrik_id');
             $table->string('nama_rubrik');
+            $table->string('slug');
             $table->string('nama_tabel_rubrik');
             $table->float('ewmp');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
 
             $table->foreign('kelompok_rubrik_id')->references('id')->on('kelompok_rubriks');

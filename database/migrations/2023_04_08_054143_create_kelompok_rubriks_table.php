@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kelompok__rubriks', function (Blueprint $table) {
+        Schema::create('kelompok_rubriks', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelompok_rubrik');
-            $table->boolean('is_active');
+            $table->string('slug');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
