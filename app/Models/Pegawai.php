@@ -27,4 +27,22 @@ class Pegawai extends Model
         'no_whatsapp',
         'is_active',
     ];
+    public function riwayatPoints(){
+        return $this->hasMany(RiwayatPoint::class,'nip');
+    }
+    public function jabatanFungsionals(){
+        return $this->hasMany(jabatanFungsional::class,'nip');
+    }
+    public function pangkatGolongans(){
+        return $this->hasMany(PangkatGolongan::class,'nip');
+    }
+    public function riwayatJabatanDts(){
+        return $this->hasMany(riwayatJabatanDt::class,'nip');
+    }
+    public function rekapDaftarNominatifs(){
+        return $this->hasMany(RekapDaftarNominatif::class,'nip');
+    }
+    public function presensis(){
+        return $this->hasMany(Presensi::class,'nip');
+    }
 }

@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kelompok_Rubrik extends Model
+class RiwayatJabatanDt extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_kelompok_rubrik','is_active'
+        'nip','nama_jabatan_dt','slug','tmt_jabatan_dt','is_active'
     ];
-    public function nilaiEwmps(){
-        return $this->hasMany(NilaiEwmp::class,'kelompok_rubrik_id');
+
+    public function pegawais(){
+        return $this->belongsTo(Pegawai::class);
     }
 }
