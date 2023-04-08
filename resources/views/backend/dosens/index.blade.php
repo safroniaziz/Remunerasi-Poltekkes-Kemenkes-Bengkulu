@@ -44,12 +44,14 @@
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Lengkap</th>
                                         <th style="text-align:center; vertical-align:middle">NIDN</th>
+                                        <th style="text-align:center; vertical-align:middle">Jenis Kelamin</th>
                                         <th style=" vertical-align:middle">Nomor Rekening</th>
                                         <th style="text-align:center; vertical-align:middle">NPWP</th>
                                         <th style="text-align:center; vertical-align:middle">Serdos</th>
                                         <th style="text-align:center; vertical-align:middle">Nomor Sertifikat Serdos</th>
                                         <th style="text-align:center; vertical-align:middle">No. WhatsApp</th>
                                         <th style="text-align:center; vertical-align:middle">Aktif</th>
+                                        <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +70,13 @@
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">{{ $dosen->jurusan ?? '-' }}</small>
                                             </td>
                                             <td style="text-align: center;">{{ $dosen->nidn }}</td>
+                                            <td style="text-align: center">
+                                                @if ($dosen->jenis_kelamin == "L")
+                                                    <small class="label label-primary"><i class="fa fa-male"></i>&nbsp; Laki-Laki</small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-female"></i>&nbsp; Perempuan</small>
+                                                @endif
+                                            </td>
                                             <td style="text-align: center;">{{ $dosen->nomor_rekening }}</td>
                                             <td style="text-align: center;">{{ $dosen->npwp }}</td>
                                             <td style="text-align: center">
@@ -97,6 +106,9 @@
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
+                                           </td>
+                                           <td>
+                                                <a href="{{ route('dosen.edit',[$dosen->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                            </td>
                                         </tr>
                                     @endforeach

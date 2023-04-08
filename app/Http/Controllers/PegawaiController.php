@@ -6,6 +6,7 @@ use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PegawaiController extends Controller
 {
@@ -89,6 +90,76 @@ class PegawaiController extends Controller
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, usulan anda gagal disimpan']);
+        }
+    }
+
+    public function edit(Pegawai $pegawai){
+        return view('backend.dosens.edit',[
+            'pegawai'   =>  $pegawai,
+        ]);
+    }
+
+    public function update(Request $request, Pegawai $pegawai){
+        $rules = [
+            'nama'                  =>  'required',
+            'nip'                   =>  'required',
+            'nidn'                  =>  'required|numeric',
+            'email'                 =>  'required|email|',
+            'jenis_kelamin'         =>  'required',
+            'jurusan'               =>  'required',
+            'nomor_rekening'        =>  'required|numeric',
+            'npwp'                  =>  'required|numeric',
+            'no_whatsapp'           =>  'required|numeric',
+            'is_serdos'             =>  'required',
+        ];
+        $text = [
+            'nama.required'                     => 'Nama Lengkap harus diisi',
+            'nip.required'                      => 'Nip harus dipilih',  
+            'nip.numeric'                       => 'Nip harus berupa angka',  
+            'nip.unique'                        => 'Nip sudah digunakan',  
+            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',  
+            'nidn.numeric '                     => 'NIDN harus berupa angka',  
+            'email.required'                    => 'Email harus diisi', 
+            'email.email'                       => 'Email harus berupa email', 
+            'email.unique'                      => 'Email sudah digunakan', 
+            'jenis_kelamin.required'            => 'Jenis kelamin harus dipilih', 
+            'jurusan.required'                  => 'Jurusan harus diisi',    
+            'nomor_rekening.required'           => 'Nomor Rekening harus diisi',    
+            'nomor_rekening.numeric'            => 'Nomor Rekening harus berupa angka',    
+            'npwp.required'                     => 'NPWP harus diisi',   
+            'npwp.numeric'                      => 'NPWP harus berupa angka',   
+            'no_whatsapp.numeric'               => 'Nomor WhatsApp harus berupa angka ',   
+            'is_serdos.required'                => 'Status Serdos harus dipilih',   
+        ];
+
+        $validasi = Validator::make($request->all(), $rules, $text);
+        if ($validasi->fails()) {
+            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
+        }
+
+        $update = $pegawai->update([
+            'nama'                  =>  $request->nama,
+            'slug'                  =>  Str::slug($request->nama),
+            'nip'                   =>  $request->nip,
+            'nidn'                  =>  $request->nidn,
+            'email'                 =>  $request->email,
+            'jenis_kelamin'         =>  $request->jenis_kelamin,
+            'jurusan'               =>  $request->jurusan,
+            'nomor_rekening'        =>  $request->nomor_rekening,
+            'npwp'                  =>  $request->npwp,
+            'no_whatsapp'           =>  $request->no_whatsapp,
+            'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
+            'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
+            'is_active'             =>  1,
+        ]);
+        
+        if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, dosen baru berhasil diubah',
+                'url'   =>  url('/manajemen_data_dosen/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, usulan anda gagal diubah']);
         }
     }
 

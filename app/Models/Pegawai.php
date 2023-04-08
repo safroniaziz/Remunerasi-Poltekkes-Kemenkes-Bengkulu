@@ -50,7 +50,6 @@ class Pegawai extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logUnguarded()->logOnlyDirty();
-        return $this->hasMany(RiwayatPoint::class,'nip');
+            ->logUnguarded();
     }
 }

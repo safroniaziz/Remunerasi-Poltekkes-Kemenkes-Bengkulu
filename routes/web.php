@@ -30,4 +30,7 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::post('/manajemen_data_dosen', 'store')->name('dosen.store');
     Route::patch('/manajemen_data_dosen/{dosen}/set_active', 'setActive')->name('dosen.set_active');
     Route::patch('/manajemen_data_dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
+    Route::get('/manajemen_data_dosen/{pegawai:slug}/edit', 'edit')->name('dosen.edit');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
+
 });
