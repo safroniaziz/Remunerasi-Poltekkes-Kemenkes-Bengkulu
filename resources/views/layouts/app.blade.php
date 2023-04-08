@@ -11,6 +11,9 @@
     @include('layouts.partials.assets.css')
   </head>
   <body class="hold-transition skin-blue-light fixed sidebar-mini">
+    <div class="preloader">
+      <div class="do-loader"></div>
+    </div>
     <!-- Site wrapper -->
     <div class="wrapper">
 

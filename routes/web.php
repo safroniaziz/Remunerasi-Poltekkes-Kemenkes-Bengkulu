@@ -25,9 +25,9 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::controller(PegawaiController::class)->group(function () {
-    Route::get('/dosen', 'index')->name('dosen');
-    Route::get('/dosen/create', 'create')->name('dosen.create');
-    Route::post('/dosen', 'store')->name('dosen.store');
-    Route::patch('/dosen/{dosen}/set_active', 'setActive')->name('dosen.set_active');
-    Route::patch('/dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
+    Route::get('/manajemen_data_dosen', 'index')->name('dosen');
+    Route::get('/manajemen_data_dosen/create', 'create')->name('dosen.create');
+    Route::post('/manajemen_data_dosen', 'store')->name('dosen.store');
+    Route::patch('/manajemen_data_dosen/{dosen}/set_active', 'setActive')->name('dosen.set_active');
+    Route::patch('/manajemen_data_dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
 });

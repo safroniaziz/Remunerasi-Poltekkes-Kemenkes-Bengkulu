@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Pegawai extends Model
 {
     use HasFactory;
+    use LogsActivity;
     protected $primaryKey = 'nip';
     protected $keyType = 'string';
     public $incrementing = false;
@@ -27,4 +30,10 @@ class Pegawai extends Model
         'no_whatsapp',
         'is_active',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logUnguarded()->logOnlyDirty();
+    }
 }
