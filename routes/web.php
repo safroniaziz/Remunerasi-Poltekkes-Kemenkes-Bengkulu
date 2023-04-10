@@ -3,6 +3,7 @@
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\JabatanDtController;
 use App\Http\Controllers\JabatanDsController;
+use App\Http\Controllers\PeriodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->name('dashboard');
 
+// Master Data Route
 Route::controller(PegawaiController::class)->group(function () {
     Route::get('/manajemen_data_dosen', 'index')->name('dosen');
     Route::get('/manajemen_data_dosen/create', 'create')->name('dosen.create');
@@ -34,7 +36,6 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::patch('/manajemen_data_dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
     Route::get('/manajemen_data_dosen/{pegawai:slug}/edit', 'edit')->name('dosen.edit');
     Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
-
 });
 
 Route::controller(JabatanDtController::class)->group(function () {
@@ -48,3 +49,16 @@ Route::controller(JabatanDsController::class)->group(function () {
     Route::get('/manajemen_jabatan_ds/create', 'create')->name('jabatands.create');
     Route::post('/manajemen_jabatan_ds', 'store')->name('jabatands.store');
 });
+// End Of Data Master Route
+
+// Pengaturan/Setting Route
+Route::controller(PeriodeController::class)->group(function () {
+    Route::get('/manajemen_data_periode', 'index')->name('periode_penilaian');
+    Route::get('/manajemen_data_periode/create', 'create')->name('periode_penilaian.create');
+    Route::post('/manajemen_data_periode', 'store')->name('periode_penilaian.store');
+    Route::patch('/manajemen_data_periode/{periodePenilaian}/set_active', 'setActive')->name('periode_penilaian.set_active');
+    Route::patch('/manajemen_data_periode/{periodePenilaian}/set_nonactive', 'setnonActive')->name('periode_penilaian.set_nonactive');
+    Route::get('/manajemen_data_periode/{periode:slug}/edit', 'edit')->name('periode_penilaian.edit');
+    Route::patch('/manajemen_data_periode/{periode:slug}/update', 'update')->name('periode_penilaian.update');
+});
+// End Of Pengaturan/Setting Route

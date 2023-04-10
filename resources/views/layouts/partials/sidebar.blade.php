@@ -14,13 +14,21 @@
 </li>
 <li class="{{ set_active('jabatandt') }}">
     <a href="{{ route('jabatandt') }}">
-        <i class="fa fa-users"></i>
+        <i class="fa fa-briefcase"></i>
         <span>Data Jabatan DT</span>
     </a>
 </li>
 <li class="{{ set_active('jabatands') }}">
     <a href="{{ route('jabatands') }}">
-        <i class="fa fa-users"></i>
+        <i class="fa fa-address-book"></i>
         <span>Data Jabatan DS</span>
+    </a>
+</li>
+
+<li class="header" style="font-weight:bold">PENGATURAN</li>
+<li class="{{ set_active('periode_penilaian') }}">
+    <a href="{{ route('periode_penilaian') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Periode Penilaian</span>
     </a>
 </li>

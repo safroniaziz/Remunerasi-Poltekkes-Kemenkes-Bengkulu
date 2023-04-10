@@ -75,7 +75,7 @@
             <small>Politeknik Kesehatan Kementerian kesehatan Bengkulu</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-check-circle"></i>Remunerasi</a></li>
+            <li><a href="#"><i class="fa fa-home"></i>Remunerasi</a></li>
             <li><a href="#">@yield('page')</a></li>
             <li class="active">@yield('subPage')</li>
           </ol>
