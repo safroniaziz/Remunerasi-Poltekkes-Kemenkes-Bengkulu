@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
-                <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
+                <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-widsh: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
                     <i class="fa fa-address-book"></i>&nbsp;Manejemen Data Jabatan DS
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
@@ -36,9 +36,9 @@
                         </form>
                         <div class="col-md-12 table-responsive">
                             <div class="pull-left" style="margin-bottom: 3px !important;">
-                                <a href="{{ route('jabatands.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DS</a>
+                                <a href="{{ route('jabatan_ds.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DS</a>
                             </div>
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
+                            <table class="table table-striped table-bordered" id="table" style="widsh:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -50,6 +50,7 @@
                                         <th style="text-align:center; vertical-align:middle">Harga Jabatan</th>
                                         <th style="text-align:center; vertical-align:middle">Gaji BLU</th>
                                         <th style="text-align:center; vertical-align:middle">Insentif Maximum</th>
+                                        <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,13 +63,15 @@
                                             <td>
                                             <a href="" style="font-weight:600;">{{ $jabatands->nama_jabatan_ds }}</a></td>
                                             <td style="text-align: center;">{{ $jabatands->grade ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatands->harga_point_dt ?? '-' }}</td>
+                                            <td style="text-align: center;">{{ $jabatands->harga_point_ds ?? '-' }}</td>
                                             <td style="text-align: center;">{{ $jabatands->job_value ?? '-' }}</td>
                                             <td style="text-align: center;">{{ $jabatands->pir }}</td>
                                             <td style="text-align: center;">{{ $jabatands->harga_jabatan }}</td>
                                             <td style="text-align: center;">{{ $jabatands->gaji_blu }}</td>
                                             <td style="text-align: center;">{{ $jabatands->insentif_maximum }}</td>
-
+                                            <td>
+                                                <a href="{{ route('jabatan_ds.edit',[$jabatands->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                           </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

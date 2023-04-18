@@ -1,21 +1,21 @@
 @extends('layouts.app')
-@section('subTitle','Data Jabatan DS')
-@section('page','Data Jabatan DS')
-@section('subPage','Semua Data Jabatan DS')
+@section('subTitle','Data Jabatan DT')
+@section('page','Data Jabatan DT')
+@section('subPage','Semua Data Jabatan DT')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-plus"></i>&nbsp;Form Tambah Data Jabatan DS
+                    <i class="fa fa-plus"></i>&nbsp;Form Tambah Data Jabatan DT
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <form action="{{ route('jabatands.store') }}" method="POST" id="form-tambah">
+                        <form action="{{ route('jabatan_dt.store') }}" method="POST" id="form-tambah">
                             {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-6" >
-                                <label for="nama_jabatan_ds" class="col-form-label">Nama Jabatan DS</label>
-                                <input type="text" class="form-control" id="nama_jabatan_ds" name="nama_jabatan_ds" >
+                                <label for="nama_jabatan_dt" class="col-form-label">Nama Jabatan DT</label>
+                                <input type="text" class="form-control" id="nama_jabatan_dt" name="nama_jabatan_dt" >
                             </div>
 
                             <div class="form-group col-md-6" >
@@ -24,8 +24,8 @@
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="harga_point_ds" class="col-form-label">Harga Point DS</label>
-                                <input type="text" class="form-control" id="harga_point_ds" name="harga_point_ds" >
+                                <label for="harga_point_dt" class="col-form-label">Harga Point DT</label>
+                                <input type="text" class="form-control" id="harga_point_dt" name="harga_point_dt" >
                             </div>
 
                             <div class="form-group col-md-6" >
@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">
-                                <a href="{{ route('jabatands') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                                <a href="{{ route('jabatan_dt') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="submit" class="btn btn-primary btn-sm btn-flat mb-2"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                             </div>
                         </form>

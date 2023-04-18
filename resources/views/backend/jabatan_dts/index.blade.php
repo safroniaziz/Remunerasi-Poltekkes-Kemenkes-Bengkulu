@@ -36,7 +36,7 @@
                         </form>
                         <div class="col-md-12 table-responsive">
                             <div class="pull-left" style="margin-bottom: 3px !important;">
-                                <a href="{{ route('jabatandt.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DT</a>
+                                <a href="{{ route('jabatan_dt.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DT</a>
                             </div>
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
@@ -50,6 +50,7 @@
                                         <th style="text-align:center; vertical-align:middle">Harga Jabatan</th>
                                         <th style="text-align:center; vertical-align:middle">Gaji BLU</th>
                                         <th style="text-align:center; vertical-align:middle">Insentif Maximum</th>
+                                        <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,7 +69,9 @@
                                             <td style="text-align: center;">{{ $jabatandts->harga_jabatan }}</td>
                                             <td style="text-align: center;">{{ $jabatandts->gaji_blu }}</td>
                                             <td style="text-align: center;">{{ $jabatandts->insentif_maximum }}</td>
-
+                                            <td>
+                                                <a href="{{ route('jabatan_dt.edit',[$jabatandts->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                           </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
