@@ -3,6 +3,14 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('/assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+<!-- End Datatables -->
+
 <script src="{{ asset('/assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('/assets/fastclick/lib/fastclick.js') }}"></script>

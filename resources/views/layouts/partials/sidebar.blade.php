@@ -20,31 +20,31 @@
 </li>
 <li class="{{ set_active('jabatan_ds') }}">
     <a href="{{ route('jabatan_ds') }}">
-        <i class="fa fa-address-book"></i>
+        <i class="fa fa-file-text-o"></i>
         <span>Data Jabatan DS</span>
     </a>
 </li>
 <li class="{{ set_active('jabatan_fungsional') }}">
     <a href="{{ route('jabatan_fungsional') }}">
-        <i class="fa fa-address-book"></i>
+        <i class="fa fa-gg"></i>
         <span>Data Jabatan Fungsional</span>
     </a>
 </li>
 <li class="{{ set_active('kelompok_rubrik') }}">
     <a href="{{ route('kelompok_rubrik') }}">
-        <i class="fa fa-address-book"></i>
+        <i class="fa fa-file-powerpoint-o"></i>
         <span>Data Kelompok Rubrik</span>
     </a>
 </li>
 <li class="{{ set_active('nilai_ewmp') }}">
     <a href="{{ route('nilai_ewmp') }}">
-        <i class="fa fa-address-book"></i>
+        <i class="fa fa-check-square-o"></i>
         <span>Data Nilai Ewmp</span>
     </a>
 </li>
 <li class="{{ set_active('pengumuman') }}">
     <a href="{{ route('pengumuman') }}">
-        <i class="fa fa-address-book"></i>
+        <i class="fa fa-info-circle"></i>
         <span>Data Pengumuman</span>
     </a>
 </li>

@@ -101,9 +101,10 @@ Route::controller(PeriodeController::class)->group(function () {
     Route::get('/manajemen_data_periode', 'index')->name('periode_penilaian');
     Route::get('/manajemen_data_periode/create', 'create')->name('periode_penilaian.create');
     Route::post('/manajemen_data_periode', 'store')->name('periode_penilaian.store');
-    Route::patch('/manajemen_data_periode/{periodePenilaian}/set_active', 'setActive')->name('periode_penilaian.set_active');
-    Route::patch('/manajemen_data_periode/{periodePenilaian}/set_nonactive', 'setnonActive')->name('periode_penilaian.set_nonactive');
-    Route::get('/manajemen_data_periode/{periode:slug}/edit', 'edit')->name('periode_penilaian.edit');
-    Route::patch('/manajemen_data_periode/{periode:slug}/update', 'update')->name('periode_penilaian.update');
+    Route::patch('/manajemen_data_periode/{periode}/set_active', 'setActive')->name('periode_penilaian.set_active');
+    Route::patch('/manajemen_data_periode/{periode}/set_nonactive', 'setnonActive')->name('periode_penilaian.set_nonactive');
+    Route::get('/manajemen_data_periode/{periode}/edit', 'edit')->name('periode_penilaian.edit');
+    Route::patch('/manajemen_data_periode/update', 'update')->name('periode_penilaian.update');
+    Route::delete('/manajemen_data_periode/{periode}/delete', 'delete')->name('periode_penilaian.delete');
 });
 // End Of Pengaturan/Setting Route

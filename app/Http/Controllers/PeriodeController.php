@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class PeriodeController extends Controller
 {
@@ -20,7 +21,7 @@ class PeriodeController extends Controller
             'nama_periode'              =>  'required',
             'periode_siakad_id'         =>  'required',
             'semester'                  =>  'required|numeric',
-            'tahun_ajaran'              =>  'required|numeric|min:4|max:4',
+            'tahun_ajaran'              =>  'required|numeric',
             'bulan_pembayaran'          =>  'required',
         ];
         $text = [
@@ -30,8 +31,6 @@ class PeriodeController extends Controller
             'semester.required'                 => 'Semester harus diisi',  
             'tahun_ajaran.required'             => 'Tahun Ajaran harus diisi',  
             'tahun_ajaran.numeric '             => 'Tahun ajaran harus berupa angka',  
-            'tahun_ajaran.min'                => 'Tahun Ajaran harus diisi minimal 4 karakter', 
-            'tahun_ajaran.max'                => 'Tahun Ajaran harus diisi maksimal 4 karakter', 
             'bulan_pembayaran.required'         => 'Bulan Pembayaran harus dipilih', 
         ];
 
@@ -40,69 +39,46 @@ class PeriodeController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        // $simpan = Pegawai::create([
-        //     'nama'                  =>  $request->nama,
-        //     'slug'                  =>  Str::slug($request->nama),
-        //     'nip'                   =>  $request->nip,
-        //     'nidn'                  =>  $request->nidn,
-        //     'email'                 =>  $request->email,
-        //     'jenis_kelamin'         =>  $request->jenis_kelamin,
-        //     'jurusan'               =>  $request->jurusan,
-        //     'nomor_rekening'        =>  $request->nomor_rekening,
-        //     'npwp'                  =>  $request->npwp,
-        //     'no_whatsapp'           =>  $request->no_whatsapp,
-        //     'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
-        //     'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
-        //     'is_active'             =>  1,
-        // ]);
-        
-        // if ($simpan) {
-        //     return response()->json([
-        //         'text'  =>  'Yeay, dosen baru berhasil ditambahkan',
-        //         'url'   =>  url('/manajemen_data_dosen/'),
-        //     ]);
-        // }else {
-        //     return response()->json(['text' =>  'Oopps, usulan anda gagal disimpan']);
-        // }
-    }
-
-    public function edit(Pegawai $pegawai){
-        return view('backend.dosens.edit',[
-            'pegawai'   =>  $pegawai,
+        $simpan = Periode::create([
+            'nama_periode'          =>  $request->nama_periode,
+            'slug'                  =>  Str::slug($request->nama_periode),
+            'periode_siakad_id'     =>  $request->periode_siakad_id,
+            'semester'              =>  $request->semester,
+            'tahun_ajaran'          =>  $request->tahun_ajaran,
+            'bulan_pembayaran'      =>  $request->bulan_pembayaran,
+            'is_active'             =>  0,
         ]);
+        
+        if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, periode remunerasi berhasil ditambahkan',
+                'url'   =>  url('/manajemen_data_periode/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, periode remunerasi gagal ditambahkan']);
+        }
     }
 
-    public function update(Request $request, Pegawai $pegawai){
+    public function edit(Periode $periode){
+        return $periode;
+    }
+
+    public function update(Request $request){
         $rules = [
-            'nama'                  =>  'required',
-            'nip'                   =>  'required',
-            'nidn'                  =>  'required|numeric',
-            'email'                 =>  'required|email|',
-            'jenis_kelamin'         =>  'required',
-            'jurusan'               =>  'required',
-            'nomor_rekening'        =>  'required|numeric',
-            'npwp'                  =>  'required|numeric',
-            'no_whatsapp'           =>  'required|numeric',
-            'is_serdos'             =>  'required',
+            'nama_periode_edit'              =>  'required',
+            'periode_siakad_id_edit'         =>  'required',
+            'semester_edit'                  =>  'required|numeric',
+            'tahun_ajaran_edit'              =>  'required|numeric',
+            'bulan_pembayaran_edit'          =>  'required',
         ];
         $text = [
-            'nama.required'                     => 'Nama Lengkap harus diisi',
-            'nip.required'                      => 'Nip harus dipilih',  
-            'nip.numeric'                       => 'Nip harus berupa angka',  
-            'nip.unique'                        => 'Nip sudah digunakan',  
-            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',  
-            'nidn.numeric '                     => 'NIDN harus berupa angka',  
-            'email.required'                    => 'Email harus diisi', 
-            'email.email'                       => 'Email harus berupa email', 
-            'email.unique'                      => 'Email sudah digunakan', 
-            'jenis_kelamin.required'            => 'Jenis kelamin harus dipilih', 
-            'jurusan.required'                  => 'Jurusan harus diisi',    
-            'nomor_rekening.required'           => 'Nomor Rekening harus diisi',    
-            'nomor_rekening.numeric'            => 'Nomor Rekening harus berupa angka',    
-            'npwp.required'                     => 'NPWP harus diisi',   
-            'npwp.numeric'                      => 'NPWP harus berupa angka',   
-            'no_whatsapp.numeric'               => 'Nomor WhatsApp harus berupa angka ',   
-            'is_serdos.required'                => 'Status Serdos harus dipilih',   
+            'nama_periode_edit.required'             => 'Nama Periode Penilaian harus diisi',
+            'periode_siakad_id_edit.required'        => 'Periode Siakad harus diisi',  
+            'semester_edit.numeric'                  => 'Semester harus berupa angka',  
+            'semester.required'                 => 'Semester harus diisi',  
+            'tahun_ajaran_edit.required'             => 'Tahun Ajaran harus diisi',  
+            'tahun_ajaran_edit.numeric '             => 'Tahun ajaran harus berupa angka',  
+            'bulan_pembayaran_edit.required'         => 'Bulan Pembayaran harus dipilih', 
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -110,64 +86,78 @@ class PeriodeController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $update = $pegawai->update([
-            'nama'                  =>  $request->nama,
-            'slug'                  =>  Str::slug($request->nama),
-            'nip'                   =>  $request->nip,
-            'nidn'                  =>  $request->nidn,
-            'email'                 =>  $request->email,
-            'jenis_kelamin'         =>  $request->jenis_kelamin,
-            'jurusan'               =>  $request->jurusan,
-            'nomor_rekening'        =>  $request->nomor_rekening,
-            'npwp'                  =>  $request->npwp,
-            'no_whatsapp'           =>  $request->no_whatsapp,
-            'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
-            'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
-            'is_active'             =>  1,
+        $update = Periode::where('id',$request->periode_id_edit)->update([
+            'nama_periode'          =>  $request->nama_periode_edit,
+            'slug'                  =>  Str::slug($request->nama_periode_edit),
+            'periode_siakad_id'     =>  $request->periode_siakad_id_edit,
+            'semester'              =>  $request->semester_edit,
+            'tahun_ajaran'          =>  $request->tahun_ajaran_edit,
+            'bulan_pembayaran'      =>  $request->bulan_pembayaran_edit,
         ]);
         
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, dosen baru berhasil diubah',
-                'url'   =>  url('/manajemen_data_dosen/'),
+                'text'  =>  'Yeay,periode remunerasi berhasil diubah',
+                'url'   =>  url('/manajemen_data_periode/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, usulan anda gagal diubah']);
+            return response()->json(['text' =>  'Oopps, periode remunerasi gagal diubah']);
         }
     }
 
-    public function setNonActive(Pegawai $dosen){
-        $update = $dosen->update([
+    public function setNonActive(Periode $periode){
+        $update = $periode->update([
             'is_active' =>  0,
         ]);
         if ($update) {
             $notification = array(
-                'message' => 'Yeay, data dosen berhasil dinonaktifkan',
+                'message' => 'Yeay, periode remunerasi berhasil dinonaktifkan',
                 'alert-type' => 'success'
             );
-            return redirect()->route('dosen')->with($notification);
+            return redirect()->route('periode_penilaian')->with($notification);
         }else {
             $notification = array(
-                'message' => 'Ooopps, data dosen gagal dinonaktifkan',
+                'message' => 'Ooopps, periode remunerasi gagal dinonaktifkan',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
 
-    public function setActive(Pegawai $dosen){
-        $update = $dosen->update([
+    public function setActive(Periode $periode){
+        Periode::where('id','!=',$periode->id)->update([
+            'is_active' =>  0,
+        ]);
+        $update = $periode->update([
             'is_active' =>  1,
         ]);
         if ($update) {
             $notification = array(
-                'message' => 'Yeay, data dosen berhasil diaktifkan',
+                'message' => 'Yeay, periode remunerasi berhasil diaktifkan',
                 'alert-type' => 'success'
             );
-            return redirect()->route('dosen')->with($notification);
+            return redirect()->route('periode_penilaian')->with($notification);
         }else {
             $notification = array(
-                'message' => 'Ooopps, data dosen gagal diaktifkan',
+                'message' => 'Ooopps, periode remunerasi gagal diaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function delete(Periode $periode){
+        $delete = $periode->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, periode remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('periode_penilaian')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, periode remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

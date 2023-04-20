@@ -13,7 +13,7 @@ class Periode extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'periode_siakad_id','nama_periode','slug','semester','is_active'
+        'periode_siakad_id','nama_periode','slug','semester','is_active','tahun_ajaran','bulan_pembayaran'
     ];
     public function rekapDaftarNominatifs(){
         return $this->hasMany(RekapDaftarNominatif::class,'periode_id');
