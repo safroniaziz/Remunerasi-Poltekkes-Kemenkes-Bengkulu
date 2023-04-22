@@ -1,35 +1,41 @@
 @extends('layouts.app')
-@section('subTitle','Data Jabatan Fungsional')
-@section('page','Data Jabatan Fungsional')
-@section('subPage','Edit Data Jabatan Fungsional')
+@section('subTitle','Data Nilai Ewmp')
+@section('page','Data Nilai Ewmp')
+@section('subPage','Edit Data Nilai Ewmp')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-edit"></i>&nbsp;Form Edit Data Jabatan Fungsional
+                    <i class="fa fa-edit"></i>&nbsp;Form Edit Data Nilai Ewmp
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <form action="{{ route('jabatanfungsional.update',[$jabatanfungsional->slug]) }}" method="POST" id="form-edit">
+                        <form action="{{ route('nilai_ewmp.update',[$nilaiewmp->slug]) }}" method="POST" id="form-edit">
                             {{ csrf_field() }} {{ method_field('PATCH') }}
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $jabatanfungsional->nip }}">
-                            </div>
-                            <div class="form-group col-md-6" >
-                                <label for="nama" class="col-form-label">Nama Jabatan Fungsional</label>
-                                <input type="text" class="form-control" value="{{ $jabatanfungsional->nama_jabatan_fungsional }}" id="nama_jabatan_fungsional" name="nama_jabatan_fungsional" >
+                                <label for="nip" class="col-form-label">Nama Kelompok Rubrik</label>
+                                <input type="text" class="form-control" id="kelompok_rubrik_id" name="kelompok_rubrik_id" value="{{ $nilaiewmp->kelompok_rubrik_id }}">
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">TMT Jabatan Fungsional</label>
-                                <input type="text" class="form-control" value="{{ $jabatanfungsional->tmt_jabatan_fungsional }}" id="tmt_jabatan_fungsional" name="tmt_jabatan_fungsional" >
+                                <label for="nama" class="col-form-label">Nama Rubrik</label>
+                                <input type="text" class="form-control" value="{{ $nilaiewmp->nama_rubrik }}" id="nama_rubrik" name="nama_rubrik" >
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nama" class="col-form-label">Nama Tabel Rubrik</label>
+                                <input type="text" class="form-control" value="{{ $nilaiewmp->nama_tabel_rubrik }}" id="nama_tabel_rubrik" name="nama_tabel_rubrik" >
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Ewmp</label>
+                                <input type="text" class="form-control" value="{{ $nilaiewmp->ewmp }}" id="ewmp" name="ewmp" >
                             </div>
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">
-                                <a href="{{ route('jabatanfungsional') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                                <a href="{{ route('nilai_ewmp') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm btn-flat mb-2"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                             </div>
                         </form>

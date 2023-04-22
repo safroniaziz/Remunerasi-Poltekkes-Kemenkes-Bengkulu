@@ -1,40 +1,40 @@
 @extends('layouts.app')
-@section('subTitle','Data Nilai Ewmp')
-@section('page','Data Nilai Ewmp')
-@section('subPage','Semua Data Nilai Ewmp')
+@section('subTitle','Data Pangkat Golongan')
+@section('page','Data Pangkat Golongan')
+@section('subPage','Semua Data Pangkat Golongan')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-plus"></i>&nbsp;Form Tambah Data Nilai Ewmp
+                    <i class="fa fa-plus"></i>&nbsp;Form Tambah Data Pangkat Golongan
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <form action="{{ route('nilai_ewmp.store') }}" method="POST" id="form-tambah">
+                        <form action="{{ route('pangkat_golongan.store') }}" method="POST" id="form-tambah">
                             {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-6" >
-                                <label for="kelompok_rubrik_id" class="col-form-label">Nama Kelompok rubrik</label>
-                                <input type="text" class="form-control" id="kelompok_rubrik_id" name="kelompok_rubrik_id" >
+                                <label for="nip" class="col-form-label">NIP</label>
+                                <input type="text" class="form-control" id="nip" name="nip" >
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="nama_rubrik" class="col-form-label">Nama Rubrik</label>
-                                <input type="text" class="form-control" id="nama_rubrik" name="nama_rubrik" >
+                                <label for="nama_pangkat" class="col-form-label">Nama Pangkat</label>
+                                <input type="text" class="form-control" id="nama_pangkat" name="nama_pangkat" >
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="nama_tabel_rubrik" class="col-form-label">Nama Tabel Rubrik</label>
-                                <input type="text" class="form-control" id="nama_tabel_rubrik" name="nama_tabel_rubrik" >
+                                <label for="golongan" class="col-form-label">Golongan</label>
+                                <input type="text" class="form-control" id="golongan" name="golongan" >
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="ewmp" class="col-form-label">EWMP</label>
-                                <input type="text" class="form-control" id="ewmp" name="ewmp" >
+                                <label for="tmt_pangkat_golongan" class="col-form-label">TMT Pangkat Golongan</label>
+                                <input type="text" class="form-control" id="tmt_pangkat_golongan" name="tmt_pangkat_golongan" >
                             </div>
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">
-                                <a href="{{ route('nilai_ewmp') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                                <a href="{{ route('pangkat_golongan') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="submit" class="btn btn-primary btn-sm btn-flat mb-2"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                             </div>
                         </form>

@@ -144,4 +144,21 @@ class NilaiEwmpController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+    public function delete(NilaiEwmp $nilaiewmp){
+        $delete = $nilaiewmp->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, Nilai Ewmp remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('nilai_ewmp')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, nilai ewmp remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }

@@ -143,4 +143,21 @@ class JabatanFungsionalController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+    public function delete(JabatanFungsional $jabatanfungsional){
+        $delete = $jabatanfungsional->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, jabatan fungsional remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('jabatan_fungsional')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, jabatan fungsional remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }

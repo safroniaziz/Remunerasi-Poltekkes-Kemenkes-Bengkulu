@@ -134,4 +134,21 @@ class PengumumanController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+    public function delete(Pengumuman $pengumuman){
+        $delete = $pengumuman->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, pengumuman remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('pengumuman')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, pengumuman remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }
