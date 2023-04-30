@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiEwmp;
+use App\Models\KelompokRubrik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -24,7 +25,8 @@ class NilaiEwmpController extends Controller
     }
 
     public function create(){
-        return view('backend/nilai_ewmps.create');
+        $kelompokrubriks = KelompokRubrik::all();
+        return view('backend/nilai_ewmps.create',compact('kelompokrubriks'));
     }
 
     public function store(Request $request){
@@ -52,6 +54,7 @@ class NilaiEwmpController extends Controller
             'nama_rubrik'               =>  $request->nama_rubrik,
             'slug'                      =>  Str::slug($request->nama_rubrik),
             'nama_tabel_rubrik'         =>  $request->nama_tabel_rubrik,
+            'ewmp'                      =>  $request->ewmp,
             'is_active'                 =>  1,
         ]);
 
@@ -65,7 +68,8 @@ class NilaiEwmpController extends Controller
         }
     }
     public function edit(NilaiEwmp $nilaiewmp){
-        return view('backend.nilaiewmps.edit',[
+        $kelompokrubriks = KelompokRubrik::all();
+        return view('backend.nilai_ewmps.edit',compact('kelompokrubriks'),[
             'nilaiewmp'   =>  $nilaiewmp,
         ]);
     }
@@ -95,6 +99,7 @@ class NilaiEwmpController extends Controller
             'nama_rubrik'               =>  $request->nama_rubrik,
             'slug'                      =>  Str::slug($request->nama_rubrik),
             'nama_tabel_rubrik'         =>  $request->nama_tabel_rubrik,
+            'ewmp'                      =>  $request->ewmp,
             'is_active'                 =>  1,
         ]);
 

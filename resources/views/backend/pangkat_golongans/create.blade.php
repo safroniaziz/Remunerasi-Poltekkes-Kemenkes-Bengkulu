@@ -13,11 +13,20 @@
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <form action="{{ route('pangkat_golongan.store') }}" method="POST" id="form-tambah">
                             {{ csrf_field() }} {{ method_field('POST') }}
-                            <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" >
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Pilih NIP terlebih dahulu</label>
+                                <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
+                                    <option disabled selected>-- Pilih NIP --</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                    @endforeach
+                                </select>
+                                <div>
+                                    @if ($errors->has('nip'))
+                                        <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
+                                    @endif
+                                </div>
                             </div>
-
                             <div class="form-group col-md-6" >
                                 <label for="nama_pangkat" class="col-form-label">Nama Pangkat</label>
                                 <input type="text" class="form-control" id="nama_pangkat" name="nama_pangkat" >

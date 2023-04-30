@@ -13,11 +13,20 @@
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <form action="{{ route('nilai_ewmp.store') }}" method="POST" id="form-tambah">
                             {{ csrf_field() }} {{ method_field('POST') }}
-                            <div class="form-group col-md-6" >
-                                <label for="kelompok_rubrik_id" class="col-form-label">Nama Kelompok rubrik</label>
-                                <input type="text" class="form-control" id="kelompok_rubrik_id" name="kelompok_rubrik_id" >
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Pilih kelompok rubrik terlebih dahulu</label>
+                                <select name="kelompok_rubrik_id" id="kelompok_rubrik_id" class="form-control @error('kelompok_rubrik_id') is-invalid @enderror">
+                                    <option disabled selected>-- Pilih kelompok rubrik --</option>
+                                    @foreach ($kelompokrubriks as $kelompokrubrik)
+                                        <option value="{{ $kelompokrubrik->id }}">{{ $kelompokrubrik->nama_kelompok_rubrik }}</option>
+                                    @endforeach
+                                </select>
+                                <div>
+                                    @if ($errors->has('kelompok_rubrik_id'))
+                                        <small class="form-text text-danger">{{ $errors->first('kelompok_rubrik_id') }}</small>
+                                    @endif
+                                </div>
                             </div>
-
                             <div class="form-group col-md-6" >
                                 <label for="nama_rubrik" class="col-form-label">Nama Rubrik</label>
                                 <input type="text" class="form-control" id="nama_rubrik" name="nama_rubrik" >

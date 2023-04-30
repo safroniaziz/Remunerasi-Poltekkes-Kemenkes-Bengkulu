@@ -56,9 +56,8 @@
                                     @foreach ($jabatanfungsionals as $index => $jabatanfungsionals)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>
-                                            <a href="" style="font-weight:600;">{{ $jabatanfungsionals->nip }}</a></td>
-                                            <a href="" style="font-weight:600;">{{ $jabatanfungsionals->nama_jabatan_fungsional }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatanfungsionals->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatanfungsionals->nama_jabatan_fungsional }}</a></td>
                                             <td style="text-align: center;">{{ $jabatanfungsionals->tmt_jabatan_fungsional }}</td>
                                             <td>
                                                 @if ($jabatanfungsionals->is_active == 1)

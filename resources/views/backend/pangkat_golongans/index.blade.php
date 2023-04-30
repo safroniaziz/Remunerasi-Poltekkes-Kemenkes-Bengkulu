@@ -57,10 +57,9 @@
                                     @foreach ($pangkatgolongans as $index => $pangkatgolongans)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>
-                                            <a href="" style="font-weight:600;">{{ $pangkatgolongans->nip }}</a></td>
-                                            <a href="" style="font-weight:600;">{{ $pangkatgolongans->nama_pangkat }}</a></td>
-                                            <a href="" style="font-weight:600;">{{ $pangkatgolongans->golongan }}</a></td>
+                                            <td style="text-align: center;">{{ $pangkatgolongans->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $pangkatgolongans->nama_pangkat }}</a></td>
+                                            <td style="text-align: center;">{{ $pangkatgolongans->golongan }}</a></td>
                                             <td style="text-align: center;">{{ $pangkatgolongans->tmt_pangkat_golongan }}</td>
                                             <td>
                                                 @if ($pangkatgolongans->is_active == 1)

@@ -15,8 +15,22 @@
                             {{ csrf_field() }} {{ method_field('PATCH') }}
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Nama Kelompok Rubrik</label>
-                                <input type="text" class="form-control" id="kelompok_rubrik_id" name="kelompok_rubrik_id" value="{{ $nilaiewmp->kelompok_rubrik_id }}">
+                                <label for="exampleInputEmail1">Pilih kelompok rubrik Terlebih Dahulu</label>
+                                <select name="kelompok_rubrik_id" id="kelompok_rubrik_id"  class="form-control @error('kelompok_rubrik_id') is-invalid @enderror">
+                                    <option  selected>-- pilih kelompok rubrik --</option>
+                                    @foreach ($kelompokrubriks as $kelompokrubrik)
+                                        <option
+                                            @if ($nilaiewmp->kelompok_rubrik_id == $kelompokrubrik->id)
+                                                selected
+                                            @endif
+                                        value="{{ $kelompokrubrik->id }}">{{ $kelompokrubrik->nama_kelompok_rubrik }}</option>
+                                    @endforeach
+                                </select>
+                                <div>
+                                    @if ($errors->has('kelompok_rubrik_id'))
+                                        <small class="form-text text-danger">{{ $errors->first('kelompok_rubrik_id') }}</small>
+                                    @endif
+                                </div>
                             </div>
 
                             <div class="form-group col-md-6" >

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PangkatGolongan;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -25,7 +26,8 @@ class PangkatGolonganController extends Controller
     }
 
     public function create(){
-        return view('backend/pangkat_golongans.create');
+        $dosens = Pegawai::all();
+        return view('backend/pangkat_golongans.create',compact('dosens'));
     }
 
     public function store(Request $request){
@@ -68,8 +70,9 @@ class PangkatGolonganController extends Controller
         }
     }
     public function edit(PangkatGolongan $pangkatgolongan){
-        return view('backend.pangkat_golongans.edit',[
-            'PangkatGolongan'   =>  $pangkatgolongan,
+        $dosens = Pegawai::all();
+        return view('backend.pangkat_golongans.edit',compact('dosens'),[
+            'pangkatgolongan'   =>  $pangkatgolongan,
         ]);
     }
 

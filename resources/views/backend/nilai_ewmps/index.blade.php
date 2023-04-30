@@ -57,9 +57,8 @@
                                     @foreach ($nilaiewmp as $index => $nilaiewmp)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>
-                                            <a href="" style="font-weight:600;">{{ $nilaiewmp->nama_kelompok_rubrik }}</a></td>
-                                            <a href="" style="font-weight:600;">{{ $nilaiewmp->nama_rubrik }}</a></td>
+                                            <td style="text-align: center;">{{ $nilaiewmp->kelompok_rubrik_id }}</a></td>
+                                            <td style="text-align: center;">{{ $nilaiewmp->nama_rubrik }}</a></td>
                                             <td style="text-align: center;">{{ $nilaiewmp->nama_tabel_rubrik }}</td>
                                             <td style="text-align: center;">{{ $nilaiewmp->ewmp }}</td>
                                             <td>

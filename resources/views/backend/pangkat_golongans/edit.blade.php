@@ -15,9 +15,24 @@
                             {{ csrf_field() }} {{ method_field('PATCH') }}
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $pangkatgolongan->nip }}">
+                                    <label for="exampleInputEmail1">Pilih NIP Terlebih Dahulu</label>
+                                    <select name="nip" id="nip"  class="form-control @error('nip') is-invalid @enderror">
+                                        <option  selected>-- pilih NIP --</option>
+                                        @foreach ($dosens as $dosen)
+                                            <option
+                                                @if ($pangkatgolongan->nip == $dosen->nip)
+                                                    selected
+                                                @endif
+                                            value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div>
+                                        @if ($errors->has('nip'))
+                                            <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
+                                        @endif
+                                    </div>
                             </div>
+
                             <div class="form-group col-md-6" >
                                 <label for="nama" class="col-form-label">Nama Pangkat</label>
                                 <input type="text" class="form-control" value="{{ $pangkatgolongan->nama_pangkat }}" id="nama_pangkat" name="nama_pangkat" >
