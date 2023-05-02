@@ -127,4 +127,21 @@ class KelompokRubrikController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+    public function delete(KelompokRubrik $kelompokrubrik){
+        $delete = $kelompokrubrik->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, Kelompok rubrik remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('kelompok_rubrik')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, kelompok rubrik remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }

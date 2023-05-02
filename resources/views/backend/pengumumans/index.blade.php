@@ -71,8 +71,20 @@
                                                     </form>
                                                 @endif
                                            </td>
-                                            <td>
-                                                <a href="{{ route('pengumuman.edit',[$pengumumans->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                           <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('pengumuman.edit',[$pengumumans->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                   </td>
+                                                    <td>
+                                                        <form action="{{ route('pengumuman.delete',[$pengumumans->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field('DELETE') }}
+                                                            <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                            </td>
                                         </tr>
                                     @endforeach

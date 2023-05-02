@@ -56,9 +56,8 @@
                                     @foreach ($jabatanfungsionals as $index => $jabatanfungsionals)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>
-                                            <a href="" style="font-weight:600;">{{ $jabatanfungsionals->nip }}</a></td>
-                                            <a href="" style="font-weight:600;">{{ $jabatanfungsionals->nama_jabatan_fungsional }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatanfungsionals->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatanfungsionals->nama_jabatan_fungsional }}</a></td>
                                             <td style="text-align: center;">{{ $jabatanfungsionals->tmt_jabatan_fungsional }}</td>
                                             <td>
                                                 @if ($jabatanfungsionals->is_active == 1)
@@ -73,9 +72,21 @@
                                                     </form>
                                                 @endif
                                            </td>
-                                            <td>
-                                                <a href="{{ route('jabatan_fungsional.edit',[$jabatanfungsionals->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                           </td>
+                                           <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('jabatan_fungsional.edit',[$jabatanfungsionals->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                   </td>
+                                                    <td>
+                                                        <form action="{{ route('jabatan_fungsional.delete',[$jabatanfungsionals->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field('DELETE') }}
+                                                            <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                        </table>
+                                        </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

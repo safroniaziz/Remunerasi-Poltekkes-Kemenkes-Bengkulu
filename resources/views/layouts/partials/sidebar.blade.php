@@ -31,6 +31,13 @@
     </ul>
 </li>
 
+<li class="{{ set_active('pangkat_golongan') }}">
+    <a href="{{ route('pangkat_golongan') }}">
+        <i class="fa fa-gg"></i>
+        <span>Data Pangkat Golongan</span>
+    </a>
+</li>
+
 <li class="{{ set_active('kelompok_rubrik') }}">
     <a href="{{ route('kelompok_rubrik') }}">
         <i class="fa fa-file-powerpoint-o"></i>

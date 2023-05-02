@@ -70,8 +70,21 @@
                                             <td style="text-align: center;">{{ $jabatands->gaji_blu }}</td>
                                             <td style="text-align: center;">{{ $jabatands->insentif_maximum }}</td>
                                             <td>
-                                                <a href="{{ route('jabatan_ds.edit',[$jabatands->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                           </td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('jabatan_ds.edit',[$jabatands->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                   </td>
+                                                    <td>
+                                                        <form action="{{ route('jabatan_ds.delete',[$jabatands->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field('DELETE') }}
+
+                                                            <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

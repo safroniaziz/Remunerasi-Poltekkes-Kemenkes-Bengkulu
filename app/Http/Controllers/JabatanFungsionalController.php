@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JabatanFungsional;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -25,7 +26,8 @@ class JabatanFungsionalController extends Controller
     }
 
     public function create(){
-        return view('backend/jabatan_fungsionals.create');
+        $dosens = Pegawai::all();
+        return view('backend/jabatan_fungsionals.create',compact('dosens'));
     }
 
     public function store(Request $request){
@@ -46,7 +48,6 @@ class JabatanFungsionalController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-
         $simpan = JabatanFungsional::create([
             'nip'                           =>  $request->nip,
             'nama_jabatan_fungsional'       =>  $request->nama_jabatan_fungsional,
@@ -65,8 +66,9 @@ class JabatanFungsionalController extends Controller
         }
     }
     public function edit(JabatanFungsional $jabatanfungsional){
-        return view('backend.jabatan_fungsionals.edit',[
-            'jabatanFungsional'   =>  $jabatanFungsional,
+        $dosens = Pegawai::all();
+        return view('backend.jabatan_fungsionals.edit',compact('dosens'),[
+            'jabatanfungsional'   =>  $jabatanfungsional,
         ]);
     }
 
@@ -138,6 +140,23 @@ class JabatanFungsionalController extends Controller
         }else {
             $notification = array(
                 'message' => 'Ooopps, data jabatan Fungsional gagal diaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+    public function delete(JabatanFungsional $jabatanfungsional){
+        $delete = $jabatanfungsional->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, jabatan fungsional remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('jabatan_fungsional')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, jabatan fungsional remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

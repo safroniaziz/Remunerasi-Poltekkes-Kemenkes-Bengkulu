@@ -13,11 +13,25 @@
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <form action="{{ route('jabatan_fungsional.update',[$jabatanfungsional->slug]) }}" method="POST" id="form-edit">
                             {{ csrf_field() }} {{ method_field('PATCH') }}
-
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $jabatanfungsional->nip }}">
+                                <label for="exampleInputEmail1">Pilih NIP Terlebih Dahulu</label>
+                                <select name="nip" id="nip"  class="form-control @error('nip') is-invalid @enderror">
+                                    <option  selected>-- pilih NIP --</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option
+                                            @if ($jabatanfungsional->nip == $dosen->nip)
+                                                selected
+                                            @endif
+                                        value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                    @endforeach
+                                </select>
+                                <div>
+                                    @if ($errors->has('nip'))
+                                        <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
+                                    @endif
+                                </div>
                             </div>
+
                             <div class="form-group col-md-6" >
                                 <label for="nama" class="col-form-label">Nama Jabatan Fungsional</label>
                                 <input type="text" class="form-control" value="{{ $jabatanfungsional->nama_jabatan_fungsional }}" id="nama_jabatan_fungsional" name="nama_jabatan_fungsional" >

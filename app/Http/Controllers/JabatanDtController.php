@@ -143,4 +143,21 @@ class JabatanDtController extends Controller
             return response()->json(['text' =>  'Oopps, jabatan dt anda gagal diubah']);
         }
     }
+    public function delete(Jabatandt $jabatandt){
+        $delete = $jabatandt->delete();
+
+        if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, jabatan dt remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('jabatan_dt')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, jabatan dt remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }
