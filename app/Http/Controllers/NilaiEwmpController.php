@@ -9,17 +9,10 @@ use Illuminate\Support\Str;
 
 class NilaiEwmpController extends Controller
 {
-    public function index(Request $request){
-        $nama_rubrik = $request->query('nama_rubrik');
-        if (!empty($nama_rubrik)) {
-            $nilaiewmp = NilaiEwmp::where('nama_rubrik','LIKE','%'.$nama_rubrik.'%')
-                                ->paginate(10);
-        }else {
-            $nilaiewmp = NilaiEwmp::paginate(10);
-        }
+    public function index(){
+        $nilaiEwmps = NilaiEwmp::paginate(10);
         return view('backend/nilai_ewmps.index',[
-            'nilaiewmp'         =>  $nilaiewmp,
-            'nama_rubrik'       =>  $nama_rubrik,
+            'nilaiEwmps'         =>  $nilaiEwmps,
         ]);
     }
 

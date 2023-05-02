@@ -21,7 +21,7 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row">
-                        <div class="col-lg-3 col-xs-3 col-md-3" style="padding-bottom:10px !important;">
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
                             <!-- small box -->
                             <div class="small-box bg-aqua" style="margin-bottom:0px;">
                                 <div class="inner">
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-xs-3 col-md-3" style="padding-bottom:10px !important;">
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
                             <!-- small box -->
                             <div class="small-box bg-red" style="margin-bottom:0px;">
                                 <div class="inner">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-xs-3 col-md-3" style="padding-bottom:10px !important;">
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
                             <!-- small box -->
                             <div class="small-box bg-yellow" style="margin-bottom:0px;">
                                 <div class="inner">
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-xs-3 col-md-3" style="padding-bottom:10px !important;">
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
                             <!-- small box -->
                             <div class="small-box bg-green" style="margin-bottom:0px;">
                                 <div class="inner">

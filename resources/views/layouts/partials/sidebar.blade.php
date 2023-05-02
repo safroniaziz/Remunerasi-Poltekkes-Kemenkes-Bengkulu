@@ -12,24 +12,25 @@
         <span>Data Dosen</span>
     </a>
 </li>
-<li class="{{ set_active('jabatan_dt') }}">
-    <a href="{{ route('jabatan_dt') }}">
-        <i class="fa fa-briefcase"></i>
-        <span>Data Jabatan DT</span>
+
+<li class="treeview {{ set_active([
+        'jabatan_dt','jabatan_dt.create','jabatan_dt.edit',
+        'jabatan_ds','jabatan_ds.create','jabatan_ds.edit',
+        'jabatan_fungsional'
+    ]) }}">
+    <a href="#">
+        <i class="fa fa-file-text-o"></i> <span>Grade & Harga Jabatan</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
     </a>
+    <ul class="treeview-menu " style="padding-left:25px;">
+        <li class="{{ set_active(['jabatan_dt','jabatan_dt.create','jabatan_dt.edit']) }}"><a href="{{ route('jabatan_dt') }}"><i class="fa fa-circle-o"></i>Tugas Tambahan</a></li>
+        <li class="{{ set_active(['jabatan_ds','jabatan_ds.create','jabatan_ds.edit']) }}"><a href="{{ route('jabatan_ds') }}"><i class="fa fa-circle-o"></i>Jabatan DS</a></li>
+        <li class="{{ set_active(['jabatan_fungsional']) }}"><a href="{{ route('jabatan_fungsional') }}"><i class="fa fa-circle-o"></i>Jabatan Fungsional</a></li>
+    </ul>
 </li>
-<li class="{{ set_active('jabatan_ds') }}">
-    <a href="{{ route('jabatan_ds') }}">
-        <i class="fa fa-file-text-o"></i>
-        <span>Data Jabatan DS</span>
-    </a>
-</li>
-<li class="{{ set_active('jabatan_fungsional') }}">
-    <a href="{{ route('jabatan_fungsional') }}">
-        <i class="fa fa-gg"></i>
-        <span>Data Jabatan Fungsional</span>
-    </a>
-</li>
+
 <li class="{{ set_active('kelompok_rubrik') }}">
     <a href="{{ route('kelompok_rubrik') }}">
         <i class="fa fa-file-powerpoint-o"></i>
@@ -48,6 +49,15 @@
         <span>Data Pengumuman</span>
     </a>
 </li>
+
+<li class="header" style="font-weight:bold">PESAN & PENGUMUMAN</li>
+<li class="{{ set_active('pesan') }}">
+    <a href="{{ route('pesan') }}">
+        <i class="fa fa-envelope-o"></i>
+        <span>Pesan Masuk</span>
+    </a>
+</li>
+
 <li class="header" style="font-weight:bold">PENGATURAN</li>
 <li class="{{ set_active('periode_penilaian') }}">
     <a href="{{ route('periode_penilaian') }}">

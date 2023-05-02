@@ -25,25 +25,18 @@
                                     @else
                             @endif
                         </div>
-                        <form method="GET">
-                            <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
-                                <label for="nama_jabatan_fungsional" class="col-form-label">Cari Nama Jabatan fungsional</label>
-                                <input type="text" class="form-control" id="nama_jabatan_fungsional" name="nama_jabatan_fungsional" placeholder="Masukan Nama Jabatan fungsional..." value="{{$nama_jabatan_fungsional}}">
+                        <div class="col-md-12">
+                            <div style="margin-bottom: 10px !important;">
+                                <a href="{{ route('nilai_ewmp.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Nilai EWMP</a>
                             </div>
-                            <div class="col-md-12" style="margin-bottom:10px !important;">
-                                <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
-                            </div>
-                        </form>
+                        </div>
                         <div class="col-md-12 table-responsive">
-                            <div class="pull-left" style="margin-bottom: 3px !important;">
-                                <a href="{{ route('jabatanfungsional.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan fungsional</a>
-                            </div>
-                            <table class="table table-striped table-bordered" id="table" style="wifungsionalh:100%; margin-bottom: 5px !important;">
+                            <table class="table table-striped table-bordered" id="table" style="wifungsionalh:100%; margin-bottom: 5px !important; width:100%">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
-                                        <th style=" vertical-align:middle">NIP</th>
-                                        <th style=" vertical-align:middle">Nama Jabatan fungsional</th>
+                                        <th style=" vertical-align:middle">Kelompok Rubrik</th>
+                                        <th style=" vertical-align:middle">Nama Rubrik</th>
                                         <th style=" vertical-align:middle">TMT Jabatan fungsional</th>
                                         <th style=" vertical-align:middle">Status</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
@@ -53,28 +46,28 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($jabatanfungsionals as $index => $jabatanfungsionals)
+                                    @foreach ($nilaiEwmps as $index => $nilaiEwmp)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>
-                                            <a href="" style="font-weight:600;">{{ $jabatanfungsionals->nip }}</a></td>
-                                            <a href="" style="font-weight:600;">{{ $jabatanfungsionals->nama_jabatan_fungsional }}</a></td>
-                                            <td style="text-align: center;">{{ $jabatanfungsionals->tmt_jabatan_fungsional }}</td>
+                                            <a href="" style="font-weight:600;">{{ $nilaiEwmp->nip }}</a></td>
+                                            <a href="" style="font-weight:600;">{{ $nilaiEwmp->nama_jabatan_fungsional }}</a></td>
+                                            <td style="text-align: center;">{{ $nilaiEwmp->tmt_jabatan_fungsional }}</td>
                                             <td>
-                                                @if ($jabatanfungsionals->is_active == 1)
-                                                    <form action="{{ route('jabatanfungsional.set_nonactive',[$jabatanfungsionals->nip]) }}" method="POST">
+                                                @if ($nilaiEwmp->is_active == 1)
+                                                    <form action="{{ route('jabatanfungsional.set_nonactive',[$nilaiEwmp->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('jabatanfungsional.set_active',[$jabatanfungsionals->nip]) }}" method="POST">
+                                                    <form action="{{ route('jabatanfungsional.set_active',[$nilaiEwmp->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
                                            </td>
                                             <td>
-                                                <a href="{{ route('jabatanfungsional.edit',[$jabatanfungsionals->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                <a href="{{ route('jabatanfungsional.edit',[$nilaiEwmp->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                            </td>
                                         </tr>
                                     @endforeach
@@ -87,3 +80,13 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                responsive : true,
+            });
+        } );
+    </script>
+@endpush
