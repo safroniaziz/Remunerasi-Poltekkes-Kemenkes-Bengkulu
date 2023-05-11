@@ -12,11 +12,11 @@ class PengumumanController extends Controller
     public function index(Request $request){
         $isi_pengumuman = $request->query('isi_pengumuman');
         if (!empty($isi_pengumuman)) {
-            $pengumumans = Pengumuman::where('isi_pengumuman','LIKE','%'.$isi_pengumuman.'%')
+            $pengumumans = Pengumumen::where('isi_pengumuman','LIKE','%'.$isi_pengumuman.'%')
                                 ->paginate(10);
 
         }else {
-            $pengumumans = Pengumuman::paginate(10);
+            $pengumumans = Pengumumen::paginate(10);
         }
         return view('backend/pengumumans.index',[
             'pengumumans'         =>  $pengumumans,
@@ -44,7 +44,7 @@ class PengumumanController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $simpan = Pengumuman::create([
+        $simpan = Pengumumen::create([
             'isi_pengumuman'            =>  $request->isi_pengumuman,
             'slug'                      =>  Str::slug($request->isi_pengumuman),
             'tanggal_pengumuman'        =>  $request->tanggal_pengumuman,
@@ -60,13 +60,13 @@ class PengumumanController extends Controller
             return response()->json(['text' =>  'Oopps, Pengumuman gagal disimpan']);
         }
     }
-    public function edit(Pengumuman $pengumuman){
+    public function edit(Pengumumen $pengumuman){
         return view('backend.pengumumans.edit',[
             'pengumuman'   =>  $pengumuman,
         ]);
     }
 
-    public function update(Request $request, Pengumuman $pengumuman){
+    public function update(Request $request, Pengumumen $pengumuman){
         $rules = [
             'isi_pengumuman'       =>  'required',
             'tanggal_pengumuman'   =>  'required',
@@ -97,7 +97,7 @@ class PengumumanController extends Controller
             return response()->json(['text' =>  'Oopps, Pengumuman anda gagal diubah']);
         }
     }
-    public function setNonActive(Pengumuman $pengumuman){
+    public function setNonActive(Pengumumen $pengumuman){
         $update = $pengumuman->update([
             'is_active' =>  0,
         ]);
@@ -116,7 +116,7 @@ class PengumumanController extends Controller
         }
     }
 
-    public function setActive(Pengumuman $pengumuman){
+    public function setActive(Pengumumen $pengumuman){
         $update = $pengumuman->update([
             'is_active' =>  1,
         ]);
@@ -134,7 +134,7 @@ class PengumumanController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function delete(Pengumuman $pengumuman){
+    public function delete(Pengumumen $pengumuman){
         $delete = $pengumuman->delete();
 
         if ($delete) {
