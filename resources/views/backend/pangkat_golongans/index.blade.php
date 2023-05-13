@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
-                <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-wifungsionalh: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
+                <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
                     <i class="fa fa-briefcase"></i>&nbsp;Manajemen Data Pangkat Golongan
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
@@ -25,20 +25,13 @@
                                     @else
                             @endif
                         </div>
-                        <form method="GET">
-                            <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
-                                <label for="nama_pangkat" class="col-form-label">Cari Nama Pangkat Golongan</label>
-                                <input type="text" class="form-control" id="nama_pangkat" name="nama_pangkat" placeholder="Masukan Nama Pangkat Golongan..." value="{{$nama_pangkat}}">
-                            </div>
-                            <div class="col-md-12" style="margin-bottom:10px !important;">
-                                <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
-                            </div>
-                        </form>
-                        <div class="col-md-12 table-responsive">
-                            <div class="pull-left" style="margin-bottom: 3px !important;">
+                        <div class="col-md-12">
+                            <div style="margin-bottom: 10px !important;">
                                 <a href="{{ route('pangkat_golongan.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Pangkat Golongan</a>
                             </div>
-                            <table class="table table-striped table-bordered" id="table" style="wifungsionalh:100%; margin-bottom: 5px !important;">
+                        </div>
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -100,3 +93,12 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                responsive : true,
+            });
+        } );
+    </script>
+@endpush

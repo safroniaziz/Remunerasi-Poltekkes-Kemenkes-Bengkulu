@@ -11,7 +11,7 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <form action="{{ route('nilai_ewmp.update',[$nilaiewmp->slug]) }}" method="POST" id="form-edit">
+                        <form action="{{ route('nilai_ewmp.update',[$nilaiewmp->id]) }}" method="POST" id="form-edit">
                             {{ csrf_field() }} {{ method_field('PATCH') }}
 
                             <div class="form-group col-md-6" >

@@ -13,11 +13,11 @@ class PegawaiController extends Controller
     public function index(Request $request){
         $nama = $request->query('nama');
         if (!empty($nama)) {
-            $dosens = Pegawai::where('nama','LIKE','%'.$nama.'%')
+            $dosens = Pegawai::with(['jabatanFungsionals'])->where('nama','LIKE','%'.$nama.'%')
                                 ->paginate(10);
 
         }else {
-            $dosens = Pegawai::paginate(10);
+            $dosens = Pegawai::with(['jabatanFungsionals'])->paginate(10);
         }
         return view('backend/dosens.index',[
             'dosens'    =>  $dosens,
@@ -199,5 +199,11 @@ class PegawaiController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function riwayatJabatanFungsional(Pegawai $pegawai){
+        return view('backend.dosen.riwayat_jabatan_fungsional',[
+            'pegawai'   =>  $pegawai,
+        ]);
     }
 }

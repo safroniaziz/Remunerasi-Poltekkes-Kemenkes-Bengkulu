@@ -71,8 +71,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Sistem Remunerasi Khusus Dosen
-            <small>Politeknik Kesehatan Kementerian kesehatan Bengkulu</small>
+            Sistem Remunerasi
+            <small>Poltekkes Kemenkes Bengkulu</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i>Remunerasi</a></li>

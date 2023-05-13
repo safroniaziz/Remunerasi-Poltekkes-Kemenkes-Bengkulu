@@ -41,6 +41,7 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::patch('/manajemen_data_dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
     Route::get('/manajemen_data_dosen/{pegawai:slug}/edit', 'edit')->name('dosen.edit');
     Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
+    Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'riwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional');
 });
 
 Route::controller(JabatanDtController::class)->group(function () {
@@ -95,8 +96,8 @@ Route::controller(NilaiEwmpController::class)->group(function () {
     Route::post('/manajemen_nilai_ewmp', 'store')->name('nilai_ewmp.store');
     Route::patch('/manajemen_nilai_ewmp/{nilaiewmp}/set_active', 'setActive')->name('nilai_ewmp.set_active');
     Route::patch('/manajemen_nilai_ewmp/{nilaiewmp}/set_nonactive', 'setnonActive')->name('nilai_ewmp.set_nonactive');
-    Route::get('/manajemen_nilai_ewmp/{nilaiewmp:slug}/edit', 'edit')->name('nilai_ewmp.edit');
-    Route::patch('/manajemen_nilai_ewmp/{nilaiewmp:slug}/update', 'update')->name('nilai_ewmp.update');
+    Route::get('/manajemen_nilai_ewmp/{nilaiewmp}/edit', 'edit')->name('nilai_ewmp.edit');
+    Route::patch('/manajemen_nilai_ewmp/{nilaiewmp}/update', 'update')->name('nilai_ewmp.update');
     Route::delete('/manajemen_nilai_ewmp/{nilaiewmp}/delete', 'delete')->name('nilai_ewmp.delete');
 });
 Route::controller(PengumumanController::class)->group(function () {
@@ -105,8 +106,8 @@ Route::controller(PengumumanController::class)->group(function () {
     Route::post('/manajemen_pengumuman', 'store')->name('pengumuman.store');
     Route::patch('/manajemen_pengumuman/{pengumuman}/set_active', 'setActive')->name('pengumuman.set_active');
     Route::patch('/manajemen_pengumuman/{pengumuman}/set_nonactive', 'setnonActive')->name('pengumuman.set_nonactive');
-    Route::get('/manajemen_pengumuman/{pengumuman:slug}/edit', 'edit')->name('pengumuman.edit');
-    Route::patch('/manajemen_pengumuman/{pengumuman:slug}/update', 'update')->name('pengumuman.update');
+    Route::get('/manajemen_pengumuman/{pengumuman}/edit', 'edit')->name('pengumuman.edit');
+    Route::patch('/manajemen_pengumuman/update', 'update')->name('pengumuman.update');
     Route::delete('/manajemen_pengumuman/{pengumuman}/delete', 'delete')->name('pengumuman.delete');
 });
 // End Of Data Master Route

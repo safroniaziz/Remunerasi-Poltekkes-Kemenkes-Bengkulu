@@ -19,7 +19,6 @@ class NilaiEwmpSeeder extends Seeder
             DB::table('nilai_ewmps')->insert([
                 'kelompok_rubrik_id'    =>  KelompokRubrik::all()->random()->id,
                 'nama_rubrik'           =>  $faker->name(),
-                'slug'                  =>  $faker->name(),
                 'nama_tabel_rubrik'     =>  $faker->name(),
                 'ewmp'                  =>  $faker->randomDigit(),
                 'is_active'             => 1,

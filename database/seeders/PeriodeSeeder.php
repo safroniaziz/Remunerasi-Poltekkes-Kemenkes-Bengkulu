@@ -14,17 +14,14 @@ class PeriodeSeeder extends Seeder
     public function run(): void
     {
         $faker = \Faker\Factory::create();
-        foreach (range(1,1) as $index) {
-            DB::table('periodes')->insert([
-                'nama_periode'          =>  $faker->name(),
-                'slug'                  =>  $faker->name(),
-                'periode_siakad_id'     =>  $faker->randomDigit(),
-                'semester'              =>  $faker->randomDigit(),
-                'tahun_ajaran'          =>  $faker->randomDigit(),
-                'bulan'                 =>  $faker->randomDigit(),
-                'bulan_pembayaran'      =>  $faker->randomDigit(),
-                'is_active'             => 1,
-            ]);
-        }
+        DB::table('periodes')->insert([
+            'nama_periode'          =>  'Periode Pembayaran Bulan Januari 2023',
+            'slug'                  =>  'periode-pembayaran-bulan-januari-2023',
+            'periode_siakad_id'     =>  $faker->randomDigit(),
+            'semester'              =>  2,
+            'tahun_ajaran'          =>  2022,
+            'bulan_pembayaran'      =>  1,
+            'is_active'             => 1,
+        ]);
     }
 }

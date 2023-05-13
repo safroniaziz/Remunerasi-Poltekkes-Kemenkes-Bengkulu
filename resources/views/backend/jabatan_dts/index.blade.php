@@ -25,19 +25,12 @@
                                     @else
                             @endif
                         </div>
-                        <form method="GET">
-                            <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
-                                <label for="nama_jabatan_dt" class="col-form-label">Cari Nama Jabatan DT</label>
-                                <input type="text" class="form-control" id="nama_jabatan_dt" name="nama_jabatan_dt" placeholder="Masukan Nama Jabatan DT..." value="{{$nama_jabatan_dt}}">
-                            </div>
-                            <div class="col-md-12" style="margin-bottom:10px !important;">
-                                <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
-                            </div>
-                        </form>
-                        <div class="col-md-12 table-responsive">
-                            <div class="pull-left" style="margin-bottom: 3px !important;">
+                        <div class="col-md-12">
+                            <div style="margin-bottom: 10px !important;">
                                 <a href="{{ route('jabatan_dt.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DT</a>
                             </div>
+                        </div>
+                        <div class="col-md-12 table-responsive">
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
@@ -95,3 +88,12 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                responsive : true,
+            });
+        } );
+    </script>
+@endpush

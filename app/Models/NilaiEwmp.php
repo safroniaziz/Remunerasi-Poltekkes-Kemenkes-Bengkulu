@@ -9,9 +9,9 @@ class NilaiEwmp extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_rubrik','slug','nama_tabel_rubrik','kelompok_rubrik_id','ewmp','is_active'
+        'nama_rubrik','nama_tabel_rubrik','kelompok_rubrik_id','ewmp','is_active'
     ];
-    public function kelompokRubriks(){
+    public function kelompokRubrik(){
         return $this->belongsTo(KelompokRubrik::class);
     }
 }

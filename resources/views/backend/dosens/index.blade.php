@@ -43,14 +43,11 @@
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Lengkap</th>
-                                        <th style="text-align:center; vertical-align:middle">NIDN</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis Kelamin</th>
-                                        <th style=" vertical-align:middle">Nomor Rekening</th>
-                                        <th style="text-align:center; vertical-align:middle">NPWP</th>
                                         <th style="text-align:center; vertical-align:middle">Serdos</th>
                                         <th style="text-align:center; vertical-align:middle">Nomor Sertifikat Serdos</th>
-                                        <th style="text-align:center; vertical-align:middle">No. WhatsApp</th>
                                         <th style="text-align:center; vertical-align:middle">Aktif</th>
+                                        <th style="text-align:center; vertical-align:middle">Riwayat Jabatan</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -69,7 +66,6 @@
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-info">{{ $dosen->email ?? '-' }}</small>
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">{{ $dosen->jurusan ?? '-' }}</small>
                                             </td>
-                                            <td style="text-align: center;">{{ $dosen->nidn }}</td>
                                             <td style="text-align: center">
                                                 @if ($dosen->jenis_kelamin == "L")
                                                     <small class="label label-primary"><i class="fa fa-male"></i>&nbsp; Laki-Laki</small>
@@ -77,8 +73,6 @@
                                                     <small class="label label-warning"><i class="fa fa-female"></i>&nbsp; Perempuan</small>
                                                 @endif
                                             </td>
-                                            <td style="text-align: center;">{{ $dosen->nomor_rekening }}</td>
-                                            <td style="text-align: center;">{{ $dosen->npwp }}</td>
                                             <td style="text-align: center">
                                                 @if ($dosen->is_serdos == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp; Ya</small>
@@ -90,10 +84,9 @@
                                                 @if ($dosen->is_serdos == 1)
                                                     {{ $dosen->no_sertifikat_serdos }}
                                                 @else
-                                                    <small class="label label-danger"><i class="fa fa-minus"></i></small>
+                                                    <small class="text-danger"><i class="fa fa-minus"></i></small>
                                                 @endif
                                             </td>
-                                            <td style="text-align: center">{{ $dosen->no_whatsapp }}</td>
                                            <td>
                                                 @if ($dosen->is_active == 1)
                                                     <form action="{{ route('dosen.set_nonactive',[$dosen->nip]) }}" method="POST">
@@ -106,6 +99,9 @@
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
+                                           </td>
+                                           <td class="text-center">
+                                                <a href="{{ route('dosen.riwayat_jabatan_fungsional',[$dosen->slug]) }}" class="btn btn-success btn-sm btn-flat">{{ $dosen->jabatanFungsionals()->count() }}</a>
                                            </td>
                                            <td>
                                                 <a href="{{ route('dosen.edit',[$dosen->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>

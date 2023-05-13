@@ -25,20 +25,13 @@
                                     @else
                             @endif
                         </div>
-                        <form method="GET">
-                            <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
-                                <label for="nama_jabatan_ds" class="col-form-label">Cari Nama Jabatan DS</label>
-                                <input type="text" class="form-control" id="nama_jabatan_ds" name="nama_jabatan_ds" placeholder="Masukan Nama Jabatan DS..." value="{{$nama_jabatan_ds}}">
-                            </div>
-                            <div class="col-md-12" style="margin-bottom:10px !important;">
-                                <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
-                            </div>
-                        </form>
-                        <div class="col-md-12 table-responsive">
-                            <div class="pull-left" style="margin-bottom: 3px !important;">
+                        <div class="col-md-12">
+                            <div style="margin-bottom: 10px !important;">
                                 <a href="{{ route('jabatan_ds.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DS</a>
                             </div>
-                            <table class="table table-striped table-bordered" id="table" style="widsh:100%; margin-bottom: 5px !important;">
+                        </div>
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -96,3 +89,12 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                responsive : true,
+            });
+        } );
+    </script>
+@endpush

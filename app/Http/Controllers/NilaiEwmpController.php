@@ -90,7 +90,6 @@ class NilaiEwmpController extends Controller
         $update = $nilaiewmp->update([
             'kelompok_rubrik_id'        =>  $request->kelompok_rubrik_id,
             'nama_rubrik'               =>  $request->nama_rubrik,
-            'slug'                      =>  Str::slug($request->nama_rubrik),
             'nama_tabel_rubrik'         =>  $request->nama_tabel_rubrik,
             'ewmp'                      =>  $request->ewmp,
             'is_active'                 =>  1,

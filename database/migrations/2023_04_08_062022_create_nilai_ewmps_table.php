@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('kelompok_rubrik_id');
             $table->string('nama_rubrik');
-            $table->string('slug');
             $table->string('nama_tabel_rubrik');
             $table->float('ewmp');
             $table->boolean('is_active')->default(1);

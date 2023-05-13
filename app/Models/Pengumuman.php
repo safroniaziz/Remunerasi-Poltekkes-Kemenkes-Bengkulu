@@ -9,6 +9,6 @@ class Pengumuman extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'isi_pengumuman','slug','tanggal_pengumuman','is_active'
+        'judul_pengumuman','isi_pengumuman','file_pengumuman','slug','tanggal_pengumuman','is_active'
     ];
 }
