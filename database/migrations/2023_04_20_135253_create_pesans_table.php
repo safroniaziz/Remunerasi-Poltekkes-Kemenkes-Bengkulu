@@ -20,6 +20,9 @@ return new class extends Migration
             $table->text('content');
             $table->boolean('is_read');
             $table->timestamps();
+
+            $table->foreign('nip')->references('nip')->on('pegawais');
+
         });
     }
 

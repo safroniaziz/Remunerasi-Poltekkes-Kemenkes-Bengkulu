@@ -22,7 +22,7 @@ class PeriodeSeeder extends Seeder
             'tahun_ajaran'          =>  2022,
             'bulan'                 =>  1,
             'bulan_pembayaran'      =>  1,
-            'is_active'             => 1,
+            'is_active'             =>  1,
         ]);
     }
 }

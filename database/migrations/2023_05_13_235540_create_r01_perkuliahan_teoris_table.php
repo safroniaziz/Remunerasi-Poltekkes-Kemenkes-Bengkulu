@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('riwayat_points', function (Blueprint $table) {
+        Schema::create('r01_perkuliahan_teoris', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rubrik_id');
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18);
-            $table->string('point');
+            $table->integer('jumlah_sks');
+            $table->integer('jumlah_mahasiswa');
+            $table->integer('jumlah_tatap_muka');
+            $table->boolean('is_bkd');
+            $table->boolean('is_verified');
+            $table->double('point')->nullable();
             $table->timestamps();
 
-            // $table->foreign('rubrik_id')->references('id')->on('rubriks');
             $table->foreign('periode_id')->references('id')->on('periodes');
             $table->foreign('nip')->references('nip')->on('pegawais');
         });
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('riwayat_points');
+        Schema::dropIfExists('r01_perkuliahan_teoris');
     }
 };

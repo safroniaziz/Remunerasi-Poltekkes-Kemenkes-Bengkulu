@@ -12,6 +12,8 @@ use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\RiwayatPointController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\R01PerkuliahanTeoriController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -171,3 +173,16 @@ Route::controller(PeriodeController::class)->group(function () {
     Route::delete('/manajemen_data_periode/{periode}/delete', 'delete')->name('periode_penilaian.delete');
 });
 // End Of Pengaturan/Setting Route
+
+// Pengaturan/Setting Rubrik
+Route::controller(R01PerkuliahanTeoriController::class)->group(function () {
+    Route::get('/r_01_perkuliahan_teori', 'index')->name('r_01_perkuliahan_teori');
+    Route::get('/r_01_perkuliahan_teori/create', 'create')->name('r_01_perkuliahan_teori.create');
+    Route::post('/r_01_perkuliahan_teori', 'store')->name('r_01_perkuliahan_teori.store');
+    Route::patch('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/set_active', 'setActive')->name('r_01_perkuliahan_teori.set_active');
+    Route::patch('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/set_nonactive', 'setnonActive')->name('r_01_perkuliahan_teori.set_nonactive');
+    Route::get('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/edit', 'edit')->name('r_01_perkuliahan_teori.edit');
+    Route::patch('/r_01_perkuliahan_teori/update', 'update')->name('r_01_perkuliahan_teori.update');
+    Route::delete('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/delete', 'delete')->name('r_01_perkuliahan_teori.delete');
+});
+// End Of Pengaturan/Setting Rubrik
