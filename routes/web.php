@@ -8,7 +8,11 @@ use App\Http\Controllers\PangkatGolonganController;
 use App\Http\Controllers\KelompokRubrikController;
 use App\Http\Controllers\NilaiEwmpController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\RiwayatJabatanDtController;
+use App\Http\Controllers\RiwayatPointController;
 use App\Http\Controllers\PeriodeController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -108,6 +112,32 @@ Route::controller(PengumumanController::class)->group(function () {
     Route::get('/manajemen_pengumuman/{pengumuman:slug}/edit', 'edit')->name('pengumuman.edit');
     Route::patch('/manajemen_pengumuman/{pengumuman:slug}/update', 'update')->name('pengumuman.update');
     Route::delete('/manajemen_pengumuman/{pengumuman}/delete', 'delete')->name('pengumuman.delete');
+});
+Route::controller(PresensiController::class)->group(function () {
+    Route::get('/manajemen_presensi', 'index')->name('presensi');
+    Route::get('/manajemen_presensi/create', 'create')->name('presensi.create');
+    Route::post('/manajemen_presensi', 'store')->name('presensi.store');
+    Route::get('/manajemen_presensi/{presensi}/edit', 'edit')->name('presensi.edit');
+    Route::patch('/manajemen_presensi/update', 'update')->name('presensi.update');
+    Route::delete('/manajemen_presensi/{presensi}/delete', 'delete')->name('presensi.delete');
+});
+Route::controller(RiwayatJabatanDtController::class)->group(function () {
+    Route::get('/manajemen_riwayat_jabatan_dt', 'index')->name('riwayat_jabatan_dt');
+    Route::get('/manajemen_riwayat_jabatan_dt/create', 'create')->name('riwayat_jabatan_dt.create');
+    Route::post('/manajemen_riwayat_jabatan_dt', 'store')->name('riwayat_jabatan_dt.store');
+    Route::patch('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt}/set_active', 'setActive')->name('riwayat_jabatan_dt.set_active');
+    Route::patch('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt}/set_nonactive', 'setnonActive')->name('riwayat_jabatan_dt.set_nonactive');
+    Route::get('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt:slug}/edit', 'edit')->name('riwayat_jabatan_dt.edit');
+    Route::patch('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt:slug}/update', 'update')->name('riwayat_jabatan_dt.update');
+    Route::delete('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt}/delete', 'delete')->name('riwayat_jabatan_dt.delete');
+});
+Route::controller(RiwayatPointController::class)->group(function () {
+    Route::get('/manajemen_riwayat_point', 'index')->name('riwayat_point');
+    Route::get('/manajemen_riwayat_point/create', 'create')->name('riwayat_point.create');
+    Route::post('/manajemen_riwayat_point', 'store')->name('riwayat_point.store');
+    Route::get('/manajemen_riwayat_point/{riwayat_point}/edit', 'edit')->name('riwayat_point.edit');
+    Route::patch('/manajemen_riwayat_point/update', 'update')->name('riwayat_point.update');
+    Route::delete('/manajemen_riwayat_point/{riwayat_point}/delete', 'delete')->name('riwayat_point.delete');
 });
 // End Of Data Master Route
 

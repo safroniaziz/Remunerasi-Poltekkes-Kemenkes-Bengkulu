@@ -51,19 +51,19 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($kelompokrubriks as $index => $kelompokrubriks)
+                                    @foreach ($kelompokrubriks as $index => $kelompokrubrik)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>
-                                            <a href="" style="font-weight:600;">{{ $kelompokrubriks->nama_kelompok_rubrik }}</a></td>
+                                            <td style="text-align: center;">{{ $kelompokrubriks->nama_kelompok_rubrik }}</td>
                                             <td>
-                                                @if ($kelompokrubriks->is_active == 1)
-                                                    <form action="{{ route('kelompok_rubrik.set_nonactive',[$kelompokrubriks->id]) }}" method="POST">
+                                                @if ($kelompokrubrik->is_active == 1)
+                                                    <form action="{{ route('kelompok_rubrik.set_nonactive',[$kelompokrubrik->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('kelompok_rubrik.set_active',[$kelompokrubriks->id]) }}" method="POST">
+                                                    <form action="{{ route('kelompok_rubrik.set_active',[$kelompokrubrik->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
@@ -73,10 +73,10 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('kelompok_rubrik.edit',[$kelompokrubriks->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                        <a href="{{ route('kelompok_rubrik.edit',[$kelompokrubrik->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                    </td>
                                                     <td>
-                                                        <form action="{{ route('kelompok_rubrik.delete',[$kelompokrubriks->id]) }}" method="POST">
+                                                        <form action="{{ route('kelompok_rubrik.delete',[$kelompokrubrik->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                         </form>
