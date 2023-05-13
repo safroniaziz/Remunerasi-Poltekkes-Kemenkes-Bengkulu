@@ -25,11 +25,6 @@ class PengumumanController extends Controller
         ]);
     }
 
-
-    public function create(){
-        return view('backend/pengumumans.create');
-    }
-
     public function store(Request $request){
         $rules = [
             'isi_pengumuman'       =>  'required',
