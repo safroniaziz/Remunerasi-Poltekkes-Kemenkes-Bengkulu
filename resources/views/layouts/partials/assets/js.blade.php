@@ -20,6 +20,10 @@
 {{-- Toast Notification asset --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
+{{-- Date & Time Picker --}}
+<script src="{{ asset('assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('assets/timepicker/bootstrap-timepicker.min.js') }}"></script>
+
 {{-- Sidebar Setting --}}
 <script>
   $(document).ready(function () {

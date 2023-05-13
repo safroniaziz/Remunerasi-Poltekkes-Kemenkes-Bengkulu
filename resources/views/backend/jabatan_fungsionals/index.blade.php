@@ -27,7 +27,9 @@
                         </div>
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
-                                <a href="{{ route('jabatan_fungsional.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan fungsional</a>
+                                <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Periode Penilaian
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-12 table-responsive">
@@ -51,7 +53,7 @@
                                             <td>{{ $index+1 }}</td>
                                             <td style="text-align: center;">{{ $jabatanfungsional->nip }}</a></td>
                                             <td style="text-align: center;">{{ $jabatanfungsional->nama_jabatan_fungsional }}</a></td>
-                                            <td style="text-align: center;">{{ $jabatanfungsional->tmt_jabatan_fungsional }}</td>
+                                            <td style="text-align: center;">{{ $jabatanfungsional->tmt_jabatan_fungsional->isoFormat('dddd, D MMMM Y') }}</td>
                                             <td class="text-center">
                                                 @if ($jabatanfungsional->is_active == 1)
                                                     <form action="{{ route('jabatan_fungsional.set_nonactive',[$jabatanfungsional->nip]) }}" method="POST">
@@ -69,8 +71,8 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('jabatan_fungsional.edit',[$jabatanfungsional->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                                   </td>
+                                                        <a onclick="editJabatanFungsional({{ $jabatanfungsional->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                    </td>
                                                     <td>
                                                         <form action="{{ route('jabatan_fungsional.delete',[$jabatanfungsional->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
@@ -85,7 +87,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        @include('backend/jabatan_fungsionals.partials.modal_add')
                     </div>
+                    @include('backend/jabatan_fungsionals.partials.modal_edit')
                 </div>
             </section>
         </div>
@@ -98,5 +102,49 @@
                 responsive : true,
             });
         } );
+
+        function editJabatanFungsional(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            url = "{{ url('manajemen_jabatan_fungsional').'/' }}"+id+'/edit';
+            $.ajax({
+                url : url,
+                type : 'GET',
+                success : function(data){
+                    $('#modalEdit').modal('show');
+                    $('#periode_id_edit').val(data.id);
+                    $('#nama_periode_edit').val(data.nama_periode);
+                    $('#periode_siakad_id_edit').val(data.periode_siakad_id);
+                    $('#semester_edit').val(data.semester);
+                    $('#tahun_ajaran_edit').val(data.tahun_ajaran);
+                    $('#bulan_pembayaran_edit').val(data.bulan_pembayaran);
+                },
+                error:function(){
+                    $('#gagal').show(100);
+                }
+            });
+            return false;
+        }
+ 
+        $('.show_confirm').click(function(event) {
+            var form =  $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: `Apakah Anda Yakin?`,
+                text: "Harap untuk memeriksa kembali sebelum menghapus data.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                form.submit();
+                }
+            });
+        });
     </script>
 @endpush

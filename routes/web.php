@@ -46,6 +46,8 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::get('/manajemen_data_dosen/{pegawai:slug}/edit', 'edit')->name('dosen.edit');
     Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
     Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'riwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional');
+    Route::patch('/manajemen_data_dosen/update_riwayat_jabatan_fungsional', 'updateRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.update');
+    Route::post('/manajemen_data_dosen/update_riwayat_jabatan_fungsional', 'storeRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.store');
 });
 
 Route::controller(JabatanDtController::class)->group(function () {
@@ -64,16 +66,17 @@ Route::controller(JabatanDsController::class)->group(function () {
     Route::patch('/manajemen_jabatan_ds/{jabatands:slug}/update', 'update')->name('jabatan_ds.update');
     Route::delete('/manajemen_jabatan_ds/{jabatands}/delete', 'delete')->name('jabatan_ds.delete');
 });
-Route::controller(JabatanFungsionalController::class)->group(function () {
-    Route::get('/manajemen_jabatan_fungsional', 'index')->name('jabatan_fungsional');
-    Route::get('/manajemen_jabatan_fungsional/create', 'create')->name('jabatan_fungsional.create');
-    Route::post('/manajemen_jabatan_fungsional', 'store')->name('jabatan_fungsional.store');
-    Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional}/set_active', 'setActive')->name('jabatan_fungsional.set_active');
-    Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional}/set_nonactive', 'setnonActive')->name('jabatan_fungsional.set_nonactive');
-    Route::get('/manajemen_jabatan_fungsional/{jabatanfungsional:slug}/edit', 'edit')->name('jabatan_fungsional.edit');
-    Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional:slug}/update', 'update')->name('jabatan_fungsional.update');
-    Route::delete('/manajemen_jabatan_fungsional/{jabatanfungsional}/delete', 'delete')->name('jabatan_fungsional.delete');
-});
+// Route::controller(JabatanFungsionalController::class)->group(function () {
+//     Route::get('/manajemen_jabatan_fungsional', 'index')->name('jabatan_fungsional');
+//     Route::get('/manajemen_jabatan_fungsional/create', 'create')->name('jabatan_fungsional.create');
+//     Route::post('/manajemen_jabatan_fungsional', 'store')->name('jabatan_fungsional.store');
+//     Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional}/set_active', 'setActive')->name('jabatan_fungsional.set_active');
+//     Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional}/set_nonactive', 'setnonActive')->name('jabatan_fungsional.set_nonactive');
+//     Route::get('/manajemen_jabatan_fungsional/{jabatanfungsional:slug}/edit', 'edit')->name('jabatan_fungsional.edit');
+//     Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional:slug}/update', 'update')->name('jabatan_fungsional.update');
+//     Route::delete('/manajemen_jabatan_fungsional/{jabatanfungsional}/delete', 'delete')->name('jabatan_fungsional.delete');
+// });
+
 Route::controller(PangkatGolonganController::class)->group(function () {
     Route::get('/manajemen_pangkat_golongan', 'index')->name('pangkat_golongan');
     Route::get('/manajemen_pangkat_golongan/create', 'create')->name('pangkat_golongan.create');

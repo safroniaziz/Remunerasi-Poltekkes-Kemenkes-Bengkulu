@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JabatanDs;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -202,8 +203,9 @@ class PegawaiController extends Controller
     }
 
     public function riwayatJabatanFungsional(Pegawai $pegawai){
-        return view('backend.dosen.riwayat_jabatan_fungsional',[
+        return view('backend.dosens.riwayat_jabatan_fungsional',[
             'pegawai'   =>  $pegawai,
+            'jabatans'  =>  JabatanDs::all(),
         ]);
     }
 }

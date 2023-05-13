@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pesans', function (Blueprint $table) {
             $table->id();
-            $table->string('nip',18)->unique();
+            $table->string('nip',18);
             $table->unsignedBigInteger('user_tujuan_id');
             $table->unsignedBigInteger('rubrik_id');
             $table->string('subjek');

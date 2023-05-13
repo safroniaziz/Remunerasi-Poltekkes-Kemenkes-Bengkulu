@@ -12,8 +12,10 @@ class JabatanFungsionalController extends Controller
 {
     public function index(){
         $jabatanfungsionals = JabatanFungsional::get();
+        $dosens = Pegawai::all();
         return view('backend/jabatan_fungsionals.index',[
             'jabatanfungsionals'         =>  $jabatanfungsionals,
+            'dosens'         =>  $dosens,
         ]);
     }
 
@@ -58,10 +60,7 @@ class JabatanFungsionalController extends Controller
         }
     }
     public function edit(JabatanFungsional $jabatanfungsional){
-        $dosens = Pegawai::all();
-        return view('backend.jabatan_fungsionals.edit',compact('dosens'),[
-            'jabatanfungsional'   =>  $jabatanfungsional,
-        ]);
+        return $jabatanfungsional;
     }
 
     public function update(Request $request, JabatanFungsional $jabatanfungsional){

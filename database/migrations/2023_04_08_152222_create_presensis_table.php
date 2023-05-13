@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('presensis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
-            $table->string('nip',18)->unique();
+            $table->string('nip',18);
             $table->string('jumlah_kehadiran');
             $table->timestamps();
 

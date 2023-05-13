@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JabatanFungsional extends Model
 {
     use HasFactory;
+    protected $casts = [ 'tmt_jabatan_fungsional'=>'datetime'];
     protected $fillable = [
         'nip','nama_jabatan_fungsional','tmt_jabatan_fungsional','is_active','slug'
     ];

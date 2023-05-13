@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rekap_daftar_nominatifs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
-            $table->string('nip',18)->unique();
+            $table->string('nip',18);
             $table->string('nama');
             $table->string('slug');
             $table->string('nomor_rekening');

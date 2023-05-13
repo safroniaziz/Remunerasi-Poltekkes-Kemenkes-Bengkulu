@@ -27,7 +27,6 @@
     <ul class="treeview-menu " style="padding-left:25px;">
         <li class="{{ set_active(['jabatan_dt','jabatan_dt.create','jabatan_dt.edit']) }}"><a href="{{ route('jabatan_dt') }}"><i class="fa fa-circle-o"></i>Tugas Tambahan</a></li>
         <li class="{{ set_active(['jabatan_ds','jabatan_ds.create','jabatan_ds.edit']) }}"><a href="{{ route('jabatan_ds') }}"><i class="fa fa-circle-o"></i>Jabatan DS</a></li>
-        <li class="{{ set_active(['jabatan_fungsional','jabatan_fungsional.create','jabatan_fungsional.edit']) }}"><a href="{{ route('jabatan_fungsional') }}"><i class="fa fa-circle-o"></i>Jabatan Fungsional</a></li>
     </ul>
 </li>
 

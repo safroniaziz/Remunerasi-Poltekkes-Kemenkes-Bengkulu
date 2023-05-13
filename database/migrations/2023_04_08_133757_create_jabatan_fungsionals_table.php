@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jabatan_fungsionals', function (Blueprint $table) {
             $table->id();
-            $table->string('nip',18)->unique();
+            $table->string('nip',18);
             $table->string('nama_jabatan_fungsional');
             $table->string('slug');
             $table->string('tmt_jabatan_fungsional');

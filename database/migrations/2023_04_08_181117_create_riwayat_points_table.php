@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('rubrik_id');
             $table->unsignedBigInteger('periode_id');
-            $table->string('nip',18)->unique();
+            $table->string('nip',18);
             $table->string('point');
             $table->timestamps();
 
