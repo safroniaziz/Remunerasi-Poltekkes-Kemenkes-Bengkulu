@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nip',18);
             $table->string('nama_jabatan_fungsional');
             $table->string('slug');
-            $table->string('tmt_jabatan_fungsional');
+            $table->date('tmt_jabatan_fungsional');
             $table->boolean('is_active');
             $table->timestamps();
 

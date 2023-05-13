@@ -47,7 +47,7 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
     Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'riwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional');
     Route::patch('/manajemen_data_dosen/update_riwayat_jabatan_fungsional', 'updateRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.update');
-    Route::post('/manajemen_data_dosen/update_riwayat_jabatan_fungsional', 'storeRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.store');
+    Route::post('/manajemen_data_dosen/{pegawai:slug}/update_riwayat_jabatan_fungsional', 'storeRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.store');
 });
 
 Route::controller(JabatanDtController::class)->group(function () {

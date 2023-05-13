@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('dosen.riwayat_jabatan_fungsional.store') }}" method="POST" id="form-tambah-periode-penilaian">
+            <form action="{{ route('dosen.riwayat_jabatan_fungsional.store',[$pegawai->slug]) }}" method="POST" id="form-tambah-periode-penilaian">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -22,10 +22,10 @@
 
                         <div class="form-group col-md-12" >
                             <label for="nama_jabatan_fungsional" class="col-form-label">Nama Jabatan Fungsional</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
+                            <select name="nama_jabatan_fungsional" id="nama_jabatan_fungsional" class="form-control @error('nama_jabatan_fungsional') is-invalid @enderror">
                                 <option disabled selected>-- Pilih Jabatan --</option>
                                 @foreach ($jabatans as $jabatan)
-                                    <option value="{{ $jabatan->id }}">{{ $jabatan->nama_jabatan_ds }}</option>
+                                    <option value="{{ $jabatan->nama_jabatan_ds }}">{{ $jabatan->nama_jabatan_ds }}</option>
                                 @endforeach
                             </select>
                             <div>
@@ -35,19 +35,15 @@
                             </div>  
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="tmt_jabatan_fungsional" class="col-form-label">TMT Jabatan Fungsional</label>
-                            <div class="form-group col-md-6">
-                                <label>Tanggal Mulai</label>
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" value="{{ old('startDate') }}" name="startDate" id="startDate" class="form-control pull-right">
-                                
+                        <div class="form-group col-md-12">
+                            <label>TMT Jabatan Fungsional</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
                                 </div>
-    
-                            <input type="text" class="form-control" id="tmt_jabatan_fungsional" name="tmt_jabatan_fungsional" >
+                                <input type="text" value="{{ old('tmt_jabatan_fungsional') }}" name="tmt_jabatan_fungsional" id="tmt_jabatan_fungsional" class="form-control pull-right">
+                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,7 +83,7 @@
             })
         });
 
-        $('#startDate').datepicker({
+        $('#tmt_jabatan_fungsional').datepicker({
             format: 'yyyy/mm/dd', autoclose: true
         })
     </script>

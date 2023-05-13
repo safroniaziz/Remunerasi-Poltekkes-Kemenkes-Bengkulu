@@ -27,6 +27,7 @@
                         </div>
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
+                                <a href="{{ route('dosen') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
                                     <i class="fa fa-plus"></i>&nbsp; Tambah Periode Penilaian
                                 </button>

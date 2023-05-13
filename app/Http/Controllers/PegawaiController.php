@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JabatanDs;
+use App\Models\JabatanFungsional;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -203,9 +204,46 @@ class PegawaiController extends Controller
     }
 
     public function riwayatJabatanFungsional(Pegawai $pegawai){
+        $jabatans = JabatanDs::select('nama_jabatan_ds')->whereNotIn('nama_jabatan_ds',function($query) use ($pegawai) {
+            $query->select('nama_jabatan_fungsional')->from('jabatan_fungsionals')->where('nip',$pegawai->nip);
+         })->get();
         return view('backend.dosens.riwayat_jabatan_fungsional',[
             'pegawai'   =>  $pegawai,
-            'jabatans'  =>  JabatanDs::all(),
+            'jabatans'  =>  $jabatans,
         ]);
+    }
+    
+    public function storeRiwayatJabatanFungsional(Request $request, Pegawai $pegawai){
+        $rules = [
+            'nama_jabatan_fungsional'       =>  'required',
+            'tmt_jabatan_fungsional'        =>  'required|',
+        ];
+        $text = [
+            'nama_jabatan_fungsional.required'      => 'Nama Jabatan Fungsional harus diisi',
+            'tmt_jabatan_fungsional.required'       => 'TMT Jabatan Fungsional harus diisi',
+
+        ];
+
+        $validasi = Validator::make($request->all(), $rules, $text);
+        if ($validasi->fails()) {
+            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
+        }
+
+        $simpan = JabatanFungsional::create([
+            'nip'                       =>  $pegawai->nip,
+            'nama_jabatan_fungsional'   =>  $request->nama_jabatan_fungsional,
+            'slug'                      =>  Str::slug($request->nama_jabatan_fungsional),
+            'tmt_jabatan_fungsional'   =>  $request->tmt_jabatan_fungsional,
+            'is_active'   =>  0,
+        ]);
+
+        if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, riwayat jabatan fungsional berhasil ditambahkan',
+                'url'   =>  route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug]),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, riwayat jabatan fungsional gagal disimpan']);
+        }
     }
 }
