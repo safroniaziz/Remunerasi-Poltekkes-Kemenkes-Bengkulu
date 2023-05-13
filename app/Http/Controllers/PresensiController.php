@@ -11,17 +11,9 @@ use Illuminate\Support\Str;
 class PresensiController extends Controller
 {
     public function index(Request $request){
-        $nip = $request->query('nip');
-        if (!empty($nip)) {
-            $presensis = Presensi::where('nip','LIKE','%'.$nip.'%')
-                                ->paginate(10);
-
-        }else {
-            $presensis = Presensi::paginate(10);
-        }
+        $presensis = Presensi::orderBy('created_at','desc')->get();
         return view('backend/presensis.index',[
             'presensis'         =>  $presensis,
-            'periode_id'        =>  $periode_id,
         ]);
     }
 

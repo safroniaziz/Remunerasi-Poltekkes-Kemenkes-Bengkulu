@@ -23,15 +23,19 @@ class PeriodeController extends Controller
             'semester'                  =>  'required|numeric',
             'tahun_ajaran'              =>  'required|numeric',
             'bulan_pembayaran'          =>  'required',
+            'bulan'                     =>  'required',
+
         ];
         $text = [
             'nama_periode.required'             => 'Nama Periode Penilaian harus diisi',
-            'periode_siakad_id.required'        => 'Periode Siakad harus diisi',  
-            'semester.numeric'                  => 'Semester harus berupa angka',  
-            'semester.required'                 => 'Semester harus diisi',  
-            'tahun_ajaran.required'             => 'Tahun Ajaran harus diisi',  
-            'tahun_ajaran.numeric '             => 'Tahun ajaran harus berupa angka',  
-            'bulan_pembayaran.required'         => 'Bulan Pembayaran harus dipilih', 
+            'periode_siakad_id.required'        => 'Periode Siakad harus diisi',
+            'semester.numeric'                  => 'Semester harus berupa angka',
+            'semester.required'                 => 'Semester harus diisi',
+            'tahun_ajaran.required'             => 'Tahun Ajaran harus diisi',
+            'tahun_ajaran.numeric '             => 'Tahun ajaran harus berupa angka',
+            'bulan_pembayaran.required'         => 'Bulan Pembayaran harus dipilih',
+            'bulan.required'                    => 'Bulan harus diisi',
+
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -45,10 +49,11 @@ class PeriodeController extends Controller
             'periode_siakad_id'     =>  $request->periode_siakad_id,
             'semester'              =>  $request->semester,
             'tahun_ajaran'          =>  $request->tahun_ajaran,
+            'bulan'                 =>  $request->bulan,
             'bulan_pembayaran'      =>  $request->bulan_pembayaran,
             'is_active'             =>  0,
         ]);
-        
+
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, periode remunerasi berhasil ditambahkan',
@@ -73,12 +78,12 @@ class PeriodeController extends Controller
         ];
         $text = [
             'nama_periode_edit.required'             => 'Nama Periode Penilaian harus diisi',
-            'periode_siakad_id_edit.required'        => 'Periode Siakad harus diisi',  
-            'semester_edit.numeric'                  => 'Semester harus berupa angka',  
-            'semester.required'                 => 'Semester harus diisi',  
-            'tahun_ajaran_edit.required'             => 'Tahun Ajaran harus diisi',  
-            'tahun_ajaran_edit.numeric '             => 'Tahun ajaran harus berupa angka',  
-            'bulan_pembayaran_edit.required'         => 'Bulan Pembayaran harus dipilih', 
+            'periode_siakad_id_edit.required'        => 'Periode Siakad harus diisi',
+            'semester_edit.numeric'                  => 'Semester harus berupa angka',
+            'semester.required'                 => 'Semester harus diisi',
+            'tahun_ajaran_edit.required'             => 'Tahun Ajaran harus diisi',
+            'tahun_ajaran_edit.numeric '             => 'Tahun ajaran harus berupa angka',
+            'bulan_pembayaran_edit.required'         => 'Bulan Pembayaran harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -94,7 +99,7 @@ class PeriodeController extends Controller
             'tahun_ajaran'          =>  $request->tahun_ajaran_edit,
             'bulan_pembayaran'      =>  $request->bulan_pembayaran_edit,
         ]);
-        
+
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay,periode remunerasi berhasil diubah',

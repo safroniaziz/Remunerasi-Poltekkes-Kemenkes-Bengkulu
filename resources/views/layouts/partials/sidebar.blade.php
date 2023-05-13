@@ -82,3 +82,11 @@
     </a>
 </li>
 
+<li class="header" style="font-weight:bold">Rubrik</li>
+<li class="{{ set_active('r_01_perkuliahan_teori') }}">
+    <a href="{{ route('r_01_perkuliahan_teori') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 01 Perkuliahan Teori</span>
+    </a>
+</li>
+
