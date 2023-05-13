@@ -10,18 +10,10 @@ use Illuminate\Support\Str;
 
 class JabatanFungsionalController extends Controller
 {
-    public function index(Request $request){
-        $nama_jabatan_fungsional = $request->query('nama_jabatan_fungsional');
-        if (!empty($nama_jabatan_fungsional)) {
-            $jabatanfungsionals = JabatanFungsional::where('nama_jabatan_fungsional','LIKE','%'.$nama_jabatan_fungsional.'%')
-                                ->paginate(10);
-
-        }else {
-            $jabatanfungsionals = JabatanFungsional::paginate(10);
-        }
+    public function index(){
+        $jabatanfungsionals = JabatanFungsional::get();
         return view('backend/jabatan_fungsionals.index',[
             'jabatanfungsionals'         =>  $jabatanfungsionals,
-            'nama_jabatan_fungsional'    =>  $nama_jabatan_fungsional,
         ]);
     }
 

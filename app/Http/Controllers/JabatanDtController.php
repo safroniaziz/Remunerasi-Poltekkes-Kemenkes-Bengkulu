@@ -9,17 +9,9 @@ use Illuminate\Support\Str;
 class JabatanDtController extends Controller
 {
     public function index(Request $request){
-        $nama_jabatan_dt = $request->query('nama_jabatan_dt');
-        if (!empty($nama_jabatan_dt)) {
-            $jabatandts = JabatanDt::where('nama_jabatan_dt','LIKE','%'.$nama_jabatan_dt.'%')
-                                ->paginate(10);
-
-        }else {
-            $jabatandts = JabatanDt::paginate(10);
-        }
+        $jabatandts = JabatanDt::orderBy('created_at','desc')->get();
         return view('backend/jabatan_dts.index',[
             'jabatandts'         =>  $jabatandts,
-            'nama_jabatan_dt'    =>  $nama_jabatan_dt,
         ]);
     }
 

@@ -56,7 +56,7 @@
                                             <td>
                                             <a href="" style="font-weight:600;">{{ $jabatandt->nama_jabatan_dt }}</a></td>
                                             <td style="text-align: center;">{{ $jabatandt->grade ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatandt->harga_point_dt ?? '-' }}</td>
+                                            <td style="text-align: center;">Rp. {{ number_format(($jabatandt->harga_point_dt)) ?? '-' }},-</td>
                                             <td style="text-align: center;">{{ $jabatandt->job_value ?? '-' }}</td>
                                             <td style="text-align: center;">{{ $jabatandt->pir }}</td>
                                             <td style="text-align: center;">{{ $jabatandt->harga_jabatan }}</td>

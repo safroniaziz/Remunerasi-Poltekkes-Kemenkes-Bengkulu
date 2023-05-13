@@ -49,12 +49,12 @@
                                     @foreach ($jabatanfungsionals as $index => $jabatanfungsional)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td style="text-align: center;">{{ $jabatanfungsionals->nip }}</a></td>
-                                            <td style="text-align: center;">{{ $jabatanfungsionals->nama_jabatan_fungsional }}</a></td>
-                                            <td style="text-align: center;">{{ $jabatanfungsionals->tmt_jabatan_fungsional }}</td>
+                                            <td style="text-align: center;">{{ $jabatanfungsional->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatanfungsional->nama_jabatan_fungsional }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatanfungsional->tmt_jabatan_fungsional }}</td>
                                             <td class="text-center">
-                                                @if ($jabatanfungsionals->is_active == 1)
-                                                    <form action="{{ route('jabatan_fungsional.set_nonactive',[$jabatanfungsionals->nip]) }}" method="POST">
+                                                @if ($jabatanfungsional->is_active == 1)
+                                                    <form action="{{ route('jabatan_fungsional.set_nonactive',[$jabatanfungsional->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
