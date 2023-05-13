@@ -21,10 +21,10 @@ class PengumumanController extends Controller
             $pengumumans = Pengumuman::paginate(10);
         }
         return view('backend/pengumumans.index',[
-            'pengumumans'         =>  $pengumumans,
-            'isi_pengumuman'      =>  $isi_pengumuman,
+            'pengumumans'    =>  $pengumumans,
         ]);
     }
+
 
     public function create(){
         return view('backend/pengumumans.create');

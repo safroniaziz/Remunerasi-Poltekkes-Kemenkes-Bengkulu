@@ -47,21 +47,21 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($pangkatgolongans as $index => $pangkatgolongans)
+                                    @foreach ($pangkatgolongans as $index => $pangkatgolongan)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td style="text-align: center;">{{ $pangkatgolongans->nip }}</a></td>
-                                            <td style="text-align: center;">{{ $pangkatgolongans->nama_pangkat }}</a></td>
-                                            <td style="text-align: center;">{{ $pangkatgolongans->golongan }}</a></td>
-                                            <td style="text-align: center;">{{ $pangkatgolongans->tmt_pangkat_golongan }}</td>
+                                            <td style="text-align: center;">{{ $pangkatgolongan->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $pangkatgolongan->nama_pangkat }}</a></td>
+                                            <td style="text-align: center;">{{ $pangkatgolongan->golongan }}</a></td>
+                                            <td style="text-align: center;">{{ $pangkatgolongan->tmt_pangkat_golongan }}</td>
                                             <td>
-                                                @if ($pangkatgolongans->is_active == 1)
-                                                    <form action="{{ route('pangkat_golongan.set_nonactive',[$pangkatgolongans->nip]) }}" method="POST">
+                                                @if ($pangkatgolongan->is_active == 1)
+                                                    <form action="{{ route('pangkat_golongan.set_nonactive',[$pangkatgolongan->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('pangkat_golongan.set_active',[$pangkatgolongans->nip]) }}" method="POST">
+                                                    <form action="{{ route('pangkat_golongan.set_active',[$pangkatgolongan->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
@@ -71,10 +71,10 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('pangkat_golongan.edit',[$pangkatgolongans->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                        <a href="{{ route('pangkat_golongan.edit',[$pangkatgolongan->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                    </td>
                                                     <td>
-                                                        <form action="{{ route('pangkat_golongan.delete',[$pangkatgolongans->id]) }}" method="POST">
+                                                        <form action="{{ route('pangkat_golongan.delete',[$pangkatgolongan->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                         </form>

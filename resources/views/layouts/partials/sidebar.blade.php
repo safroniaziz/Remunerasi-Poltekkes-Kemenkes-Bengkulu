@@ -50,20 +50,30 @@
         <span>Data Nilai Ewmp</span>
     </a>
 </li>
+<li class="{{ set_active('presensi') }}">
+    <a href="{{ route('presensi') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Data presensi</span>
+    </a>
+</li>
 <li class="{{ set_active('pengumuman') }}">
     <a href="{{ route('pengumuman') }}">
         <i class="fa fa-info-circle"></i>
         <span>Data Pengumuman</span>
     </a>
 </li>
-
-{{-- <li class="header" style="font-weight:bold">PESAN & PENGUMUMAN</li>
-<li class="{{ set_active('pesan') }}">
-    <a href="{{ route('pesan') }}">
-        <i class="fa fa-envelope-o"></i>
-        <span>Pesan Masuk</span>
+<li class="{{ set_active('riwayat_jabatan_dt') }}">
+    <a href="{{ route('riwayat_jabatan_dt') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Data Riwayat Jabatan DT</span>
     </a>
-</li> --}}
+</li>
+<li class="{{ set_active('riwayat_point') }}">
+    <a href="{{ route('riwayat_point') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Data Riwayat Point</span>
+    </a>
+</li>
 
 <li class="header" style="font-weight:bold">PENGATURAN</li>
 <li class="{{ set_active('periode_penilaian') }}">
@@ -72,3 +82,4 @@
         <span>Periode Penilaian</span>
     </a>
 </li>
+

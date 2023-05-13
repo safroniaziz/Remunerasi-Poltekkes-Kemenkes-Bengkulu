@@ -46,7 +46,7 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($jabatanfungsionals as $index => $jabatanfungsionals)
+                                    @foreach ($jabatanfungsionals as $index => $jabatanfungsional)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td style="text-align: center;">{{ $jabatanfungsionals->nip }}</a></td>
@@ -59,7 +59,7 @@
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('jabatan_fungsional.set_active',[$jabatanfungsionals->nip]) }}" method="POST">
+                                                    <form action="{{ route('jabatan_fungsional.set_active',[$jabatanfungsional->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
@@ -69,10 +69,10 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('jabatan_fungsional.edit',[$jabatanfungsionals->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                        <a href="{{ route('jabatan_fungsional.edit',[$jabatanfungsional->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                    </td>
                                                     <td>
-                                                        <form action="{{ route('jabatan_fungsional.delete',[$jabatanfungsionals->id]) }}" method="POST">
+                                                        <form action="{{ route('jabatan_fungsional.delete',[$jabatanfungsional->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                         </form>

@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('riwayat_points', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('rubrik_id');
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18)->unique();
-            $table->string('jumlah_kehadiran');
+            $table->string('point');
             $table->timestamps();
+
+            $table->foreign('rubrik_id')->references('id')->on('rubriks');
+            $table->foreign('periode_id')->references('id')->on('periodes');
+            $table->foreign('nip')->references('nip')->on('pegawais');
         });
     }
 

@@ -50,26 +50,26 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($jabatandts as $index => $jabatandts)
+                                    @foreach ($jabatandts as $index => $jabatandt)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>
-                                            <a href="" style="font-weight:600;">{{ $jabatandts->nama_jabatan_dt }}</a></td>
-                                            <td style="text-align: center;">{{ $jabatandts->grade ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatandts->harga_point_dt ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatandts->job_value ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatandts->pir }}</td>
-                                            <td style="text-align: center;">{{ $jabatandts->harga_jabatan }}</td>
-                                            <td style="text-align: center;">{{ $jabatandts->gaji_blu }}</td>
-                                            <td style="text-align: center;">{{ $jabatandts->insentif_maximum }}</td>
+                                            <a href="" style="font-weight:600;">{{ $jabatandt->nama_jabatan_dt }}</a></td>
+                                            <td style="text-align: center;">{{ $jabatandt->grade ?? '-' }}</td>
+                                            <td style="text-align: center;">{{ $jabatandt->harga_point_dt ?? '-' }}</td>
+                                            <td style="text-align: center;">{{ $jabatandt->job_value ?? '-' }}</td>
+                                            <td style="text-align: center;">{{ $jabatandt->pir }}</td>
+                                            <td style="text-align: center;">{{ $jabatandt->harga_jabatan }}</td>
+                                            <td style="text-align: center;">{{ $jabatandt->gaji_blu }}</td>
+                                            <td style="text-align: center;">{{ $jabatandt->insentif_maximum }}</td>
                                             <td>
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a href="{{ route('jabatan_dt.edit',[$jabatandts->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a href="{{ route('jabatan_dt.edit',[$jabatandt->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                        </td>
                                                         <td>
-                                                            <form action="{{ route('jabatan_dt.delete',[$jabatandts->id]) }}" method="POST">
+                                                            <form action="{{ route('jabatan_dt.delete',[$jabatandt->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                             </form>

@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('subTitle','Data Kelompok Rubrik')
-@section('page','Data Kelompok Rubrik')
-@section('subPage','Semua Data Kelompok Rubrik')
+@section('subTitle','Data Riwayat Jabatan DT')
+@section('page','Data Riwayat Jabatan DT')
+@section('subPage','Semua Data Riwayat Jabatan DT')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
-                <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-briefcase"></i>&nbsp;Manajemen Data Kelompok Rubrik
+                <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-wifungsionalh: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
+                    <i class="fa fa-briefcase"></i>&nbsp;Manajemen Data Riwayat Jabatan DT
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
@@ -25,17 +25,26 @@
                                     @else
                             @endif
                         </div>
-                        <div class="col-md-12">
-                            <div style="margin-bottom: 10px !important;">
-                                <a href="{{ route('kelompok_rubrik.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Kelompok Rubrik</a>
+                        <form method="GET">
+                            <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
+                                <label for="nip" class="col-form-label">Cari NIP</label>
+                                <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukan NIP..." value="{{$nip}}">
                             </div>
-                        </div>
+                            <div class="col-md-12" style="margin-bottom:10px !important;">
+                                <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
+                            </div>
+                        </form>
                         <div class="col-md-12 table-responsive">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
+                            <div class="pull-left" style="margin-bottom: 3px !important;">
+                                <a href="{{ route('riwayat_jabatan_dt.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Riwayat Jabatan DT</a>
+                            </div>
+                            <table class="table table-striped table-bordered" id="table" style="wifungsionalh:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
-                                        <th style=" vertical-align:middle">Nama Kelompok Rubrik</th>
+                                        <th style=" vertical-align:middle">NIP</th>
+                                        <th style=" vertical-align:middle">Nama Riwayat Jabatan DT</th>
+                                        <th style=" vertical-align:middle">TMT Riwayat Jabatan DT</th>
                                         <th style=" vertical-align:middle">Status</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
@@ -44,19 +53,20 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($kelompokrubriks as $index => $kelompokrubrik)
+                                    @foreach ($riwayatjabatandts as $index => $riwayatjabatandts)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
+                                            <td style="text-align: center;">{{ $riwayatjabatandts->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $riwayatjabatandts->nip }}</a></td>
+                                            <td style="text-align: center;">{{ $riwayatjabatandts->tmt_jabatan_dt }}</td>
                                             <td>
-                                            <td style="text-align: center;">{{ $kelompokrubriks->nama_kelompok_rubrik }}</td>
-                                            <td>
-                                                @if ($kelompokrubrik->is_active == 1)
-                                                    <form action="{{ route('kelompok_rubrik.set_nonactive',[$kelompokrubrik->id]) }}" method="POST">
+                                                @if ($riwayatjabatandts->is_active == 1)
+                                                    <form action="{{ route('riwayat_jabatan_dt.set_nonactive',[$riwayatjabatandts->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('kelompok_rubrik.set_active',[$kelompokrubrik->id]) }}" method="POST">
+                                                    <form action="{{ route('riwayat_jabatan_dt.set_active',[$riwayatjabatandts->nip]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
@@ -66,17 +76,17 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('kelompok_rubrik.edit',[$kelompokrubrik->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                        <a href="{{ route('riwayat_jabatan_dt.edit',[$riwayatjabatandts->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                    </td>
                                                     <td>
-                                                        <form action="{{ route('kelompok_rubrik.delete',[$kelompokrubrik->id]) }}" method="POST">
+                                                        <form action="{{ route('riwayat_jabatan_dt.delete',[$riwayatjabatandts->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                         </form>
                                                     </td>
                                                 </tr>
-                                            </table>
-                                           </td>
+                                        </table>
+                                        </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -88,12 +98,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable({
-                responsive : true,
-            });
-        } );
-    </script>
-@endpush
