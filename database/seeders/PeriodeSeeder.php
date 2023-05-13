@@ -20,6 +20,7 @@ class PeriodeSeeder extends Seeder
             'periode_siakad_id'     =>  $faker->randomDigit(),
             'semester'              =>  2,
             'tahun_ajaran'          =>  2022,
+            'bulan'                 =>  1,
             'bulan_pembayaran'      =>  1,
             'is_active'             => 1,
         ]);
