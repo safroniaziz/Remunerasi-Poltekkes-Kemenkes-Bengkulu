@@ -89,4 +89,41 @@
         <span>Rubrik 01 Perkuliahan Teori</span>
     </a>
 </li>
+<li class="{{ set_active('r_02_perkuliahan_praktikum') }}">
+    <a href="{{ route('r_02_perkuliahan_praktikum') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 02 Perkuliahan Praktikum</span>
+    </a>
+</li>
+<li class="{{ set_active('r_03_membimbing_pencapaian_kompetensi') }}">
+    <a href="{{ route('r_03_membimbing_pencapaian_kompetensi') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 03 Membimbing Tutorial Pencapaian Kompetensi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_04_membimbing_pendampingan_ukom') }}">
+    <a href="{{ route('r_04_membimbing_pendampingan_ukom') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 04 Membimbing Pendampingan UKOM</span>
+    </a>
+</li>
+<li class="{{ set_active('r_05_membimbing_praktik_pkk_pbl_klinik') }}">
+    <a href="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 05 Membimbing Praktik PKK PBL Klinik</span>
+    </a>
+</li>
+<li class="{{ set_active('r_07_membimbing_skripsi_lta_la_profesi') }}">
+    <a href="{{ route('r_06_menguji_ujian_osca') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 06 Menguji Ujian Osca</span>
+    </a>
+</li>
+{{--  <li class="{{ set_active('r_07_membimbing_skripsi_lta_la_profesi') }}">
+    <a href="{{ route('r_07_membimbing_skripsi_lta_la_profesi') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 07 Membimbing Skripsi LRA LA Profesi</span>
+    </a>
+</li>  --}}
+
 

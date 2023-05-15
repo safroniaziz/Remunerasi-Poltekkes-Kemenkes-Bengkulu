@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R01PerkuliahanTeori;
+use App\Models\R02PerkuliahanPraktikum;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class R01PerkuliahanTeoriController extends Controller
+class R02PerkuliahanPraktikumController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::select('nip','nama')->whereNotIn('nip',function($query) use ($pegawai) {
-            $query->select('nip')->from('r01_perkuliahan_teoris')->where('nip',$pegawai->nip);
+            $query->select('nip')->from('r02_perkuliahan_praktikums')->where('nip',$pegawai->nip);
          })->get();
-         $r01perkuliahanteoris = R01PerkuliahanTeori::orderBy('created_at','desc')->get();
+         $r02perkuliahanpraktikums = r02perkuliahanpraktikum::orderBy('created_at','desc')->get();
          $periodes = Periode::where('is_active','1')->get();
 
-         return view('backend/rubriks/r_01_perkuliahan_teoris.index',[
-            'pegawais'               =>  $pegawais,
-            'periodes'               =>  $periodes,
-            'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
+         return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[
+            'pegawais'                    =>  $pegawais,
+            'periodes'                    =>  $periodes,
+            'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikums,
         ]);
     }
 
@@ -50,7 +50,7 @@ class R01PerkuliahanTeoriController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $simpan = R01PerkuliahanTeori::create([
+        $simpan = R02PerkuliahanPraktikum::create([
             'periode_id'        =>  $request->periode_id,
             'nip'               =>  $request->nip,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -63,18 +63,18 @@ class R01PerkuliahanTeoriController extends Controller
 
         if ($simpan) {
             return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
+                'text'  =>  'Yeay, R 02 Perkuliahan Praktikum baru berhasil ditambahkan',
+                'url'   =>  url('/r_02_perkuliahan_praktikum/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
+            return response()->json(['text' =>  'Oopps, R 02 Perkuliahan Praktikum gagal disimpan']);
         }
     }
-    public function edit(R01PerkuliahanTeori $r01perkuliahanteori){
-        return $r01perkuliahanteori;
+    public function edit(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        return $r02perkuliahanpraktikum;
     }
 
-    public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
+    public function update(Request $request, R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
         $rules = [
             'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
@@ -99,7 +99,7 @@ class R01PerkuliahanTeoriController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
+        $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
             'periode_id'        =>  $request->periode_id,
             'nip'               =>  $request->nip,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -112,31 +112,32 @@ class R01PerkuliahanTeoriController extends Controller
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
+                'text'  =>  'Yeay, R 02 Perkuliahan Praktikum berhasil diubah',
+                'url'   =>  url('/r_02_perkuliahan_praktikum/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
+            return response()->json(['text' =>  'Oopps, R 02 Perkuliahan Praktikum anda gagal diubah']);
         }
     }
-    public function delete(R01PerkuliahanTeori $r01perkuliahanteori){
-        $delete = $r01perkuliahanteori->delete();
+    public function delete(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        $delete = $r02perkuliahanpraktikum->delete();
+
         if ($delete) {
             $notification = array(
-                'message' => 'Yeay, r01perkuliahanteori remunerasi berhasil dihapus',
+                'message' => 'Yeay, r02perkuliahanPraktikum remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('r_02_perkuliahan_praktikum')->with($notification);
         }else {
             $notification = array(
-                'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal dihapus',
+                'message' => 'Ooopps, r02perkuliahanPraktikum remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R01PerkuliahanTeori $r01perkuliahanteori){
-        $update = $r01perkuliahanteori->update([
+    public function bkdSetNonActive(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        $update = $r02perkuliahanpraktikum->update([
             'is_bkd' =>  0,
         ]);
         if ($update) {
@@ -144,7 +145,7 @@ class R01PerkuliahanTeoriController extends Controller
                 'message' => 'Yeay, data bkd berhasil dinonaktifkan',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('r_02_perkuliahan_praktikum')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, data bkd gagal dinonaktifkan',
@@ -154,8 +155,8 @@ class R01PerkuliahanTeoriController extends Controller
         }
     }
 
-    public function bkdSetActive(R01PerkuliahanTeori $r01perkuliahanteori){
-        $update = $r01perkuliahanteori->update([
+    public function bkdSetActive(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        $update = $r02perkuliahanpraktikum->update([
             'is_bkd' =>  1,
         ]);
         if ($update) {
@@ -163,7 +164,7 @@ class R01PerkuliahanTeoriController extends Controller
                 'message' => 'Yeay, data bkd berhasil diaktifkan',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('r_02_perkuliahan_praktikum')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, data bkd gagal diaktifkan',

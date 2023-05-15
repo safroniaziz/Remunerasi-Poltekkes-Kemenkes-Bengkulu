@@ -1,53 +1,72 @@
 <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_01_perkuliahan_teori.update') }}" method="POST" id="form-edit-R01">
+            <form action="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik.update') }}" method="POST" id="form-edit-R05">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit R 01 Perkuliahan Teori</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit R 05 Membimbing Praktik PKK PBL Klinik</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" name="r01perkuliahanteori_id_edit" id="r01perkuliahanteori_id_edit">
+                        <input type="hidden" name="r05membimbingpraktikpkkpblklinik_id_edit" id="r05membimbingpraktikpkkpblklinik_id_edit">
 
                         <div class="form-group col-md-12" >
-                            <label for="periode_id" class="col-form-label">Periode</label>
-                            <select name="periode_id" id="periode_id_edit" class="form-control @error('periode_id') is-invalid @enderror">
+                            <label for="periode_id" class="col-form-label">periode_id</label>
+                            <select name="periode_id" id="periode_id" class="form-control @error('periode_id') is-invalid @enderror">
                                 <option disabled selected>-- Pilih periode --</option>
                                 @foreach ($periodes as $periode)
                                     <option
+                                    {{--  @if ($r05membimbingpraktikpkkpblklinik->periode_id == $periode->id)
+                                        selected
+                                    @endif  --}}
                                     value="{{ $periode->id }}">{{ $periode->nama_periode }}
                                     @endforeach</option>
                             </select>
+                            <div>
+                                @if ($errors->has('periode_id'))
+                                    <small class="form-text text-danger">{{ $errors->first('periode_id') }}</small>
+                                @endif
+                            </div>
                         </div>
+
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip_edit" class="form-control @error('nip') is-invalid @enderror">
+                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
                                 <option disabled selected>-- Pilih NIP --</option>
                                 @foreach ($pegawais as $pegawai)
                                     <option
+                                    {{--  @if ($r05membimbingpraktikpkkpblklinik->nip == $pegawai->nip)
+                                        selected
+                                    @endif  --}}
                                   value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
                                     @endforeach</option>
                             </select>
+                            <div>
+                                @if ($errors->has('nip'))
+                                    <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
+                                @endif
+                            </div>
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah SKS</label>
-                            <input type="text" class="form-control" id="jumlah_sks_edit" name="jumlah_sks">
+                            <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks">
+                            {{--  <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks" value="{{ $r01perkuliahanteori->jumlah_sks }}">  --}}
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah Mahasiswa</label>
-                            <input type="text" class="form-control" id="jumlah_mahasiswa_edit" name="jumlah_mahasiswa">
+                            <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa">
+                            {{--  <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa" value="{{ $r01perkuliahanteori->jumlah_mahasiswa }}">  --}}
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah Tatap Muka</label>
-                            <input type="text" class="form-control" id="jumlah_tatap_muka_edit" name="jumlah_tatap_muka">
+                            <input type="text" class="form-control" id="jumlah_tatap_muka" name="jumlah_tatap_muka">
+                            {{--  <input type="text" class="form-control" id="jumlah_tatap_muka" name="jumlah_tatap_muka" value="{{ $r01perkuliahanteori->jumlah_tatap_muka }}">  --}}
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -64,7 +83,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-edit-R01',function (event){
+        $(document).on('submit','#form-edit-R05',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

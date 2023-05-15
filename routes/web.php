@@ -13,6 +13,14 @@ use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\RiwayatPointController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
+use App\Http\Controllers\R02PerkuliahanPraktikumController;
+use App\Http\Controllers\R03MembimbingPencapaianKompetensiController;
+use App\Http\Controllers\R04MembimbingPendampinganUkomController;
+use App\Http\Controllers\R05MembimbingPraktikPkkPblKlinikController;
+use App\Http\Controllers\R06MengujiUjianOscaController;
+
+
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -141,9 +149,9 @@ Route::controller(RiwayatPointController::class)->group(function () {
     Route::get('/manajemen_riwayat_point', 'index')->name('riwayat_point');
     Route::get('/manajemen_riwayat_point/create', 'create')->name('riwayat_point.create');
     Route::post('/manajemen_riwayat_point', 'store')->name('riwayat_point.store');
-    Route::get('/manajemen_riwayat_point/{riwayat_point}/edit', 'edit')->name('riwayat_point.edit');
+    Route::get('/manajemen_riwayat_point/{riwayatpoint}/edit', 'edit')->name('riwayat_point.edit');
     Route::patch('/manajemen_riwayat_point/update', 'update')->name('riwayat_point.update');
-    Route::delete('/manajemen_riwayat_point/{riwayat_point}/delete', 'delete')->name('riwayat_point.delete');
+    Route::delete('/manajemen_riwayat_point/{riwayatpoint}/delete', 'delete')->name('riwayat_point.delete');
 });
 // End Of Data Master Route
 
@@ -179,10 +187,60 @@ Route::controller(R01PerkuliahanTeoriController::class)->group(function () {
     Route::get('/r_01_perkuliahan_teori', 'index')->name('r_01_perkuliahan_teori');
     Route::get('/r_01_perkuliahan_teori/create', 'create')->name('r_01_perkuliahan_teori.create');
     Route::post('/r_01_perkuliahan_teori', 'store')->name('r_01_perkuliahan_teori.store');
-    Route::patch('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/set_active', 'setActive')->name('r_01_perkuliahan_teori.set_active');
-    Route::patch('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/set_nonactive', 'setnonActive')->name('r_01_perkuliahan_teori.set_nonactive');
-    Route::get('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/edit', 'edit')->name('r_01_perkuliahan_teori.edit');
+    Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/bkdset_active', 'bkdSetActive')->name('r_01_perkuliahan_teori.bkd_set_active');
+    Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/bkdset_nonactive', 'bkdSetnonActive')->name('r_01_perkuliahan_teori.bkd_set_nonactive');
+    Route::get('/r_01_perkuliahan_teori/{r01perkuliahanteori}/edit', 'edit')->name('r_01_perkuliahan_teori.edit');
     Route::patch('/r_01_perkuliahan_teori/update', 'update')->name('r_01_perkuliahan_teori.update');
-    Route::delete('/r_01_perkuliahan_teori/{r_01_perkuliahan_teori}/delete', 'delete')->name('r_01_perkuliahan_teori.delete');
+    Route::delete('/r_01_perkuliahan_teori/{r01perkuliahanteori}/delete', 'delete')->name('r_01_perkuliahan_teori.delete');
+});
+Route::controller(R02PerkuliahanPraktikumController::class)->group(function () {
+    Route::get('/r_02_perkuliahan_praktikum', 'index')->name('r_02_perkuliahan_praktikum');
+    Route::get('/r_02_perkuliahan_praktikum/create', 'create')->name('r_02_perkuliahan_praktikum.create');
+    Route::post('/r_02_perkuliahan_praktikum', 'store')->name('r_02_perkuliahan_praktikum.store');
+    Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/bkdset_active', 'bkdSetActive')->name('r_02_perkuliahan_praktikum.bkd_set_active');
+    Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/bkdset_nonactive', 'bkdSetnonActive')->name('r_02_perkuliahan_praktikum.bkd_set_nonactive');
+    Route::get('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/edit', 'edit')->name('r_02_perkuliahan_praktikum.edit');
+    Route::patch('/r_02_perkuliahan_praktikum/update', 'update')->name('r_02_perkuliahan_praktikum.update');
+    Route::delete('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/delete', 'delete')->name('r_02_perkuliahan_praktikum.delete');
+});
+Route::controller(R03MembimbingPencapaianKompetensiController::class)->group(function () {
+    Route::get('/r_03_membimbing_pencapaian_kompetensi', 'index')->name('r_03_membimbing_pencapaian_kompetensi');
+    Route::get('/r_03_membimbing_pencapaian_kompetensi/create', 'create')->name('r_03_membimbing_pencapaian_kompetensi.create');
+    Route::post('/r_03_membimbing_pencapaian_kompetensi', 'store')->name('r_03_membimbing_pencapaian_kompetensi.store');
+    Route::patch('/r_03_membimbing_pencapaian_kompetensi/{r03bimbingcapaiankompetensi}/bkdset_active', 'bkdSetActive')->name('r_03_membimbing_pencapaian_kompetensi.bkd_set_active');
+    Route::patch('/r_03_membimbing_pencapaian_kompetensi/{r03bimbingcapaiankompetensi}/bkdset_nonactive', 'bkdSetnonActive')->name('r_03_membimbing_pencapaian_kompetensi.bkd_set_nonactive');
+    Route::get('/r_03_membimbing_pencapaian_kompetensi/{r03bimbingcapaiankompetensi}/edit', 'edit')->name('r_03_membimbing_pencapaian_kompetensi.edit');
+    Route::patch('/r_03_membimbing_pencapaian_kompetensi/update', 'update')->name('r_03_membimbing_pencapaian_kompetensi.update');
+    Route::delete('/r_03_membimbing_pencapaian_kompetensi/{r03bimbingcapaiankompetensi}/delete', 'delete')->name('r_03_membimbing_pencapaian_kompetensi.delete');
+});
+Route::controller(R04MembimbingPendampinganUkomController::class)->group(function () {
+    Route::get('/r_04_membimbing_pendampingan_ukom', 'index')->name('r_04_membimbing_pendampingan_ukom');
+    Route::get('/r_04_membimbing_pendampingan_ukom/create', 'create')->name('r_04_membimbing_pendampingan_ukom.create');
+    Route::post('/r_04_membimbing_pendampingan_ukom', 'store')->name('r_04_membimbing_pendampingan_ukom.store');
+    Route::patch('/r_04_membimbing_pendampingan_ukom/{r04membimbingpendampinganukom}/bkdset_active', 'bkdSetActive')->name('r_04_membimbing_pendampingan_ukom.bkd_set_active');
+    Route::patch('/r_04_membimbing_pendampingan_ukom/{r04membimbingpendampinganukom}/bkdset_nonactive', 'bkdSetnonActive')->name('r_04_membimbing_pendampingan_ukom.bkd_set_nonactive');
+    Route::get('/r_04_membimbing_pendampingan_ukom/{r04membimbingpendampinganukom}/edit', 'edit')->name('r_04_membimbing_pendampingan_ukom.edit');
+    Route::patch('/r_04_membimbing_pendampingan_ukom/update', 'update')->name('r_04_membimbing_pendampingan_ukom.update');
+    Route::delete('/r_04_membimbing_pendampingan_ukom/{r04membimbingpendampinganukom}/delete', 'delete')->name('r_04_membimbing_pendampingan_ukom.delete');
+});
+Route::controller(R05MembimbingPraktikPkkPblKlinikController::class)->group(function () {
+    Route::get('/r_05_membimbing_praktik_pkk_pbl_klinik', 'index')->name('r_05_membimbing_praktik_pkk_pbl_klinik');
+    Route::get('/r_05_membimbing_praktik_pkk_pbl_klinik/create', 'create')->name('r_05_membimbing_praktik_pkk_pbl_klinik.create');
+    Route::post('/r_05_membimbing_praktik_pkk_pbl_klinik', 'store')->name('r_05_membimbing_praktik_pkk_pbl_klinik.store');
+    Route::patch('/r_05_membimbing_praktik_pkk_pbl_klinik/{r05membimbingpraktikpkkpblklinik}/bkdset_active', 'bkdSetActive')->name('r_05_membimbing_praktik_pkk_pbl_klinik.bkd_set_active');
+    Route::patch('/r_05_membimbing_praktik_pkk_pbl_klinik/{r05membimbingpraktikpkkpblklinik}/bkdset_nonactive', 'bkdSetnonActive')->name('r_05_membimbing_praktik_pkk_pbl_klinik.bkd_set_nonactive');
+    Route::get('/r_05_membimbing_praktik_pkk_pbl_klinik/{r05membimbingpraktikpkkpblklinik}/edit', 'edit')->name('r_05_membimbing_praktik_pkk_pbl_klinik.edit');
+    Route::patch('/r_05_membimbing_praktik_pkk_pbl_klinik/update', 'update')->name('r_05_membimbing_praktik_pkk_pbl_klinik.update');
+    Route::delete('/r_05_membimbing_praktik_pkk_pbl_klinik/{r05membimbingpraktikpkkpblklinik}/delete', 'delete')->name('r_05_membimbing_praktik_pkk_pbl_klinik.delete');
+});
+Route::controller(R06MengujiUjianOscaController::class)->group(function () {
+    Route::get('/r_06_menguji_ujian_osca', 'index')->name('r_06_menguji_ujian_osca');
+    Route::get('/r_06_menguji_ujian_osca/create', 'create')->name('r_06_menguji_ujian_osca.create');
+    Route::post('/r_06_menguji_ujian_osca', 'store')->name('r_06_menguji_ujian_osca.store');
+    Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/bkdset_active', 'bkdSetActive')->name('r_06_menguji_ujian_osca.bkd_set_active');
+    Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/bkdset_nonactive', 'bkdSetnonActive')->name('r_06_menguji_ujian_osca.bkd_set_nonactive');
+    Route::get('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/edit', 'edit')->name('r_06_menguji_ujian_osca.edit');
+    Route::patch('/r_06_menguji_ujian_osca/update', 'update')->name('r_06_menguji_ujian_osca.update');
+    Route::delete('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/delete', 'delete')->name('r_06_menguji_ujian_osca.delete');
 });
 // End Of Pengaturan/Setting Rubrik
