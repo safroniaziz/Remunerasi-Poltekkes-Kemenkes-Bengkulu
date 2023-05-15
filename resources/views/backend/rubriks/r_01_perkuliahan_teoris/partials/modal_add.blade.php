@@ -1,21 +1,37 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_01_perkuliahan_teori.store') }}" method="POST" id="form-tambah-r-01-perkuliahan-teori">
+            <form action="{{ route('r_01_perkuliahan_teori.store') }}" method="POST" id="form-tambah-r-01">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Data Rubrik </p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah R 01 Perkuliahan Teori</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Pilih Periode terlebih dahulu</label>
+
+                        <div class="form-group col-md-12" >
+                            <label for="periode_id" class="col-form-label">periode_id</label>
+                            <select name="periode_id" id="periode_id" class="form-control @error('periode_id') is-invalid @enderror">
+                                <option disabled selected>-- Pilih periode --</option>
+                                @foreach ($periodes as $periode)
+                                    <option value="{{ $periode->id }}">{{ $periode->nama_periode }}</option>
+                                @endforeach
+                            </select>
+                            <div>
+                                @if ($errors->has('periode_id'))
+                                    <small class="form-text text-danger">{{ $errors->first('periode_id') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12" >
+                            <label for="nip" class="col-form-label">NIP</label>
                             <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
                                 <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($dosens as $dosen)
-                                    <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                @foreach ($pegawais as $pegawai)
+                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
                                 @endforeach
                             </select>
                             <div>
@@ -25,35 +41,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Jumlah SKS</label>
+                            <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks">
+                        </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Pilih NIP terlebih dahulu</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($dosens as $dosen)
-                                    <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
-                                @endforeach
-                            </select>
-                            <div>
-                                @if ($errors->has('nip'))
-                                    <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
-                                @endif
-                            </div>
+                            <label for="exampleInputEmail1">Jumlah Mahasiswa</label>
+                            <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa">
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Jumlah SKS</label>
-                            <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks" >
-                        </div>
-
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Jumlah tatap muka</label>
-                            <input type="text" class="form-control" id="jumlah_tatap_muka" name="jumlah_tatap_muka" >
-                        </div>
-
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Jumlah mahasiswa</label>
-                            <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa" >
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Jumlah Tatap Muka</label>
+                            <input type="text" class="form-control" id="jumlah_tatap_muka" name="jumlah_tatap_muka">
                         </div>
 
                     </div>
@@ -72,7 +72,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-r-01-perkuliahan-teori',function (event){
+        $(document).on('submit','#form-tambah-r-01',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),
@@ -93,5 +93,9 @@
                 }
             })
         });
+
+        $('#tmt_jabatan_fungsional').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
     </script>
 @endpush

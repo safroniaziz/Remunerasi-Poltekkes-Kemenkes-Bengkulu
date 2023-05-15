@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R01PerkuliahanTeori;
+use App\Models\R07MembimbingSkripsiLtaLaProfesi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class R01PerkuliahanTeoriController extends Controller
+
+class R07MembimbingSkripsiLtaLaProfesiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::select('nip','nama')->whereNotIn('nip',function($query) use ($pegawai) {
-            $query->select('nip')->from('r01_perkuliahan_teoris')->where('nip',$pegawai->nip);
+            $query->select('nip')->from('r07_membimbing_skripsi_lta_la_profesis')->where('nip',$pegawai->nip);
          })->get();
-         $r01perkuliahanteoris = R01PerkuliahanTeori::orderBy('created_at','desc')->get();
+         $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::orderBy('created_at','desc')->get();
          $periodes = Periode::where('is_active','1')->get();
 
-         return view('backend/rubriks/r_01_perkuliahan_teoris.index',[
-            'pegawais'               =>  $pegawais,
-            'periodes'               =>  $periodes,
-            'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
+         return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
+            'pegawais'                =>  $pegawais,
+            'periodes'                =>  $periodes,
+            'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,
         ]);
     }
 
@@ -29,20 +30,14 @@ class R01PerkuliahanTeoriController extends Controller
         $rules = [
             'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
-            'jumlah_sks'            =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
             'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
-            'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
-            'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
-            'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
-            'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -50,11 +45,9 @@ class R01PerkuliahanTeoriController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $simpan = R01PerkuliahanTeori::create([
+        $simpan = R07MembimbingSkripsiLtaLaProfesi::create([
             'periode_id'        =>  $request->periode_id,
             'nip'               =>  $request->nip,
-            'jumlah_sks'        =>  $request->jumlah_sks,
-            'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
@@ -63,47 +56,38 @@ class R01PerkuliahanTeoriController extends Controller
 
         if ($simpan) {
             return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
+                'text'  =>  'Yeay, R 07 Membimbing Skirpsi LTA LA Profesi baru berhasil ditambahkan',
+                'url'   =>  url('/r_07_membimbing_skripsi_lta_la_profesi/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
+            return response()->json(['text' =>  'Oopps, R 07 Membimbing Skirpsi LTA LA Profesi gagal disimpan']);
         }
     }
-    public function edit(R01PerkuliahanTeori $r01perkuliahanteori){
-        return $r01perkuliahanteori;
+    public function edit(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        return $r07membimbingskripsiltalaprofesi;
     }
 
-    public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
+    public function update(Request $request, R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
         $rules = [
             'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
-            'jumlah_sks'            =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
             'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
-            'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
-            'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
-            'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
-            'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-
-        $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
+        $update = R07MembimbingSkripsiLtaLaProfesi::where('id',$request->r07membimbingskripsiltalaprofesi_id_edit)->update([
             'periode_id'        =>  $request->periode_id,
             'nip'               =>  $request->nip,
-            'jumlah_sks'        =>  $request->jumlah_sks,
-            'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
@@ -112,31 +96,31 @@ class R01PerkuliahanTeoriController extends Controller
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
+                'text'  =>  'Yeay, R 07 Membimbing Skirpsi LTA LA Profesi berhasil diubah',
+                'url'   =>  url('/r_07_membimbing_skripsi_lta_la_profesi/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
+            return response()->json(['text' =>  'Oopps, R 07 Membimbing Skirpsi LTA LA Profesi anda gagal diubah']);
         }
     }
-    public function delete(R01PerkuliahanTeori $r01perkuliahanteori){
-        $delete = $r01perkuliahanteori->delete();
+    public function delete(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        $delete = $r07membimbingskripsiltalaprofesi->delete();
         if ($delete) {
             $notification = array(
-                'message' => 'Yeay, r01perkuliahanteori remunerasi berhasil dihapus',
+                'message' => 'Yeay, R07MembimbingSkripsiLtaLaProfesi remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
         }else {
             $notification = array(
-                'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal dihapus',
+                'message' => 'Ooopps, R07MembimbingSkripsiLtaLaProfesi remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R01PerkuliahanTeori $r01perkuliahanteori){
-        $update = $r01perkuliahanteori->update([
+    public function bkdSetNonActive(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        $update = $r07membimbingskripsiltalaprofesi->update([
             'is_bkd' =>  0,
         ]);
         if ($update) {
@@ -144,7 +128,7 @@ class R01PerkuliahanTeoriController extends Controller
                 'message' => 'Yeay, data bkd berhasil dinonaktifkan',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, data bkd gagal dinonaktifkan',
@@ -154,8 +138,8 @@ class R01PerkuliahanTeoriController extends Controller
         }
     }
 
-    public function bkdSetActive(R01PerkuliahanTeori $r01perkuliahanteori){
-        $update = $r01perkuliahanteori->update([
+    public function bkdSetActive(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        $update = $r07membimbingskripsiltalaprofesi->update([
             'is_bkd' =>  1,
         ]);
         if ($update) {
@@ -163,7 +147,7 @@ class R01PerkuliahanTeoriController extends Controller
                 'message' => 'Yeay, data bkd berhasil diaktifkan',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, data bkd gagal diaktifkan',
