@@ -19,7 +19,8 @@ return new class extends Migration
             $table->date('tmt_jabatan_fungsional');
             $table->boolean('is_active');
             $table->timestamps();
-
+            $table->softDeletes();
+            
             $table->foreign('nip')->references('nip')->on('pegawais');
         });
     }

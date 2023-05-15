@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('ewmp');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('kelompok_rubrik_id')->references('id')->on('kelompok_rubriks');
 

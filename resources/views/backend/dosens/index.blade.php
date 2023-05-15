@@ -41,14 +41,16 @@
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th style=" vertical-align:middle">No</th>
-                                        <th style=" vertical-align:middle">Nama Lengkap</th>
-                                        <th style="text-align:center; vertical-align:middle">Jenis Kelamin</th>
-                                        <th style="text-align:center; vertical-align:middle">Serdos</th>
-                                        <th style="text-align:center; vertical-align:middle">Nomor Sertifikat Serdos</th>
-                                        <th style="text-align:center; vertical-align:middle">Aktif</th>
-                                        <th style="text-align:center; vertical-align:middle">Riwayat Jabatan</th>
-                                        <th style="text-align:center; vertical-align:middle">Aksi</th>
+                                        <th rowspan="2" style=" vertical-align:middle">No</th>
+                                        <th rowspan="2" style=" vertical-align:middle">Nama Lengkap</th>
+                                        <th rowspan="2" style="text-align:center; vertical-align:middle">Jenis Kelamin</th>
+                                        <th rowspan="2" style="text-align:center; vertical-align:middle">Aktif</th>
+                                        <th style="text-align:center; vertical-align:middle" colspan="2">Riwayat</th>
+                                        <th rowspan="2" style="text-align:center; vertical-align:middle">Aksi</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:center; vertical-align:middle">Jabatan</th>
+                                        <th style="text-align:center; vertical-align:middle">Pangkat & Golongan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,20 +75,6 @@
                                                     <small class="label label-warning"><i class="fa fa-female"></i>&nbsp; Perempuan</small>
                                                 @endif
                                             </td>
-                                            <td style="text-align: center">
-                                                @if ($dosen->is_serdos == 1)
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp; Ya</small>
-                                                @else
-                                                    <small class="label label-danger"><i class="fa fa-minus"></i>&nbsp; Tidak</small>
-                                                @endif
-                                            </td>
-                                            <td style="text-align: center">
-                                                @if ($dosen->is_serdos == 1)
-                                                    {{ $dosen->no_sertifikat_serdos }}
-                                                @else
-                                                    <small class="text-danger"><i class="fa fa-minus"></i></small>
-                                                @endif
-                                            </td>
                                            <td>
                                                 @if ($dosen->is_active == 1)
                                                     <form action="{{ route('dosen.set_nonactive',[$dosen->nip]) }}" method="POST">
@@ -103,6 +91,9 @@
                                            <td class="text-center">
                                                 <a href="{{ route('dosen.riwayat_jabatan_fungsional',[$dosen->slug]) }}" class="btn btn-success btn-sm btn-flat">{{ $dosen->jabatanFungsionals()->count() }}</a>
                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('dosen.riwayat_pangkat_golongan',[$dosen->slug]) }}" class="btn btn-success btn-sm btn-flat">{{ $dosen->pangkatGolongans()->count() }}</a>
+                                            </td>
                                            <td>
                                                 <a href="{{ route('dosen.edit',[$dosen->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                            </td>

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('nip',18);
             $table->string('point');
             $table->timestamps();
-
+            $table->softDeletes();
+            
             // $table->foreign('rubrik_id')->references('id')->on('rubriks');
             $table->foreign('periode_id')->references('id')->on('periodes');
             $table->foreign('nip')->references('nip')->on('pegawais');

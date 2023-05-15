@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('is_verified');
             $table->double('point')->nullable();
             $table->timestamps();
-
+            $table->softDeletes();
             $table->foreign('periode_id')->references('id')->on('periodes');
             $table->foreign('nip')->references('nip')->on('pegawais');
         });

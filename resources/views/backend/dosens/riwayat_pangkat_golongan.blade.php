@@ -29,7 +29,7 @@
                             <div style="margin-bottom: 10px !important;">
                                 <a href="{{ route('dosen') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Riwayat Jabatan Fungsional
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Riwayat Pangkat & Golongan
                                 </button>
                             </div>
                         </div>
@@ -39,8 +39,9 @@
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Dosen</th>
-                                        <th style=" vertical-align:middle">Jabatan fungsional</th>
-                                        <th style=" vertical-align:middle">TMT Jabatan</th>
+                                        <th style=" vertical-align:middle">Pangkat</th>
+                                        <th style=" vertical-align:middle">Golongan</th>
+                                        <th style=" vertical-align:middle">TMT Pangkat & Golongan</th>
                                         <th style=" vertical-align:middle; text-align:center">Status</th>
                                         <th style=" vertical-align:middle; text-align:center">Ubah Status</th>
                                         <th style=" vertical-align:middle; text-align:center">Aksi</th>
@@ -50,31 +51,32 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($pegawai->jabatanFungsionals()->orderBy('created_at','desc')->get() as $index => $jabatanfungsional)
+                                    @foreach ($pegawai->pangkatGolongans()->orderBy('created_at','desc')->get() as $index => $pangkatGolongan)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td >{{ $pegawai->nama }}</a></td>
-                                            <td >{{ $jabatanfungsional->nama_jabatan_fungsional }}</a></td>
-                                            <td >{{ $jabatanfungsional->tmt_jabatan_fungsional->isoFormat('dddd, D MMMM Y') }}</td>
+                                            <td >{{ $pangkatGolongan->nama_pangkat }}</a></td>
+                                            <td >{{ $pangkatGolongan->golongan }}</a></td>
+                                            <td >{{ $pangkatGolongan->tmt_pangkat_golongan->isoFormat('dddd, D MMMM Y') }}</td>
                                             <td>
-                                                @if ($jabatanfungsional->is_active == 1)
+                                                @if ($pangkatGolongan->is_active == 1)
                                                     <label for="" class="label label-success"><i class="fa fa-check-circle"></i>&nbsp; Aktif</label>
                                                 @else
                                                     <label for="" class="label label-danger"><i class="fa fa-minus"></i>&nbsp; Tidak Aktif</label>
                                                 @endif
                                            </td>
                                            <td class="text-center">
-                                                @if ($jabatanfungsional->is_active == 1)
+                                                @if ($pangkatGolongan->is_active == 1)
                                                     <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                 @else
-                                                    <form action="{{ route('dosen.riwayat_jabatan_fungsional.set_active',[$pegawai->slug, $jabatanfungsional->id]) }}" method="POST">
+                                                    <form action="{{ route('dosen.riwayat_pangkat_golongan.set_active',[$pegawai->slug, $pangkatGolongan->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <form action="{{ route('dosen.riwayat_jabatan_fungsional.delete',[$pegawai->slug, $jabatanfungsional->id]) }}" method="POST">
+                                                <form action="{{ route('dosen.riwayat_pangkat_golongan.delete',[$pegawai->slug, $pangkatGolongan->id]) }}" method="POST">
                                                     {{ csrf_field() }} {{ method_field('DELETE') }}
                                                     <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                 </form>
@@ -84,9 +86,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/dosens.partials.modal_add')
+                        @include('backend/dosens.partials.modal_add_riwayat_pangkat_golongan')
                     </div>
-                    @include('backend/dosens.partials.modal_edit')
+                    @include('backend/dosens.partials.modal_edit_riwayat_pangkat_golongan')
                 </div>
             </section>
         </div>

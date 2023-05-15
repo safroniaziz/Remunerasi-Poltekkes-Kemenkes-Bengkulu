@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('remun_dibayarkan');
             $table->boolean('is_active');
             $table->timestamps();
-
+            $table->softDeletes();
 
             $table->foreign('periode_id')->references('id')->on('periodes');
             $table->foreign('nip')->references('nip')->on('pegawais');

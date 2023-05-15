@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('gaji_blu');
             $table->string('insentif_maximum');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

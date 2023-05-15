@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('bulan_pembayaran');
             $table->boolean('is_active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

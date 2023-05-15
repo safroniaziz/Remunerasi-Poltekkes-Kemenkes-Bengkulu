@@ -6,7 +6,19 @@
 </li>
 
 <li class="header" style="font-weight:bold">DATA MASTER</li>
-<li class="{{ set_active('dosen') }}">
+<li class="{{ set_active([
+    'dosen',
+    'dosen.riwayat_jabatan_fungsional',
+    'dosen.riwayat_jabatan_fungsional.update',
+    'dosen.riwayat_jabatan_fungsional.store',
+    'dosen.riwayat_jabatan_fungsional.set_active',
+    'dosen.riwayat_jabatan_fungsional.delete',
+    'dosen.riwayat_pangkat_golongan',
+    'dosen.riwayat_pangkat_golongan.update',
+    'dosen.riwayat_pangkat_golongan.store',
+    'dosen.riwayat_pangkat_golongan.set_active',
+    'dosen.riwayat_pangkat_golongan.delete'
+]) }}">
     <a href="{{ route('dosen') }}">
         <i class="fa fa-users"></i>
         <span>Data Dosen</span>
@@ -16,7 +28,6 @@
 <li class="treeview {{ set_active([
         'jabatan_dt','jabatan_dt.create','jabatan_dt.edit',
         'jabatan_ds','jabatan_ds.create','jabatan_ds.edit',
-        'jabatan_fungsional','jabatan_ds.create','jabatan_ds.edit'
     ]) }}">
     <a href="#">
         <i class="fa fa-file-text-o"></i> <span>Grade & Harga Jabatan</span>

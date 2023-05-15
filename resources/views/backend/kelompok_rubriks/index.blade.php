@@ -27,7 +27,9 @@
                         </div>
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
-                                <a href="{{ route('kelompok_rubrik.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Kelompok Rubrik</a>
+                                <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Kelompok Rubrik
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-12 table-responsive">
@@ -36,7 +38,8 @@
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Kelompok Rubrik</th>
-                                        <th style=" vertical-align:middle">Status</th>
+                                        <th style=" vertical-align:middle; text-align:center;">Status</th>
+                                        <th style=" vertical-align:middle; text-align:center;">Ubah Status</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -47,9 +50,15 @@
                                     @foreach ($kelompokrubriks as $index => $kelompokrubrik)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>
-                                            <td style="text-align: center;">{{ $kelompokrubriks->nama_kelompok_rubrik }}</td>
-                                            <td>
+                                            <td>{{ $kelompokrubrik->nama_kelompok_rubrik }}</td>
+                                            <td class="text-center">
+                                                @if ($kelompokrubrik->is_active == 1)
+                                                    <label for="" class="label label-success"><i class="fa fa-check-circle"></i>&nbsp; Aktif</label>
+                                                @else
+                                                    <label for="" class="label label-danger"><i class="fa fa-close"></i>&nbsp; Tidak Aktif</label>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
                                                 @if ($kelompokrubrik->is_active == 1)
                                                     <form action="{{ route('kelompok_rubrik.set_nonactive',[$kelompokrubrik->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
@@ -66,8 +75,8 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('kelompok_rubrik.edit',[$kelompokrubrik->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                                   </td>
+                                                        <a onclick="editKelompokRubrik({{ $kelompokrubrik->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                    </td>
                                                     <td>
                                                         <form action="{{ route('kelompok_rubrik.delete',[$kelompokrubrik->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
@@ -82,18 +91,61 @@
                                 </tbody>
                             </table>
                         </div>
+                        @include('backend/kelompok_rubriks.partials.modal_add')
                     </div>
+                    @include('backend/kelompok_rubriks.partials.modal_edit')
                 </div>
             </section>
         </div>
     </div>
 @endsection
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
                 responsive : true,
             });
         } );
+
+        function editKelompokRubrik(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            url = "{{ url('manajemen_kelompok_rubrik').'/' }}"+id+'/edit';
+            $.ajax({
+                url : url,
+                type : 'GET',
+                success : function(data){
+                    $('#modalEdit').modal('show');
+                    $('#kelompok_rubrik_id_edit').val(data.id);
+                    $('#nama_kelompok_rubrik_edit').val(data.nama_kelompok_rubrik);
+                },
+                error:function(){
+                    $('#gagal').show(100);
+                }
+            });
+            return false;
+        }
+ 
+        $('.show_confirm').click(function(event) {
+            var form =  $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: `Apakah Anda Yakin?`,
+                text: "Harap untuk memeriksa kembali sebelum menghapus data.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                form.submit();
+                }
+            });
+        });
     </script>
 @endpush

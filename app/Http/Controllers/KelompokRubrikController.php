@@ -10,17 +10,9 @@ use Illuminate\Support\Str;
 class KelompokRubrikController extends Controller
 {
     public function index(Request $request){
-        $nama_kelompok_rubrik = $request->query('nama_kelompok_rubrik');
-        if (!empty($nama_kelompok_rubrik)) {
-            $kelompokrubriks = KelompokRubrik::where('nama_kelompok_rubrik','LIKE','%'.$nama_kelompok_rubrik.'%')
-                                ->paginate(10);
-
-        }else {
-            $kelompokrubriks = KelompokRubrik::paginate(10);
-        }
+        $kelompokrubriks = KelompokRubrik::orderBy('created_at','desc')->get();
         return view('backend/kelompok_rubriks.index',[
             'kelompokrubriks'         =>  $kelompokrubriks,
-            'nama_kelompok_rubrik'    =>  $nama_kelompok_rubrik,
         ]);
     }
 
@@ -33,7 +25,7 @@ class KelompokRubrikController extends Controller
             'nama_kelompok_rubrik'       =>  'required',
         ];
         $text = [
-            'nama_kelompok_rubrik.required'  => 'nama Kelompok Rubrik harus diisi',
+            'nama_kelompok_rubrik.required'  => 'Nama Kelompok Rubrik harus diisi',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -57,17 +49,15 @@ class KelompokRubrikController extends Controller
         }
     }
     public function edit(KelompokRubrik $kelompokrubrik){
-        return view('backend.kelompok_rubriks.edit',[
-            'kelompokrubrik'   =>  $kelompokrubrik,
-        ]);
+        return $kelompokrubrik;
     }
 
     public function update(Request $request, KelompokRubrik $kelompokrubrik){
         $rules = [
-            'nama_kelompok_rubrik'       =>  'required',
+            'nama_kelompok_rubrik_edit'       =>  'required',
         ];
         $text = [
-            'nama_kelompok_rubrik.required'          => 'nama Kelompok Rubrik harus diisi',
+            'nama_kelompok_rubrik_edit.required'          => 'Nama Kelompok Rubrik harus diisi',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -75,9 +65,9 @@ class KelompokRubrikController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $update = $kelompokrubrik->update([
-            'nama_kelompok_rubrik'       =>  $request->nama_kelompok_rubrik,
-            'slug'                          =>  Str::slug($request->nama_kelompok_rubrik),
+        $update = KelompokRubrik::where('id',$request->kelompok_rubrik_id_edit)->update([
+            'nama_kelompok_rubrik'          =>  $request->nama_kelompok_rubrik_edit,
+            'slug'                          =>  Str::slug($request->nama_kelompok_rubrik_edit),
             'is_active'                     =>  1,
         ]);
 

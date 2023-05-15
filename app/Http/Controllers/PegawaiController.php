@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JabatanDs;
 use App\Models\JabatanFungsional;
+use App\Models\PangkatGolongan;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -244,6 +245,163 @@ class PegawaiController extends Controller
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, riwayat jabatan fungsional gagal disimpan']);
+        }
+    }
+
+    public function setActiveRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+        JabatanFungsional::where('nip',$pegawai->nip)->where('id','!=',$jabatanFungsional->id)->update([
+            'is_active' =>  0,
+        ]);
+        $update = $jabatanFungsional->update([
+            'is_active' =>  1,
+        ]);
+        if ($update) {
+            $notification = array(
+                'message' => 'Yeay, data riwayat jabatan fungsional berhasil diaktifkan',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, data riwayat jabatan fungsional gagal diaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function deleteRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+        if ($jabatanFungsional->is_active == 1) {
+            $notification = array(
+                'message' => 'Ooopps, riwayat jabatan fungsional aktif tidak bisa dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }else {
+            $jabatanFungsional->delete();
+            $notification = array(
+                'message' => 'Yeay, data riwayat jabatan fungsional berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
+        }
+    }
+
+    public function riwayatPangkatGolongan(Pegawai $pegawai){
+        return view('backend.dosens.riwayat_pangkat_golongan',[
+            'pegawai'   =>  $pegawai,
+        ]);
+    }
+
+    public function storeRiwayatPangkatGolongan(Request $request, Pegawai $pegawai){
+        $rules = [
+            'nama_pangkat'                  =>  'required',
+            'golongan'                      =>  'required',
+            'tmt_pangkat_golongan'          =>  'required',
+        ];
+        $text = [
+            'nama_pangkat.required'             => 'Nama Pangkat harus diisi',
+            'golongan.required'                 => 'Golongan harus diisi',
+            'tmt_pangkat_golongan.required'     => 'TMT Pangkat & Golongan harus diisi',
+
+        ];
+
+        $validasi = Validator::make($request->all(), $rules, $text);
+        if ($validasi->fails()) {
+            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
+        }
+
+        if ($request->nama_pangkat == "IA") {
+            $golongan = "Juru Muda";
+        }elseif ($request->nama_pangkat == "IB") {
+            $golongan = "Juru Muda Tingkat 1";
+        }elseif ($request->nama_pangkat == "IC") {
+            $golongan = "Juru";
+        }elseif ($request->nama_pangkat == "ID") {
+            $golongan = "Juru Tingkat 1";
+        }elseif ($request->nama_pangkat == "IIA") {
+            $golongan = "Pengatur Muda";
+        }elseif ($request->nama_pangkat == "IIB") {
+            $golongan = "Pengatur Muda Tingkat 1";
+        }elseif ($request->nama_pangkat == "IIC") {
+            $golongan = "Pengatur";
+        }elseif ($request->nama_pangkat == "IID") {
+            $golongan = "Pengatur Tingkat 1";
+        }elseif ($request->nama_pangkat == "IIIA") {
+            $golongan = "Penata Muda";
+        }elseif ($request->nama_pangkat == "IIIB") {
+            $golongan = "Penata Muda Tingkat 1";
+        }elseif ($request->nama_pangkat == "IIIC") {
+            $golongan = "Penata";
+        }elseif ($request->nama_pangkat == "IIID") {
+            $golongan = "Penata Tingkat 1";
+        }elseif ($request->nama_pangkat == "IVA") {
+            $golongan = "Pembina";
+        }elseif ($request->nama_pangkat == "IVB") {
+            $golongan = "Pembina Tingkat 1";
+        }elseif ($request->nama_pangkat == "IVC") {
+            $golongan = "Pembina Utama Muda";
+        }elseif ($request->nama_pangkat == "IVD") {
+            $golongan = "Pembina Utama Madya";
+        }elseif ($request->nama_pangkat == "IVE") {
+            $golongan = "Pembina Utama";
+        }
+
+        $simpan = PangkatGolongan::create([
+            'nip'                       =>  $pegawai->nip,
+            'nama_pangkat'              =>  $request->nama_pangkat,
+            'golongan'                  =>  $golongan,
+            'slug'                      =>  Str::slug($request->nama_pangkat),
+            'tmt_pangkat_golongan'      =>  $request->tmt_pangkat_golongan,
+            'is_active'   =>  0,
+        ]);
+
+        if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, riwayat pangkat & golongan berhasil ditambahkan',
+                'url'   =>  route('dosen.riwayat_pangkat_golongan',[$pegawai->slug]),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, riwayat pangkat & golongan gagal disimpan']);
+        }
+    }
+
+    public function setActiveRiwayatPangkatGolongan(Pegawai $pegawai, PangkatGolongan $pangkatGolongan){
+        PangkatGolongan::where('nip',$pegawai->nip)->where('id','!=',$pangkatGolongan->id)->update([
+            'is_active' =>  0,
+        ]);
+        $update = $pangkatGolongan->update([
+            'is_active' =>  1,
+        ]);
+        if ($update) {
+            $notification = array(
+                'message' => 'Yeay, data riwayat pangkat & golongan berhasil diaktifkan',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_pangkat_golongan',[$pegawai->slug])->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, data riwayat pangkat & golongan gagal diaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function deleteRiwayatPangkatGolongan(Pegawai $pegawai, PangkatGolongan $pangkatGolongan){
+        if ($pangkatGolongan->is_active == 1) {
+            $notification = array(
+                'message' => 'Ooopps, riwayat pangkat & golongan aktif tidak bisa dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }else {
+            $pangkatGolongan->delete();
+            $notification = array(
+                'message' => 'Yeay, data riwayat pangkat & golongan berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_pangkat_golongan',[$pegawai->slug])->with($notification);
         }
     }
 }

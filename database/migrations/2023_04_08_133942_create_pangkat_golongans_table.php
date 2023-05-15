@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tmt_pangkat_golongan');
             $table->boolean('is_active');
             $table->timestamps();
-
+            $table->softDeletes();
 
             $table->foreign('nip')->references('nip')->on('pegawais');
 

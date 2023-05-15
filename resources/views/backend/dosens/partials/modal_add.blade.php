@@ -42,7 +42,6 @@
                                 <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" value="{{ old('tmt_jabatan_fungsional') }}" name="tmt_jabatan_fungsional" id="tmt_jabatan_fungsional" class="form-control pull-right">
-                            
                             </div>
                         </div>
                     </div>

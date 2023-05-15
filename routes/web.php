@@ -47,9 +47,18 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::patch('/manajemen_data_dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
     Route::get('/manajemen_data_dosen/{pegawai:slug}/edit', 'edit')->name('dosen.edit');
     Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
+
     Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'riwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional');
-    Route::patch('/manajemen_data_dosen/update_riwayat_jabatan_fungsional', 'updateRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.update');
-    Route::post('/manajemen_data_dosen/{pegawai:slug}/update_riwayat_jabatan_fungsional', 'storeRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.store');
+    Route::patch('/manajemen_data_dosen/riwayat_jabatan_fungsional', 'updateRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.update');
+    Route::post('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'storeRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.store');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional/{jabatanFungsional}', 'setActiveRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.set_active');
+    Route::delete('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional/{jabatanFungsional}', 'deleteRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.delete');
+
+    Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan', 'riwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan');
+    Route::patch('/manajemen_data_dosen/riwayat_pangkat_golongan', 'updateRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.update');
+    Route::post('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan', 'storeRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.store');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan/{pangkatGolongan}', 'setActiveRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.set_active');
+    Route::delete('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan/{pangkatGolongan}', 'deleteRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.delete');
 });
 
 Route::controller(JabatanDtController::class)->group(function () {
@@ -95,8 +104,8 @@ Route::controller(KelompokRubrikController::class)->group(function () {
     Route::post('/manajemen_kelompok_rubrik', 'store')->name('kelompok_rubrik.store');
     Route::patch('/manajemen_kelompok_rubrik/{kelompokrubrik}/set_active', 'setActive')->name('kelompok_rubrik.set_active');
     Route::patch('/manajemen_kelompok_rubrik/{kelompokrubrik}/set_nonactive', 'setnonActive')->name('kelompok_rubrik.set_nonactive');
-    Route::get('/manajemen_kelompok_rubrik/{kelompokrubrik:slug}/edit', 'edit')->name('kelompok_rubrik.edit');
-    Route::patch('/manajemen_kelompok_rubrik/{kelompokrubrik:slug}/update', 'update')->name('kelompok_rubrik.update');
+    Route::get('/manajemen_kelompok_rubrik/{kelompokrubrik}/edit', 'edit')->name('kelompok_rubrik.edit');
+    Route::patch('/manajemen_kelompok_rubrik/update', 'update')->name('kelompok_rubrik.update');
     Route::delete('/manajemen_kelompok_rubrik/{kelompokrubrik}/delete', 'delete')->name('kelompok_rubrik.delete');
 });
 Route::controller(NilaiEwmpController::class)->group(function () {

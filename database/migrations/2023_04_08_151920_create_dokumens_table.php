@@ -19,6 +19,7 @@ return new class extends Migration
             $table->datetime('tanggal_dokumen');
             $table->boolean('is_active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

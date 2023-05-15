@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('nip',18);
             $table->string('jumlah_kehadiran');
             $table->timestamps();
-
+            $table->softDeletes();
+            
             $table->foreign('periode_id')->references('id')->on('periodes');
             $table->foreign('nip')->references('nip')->on('pegawais');
         });
