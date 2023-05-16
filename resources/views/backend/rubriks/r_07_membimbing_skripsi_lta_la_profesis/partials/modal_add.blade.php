@@ -1,42 +1,44 @@
-<div class="modal fade" id="modalEdit">
+<div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_06_menguji_ujian_osca.update') }}" method="POST" id="form-edit-R06">
-                {{ csrf_field() }} {{ method_field('PATCH') }}
+            <form action="{{ route('r_07_membimbing_skripsi_lta_la_profesi.store') }}" method="POST" id="form-tambah-r-07">
+                {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit R 06 Menguji Ujian Osca</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah R 07 Membimbing Skripsi LTA LA Profesi</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" name="r06mengujiujianosca_id_edit" id="r06mengujiujianosca_id_edit">
 
                         <div class="form-group col-md-12" >
-                            <label for="periode_id" class="col-form-label">periode_id</label>
-                            <select name="periode_id" id="periode_id_edit" class="form-control @error('periode_id') is-invalid @enderror">
-                                <option disabled selected>-- Pilih periode --</option>
-                                @foreach ($periodes as $periode)
-                                    <option
-                                    value="{{ $periode->id }}">{{ $periode->nama_periode }}
-                                    @endforeach</option>
-                            </select>
+                            <label for="periode_id" class="col-form-label">Periode Aktif</label>
+                            <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
                         </div>
 
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip_edit" class="form-control @error('nip') is-invalid @enderror">
+                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
                                 <option disabled selected>-- Pilih NIP --</option>
                                 @foreach ($pegawais as $pegawai)
-                                    <option
-                                  value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
-                                    @endforeach</option>
+                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
+                                @endforeach
                             </select>
+
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah Mahasiswa</label>
-                            <input type="text" class="form-control" id="jumlah_mahasiswa_edit" name="jumlah_mahasiswa">
+                            <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa">
+                        </div>
+
+                        <div class="form-group col-md-12" >
+                            <label for="nip" class="col-form-label">pembimbing_ke</label>
+                            <select name="pembimbing_ke" class="form-control" id="pembimbing_ke">
+                                <option disabled selected>-- pilih pembimbing ke --</option>
+                                <option value="pembimbing_utama">Pembimbing Utama</option>
+                                <option value="pembimbing_pendamping">Pembimbing Pendamping</option>
+                            </select>
                         </div>
 
                     </div>
@@ -55,7 +57,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-edit-R06',function (event){
+        $(document).on('submit','#form-tambah-r-07',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),
@@ -76,5 +78,9 @@
                 }
             })
         });
+
+        $('#tmt_jabatan_fungsional').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
     </script>
 @endpush

@@ -11,10 +11,10 @@ class R07MembimbingSkripsiLtaLaProfesi extends Model
     protected $fillable = [
         'periode_id','nip','jumlah_mahasiswa','pembimbing_ke','is_bkd','is_verified','point'
     ];
-    public function periodes(){
+    public function periode(){
         return $this->belongsTo(Periode::class);
     }
-    public function pegawais(){
+    public function pegawai(){
         return $this->belongsTo(Pegawai::class);
     }
 }
