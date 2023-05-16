@@ -18,9 +18,7 @@ use App\Http\Controllers\R03MembimbingPencapaianKompetensiController;
 use App\Http\Controllers\R04MembimbingPendampinganUkomController;
 use App\Http\Controllers\R05MembimbingPraktikPkkPblKlinikController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
-
-
-
+use App\Http\Controllers\R07MembimbingSkripsiLtaLaProfesiController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -242,5 +240,15 @@ Route::controller(R06MengujiUjianOscaController::class)->group(function () {
     Route::get('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/edit', 'edit')->name('r_06_menguji_ujian_osca.edit');
     Route::patch('/r_06_menguji_ujian_osca/update', 'update')->name('r_06_menguji_ujian_osca.update');
     Route::delete('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/delete', 'delete')->name('r_06_menguji_ujian_osca.delete');
+});
+Route::controller(R07MembimbingSkripsiLtaLaProfesiController::class)->group(function () {
+    Route::get('/r_07_membimbing_skripsi_lta_la_profesi', 'index')->name('r_07_membimbing_skripsi_lta_la_profesi');
+    Route::get('/r_07_membimbing_skripsi_lta_la_profesi/create', 'create')->name('r_07_membimbing_skripsi_lta_la_profesi.create');
+    Route::post('/r_07_membimbing_skripsi_lta_la_profesi', 'store')->name('r_07_membimbing_skripsi_lta_la_profesi.store');
+    Route::patch('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/bkdset_active', 'bkdSetActive')->name('r_07_membimbing_skripsi_lta_la_profesi.bkd_set_active');
+    Route::patch('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/bkdset_nonactive', 'bkdSetnonActive')->name('r_07_membimbing_skripsi_lta_la_profesi.bkd_set_nonactive');
+    Route::get('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/edit', 'edit')->name('r_07_membimbing_skripsi_lta_la_profesi.edit');
+    Route::patch('/r_07_membimbing_skripsi_lta_la_profesi/update', 'update')->name('r_07_membimbing_skripsi_lta_la_profesi.update');
+    Route::delete('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/delete', 'delete')->name('r_07_membimbing_skripsi_lta_la_profesi.delete');
 });
 // End Of Pengaturan/Setting Rubrik

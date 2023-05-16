@@ -13,31 +13,31 @@ use Illuminate\Support\Str;
 class R07MembimbingSkripsiLtaLaProfesiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
-        $pegawais = Pegawai::select('nip','nama')->whereNotIn('nip',function($query) use ($pegawai) {
-            $query->select('nip')->from('r07_membimbing_skripsi_lta_la_profesis')->where('nip',$pegawai->nip);
-         })->get();
+        $pegawais = Pegawai::all();
          $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::orderBy('created_at','desc')->get();
-         $periodes = Periode::where('is_active','1')->get();
+         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
             'pegawais'                =>  $pegawais,
-            'periodes'                =>  $periodes,
+            'periode'                =>  $periode,
             'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,
         ]);
     }
 
     public function store(Request $request){
         $rules = [
-            'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'pembimbing_ke'         =>  'required',
+
         ];
         $text = [
-            'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
+
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -45,10 +45,13 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
+        $periode = Periode::select('id')->where('is_active','1')->first();
+
         $simpan = R07MembimbingSkripsiLtaLaProfesi::create([
-            'periode_id'        =>  $request->periode_id,
+            'periode_id'        =>  $periode->id,
             'nip'               =>  $request->nip,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
+            'pembimbing_ke'     =>  $request->pembimbing_ke,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
             'point'             =>  null,
@@ -72,6 +75,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'pembimbing_ke'         =>  'required',
         ];
         $text = [
             'periode_id.required'       => 'Periode harus dipilih',
@@ -79,6 +83,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -89,6 +94,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'periode_id'        =>  $request->periode_id,
             'nip'               =>  $request->nip,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
+            'pembimbing_ke'     =>  $request->pembimbing_ke,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
             'point'             =>  null,

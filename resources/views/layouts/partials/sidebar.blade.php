@@ -119,11 +119,11 @@
         <span>Rubrik 06 Menguji Ujian Osca</span>
     </a>
 </li>
-{{--  <li class="{{ set_active('r_07_membimbing_skripsi_lta_la_profesi') }}">
+<li class="{{ set_active('r_07_membimbing_skripsi_lta_la_profesi') }}">
     <a href="{{ route('r_07_membimbing_skripsi_lta_la_profesi') }}">
         <i class="fa fa-clock-o"></i>
         <span>Rubrik 07 Membimbing Skripsi LRA LA Profesi</span>
     </a>
-</li>  --}}
+</li>
 
 
