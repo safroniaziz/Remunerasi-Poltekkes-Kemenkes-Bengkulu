@@ -19,6 +19,11 @@ use App\Http\Controllers\R04MembimbingPendampinganUkomController;
 use App\Http\Controllers\R05MembimbingPraktikPkkPblKlinikController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
 use App\Http\Controllers\R07MembimbingSkripsiLtaLaProfesiController;
+use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
+use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
+use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
+
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -250,5 +255,35 @@ Route::controller(R07MembimbingSkripsiLtaLaProfesiController::class)->group(func
     Route::get('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/edit', 'edit')->name('r_07_membimbing_skripsi_lta_la_profesi.edit');
     Route::patch('/r_07_membimbing_skripsi_lta_la_profesi/update', 'update')->name('r_07_membimbing_skripsi_lta_la_profesi.update');
     Route::delete('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/delete', 'delete')->name('r_07_membimbing_skripsi_lta_la_profesi.delete');
+});
+Route::controller(R08MengujiSeminarProposalKtiLtaSkripsiController::class)->group(function () {
+    Route::get('/r_08_menguji_seminar_proposal_kti_lta_skripsi', 'index')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi');
+    Route::get('/r_08_menguji_seminar_proposal_kti_lta_skripsi/create', 'create')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.create');
+    Route::post('/r_08_menguji_seminar_proposal_kti_lta_skripsi', 'store')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.store');
+    Route::patch('/r_08_menguji_seminar_proposal_kti_lta_skripsi/{r08mengujiseminarproposal}/bkdset_active', 'bkdSetActive')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.bkd_set_active');
+    Route::patch('/r_08_menguji_seminar_proposal_kti_lta_skripsi/{r08mengujiseminarproposal}/bkdset_nonactive', 'bkdSetnonActive')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.bkd_set_nonactive');
+    Route::get('/r_08_menguji_seminar_proposal_kti_lta_skripsi/{r08mengujiseminarproposal}/edit', 'edit')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.edit');
+    Route::patch('/r_08_menguji_seminar_proposal_kti_lta_skripsi/update', 'update')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.update');
+    Route::delete('/r_08_menguji_seminar_proposal_kti_lta_skripsi/{r08mengujiseminarproposal}/delete', 'delete')->name('r_08_menguji_seminar_proposal_kti_lta_skripsi.delete');
+});
+Route::controller(R09MengujiSeminarHasilKtiLtaSkripsiController::class)->group(function () {
+    Route::get('/r_09_menguji_seminar_hasil_kti_lta_skripsi', 'index')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi');
+    Route::get('/r_09_menguji_seminar_hasil_kti_lta_skripsi/create', 'create')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.create');
+    Route::post('/r_09_menguji_seminar_hasil_kti_lta_skripsi', 'store')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.store');
+    Route::patch('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/bkdset_active', 'bkdSetActive')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.bkd_set_active');
+    Route::patch('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/bkdset_nonactive', 'bkdSetnonActive')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.bkd_set_nonactive');
+    Route::get('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/edit', 'edit')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.edit');
+    Route::patch('/r_09_menguji_seminar_hasil_kti_lta_skripsi/update', 'update')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.update');
+    Route::delete('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/delete', 'delete')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.delete');
+});
+Route::controller(R10MenulisBukuAjarBerisbnController::class)->group(function () {
+    Route::get('/r_10_menulis_buku_ajar_berisbn', 'index')->name('r_10_menulis_buku_ajar_berisbn');
+    Route::get('/r_10_menulis_buku_ajar_berisbn/create', 'create')->name('r_10_menulis_buku_ajar_berisbn.create');
+    Route::post('/r_10_menulis_buku_ajar_berisbn', 'store')->name('r_10_menulis_buku_ajar_berisbn.store');
+    Route::patch('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/bkdset_active', 'bkdSetActive')->name('r_10_menulis_buku_ajar_berisbn.bkd_set_active');
+    Route::patch('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/bkdset_nonactive', 'bkdSetnonActive')->name('r_10_menulis_buku_ajar_berisbn.bkd_set_nonactive');
+    Route::get('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/edit', 'edit')->name('r_10_menulis_buku_ajar_berisbn.edit');
+    Route::patch('/r_10_menulis_buku_ajar_berisbn/update', 'update')->name('r_10_menulis_buku_ajar_berisbn.update');
+    Route::delete('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/delete', 'delete')->name('r_10_menulis_buku_ajar_berisbn.delete');
 });
 // End Of Pengaturan/Setting Rubrik

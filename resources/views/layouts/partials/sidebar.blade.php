@@ -125,5 +125,22 @@
         <span>Rubrik 07 Membimbing Skripsi LRA LA Profesi</span>
     </a>
 </li>
-
+<li class="{{ set_active('r_08_menguji_seminar_proposal_kti_lta_skripsi') }}">
+    <a href="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 08 Menguji Seminar Proposal KTI LTA Skripsi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_09_menguji_seminar_hasil_kti_lta_skripsi') }}">
+    <a href="{{ route('r_09_menguji_seminar_hasil_kti_lta_skripsi') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 09 Menguji Seminar Hasil KTI LTA Skripsi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_10_menulis_buku_ajar_berisbn') }}">
+    <a href="{{ route('r_10_menulis_buku_ajar_berisbn') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Rubrik 10 Menulis Buku Ajar Berisbn</span>
+    </a>
+</li>
 

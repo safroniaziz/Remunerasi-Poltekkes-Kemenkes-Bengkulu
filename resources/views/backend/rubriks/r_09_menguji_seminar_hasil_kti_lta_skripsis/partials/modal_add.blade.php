@@ -1,12 +1,12 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_06_menguji_ujian_osca.store') }}" method="POST" id="form-tambah-r-06">
+            <form action="{{ route('r_09_menguji_seminar_hasil_kti_lta_skripsi.store') }}" method="POST" id="form-tambah-r-09">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 06 Menguji Ujian Osca</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 09 Menguji Seminar Hasil KTI LTA Skripsi</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -31,6 +31,16 @@
                             <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa">
                         </div>
 
+                        <div class="form-group col-md-12" >
+                            <label for="nip" class="col-form-label">Jenis Seminar </label>
+                            <select name="jenis" class="form-control" id="jenis">
+                                <option disabled selected>-- pilih Jenis Seminar --</option>
+                                <option value="KTI">KTI</option>
+                                <option value="LTA">LTA</option>
+                                <option value="Skripsi">Skripsi</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -47,7 +57,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-r-06',function (event){
+        $(document).on('submit','#form-tambah-r-09',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

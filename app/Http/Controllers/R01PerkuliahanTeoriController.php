@@ -12,29 +12,25 @@ use Illuminate\Support\Str;
 class R01PerkuliahanTeoriController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
-        $pegawais = Pegawai::select('nip','nama')->whereNotIn('nip',function($query) use ($pegawai) {
-            $query->select('nip')->from('r01_perkuliahan_teoris')->where('nip',$pegawai->nip);
-         })->get();
+         $pegawais = Pegawai::all();
          $r01perkuliahanteoris = R01PerkuliahanTeori::orderBy('created_at','desc')->get();
-         $periodes = Periode::where('is_active','1')->get();
+         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_01_perkuliahan_teoris.index',[
-            'pegawais'               =>  $pegawais,
-            'periodes'               =>  $periodes,
+            'pegawais'                =>  $pegawais,
+            'periode'                 =>  $periode,
             'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
         ]);
     }
 
     public function store(Request $request){
         $rules = [
-            'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
@@ -49,9 +45,10 @@ class R01PerkuliahanTeoriController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $simpan = R01PerkuliahanTeori::create([
-            'periode_id'        =>  $request->periode_id,
+            'periode_id'        =>  $periode->id,
             'nip'               =>  $request->nip,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
@@ -76,14 +73,12 @@ class R01PerkuliahanTeoriController extends Controller
 
     public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
         $rules = [
-            'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
@@ -98,9 +93,10 @@ class R01PerkuliahanTeoriController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
-            'periode_id'        =>  $request->periode_id,
+            'periode_id'        =>  $periode->id,
             'nip'               =>  $request->nip,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,

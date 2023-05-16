@@ -12,10 +12,10 @@ class RekapDaftarNominatif extends Model
         'periode_id','nip','nama','slug','nomor_rekening','npwp','jabatan_dt','jabatan_ds','golongan','kelas','jurusan','total_point','remun_p1','remun_p2','total_remun','faktor_pengurang_pph','remun_dibayarkan'
     ];
 
-    public function periodes(){
+    public function periode(){
         return $this->belongsTo(Periode::class);
     }
-    public function pegawais(){
-        return $this->belongsTo(Pegawai::class);
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class,'nip');
     }
 }

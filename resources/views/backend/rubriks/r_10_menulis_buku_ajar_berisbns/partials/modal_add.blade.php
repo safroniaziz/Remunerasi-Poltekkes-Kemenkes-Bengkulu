@@ -1,12 +1,12 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_06_menguji_ujian_osca.store') }}" method="POST" id="form-tambah-r-06">
+            <form action="{{ route('r_10_menulis_buku_ajar_berisbn.store') }}" method="POST" id="form-tambah-r-10">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 06 Menguji Ujian Osca</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 10 Menulis Buku Ajar Berisbn</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -27,8 +27,23 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Jumlah Mahasiswa</label>
-                            <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa">
+                            <label for="exampleInputEmail1">Judul</label>
+                            <input type="text" class="form-control" id="judul" name="judul">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">ISBN</label>
+                            <input type="text" class="form-control" id="isbn" name="isbn">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Penulis Ke</label>
+                            <input type="text" class="form-control" id="penulis_ke" name="penulis_ke">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Jumlah Penulis</label>
+                            <input type="text" class="form-control" id="jumlah_penulis" name="jumlah_penulis">
                         </div>
 
                     </div>
@@ -47,7 +62,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-r-06',function (event){
+        $(document).on('submit','#form-tambah-r-10',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

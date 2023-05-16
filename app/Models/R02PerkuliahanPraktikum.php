@@ -11,10 +11,10 @@ class R02PerkuliahanPraktikum extends Model
     protected $fillable = [
         'periode_id','nip','jumlah_tatap_muka','jumlah_sks','jumlah_mahasiswa','jumlah_tatap_muka','is_bkd','is_verified','point'
     ];
-    public function periodes(){
+    public function periode(){
         return $this->belongsTo(Periode::class);
     }
-    public function pegawais(){
-        return $this->belongsTo(Pegawai::class);
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class,'nip');
     }
 }

@@ -11,4 +11,11 @@ class RiwayatPoint extends Model
     protected $fillable = [
        'rubrik_id','periode_id','nip','point'
     ];
+
+    public function periode(){
+        return $this->belongsTo(Periode::class);
+    }
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class,'nip');
+    }
 }

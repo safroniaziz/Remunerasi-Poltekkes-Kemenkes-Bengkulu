@@ -15,6 +15,6 @@ class R07MembimbingSkripsiLtaLaProfesi extends Model
         return $this->belongsTo(Periode::class);
     }
     public function pegawai(){
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(Pegawai::class,'nip');
     }
 }

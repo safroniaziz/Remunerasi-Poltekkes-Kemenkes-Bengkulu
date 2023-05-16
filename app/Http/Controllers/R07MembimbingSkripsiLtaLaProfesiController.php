@@ -72,13 +72,11 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
 
     public function update(Request $request, R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
         $rules = [
-            'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'pembimbing_ke'         =>  'required',
         ];
         $text = [
-            'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -90,8 +88,11 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+
+        $periode = Periode::select('id')->where('is_active','1')->first();
+
         $update = R07MembimbingSkripsiLtaLaProfesi::where('id',$request->r07membimbingskripsiltalaprofesi_id_edit)->update([
-            'periode_id'        =>  $request->periode_id,
+            'periode_id'        =>  $periode->id,
             'nip'               =>  $request->nip,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,

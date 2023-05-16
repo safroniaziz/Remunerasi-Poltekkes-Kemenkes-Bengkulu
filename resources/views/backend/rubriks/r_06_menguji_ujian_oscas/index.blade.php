@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('subTitle','Data R 06 Menguji Ujian Osca')
-@section('page','Data R 06 Menguji Ujian Osca')
+@section('subTitle','Data Rubrik 06 Menguji Ujian Osca')
+@section('page','Data Rubrik 06 Menguji Ujian Osca')
 @section('subPage','Semua Data')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-users"></i>&nbsp; Manajemen Data R 06 Menguji Ujian Osca
+                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 06 Menguji Ujian Osca
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah R 06 Menguji Ujian Osca
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 06 Menguji Ujian Osca
                                 </button>
                             </div>
                         </div>
@@ -37,8 +37,8 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
-                                        <th style=" vertical-align:middle">Nama Periode</th>
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
+                                        <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Verifikasi</th>
@@ -53,8 +53,8 @@
                                     @foreach ($r06mengujiujianoscas as $index => $r06mengujiujianosca)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>{{ $r06mengujiujianosca->periode_id }}</td>
                                             <td class="text-center">{{ $r06mengujiujianosca->nip }}</td>
+                                            <td class="text-center">{{ $r06mengujiujianosca->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r06mengujiujianosca->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r06mengujiujianosca->point }}</td>
                                             <td></td>

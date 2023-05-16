@@ -6,7 +6,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah R 07 Membimbing Skripsi LTA LA Profesi</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 07 Membimbing Skripsi LTA LA Profesi</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -24,7 +24,6 @@
                                     <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
                                 @endforeach
                             </select>
-
                         </div>
 
                         <div class="form-group col-md-12">
@@ -33,9 +32,9 @@
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">pembimbing_ke</label>
+                            <label for="nip" class="col-form-label">Pembimbing Ke</label>
                             <select name="pembimbing_ke" class="form-control" id="pembimbing_ke">
-                                <option disabled selected>-- pilih pembimbing ke --</option>
+                                <option disabled selected>-- pilih Pembimbing Ke --</option>
                                 <option value="pembimbing_utama">Pembimbing Utama</option>
                                 <option value="pembimbing_pendamping">Pembimbing Pendamping</option>
                             </select>

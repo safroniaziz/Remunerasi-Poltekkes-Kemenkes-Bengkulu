@@ -11,10 +11,10 @@ class R012MembimbingPkm extends Model
     protected $fillable = [
         'periode_id','nip','tingkat_pkm','juara_ke','jumlah_pembimbing','is_bkd','is_verified','point'
     ];
-    public function periodes(){
+    public function periode(){
         return $this->belongsTo(Periode::class);
     }
-    public function pegawais(){
-        return $this->belongsTo(Pegawai::class);
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class,'nip');
     }
 }
