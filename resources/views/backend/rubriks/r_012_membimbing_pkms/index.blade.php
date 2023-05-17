@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('subTitle','Data Rubrik 10 Menulis Buku Ajar Berisbn')
-@section('page','Data Rubrik 10 Menulis Buku Ajar Berisbn')
+@section('subTitle','Data Rubrik 12 Membimbing PKM')
+@section('page','Data Rubrik 12 Membimbing PKM')
 @section('subPage','Semua Data')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 10 Menulis Buku Ajar Berisbn
+                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 12 Membimbing PKM
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 10 Menulis Buku Ajar Berisbn
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 12 Membimbing PKM
                                 </button>
                             </div>
                         </div>
@@ -53,39 +53,39 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($r10menulisbukuajarberisbns as $index => $r10menulisbukuajarberisbn)
+                                    @foreach ($r012membimbingpkms as $index => $r012membimbingpkm)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->nip }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->judul }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->isbn }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->penulis_ke }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->jumlah_penulis }}</td>
-                                            <td class="text-center">{{ $r10menulisbukuajarberisbn->point }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->nip }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->pegawai->nama }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->judul }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->isbn }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->penulis_ke }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->jumlah_penulis }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->point }}</td>
                                             <td></td>
                                             <td></td>
                                             {{--  <td>
-                                                @if ($r10menulisbukuajarberisbn->is_bkd== 1)
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_nonactive',[$r10menulisbukuajarberisbn->id]) }}" method="POST">
+                                                @if ($r012membimbingpkm->is_bkd== 1)
+                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_nonactive',[$r012membimbingpkm->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_active',[$r10menulisbukuajarberisbn->id]) }}" method="POST">
+                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_active',[$r012membimbingpkm->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
                                            </td>  --}}
                                            {{--  <td>
-                                            @if ($r10menulisbukuajarberisbn->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r10menulisbukuajarberisbn->id]) }}" method="POST">
+                                            @if ($r012membimbingpkm->is_verified== 1)
+                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r012membimbingpkm->id]) }}" method="POST">
                                                     {{ csrf_field() }} {{ method_field('PATCH') }}
                                                     <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r10menulisbukuajarberisbn->id]) }}" method="POST">
+                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r012membimbingpkm->id]) }}" method="POST">
                                                     {{ csrf_field() }} {{ method_field('PATCH') }}
                                                     <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                 </form>
@@ -95,10 +95,10 @@
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a onclick="editr10menulisbukuajarberisbn({{ $r10menulisbukuajarberisbn->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a onclick="editr012membimbingpkm({{ $r012membimbingpkm->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_10_menulis_buku_ajar_berisbn.delete',[$r10menulisbukuajarberisbn->id]) }}" method="POST">
+                                                            <form action="{{ route('r_012_membimbing_pkm.delete',[$r012membimbingpkm->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -112,9 +112,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_10_menulis_buku_ajar_berisbns.partials.modal_add')
+                        @include('backend/rubriks/r_012_membimbing_pkms.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_10_menulis_buku_ajar_berisbns.partials.modal_edit')
+                    @include('backend/rubriks/r_012_membimbing_pkms.partials.modal_edit')
                 </div>
             </section>
         </div>
@@ -130,25 +130,25 @@
             });
         } );
 
-        function editr10menulisbukuajarberisbn(id){
+        function editr012membimbingpkm(id){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            url = "{{ url('r_10_menulis_buku_ajar_berisbn').'/' }}"+id+'/edit';
+            url = "{{ url('r_012_membimbing_pkm').'/' }}"+id+'/edit';
             $.ajax({
                 url : url,
                 type : 'GET',
                 success : function(data){
                     $('#modalEdit').modal('show');
-                    $('#r10menulisbukuajarberisbn_id_edit').val(data.id);
+                    $('#r012membimbingpkm_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
                     $('#nip_edit').val(data.nip);
-                    $('#judul_edit').val(data.judul);
+                    $('#tingkat_pkm_edit').val(data.tingkat_pkm);
                     $('#isbn_edit').val(data.isbn);
-                    $('#penulis_ke_edit').val(data.penulis_ke);
-                    $('#jumlah_penulis_edit').val(data.jumlah_penulis);
+                    $('#juara_ke_edit').val(data.juara_ke);
+                    $('#jumlah_pembimbing_edit').val(data.jumlah_pembimbing);
                 },
                 error:function(){
                     $('#gagal').show(100);

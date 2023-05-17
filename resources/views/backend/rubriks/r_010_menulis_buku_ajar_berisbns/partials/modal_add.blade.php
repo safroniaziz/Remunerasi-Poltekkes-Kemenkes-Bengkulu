@@ -1,16 +1,16 @@
-<div class="modal fade" id="modalEdit">
+<div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_10_menulis_buku_ajar_berisbn.update') }}" method="POST" id="form-edit-R10">
-                {{ csrf_field() }} {{ method_field('PATCH') }}
+            <form action="{{ route('r_010_menulis_buku_ajar_berisbn.store') }}" method="POST" id="form-tambah-r-010">
+                {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit Rubrik 10 Menulis Buku Ajar Berisbn</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 10 Menulis Buku Ajar Berisbn</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" name="R10menulisbukuajarberisbn_id_edit" id="R10menulisbukuajarberisbn_id_edit">
+
                         <div class="form-group col-md-12" >
                             <label for="periode_id" class="col-form-label">Periode Aktif</label>
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
@@ -18,33 +18,32 @@
 
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip_edit" class="form-control @error('nip') is-invalid @enderror">
+                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
                                 <option disabled selected>-- Pilih NIP --</option>
                                 @foreach ($pegawais as $pegawai)
-                                    <option
-                                  value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
-                                    @endforeach</option>
+                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Judul</label>
-                            <input type="text" class="form-control" id="judul_edit" name="judul">
+                            <input type="text" class="form-control" id="judul" name="judul">
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">ISBN</label>
-                            <input type="text" class="form-control" id="isbn_edit" name="isbn">
+                            <input type="text" class="form-control" id="isbn" name="isbn">
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Penulis Ke</label>
-                            <input type="text" class="form-control" id="penulis_ke_edit" name="penulis_ke">
+                            <input type="text" class="form-control" id="penulis_ke" name="penulis_ke">
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah Penulis</label>
-                            <input type="text" class="form-control" id="jumlah_penulis_edit" name="jumlah_penulis">
+                            <input type="text" class="form-control" id="jumlah_penulis" name="jumlah_penulis">
                         </div>
 
                     </div>
@@ -63,7 +62,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-edit-R10',function (event){
+        $(document).on('submit','#form-tambah-r-010',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),
@@ -84,5 +83,9 @@
                 }
             })
         });
+
+        $('#tmt_jabatan_fungsional').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
     </script>
 @endpush

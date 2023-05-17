@@ -22,6 +22,8 @@ use App\Http\Controllers\R07MembimbingSkripsiLtaLaProfesiController;
 use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
 use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
 use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
+use App\Http\Controllers\R11MengembangkanModulBerisbnController;
+use App\Http\Controllers\R12MembimbingPkmController;
 
 
 
@@ -277,13 +279,33 @@ Route::controller(R09MengujiSeminarHasilKtiLtaSkripsiController::class)->group(f
     Route::delete('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/delete', 'delete')->name('r_09_menguji_seminar_hasil_kti_lta_skripsi.delete');
 });
 Route::controller(R10MenulisBukuAjarBerisbnController::class)->group(function () {
-    Route::get('/r_10_menulis_buku_ajar_berisbn', 'index')->name('r_10_menulis_buku_ajar_berisbn');
-    Route::get('/r_10_menulis_buku_ajar_berisbn/create', 'create')->name('r_10_menulis_buku_ajar_berisbn.create');
-    Route::post('/r_10_menulis_buku_ajar_berisbn', 'store')->name('r_10_menulis_buku_ajar_berisbn.store');
-    Route::patch('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/bkdset_active', 'bkdSetActive')->name('r_10_menulis_buku_ajar_berisbn.bkd_set_active');
-    Route::patch('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/bkdset_nonactive', 'bkdSetnonActive')->name('r_10_menulis_buku_ajar_berisbn.bkd_set_nonactive');
-    Route::get('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/edit', 'edit')->name('r_10_menulis_buku_ajar_berisbn.edit');
-    Route::patch('/r_10_menulis_buku_ajar_berisbn/update', 'update')->name('r_10_menulis_buku_ajar_berisbn.update');
-    Route::delete('/r_10_menulis_buku_ajar_berisbn/{r10menulisbukuajarberisbn}/delete', 'delete')->name('r_10_menulis_buku_ajar_berisbn.delete');
+    Route::get('/r_010_menulis_buku_ajar_berisbn', 'index')->name('r_010_menulis_buku_ajar_berisbn');
+    Route::get('/r_010_menulis_buku_ajar_berisbn/create', 'create')->name('r_010_menulis_buku_ajar_berisbn.create');
+    Route::post('/r_010_menulis_buku_ajar_berisbn', 'store')->name('r_010_menulis_buku_ajar_berisbn.store');
+    Route::patch('/r_010_menulis_buku_ajar_berisbn/{r010menulisbukuajarberisbn}/bkdset_active', 'bkdSetActive')->name('r_010_menulis_buku_ajar_berisbn.bkd_set_active');
+    Route::patch('/r_010_menulis_buku_ajar_berisbn/{r010menulisbukuajarberisbn}/bkdset_nonactive', 'bkdSetnonActive')->name('r_010_menulis_buku_ajar_berisbn.bkd_set_nonactive');
+    Route::get('/r_010_menulis_buku_ajar_berisbn/{r010menulisbukuajarberisbn}/edit', 'edit')->name('r_010_menulis_buku_ajar_berisbn.edit');
+    Route::patch('/r_010_menulis_buku_ajar_berisbn/update', 'update')->name('r_010_menulis_buku_ajar_berisbn.update');
+    Route::delete('/r_010_menulis_buku_ajar_berisbn/{r010menulisbukuajarberisbn}/delete', 'delete')->name('r_010_menulis_buku_ajar_berisbn.delete');
+});
+Route::controller(R11MengembangkanModulBerisbnController::class)->group(function () {
+    Route::get('/r_011_mengembangkan_modul_berisbn', 'index')->name('r_011_mengembangkan_modul_berisbn');
+    Route::get('/r_011_mengembangkan_modul_berisbn/create', 'create')->name('r_011_mengembangkan_modul_berisbn.create');
+    Route::post('/r_011_mengembangkan_modul_berisbn', 'store')->name('r_011_mengembangkan_modul_berisbn.store');
+    Route::patch('/r_011_mengembangkan_modul_berisbn/{r011mengembangkanmodulberisbn}/bkdset_active', 'bkdSetActive')->name('r_011_mengembangkan_modul_berisbn.bkd_set_active');
+    Route::patch('/r_011_mengembangkan_modul_berisbn/{r011mengembangkanmodulberisbn}/bkdset_nonactive', 'bkdSetnonActive')->name('r_011_mengembangkan_modul_berisbn.bkd_set_nonactive');
+    Route::get('/r_011_mengembangkan_modul_berisbn/{r011mengembangkanmodulberisbn}/edit', 'edit')->name('r_011_mengembangkan_modul_berisbn.edit');
+    Route::patch('/r_011_mengembangkan_modul_berisbn/update', 'update')->name('r_011_mengembangkan_modul_berisbn.update');
+    Route::delete('/r_011_mengembangkan_modul_berisbn/{r011mengembangkanmodulberisbn}/delete', 'delete')->name('r_011_mengembangkan_modul_berisbn.delete');
+});
+Route::controller(R12MembimbingPkmController::class)->group(function () {
+    Route::get('/r_012_membimbing_pkm', 'index')->name('r_012_membimbing_pkm');
+    Route::get('/r_012_membimbing_pkm/create', 'create')->name('r_012_membimbing_pkm.create');
+    Route::post('/r_012_membimbing_pkm', 'store')->name('r_012_membimbing_pkm.store');
+    Route::patch('/r_012_membimbing_pkm/{r012membimbingpkm}/bkdset_active', 'bkdSetActive')->name('r_012_membimbing_pkm.bkd_set_active');
+    Route::patch('/r_012_membimbing_pkm/{r012membimbingpkm}/bkdset_nonactive', 'bkdSetnonActive')->name('r_012_membimbing_pkm.bkd_set_nonactive');
+    Route::get('/r_012_membimbing_pkm/{r012membimbingpkm}/edit', 'edit')->name('r_012_membimbing_pkm.edit');
+    Route::patch('/r_012_membimbing_pkm/update', 'update')->name('r_012_membimbing_pkm.update');
+    Route::delete('/r_012_membimbing_pkm/{r012membimbingpkm}/delete', 'delete')->name('r_012_membimbing_pkm.delete');
 });
 // End Of Pengaturan/Setting Rubrik
