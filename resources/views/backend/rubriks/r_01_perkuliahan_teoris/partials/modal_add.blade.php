@@ -6,24 +6,14 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah R 01 Perkuliahan Teori</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 01 Perkuliahan Teori</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
 
                         <div class="form-group col-md-12" >
-                            <label for="periode_id" class="col-form-label">periode_id</label>
-                            <select name="periode_id" id="periode_id" class="form-control @error('periode_id') is-invalid @enderror">
-                                <option disabled selected>-- Pilih periode --</option>
-                                @foreach ($periodes as $periode)
-                                    <option value="{{ $periode->id }}">{{ $periode->nama_periode }}</option>
-                                @endforeach
-                            </select>
-                            <div>
-                                @if ($errors->has('periode_id'))
-                                    <small class="form-text text-danger">{{ $errors->first('periode_id') }}</small>
-                                @endif
-                            </div>
+                            <label for="periode_id" class="col-form-label">Periode Aktif</label>
+                            <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
                         </div>
 
                         <div class="form-group col-md-12" >
@@ -34,11 +24,6 @@
                                     <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
                                 @endforeach
                             </select>
-                            <div>
-                                @if ($errors->has('nip'))
-                                    <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
-                                @endif
-                            </div>
                         </div>
 
                         <div class="form-group col-md-12">

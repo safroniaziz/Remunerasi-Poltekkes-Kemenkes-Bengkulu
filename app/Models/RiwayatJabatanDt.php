@@ -14,7 +14,7 @@ class RiwayatJabatanDt extends Model
         'nip','nama_jabatan_dt','slug','tmt_jabatan_dt','is_active'
     ];
 
-    public function pegawais(){
-        return $this->belongsTo(Pegawai::class);
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class,'nip');
     }
 }

@@ -12,27 +12,23 @@ use Illuminate\Support\Str;
 class R04MembimbingPendampinganUkomController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
-        $pegawais = Pegawai::select('nip','nama')->whereNotIn('nip',function($query) use ($pegawai) {
-            $query->select('nip')->from('r03_membimbing_pencapaian_kompetensis')->where('nip',$pegawai->nip);
-         })->get();
+         $pegawais = Pegawai::all();
          $r04membimbingpendampinganukoms = R04MembimbingPendampinganUkom::orderBy('created_at','desc')->get();
-         $periodes = Periode::where('is_active','1')->get();
+         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
-            'pegawais'                              =>  $pegawais,
-            'periodes'                              =>  $periodes,
+            'pegawais'                          =>  $pegawais,
+            'periode'                           =>  $periode,
             'r04membimbingpendampinganukoms'    =>  $r04membimbingpendampinganukoms,
         ]);
     }
 
     public function store(Request $request){
         $rules = [
-            'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -43,9 +39,10 @@ class R04MembimbingPendampinganUkomController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $simpan = R04MembimbingPendampinganUkom::create([
-            'periode_id'        =>  $request->periode_id,
+            'periode_id'        =>  $periode->id,
             'nip'               =>  $request->nip,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
@@ -68,12 +65,10 @@ class R04MembimbingPendampinganUkomController extends Controller
 
     public function update(Request $request, R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
         $rules = [
-            'periode_id'            =>  'required',
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'periode_id.required'       => 'Periode harus dipilih',
             'nip.required'              => 'NIP harus dipilih',
             'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -84,8 +79,11 @@ class R04MembimbingPendampinganUkomController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+
+        $periode = Periode::select('id')->where('is_active','1')->first();
+
         $update = R04MembimbingPendampinganUkom::where('id',$request->r04membimbingpendampinganukom_id_edit)->update([
-            'periode_id'        =>  $request->periode_id,
+            'periode_id'        =>  $periode->id,
             'nip'               =>  $request->nip,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
