@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class R019BeriLatihNyuluhPenatarCeramahMasyarakat extends Model
+class R017NaskahBukuBahasaTerbitEdarNas extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'periode_id','nip','judul_kegiatan','jenis','is_bkd','is_verified','point'
+        'periode_id','nip','judul_buku','isbn','is_bkd','is_verified','point'
     ];
     public function periode(){
         return $this->belongsTo(Periode::class);

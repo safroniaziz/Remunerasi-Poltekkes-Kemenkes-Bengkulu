@@ -125,13 +125,13 @@ class R11MengembangkanModulBerisbnController extends Controller
        $delete = $r011mengembangkanmodulberisbn->delete();
        if ($delete) {
            $notification = array(
-               'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',
+               'message' => 'Yeay, Rubrik 11 mengembangkan modul berisbn remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
            return redirect()->route('r_011_mengembangkan_modul_berisbn')->with($notification);
        }else {
            $notification = array(
-               'message' => 'Ooopps, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik 11 mengembangkan modul berisbn remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

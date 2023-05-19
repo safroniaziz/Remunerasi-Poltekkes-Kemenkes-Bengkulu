@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r019_beri_latih_nyuluh_penatar_ceramah_masyarakats', function (Blueprint $table) {
+        Schema::create('r019_latih_nyuluh_natar_ceramah_wargas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18);

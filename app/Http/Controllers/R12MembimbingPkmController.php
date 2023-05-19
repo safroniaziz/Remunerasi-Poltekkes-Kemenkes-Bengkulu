@@ -119,13 +119,13 @@ class R12MembimbingPkmController extends Controller
        $delete = $r012membimbingpkm->delete();
        if ($delete) {
            $notification = array(
-               'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',
+               'message' => 'Yeay, Rubrik 12 Membimbing PKM remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
            return redirect()->route('r_012_membimbing_pkm')->with($notification);
        }else {
            $notification = array(
-               'message' => 'Ooopps, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik 12 Membimbing PKM remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

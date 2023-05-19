@@ -64,11 +64,11 @@ class R10MenulisBukuAjarBerisbnController extends Controller
 
        if ($simpan) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn baru berhasil ditambahkan',
+               'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn baru berhasil ditambahkan',
                'url'   =>  url('/r_010_menulis_buku_ajar_berisbn/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
+           return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn gagal disimpan']);
        }
    }
    public function edit(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
@@ -114,24 +114,24 @@ class R10MenulisBukuAjarBerisbnController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn berhasil diubah',
+               'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn berhasil diubah',
                'url'   =>  url('/r_010_menulis_buku_ajar_berisbn/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn anda gagal diubah']);
        }
    }
    public function delete(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
        $delete = $r010menulisbukuajarberisbn->delete();
        if ($delete) {
            $notification = array(
-               'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',
+               'message' => 'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
            return redirect()->route('r_010_menulis_buku_ajar_berisbn')->with($notification);
        }else {
            $notification = array(
-               'message' => 'Ooopps, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

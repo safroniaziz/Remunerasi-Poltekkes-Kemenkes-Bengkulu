@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r022_reviewer_ecthical_clereance_penelitian_mahasiswas', function (Blueprint $table) {
+        Schema::create('r021_reviewer_eclere_penelitian_dosens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18);
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r022_reviewer_ecthical_clereance_penelitian_mahasiswas');
+        Schema::dropIfExists('r021_reviewer_ecthical_clereance_penelitian_dosens');
     }
 };

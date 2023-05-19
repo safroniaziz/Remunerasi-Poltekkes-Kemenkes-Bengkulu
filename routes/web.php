@@ -24,6 +24,7 @@ use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
 use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
 use App\Http\Controllers\R11MengembangkanModulBerisbnController;
 use App\Http\Controllers\R12MembimbingPkmController;
+use App\Http\Controllers\R13OrasiIlmiahNarasumberBidangIlmuController;
 
 
 
@@ -187,7 +188,7 @@ Route::controller(PeriodeController::class)->group(function () {
 });
 // End Of Pengaturan/Setting Route
 
-// Pengaturan/Setting Rubrik
+// Pengaturan/Setting Rubrik Pendidikan
 Route::controller(R01PerkuliahanTeoriController::class)->group(function () {
     Route::get('/r_01_perkuliahan_teori', 'index')->name('r_01_perkuliahan_teori');
     Route::get('/r_01_perkuliahan_teori/create', 'create')->name('r_01_perkuliahan_teori.create');
@@ -308,4 +309,16 @@ Route::controller(R12MembimbingPkmController::class)->group(function () {
     Route::patch('/r_012_membimbing_pkm/update', 'update')->name('r_012_membimbing_pkm.update');
     Route::delete('/r_012_membimbing_pkm/{r012membimbingpkm}/delete', 'delete')->name('r_012_membimbing_pkm.delete');
 });
-// End Of Pengaturan/Setting Rubrik
+// End Of Pengaturan/Setting Rubrik Pendidikan
+// Pengaturan/Setting Rubrik Pendidikan Insidental
+Route::controller(R13OrasiIlmiahNarasumberBidangIlmuController::class)->group(function () {
+    Route::get('/r_013_orasi_ilmiah_narasumber_bidang_ilmu', 'index')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu');
+    Route::get('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/create', 'create')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.create');
+    Route::post('/r_013_orasi_ilmiah_narasumber_bidang_ilmu', 'store')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.store');
+    Route::patch('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/bkdset_active', 'bkdSetActive')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.bkd_set_active');
+    Route::patch('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/bkdset_nonactive', 'bkdSetnonActive')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.bkd_set_nonactive');
+    Route::get('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/edit', 'edit')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.edit');
+    Route::patch('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/update', 'update')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.update');
+    Route::delete('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/delete', 'delete')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.delete');
+});
+// End Of Pengaturan/Setting Rubrik Pendidikan Insidental

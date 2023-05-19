@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r017_menulis_naskah_buku_bahasa_terbit_edar_nas', function (Blueprint $table) {
+        Schema::create('r016_naskah_buku_bahasa_terbit_edar_inters', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18);
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r017_menulis_naskah_buku_bahasa_terbit_edar_nas');
+        Schema::dropIfExists('r016_menulis_naskah_buku_bahasa_terbit_edar_inters');
     }
 };
