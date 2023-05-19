@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JabatanDs;
+use App\Models\JabatanDt;
 use App\Models\JabatanFungsional;
 use App\Models\PangkatGolongan;
 use App\Models\Pegawai;
@@ -17,10 +18,10 @@ class PegawaiController extends Controller
         $nama = $request->query('nama');
         if (!empty($nama)) {
             $dosens = Pegawai::with(['jabatanFungsionals'])->where('nama','LIKE','%'.$nama.'%')
-                                ->paginate(10);
+                                ->orderBy('created_at','desc')->paginate(10);
 
         }else {
-            $dosens = Pegawai::with(['jabatanFungsionals'])->paginate(10);
+            $dosens = Pegawai::with(['jabatanFungsionals'])->orderBy('created_at','desc')->paginate(10);
         }
         return view('backend/dosens.index',[
             'dosens'    =>  $dosens,
@@ -29,7 +30,10 @@ class PegawaiController extends Controller
     }
 
     public function create(){
-        return view('backend/dosens.create');
+        $jabatanDts = JabatanDt::all();
+        return view('backend/dosens.create',[
+            'jabatanDts'   =>   $jabatanDts,
+        ]);
     }
 
     public function store(Request $request){
@@ -79,6 +83,7 @@ class PegawaiController extends Controller
             'jenis_kelamin'         =>  $request->jenis_kelamin,
             'jurusan'               =>  $request->jurusan,
             'nomor_rekening'        =>  $request->nomor_rekening,
+            'jabatan_dt_id'         =>  $request->jabatan_dt_id,
             'npwp'                  =>  $request->npwp,
             'no_whatsapp'           =>  $request->no_whatsapp,
             'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
@@ -97,8 +102,10 @@ class PegawaiController extends Controller
     }
 
     public function edit(Pegawai $pegawai){
+        $jabatanDts = JabatanDt::all();
         return view('backend.dosens.edit',[
             'pegawai'   =>  $pegawai,
+            'jabatanDts'   =>  $jabatanDts,
         ]);
     }
 
@@ -270,6 +277,25 @@ class PegawaiController extends Controller
         }
     }
 
+    public function setNonActiveRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+        $update = $jabatanFungsional->update([
+            'is_active' =>  0,
+        ]);
+        if ($update) {
+            $notification = array(
+                'message' => 'Yeay, data riwayat jabatan fungsional berhasil dinonaktifkan',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, data riwayat jabatan fungsional gagal dinonaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
     public function deleteRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
         if ($jabatanFungsional->is_active == 1) {
             $notification = array(
@@ -403,5 +429,11 @@ class PegawaiController extends Controller
             );
             return redirect()->route('dosen.riwayat_pangkat_golongan',[$pegawai->slug])->with($notification);
         }
+    }
+
+    public function riwayatJabatanDt(Pegawai $pegawai){
+        return view('backend.dosens.riwayat_jabatan_dt',[
+            'pegawai'   =>  $pegawai,
+        ]);
     }
 }

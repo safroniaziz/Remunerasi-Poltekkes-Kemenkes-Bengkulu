@@ -12,7 +12,7 @@
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <form action="{{ route('dosen.store') }}" method="POST" id="form-tambah">
-                            {{ csrf_field() }} {{ method_field('PATCH') }}
+                            {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-6" >
                                 <label for="nama" class="col-form-label">Nama Lengkap Dosen</label>
                                 <input type="text" class="form-control" id="nama" name="nama" >
@@ -68,6 +68,16 @@
                             <div class="form-group col-md-6" >
                                 <label for="nip" class="col-form-label">Nomor WhatsApp</label>
                                 <input type="text" class="form-control" id="no_whatsapp" name="no_whatsapp" >
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Jabatan DT</label>
+                                <select name="jabatan_dt_id" id="jabatan_dt_id" class="form-control">
+                                    <option disabled selected>-- pilih jabatan DT --</option>
+                                    @foreach ($jabatanDts as $jabatanDt)
+                                        <option value="{{ $jabatanDt->id }}">{{ $jabatanDt->nama_jabatan_dt }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6" >

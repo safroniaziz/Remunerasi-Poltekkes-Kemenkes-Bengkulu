@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->string('nip',18)->unique();
+            $table->unsignedBigInteger('jabatan_dt_id')->nullable();
             $table->string('nidn');
             $table->string('nama');
             $table->string('slug');
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('jabatan_dt_id')->references('id')->on('jabatan_dts');
         });
     }
 

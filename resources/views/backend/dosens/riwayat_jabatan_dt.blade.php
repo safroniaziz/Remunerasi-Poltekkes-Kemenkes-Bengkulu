@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('subTitle','Data Jabatan fungsional')
+@section('subTitle','Data Jabatan DT')
 @section('page','Data Jabatan fungsional')
 @section('subPage','Semua Data Jabatan fungsional')
 @section('content')
@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-briefcase"></i>&nbsp;Manajemen Data Jabatan fungsional
+                    <i class="fa fa-briefcase"></i>&nbsp;Manajemen Data Jabatan DT
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
@@ -28,9 +28,6 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <a href="{{ route('dosen') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
-                                <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Riwayat Jabatan Fungsional
-                                </button>
                             </div>
                         </div>
                         <div class="col-md-12 table-responsive">
@@ -39,7 +36,7 @@
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Dosen</th>
-                                        <th style=" vertical-align:middle">Jabatan fungsional</th>
+                                        <th style=" vertical-align:middle">Jabatan DT</th>
                                         <th style=" vertical-align:middle">TMT Jabatan</th>
                                         <th style=" vertical-align:middle; text-align:center">Status</th>
                                         <th style=" vertical-align:middle; text-align:center">Ubah Status</th>
@@ -50,34 +47,34 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($pegawai->jabatanFungsionals()->orderBy('created_at','desc')->get() as $index => $jabatanfungsional)
+                                    @foreach ($pegawai->riwayatJabatanDts()->orderBy('created_at','desc')->get() as $index => $jabatanDt)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td >{{ $pegawai->nama }}</a></td>
-                                            <td >{{ $jabatanfungsional->nama_jabatan_fungsional }}</a></td>
-                                            <td >{{ $jabatanfungsional->tmt_jabatan_fungsional->isoFormat('dddd, D MMMM Y') }}</td>
+                                            <td >{{ $jabatanDt->nama_jabatan_dt }}</a></td>
+                                            <td >{{ $jabatanDt->tmt_jabatan_dt->isoFormat('dddd, D MMMM Y') }}</td>
                                             <td>
-                                                @if ($jabatanfungsional->is_active == 1)
+                                                @if ($jabatanDt->is_active == 1)
                                                     <label for="" class="label label-success"><i class="fa fa-check-circle"></i>&nbsp; Aktif</label>
                                                 @else
                                                     <label for="" class="label label-danger"><i class="fa fa-minus"></i>&nbsp; Tidak Aktif</label>
                                                 @endif
                                            </td>
                                            <td class="text-center">
-                                                @if ($jabatanfungsional->is_active == 1)
-                                                    <form action="{{ route('dosen.riwayat_jabatan_fungsional.set_nonactive',[$pegawai->slug, $jabatanfungsional->id]) }}" method="POST">
+                                                @if ($jabatanDt->is_active == 1)
+                                                    <form action="{{ route('dosen.riwayat_jabatan_dt.set_nonactive',[$pegawai->slug, $jabatanDt->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('dosen.riwayat_jabatan_fungsional.set_active',[$pegawai->slug, $jabatanfungsional->id]) }}" method="POST">
+                                                    <form action="{{ route('dosen.riwayat_jabatan_dt.set_active',[$pegawai->slug, $jabatanDt->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <form action="{{ route('dosen.riwayat_jabatan_fungsional.delete',[$pegawai->slug, $jabatanfungsional->id]) }}" method="POST">
+                                                <form action="{{ route('dosen.riwayat_jabatan_dt.delete',[$pegawai->slug, $jabatanDt->id]) }}" method="POST">
                                                     {{ csrf_field() }} {{ method_field('DELETE') }}
                                                     <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                                 </form>
@@ -87,9 +84,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/dosens.partials.modal_add')
                     </div>
-                    @include('backend/dosens.partials.modal_edit')
                 </div>
             </section>
         </div>

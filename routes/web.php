@@ -57,7 +57,8 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'riwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional');
     Route::patch('/manajemen_data_dosen/riwayat_jabatan_fungsional', 'updateRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.update');
     Route::post('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'storeRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.store');
-    Route::patch('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional/{jabatanFungsional}', 'setActiveRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.set_active');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/aktifkan_riwayat_jabatan_fungsional/{jabatanFungsional}', 'setActiveRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.set_active');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/non_aktifkan_riwayat_jabatan_fungsional/{jabatanFungsional}', 'setNonActiveRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.set_nonactive');
     Route::delete('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional/{jabatanFungsional}', 'deleteRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.delete');
 
     Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan', 'riwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan');
@@ -65,6 +66,13 @@ Route::controller(PegawaiController::class)->group(function () {
     Route::post('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan', 'storeRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.store');
     Route::patch('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan/{pangkatGolongan}', 'setActiveRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.set_active');
     Route::delete('/manajemen_data_dosen/{pegawai:slug}/riwayat_pangkat_golongan/{pangkatGolongan}', 'deleteRiwayatPangkatGolongan')->name('dosen.riwayat_pangkat_golongan.delete');
+    
+    Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_dt', 'riwayatJabatanDt')->name('dosen.riwayat_jabatan_dt');
+    Route::patch('/manajemen_data_dosen/riwayat_jabatan_dt', 'updateRiwayatJabatanDt')->name('dosen.riwayat_jabatan_dt.update');
+    Route::post('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_dt', 'storeRiwayatJabatanDt')->name('dosen.riwayat_jabatan_dt.store');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/aktifkan_riwayat_jabatan_dt/{jabatanDt}', 'setActiveRiwayatJabatanDt')->name('dosen.riwayat_jabatan_dt.set_active');
+    Route::patch('/manajemen_data_dosen/{pegawai:slug}/non_aktifkan_riwayat_jabatan_dt/{jabatanDt}', 'setNonActiveRiwayatJabatanDt')->name('dosen.riwayat_jabatan_dt.set_nonactive');
+    Route::delete('/manajemen_data_dosen/{pegawai:slug}/delete_riwayat_jabatan_dt/{jabatanDt}', 'deleteRiwayatJabatanDt')->name('dosen.riwayat_jabatan_dt.delete');
 });
 
 Route::controller(JabatanDtController::class)->group(function () {

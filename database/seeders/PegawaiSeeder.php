@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JabatanDt;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,7 @@ class PegawaiSeeder extends Seeder
                 'email'                 =>  $faker->email(),
                 'jenis_kelamin'         =>  $faker->randomElement(['L','P']),
                 'jurusan'               =>  $faker->randomElement(['gizi','kebidanan','keperawatan','analis_kesehatan','promosi_kesehatan','kesehatan_lingkungan'], 2),
+                'jabatan_dt_id'         =>  JabatanDt::all()->random()->id,
                 'nomor_rekening'        =>  $faker->name(),
                 'npwp'                  =>  $faker->randomDigit(),
                 'is_serdos'             =>  1,

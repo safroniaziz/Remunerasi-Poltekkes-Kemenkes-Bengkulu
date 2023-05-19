@@ -26,12 +26,12 @@
 
                         <div class="form-group col-md-6" >
                             <label for="nama" class="col-form-label">Nama Jabatan Fungsional</label>
-                            <input type="text" class="form-control" value="{{ $jabatanfungsional->nama_jabatan_fungsional }}" id="nama_jabatan_fungsional" name="nama_jabatan_fungsional" >
+                            <input type="text" class="form-control" id="nama_jabatan_fungsional" name="nama_jabatan_fungsional" >
                         </div>
 
                         <div class="form-group col-md-6" >
                             <label for="nip" class="col-form-label">TMT Jabatan Fungsional</label>
-                            <input type="text" class="form-control" value="{{ $jabatanfungsional->tmt_jabatan_fungsional }}" id="tmt_jabatan_fungsional" name="tmt_jabatan_fungsional" >
+                            <input type="text" class="form-control" id="tmt_jabatan_fungsional" name="tmt_jabatan_fungsional" >
                         </div>
                     </div>
                 </div>

@@ -71,6 +71,18 @@
                             </div>
 
                             <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Jabatan DT</label>
+                                <select name="jabatan_dt_id" id="jabatan_dt_id" class="form-control">
+                                    <option disabled selected>-- pilih jabatan DT --</option>
+                                    @foreach ($jabatanDts as $jabatanDt)
+                                        <option @if ($jabatanDt->id == $pegawai->jabatan_dt_id)
+                                            selected
+                                        @endif value="{{ $jabatanDt->id }}">{{ $jabatanDt->nama_jabatan_dt }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6" >
                                 <label for="nip" class="col-form-label">Dosen Tersertifikasi?</label>
                                 <select name="is_serdos" class="form-control" id="is_serdos">
                                     <option disabled selected>-- pilih satu --</option>

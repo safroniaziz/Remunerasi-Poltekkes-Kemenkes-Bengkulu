@@ -10,18 +10,10 @@ use Illuminate\Support\Str;
 
 class RiwayatJabatanDtController extends Controller
 {
-    public function index(Request $request){
-        $nip = $request->query('nip');
-        if (!empty($nip)) {
-            $riwayatjabatandts = RiwayatJabatanDt::where('nip','LIKE','%'.$nip.'%')
-                                ->paginate(10);
-
-        }else {
-            $riwayatjabatandts = RiwayatJabatanDt::paginate(10);
-        }
+    public function index(){
+        $riwayatjabatandts = RiwayatJabatanDt::orderBy('created_at','desc')->get();
         return view('backend/riwayat_jabatan_dts.index',[
             'riwayatjabatandts'         =>  $riwayatjabatandts,
-            'nip'    =>  $nip,
         ]);
     }
 

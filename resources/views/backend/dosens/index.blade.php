@@ -45,11 +45,12 @@
                                         <th rowspan="2" style=" vertical-align:middle">Nama Lengkap</th>
                                         <th rowspan="2" style="text-align:center; vertical-align:middle">Jenis Kelamin</th>
                                         <th rowspan="2" style="text-align:center; vertical-align:middle">Aktif</th>
-                                        <th style="text-align:center; vertical-align:middle" colspan="2">Riwayat</th>
+                                        <th style="text-align:center; vertical-align:middle" colspan="3">Riwayat</th>
                                         <th rowspan="2" style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                     <tr>
-                                        <th style="text-align:center; vertical-align:middle">Jabatan</th>
+                                        <th style="text-align:center; vertical-align:middle">Jabatan Fungsional</th>
+                                        <th style="text-align:center; vertical-align:middle">Jabatan DT</th>
                                         <th style="text-align:center; vertical-align:middle">Pangkat & Golongan</th>
                                     </tr>
                                 </thead>
@@ -58,12 +59,16 @@
                                         $no=1;
                                     @endphp
                                     @foreach ($dosens as $index => $dosen)
-                                        <tr>
+                                        <tr
+                                            @if ($dosen->total_jabatan_fungsional_aktif < 1 || $dosen->total_pangkat_golongan_aktif < 1 || $dosen->total_jabatan_fungsional_aktif > 1 || $dosen->total_pangkat_golongan_aktif > 1 || $dosen->jabatan_dt_id == null || $dosen->jabatan_dt_id == "")
+                                                style="background:#f2dede"
+                                            @endif
+                                        >
                                             <td>{{ $index+1 }}</td>
                                             <td>
                                                 <a href="" style="font-weight:600;">{{ $dosen->nama }}</a>
                                                 <br>
-                                                <hr style="margin-bottom:5px !important; margin-top:5px !important; border-color:#8c8c8c !important">
+                                                <hr style="margin-bottom:5px !important; margin-top:5px !important;border-top: 1px solid #ccc; !important">
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-success">{{ $dosen->nip ?? '-' }}</small>
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-info">{{ $dosen->email ?? '-' }}</small>
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">{{ $dosen->jurusan ?? '-' }}</small>
@@ -89,10 +94,43 @@
                                                 @endif
                                            </td>
                                            <td class="text-center">
-                                                <a href="{{ route('dosen.riwayat_jabatan_fungsional',[$dosen->slug]) }}" class="btn btn-success btn-sm btn-flat">{{ $dosen->jabatanFungsionals()->count() }}</a>
+                                                <a href="{{ route('dosen.riwayat_jabatan_fungsional',[$dosen->slug]) }}" class="btn-sm btn-flat
+                                                    @if ($dosen->total_jabatan_fungsional_aktif < 1 || $dosen->total_jabatan_fungsional_aktif > 1)
+                                                        btn btn-danger
+                                                    @else
+                                                        btn btn-success
+                                                    @endif
+                                                    ">
+                                                    @if ($dosen->total_jabatan_fungsional_aktif > 0)
+                                                        {{ $dosen->nama_jabatan_fungsional_aktif }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </a>
                                            </td>
                                             <td class="text-center">
-                                                <a href="{{ route('dosen.riwayat_pangkat_golongan',[$dosen->slug]) }}" class="btn btn-success btn-sm btn-flat">{{ $dosen->pangkatGolongans()->count() }}</a>
+                                                <a href="{{ route('dosen.riwayat_jabatan_dt',[$dosen->slug]) }}" class="btn-sm btn-flat btn 
+                                                    @if ($dosen->jabatan_dt_id != null || $dosen->jabatan_dt_id != "")
+                                                        btn-success
+                                                    @else
+                                                        btn-danger
+                                                    @endif
+                                                    ">
+                                                    @if ($dosen->jabatan_dt_id != null || $dosen->jabatan_dt_id != "")
+                                                        {{ $dosen->jabatanDt->nama_jabatan_dt }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('dosen.riwayat_pangkat_golongan',[$dosen->slug]) }}" class="btn-sm btn-flat
+                                                    @if ($dosen->total_pangkat_golongan_aktif < 1 || $dosen->total_pangkat_golongan_aktif > 1)
+                                                        btn btn-danger
+                                                    @else
+                                                        btn btn-success
+                                                    @endif
+                                                    ">{{ $dosen->pangkatGolongans()->count() }}</a>
                                             </td>
                                            <td>
                                                 <a href="{{ route('dosen.edit',[$dosen->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
@@ -101,6 +139,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{$dosens->links("pagination::bootstrap-4") }}
                         </div>
                     </div>
                 </div>

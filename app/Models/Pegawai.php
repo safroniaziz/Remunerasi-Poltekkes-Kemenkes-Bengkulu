@@ -58,4 +58,20 @@ class Pegawai extends Model
         return LogOptions::defaults()
             ->logUnguarded();
     }
+
+    public function jabatanDt(){
+        return $this->belongsTo(JabatanDt::class);
+    }
+
+    public function getTotalJabatanFungsionalAktifAttribute(){
+        return $this->jabatanFungsionals()->where('is_active',1)->count();
+    }
+
+    public function getNamaJabatanFungsionalAktifAttribute(){
+        return $this->jabatanFungsionals()->select('nama_jabatan_fungsional')->where('is_active',1)->orderBy('created_at','desc')->pluck('nama_jabatan_fungsional')->first();
+    }
+    
+    public function getTotalPangkatGolonganAktifAttribute(){
+        return $this->pangkatGolongans()->where('is_active',1)->count();
+    }
 }
