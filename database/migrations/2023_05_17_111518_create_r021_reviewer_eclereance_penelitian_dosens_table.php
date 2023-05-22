@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18);
-            $table->integer('judul_protokol_penelitian');
+            $table->string('judul_protokol_penelitian');
             $table->boolean('is_bkd');
             $table->boolean('is_verified');
             $table->double('point')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r021_reviewer_ecthical_clereance_penelitian_dosens');
+        Schema::dropIfExists('r021_reviewer_eclere_penelitian_dosens');
     }
 };

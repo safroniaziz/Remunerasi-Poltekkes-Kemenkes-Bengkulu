@@ -1,17 +1,16 @@
 <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_03_membimbing_pencapaian_kompetensi.update') }}" method="POST" id="form-edit-R03">
+            <form action="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas.update') }}" method="POST" id="form-edit-R017">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit Tambah Rubrik 03 Membimbing Tutorial Pencapaian Kompetensi</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit Rubrik 17 Naskah Buku Bahasa Terbit Edar Nasional</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" name="r03membimbingpencapaiankompetensi_id_edit" id="r03membimbingpencapaiankompetensi_id_edit">
-
+                        <input type="hidden" name="r017naskahbukuterbitedarnas_id_edit" id="r017naskahbukuterbitedarnas_id_edit">
                         <div class="form-group col-md-12" >
                             <label for="periode_id" class="col-form-label">Periode Aktif</label>
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
@@ -29,8 +28,13 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Jumlah Mahasiswa</label>
-                            <input type="text" class="form-control" id="jumlah_mahasiswa_edit" name="jumlah_mahasiswa">
+                            <label for="exampleInputEmail1">Judul Buku</label>
+                            <input type="text" class="form-control" id="judul_buku_edit" name="judul_buku">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">ISBN</label>
+                            <input type="text" class="form-control" id="isbn_edit" name="isbn">
                         </div>
 
                     </div>
@@ -49,7 +53,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-edit-R03',function (event){
+        $(document).on('submit','#form-edit-R017',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

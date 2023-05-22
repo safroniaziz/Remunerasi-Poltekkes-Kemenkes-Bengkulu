@@ -25,7 +25,15 @@ use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
 use App\Http\Controllers\R11MengembangkanModulBerisbnController;
 use App\Http\Controllers\R12MembimbingPkmController;
 use App\Http\Controllers\R13OrasiIlmiahNarasumberBidangIlmuController;
-
+use App\Http\Controllers\R14KaryaInovasiController;
+use App\Http\Controllers\R15MenulisKaryaIlmiahDipublikasikanController;
+use App\Http\Controllers\R16NaskahBukuBahasaTerbitEdarInterController;
+use App\Http\Controllers\R17NaskahBukuBahasaTerbitEdarNasController;
+use App\Http\Controllers\R18MendapatHibahPkmController;
+use App\Http\Controllers\R19LatihNyuluhNatarCeramahWargaController;
+use App\Http\Controllers\R20AssessorBkdLkdController;
+use App\Http\Controllers\R21ReviewerEclerePenelitianDosenController;
+use App\Http\Controllers\R22ReviewerEclerePenelitianMhsController;
 
 
 
@@ -321,4 +329,100 @@ Route::controller(R13OrasiIlmiahNarasumberBidangIlmuController::class)->group(fu
     Route::patch('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/update', 'update')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.update');
     Route::delete('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/delete', 'delete')->name('r_013_orasi_ilmiah_narasumber_bidang_ilmu.delete');
 });
+Route::controller(R14KaryaInovasiController::class)->group(function () {
+    Route::get('/r_014_karya_inovasi', 'index')->name('r_014_karya_inovasi');
+    Route::get('/r_014_karya_inovasi/create', 'create')->name('r_014_karya_inovasi.create');
+    Route::post('/r_014_karya_inovasi', 'store')->name('r_014_karya_inovasi.store');
+    Route::patch('/r_014_karya_inovasi/{r014karyainovasi}/bkdset_active', 'bkdSetActive')->name('r_014_karya_inovasi.bkd_set_active');
+    Route::patch('/r_014_karya_inovasi/{r014karyainovasi}/bkdset_nonactive', 'bkdSetnonActive')->name('r_014_karya_inovasi.bkd_set_nonactive');
+    Route::get('/r_014_karya_inovasi/{r014karyainovasi}/edit', 'edit')->name('r_014_karya_inovasi.edit');
+    Route::patch('/r_014_karya_inovasi/update', 'update')->name('r_014_karya_inovasi.update');
+    Route::delete('/r_014_karya_inovasi/{r014karyainovasi}/delete', 'delete')->name('r_014_karya_inovasi.delete');
+});
 // End Of Pengaturan/Setting Rubrik Pendidikan Insidental
+// Pengaturan/Setting Rubrik Penelitian
+Route::controller(R15MenulisKaryaIlmiahDipublikasikanController::class)->group(function () {
+    Route::get('/r_015_menulis_karya_ilmiah_dipublikasikan', 'index')->name('r_015_menulis_karya_ilmiah_dipublikasikan');
+    Route::get('/r_015_menulis_karya_ilmiah_dipublikasikan/create', 'create')->name('r_015_menulis_karya_ilmiah_dipublikasikan.create');
+    Route::post('/r_015_menulis_karya_ilmiah_dipublikasikan', 'store')->name('r_015_menulis_karya_ilmiah_dipublikasikan.store');
+    Route::patch('/r_015_menulis_karya_ilmiah_dipublikasikan/{r015karyailmiahpublikasi}/bkdset_active', 'bkdSetActive')->name('r_015_menulis_karya_ilmiah_dipublikasikan.bkd_set_active');
+    Route::patch('/r_015_menulis_karya_ilmiah_dipublikasikan/{r015karyailmiahpublikasi}/bkdset_nonactive', 'bkdSetnonActive')->name('r_015_menulis_karya_ilmiah_dipublikasikan.bkd_set_nonactive');
+    Route::get('/r_015_menulis_karya_ilmiah_dipublikasikan/{r015karyailmiahpublikasi}/edit', 'edit')->name('r_015_menulis_karya_ilmiah_dipublikasikan.edit');
+    Route::patch('/r_015_menulis_karya_ilmiah_dipublikasikan/update', 'update')->name('r_015_menulis_karya_ilmiah_dipublikasikan.update');
+    Route::delete('/r_015_menulis_karya_ilmiah_dipublikasikan/{r015karyailmiahpublikasi}/delete', 'delete')->name('r_015_menulis_karya_ilmiah_dipublikasikan.delete');
+});
+Route::controller(R16NaskahBukuBahasaTerbitEdarInterController::class)->group(function () {
+    Route::get('/r_016_naskah_buku_bahasa_terbit_edar_inter', 'index')->name('r_016_naskah_buku_bahasa_terbit_edar_inter');
+    Route::get('/r_016_naskah_buku_bahasa_terbit_edar_inter/create', 'create')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.create');
+    Route::post('/r_016_naskah_buku_bahasa_terbit_edar_inter', 'store')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.store');
+    Route::patch('/r_016_naskah_buku_bahasa_terbit_edar_inter/{r016naskahbukuterbitedarinter}/bkdset_active', 'bkdSetActive')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.bkd_set_active');
+    Route::patch('/r_016_naskah_buku_bahasa_terbit_edar_inter/{r016naskahbukuterbitedarinter}/bkdset_nonactive', 'bkdSetnonActive')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.bkd_set_nonactive');
+    Route::get('/r_016_naskah_buku_bahasa_terbit_edar_inter/{r016naskahbukuterbitedarinter}/edit', 'edit')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.edit');
+    Route::patch('/r_016_naskah_buku_bahasa_terbit_edar_inter/update', 'update')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.update');
+    Route::delete('/r_016_naskah_buku_bahasa_terbit_edar_inter/{r016naskahbukuterbitedarinter}/delete', 'delete')->name('r_016_naskah_buku_bahasa_terbit_edar_inter.delete');
+});
+Route::controller(R17NaskahBukuBahasaTerbitEdarNasController::class)->group(function () {
+    Route::get('/r_017_naskah_buku_bahasa_terbit_edar_nas', 'index')->name('r_017_naskah_buku_bahasa_terbit_edar_nas');
+    Route::get('/r_017_naskah_buku_bahasa_terbit_edar_nas/create', 'create')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.create');
+    Route::post('/r_017_naskah_buku_bahasa_terbit_edar_nas', 'store')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.store');
+    Route::patch('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/bkdset_active', 'bkdSetActive')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.bkd_set_active');
+    Route::patch('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/bkdset_nonactive', 'bkdSetnonActive')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.bkd_set_nonactive');
+    Route::get('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/edit', 'edit')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.edit');
+    Route::patch('/r_017_naskah_buku_bahasa_terbit_edar_nas/update', 'update')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.update');
+    Route::delete('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/delete', 'delete')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.delete');
+});
+// End Of Pengaturan/Setting Rubrik Penelitian
+// Pengaturan/Setting Rubrik Pengabdian
+Route::controller(R18MendapatHibahPkmController::class)->group(function () {
+    Route::get('/r_018_mendapat_hibah_pkm', 'index')->name('r_018_mendapat_hibah_pkm');
+    Route::get('/r_018_mendapat_hibah_pkm/create', 'create')->name('r_018_mendapat_hibah_pkm.create');
+    Route::post('/r_018_mendapat_hibah_pkm', 'store')->name('r_018_mendapat_hibah_pkm.store');
+    Route::patch('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/bkdset_active', 'bkdSetActive')->name('r_018_mendapat_hibah_pkm.bkd_set_active');
+    Route::patch('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/bkdset_nonactive', 'bkdSetnonActive')->name('r_018_mendapat_hibah_pkm.bkd_set_nonactive');
+    Route::get('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/edit', 'edit')->name('r_018_mendapat_hibah_pkm.edit');
+    Route::patch('/r_018_mendapat_hibah_pkm/update', 'update')->name('r_018_mendapat_hibah_pkm.update');
+    Route::delete('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/delete', 'delete')->name('r_018_mendapat_hibah_pkm.delete');
+});
+Route::controller(R19LatihNyuluhNatarCeramahWargaController::class)->group(function () {
+    Route::get('/r_019_latih_nyuluh_natar_ceramah_warga', 'index')->name('r_019_latih_nyuluh_natar_ceramah_warga');
+    Route::get('/r_019_latih_nyuluh_natar_ceramah_warga/create', 'create')->name('r_019_latih_nyuluh_natar_ceramah_warga.create');
+    Route::post('/r_019_latih_nyuluh_natar_ceramah_warga', 'store')->name('r_019_latih_nyuluh_natar_ceramah_warga.store');
+    Route::patch('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/bkdset_active', 'bkdSetActive')->name('r_019_latih_nyuluh_natar_ceramah_warga.bkd_set_active');
+    Route::patch('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/bkdset_nonactive', 'bkdSetnonActive')->name('r_019_latih_nyuluh_natar_ceramah_warga.bkd_set_nonactive');
+    Route::get('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/edit', 'edit')->name('r_019_latih_nyuluh_natar_ceramah_warga.edit');
+    Route::patch('/r_019_latih_nyuluh_natar_ceramah_warga/update', 'update')->name('r_019_latih_nyuluh_natar_ceramah_warga.update');
+    Route::delete('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/delete', 'delete')->name('r_019_latih_nyuluh_natar_ceramah_warga.delete');
+});
+// End Of Pengaturan/Setting Rubrik Pengabdian
+// Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
+Route::controller(R20AssessorBkdLkdController::class)->group(function () {
+    Route::get('/r_020_assessor_bkd_lkd', 'index')->name('r_020_assessor_bkd_lkd');
+    Route::get('/r_020_assessor_bkd_lkd/create', 'create')->name('r_020_assessor_bkd_lkd.create');
+    Route::post('/r_020_assessor_bkd_lkd', 'store')->name('r_020_assessor_bkd_lkd.store');
+    Route::patch('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/bkdset_active', 'bkdSetActive')->name('r_020_assessor_bkd_lkd.bkd_set_active');
+    Route::patch('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/bkdset_nonactive', 'bkdSetnonActive')->name('r_020_assessor_bkd_lkd.bkd_set_nonactive');
+    Route::get('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/edit', 'edit')->name('r_020_assessor_bkd_lkd.edit');
+    Route::patch('/r_020_assessor_bkd_lkd/update', 'update')->name('r_020_assessor_bkd_lkd.update');
+    Route::delete('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/delete', 'delete')->name('r_020_assessor_bkd_lkd.delete');
+});
+Route::controller(R21ReviewerEclerePenelitianDosenController::class)->group(function () {
+    Route::get('/r_021_reviewer_eclere_penelitian_dosen', 'index')->name('r_021_reviewer_eclere_penelitian_dosen');
+    Route::get('/r_021_reviewer_eclere_penelitian_dosen/create', 'create')->name('r_021_reviewer_eclere_penelitian_dosen.create');
+    Route::post('/r_021_reviewer_eclere_penelitian_dosen', 'store')->name('r_021_reviewer_eclere_penelitian_dosen.store');
+    Route::patch('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/bkdset_active', 'bkdSetActive')->name('r_021_reviewer_eclere_penelitian_dosen.bkd_set_active');
+    Route::patch('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/bkdset_nonactive', 'bkdSetnonActive')->name('r_021_reviewer_eclere_penelitian_dosen.bkd_set_nonactive');
+    Route::get('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/edit', 'edit')->name('r_021_reviewer_eclere_penelitian_dosen.edit');
+    Route::patch('/r_021_reviewer_eclere_penelitian_dosen/update', 'update')->name('r_021_reviewer_eclere_penelitian_dosen.update');
+    Route::delete('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/delete', 'delete')->name('r_021_reviewer_eclere_penelitian_dosen.delete');
+});
+Route::controller(R22ReviewerEclerePenelitianMhsController::class)->group(function () {
+    Route::get('/r_022_reviewer_eclere_penelitian_mhs', 'index')->name('r_022_reviewer_eclere_penelitian_mhs');
+    Route::get('/r_022_reviewer_eclere_penelitian_mhs/create', 'create')->name('r_022_reviewer_eclere_penelitian_mhs.create');
+    Route::post('/r_022_reviewer_eclere_penelitian_mhs', 'store')->name('r_022_reviewer_eclere_penelitian_mhs.store');
+    Route::patch('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/bkdset_active', 'bkdSetActive')->name('r_022_reviewer_eclere_penelitian_mhs.bkd_set_active');
+    Route::patch('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/bkdset_nonactive', 'bkdSetnonActive')->name('r_022_reviewer_eclere_penelitian_mhs.bkd_set_nonactive');
+    Route::get('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/edit', 'edit')->name('r_022_reviewer_eclere_penelitian_mhs.edit');
+    Route::patch('/r_022_reviewer_eclere_penelitian_mhs/update', 'update')->name('r_022_reviewer_eclere_penelitian_mhs.update');
+    Route::delete('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/delete', 'delete')->name('r_022_reviewer_eclere_penelitian_mhs.delete');
+});
+// End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen

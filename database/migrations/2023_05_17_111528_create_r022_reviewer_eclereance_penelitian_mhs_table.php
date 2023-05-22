@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r022_reviewer_eclereance_penelitian_mhs', function (Blueprint $table) {
+        Schema::create('r022_reviewer_eclere_penelitian_mhs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
             $table->string('nip',18);
-            $table->integer('judul_protokol_penelitian');
+            $table->string('judul_protokol_penelitian');
             $table->boolean('is_bkd');
             $table->boolean('is_verified');
             $table->double('point')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r022_reviewer_ecthical_clereance_penelitian_mahasiswas');
+        Schema::dropIfExists('r022_reviewer_eclere_penelitian_mhs');
     }
 };
