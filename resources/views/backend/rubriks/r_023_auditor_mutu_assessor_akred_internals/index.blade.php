@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('subTitle','Data Rubrik 07 Membimbing Skripsi LTA LA Profesi')
-@section('page','Data Rubrik 07 Membimbing Skripsi LTA LA Profesi')
+@section('subTitle','Data Rubrik 23 Auditor Mutu Assessor Akreditasi Internal')
+@section('page','Data Rubrik 23 Auditor Mutu Assessor Akreditasi Internal')
 @section('subPage','Semua Data')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 07 Membimbing Skripsi LTA LA Profesi
+                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 23 Auditor Mutu Assessor Akreditasi Internal
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 07 Membimbing Skripsi LTA LA Profesi
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 23 Auditor Mutu Assessor Akreditasi Internal
                                 </button>
                             </div>
                         </div>
@@ -39,8 +39,7 @@
                                         <th style=" vertical-align:middle">No</th>
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
-                                        <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
-                                        <th style="text-align:center; vertical-align:middle">Pembimbing Ke</th>
+                                        <th style="text-align:center; vertical-align:middle">Judul Kegiatan</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
@@ -51,43 +50,36 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($r07membimbingskripsiltalaprofesis as $index => $r07membimbingskripsiltalaprofesi)
+                                    @foreach ($r023auditormutuassessorakredinternals as $index => $r023auditormutuassessorakredinternal)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->nip }}</td>
-                                            <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->jumlah_mahasiswa }}</td>
-                                            <td class="text-center">
-                                                @if ($r07membimbingskripsiltalaprofesi->pembimbing_ke == "pembimbing_utama")
-                                                    Pembimbing Utama
-                                                @elseif ($r07membimbingskripsiltalaprofesi->pembimbing_ke == "pembimbing_pendamping")
-                                                    Pembimbing Pendamping
-                                                @endif
-                                            </td>
-                                            <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->point }}</td>
+                                            <td class="text-center">{{ $r023auditormutuassessorakredinternal->nip }}</td>
+                                            <td class="text-center">{{ $r023auditormutuassessorakredinternal->pegawai->nama }}</td>
+                                            <td class="text-center">{{ $r023auditormutuassessorakredinternal->judul_kegiatan }}</td>
+                                            <td class="text-center">{{ $r023auditormutuassessorakredinternal->point }}</td>
                                             <td></td>
                                             <td></td>
                                             {{--  <td>
-                                                @if ($r07membimbingskripsiltalaprofesi->is_bkd== 1)
-                                                    <form action="{{ route('r_06_menguji_ujian_osca.set_nonactive',[$r07membimbingskripsiltalaprofesi->id]) }}" method="POST">
+                                                @if ($r023auditormutuassessorakredinternal->is_bkd== 1)
+                                                    <form action="{{ route('r_023_auditor_mutu_assessor_akred_internals.set_nonactive',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('r_06_menguji_ujian_osca.set_active',[$r07membimbingskripsiltalaprofesi->id]) }}" method="POST">
+                                                    <form action="{{ route('r_023_auditor_mutu_assessor_akred_internals.set_active',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
                                                 @endif
                                            </td>  --}}
                                            {{--  <td>
-                                            @if ($r07membimbingskripsiltalaprofesi->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r07membimbingskripsiltalaprofesi->id]) }}" method="POST">
+                                            @if ($r023auditormutuassessorakredinternal->is_verified== 1)
+                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
                                                     {{ csrf_field() }} {{ method_field('PATCH') }}
                                                     <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r07membimbingskripsiltalaprofesi->id]) }}" method="POST">
+                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
                                                     {{ csrf_field() }} {{ method_field('PATCH') }}
                                                     <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                 </form>
@@ -97,10 +89,10 @@
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a onclick="editr07membimbingskripsiltalaprofesi({{ $r07membimbingskripsiltalaprofesi->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a onclick="editr23auditmutuasesorakredinternal({{ $r023auditormutuassessorakredinternal->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_07_membimbing_skripsi_lta_la_profesi.delete',[$r07membimbingskripsiltalaprofesi->id]) }}" method="POST">
+                                                            <form action="{{ route('r_023_auditor_mutu_assessor_akred_internal.delete',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -114,9 +106,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.partials.modal_add')
+                        @include('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.partials.modal_edit')
+                    @include('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.partials.modal_edit')
                 </div>
             </section>
         </div>
@@ -132,23 +124,22 @@
             });
         } );
 
-        function editr07membimbingskripsiltalaprofesi(id){
+        function editr23auditmutuasesorakredinternal(id){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            url = "{{ url('r_07_membimbing_skripsi_lta_la_profesi').'/' }}"+id+'/edit';
+            url = "{{ url('r_023_auditor_mutu_assessor_akred_internal').'/' }}"+id+'/edit';
             $.ajax({
                 url : url,
                 type : 'GET',
                 success : function(data){
                     $('#modalEdit').modal('show');
-                    $('#r07membimbingskripsiltalaprofesi_id_edit').val(data.id);
+                    $('#r23auditmutuasesorakredinternal_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
                     $('#nip_edit').val(data.nip);
-                    $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
-                    $('#pembimbing_ke_edit').val(data.pembimbing_ke);
+                    $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                 },
                 error:function(){
                     $('#gagal').show(100);

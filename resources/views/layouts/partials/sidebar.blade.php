@@ -156,7 +156,8 @@
 
 <li class="treeview {{ set_active(
     ['r_020_assessor_bkd_lkd','r_019_latih_nyuluh_natar_ceramah_warga','r_021_reviewer_eclere_penelitian_dosen',
-    'r_022_reviewer_eclere_penelitian_mhs']) }}">
+    'r_022_reviewer_eclere_penelitian_mhs','r_023_auditor_mutu_assessor_akred_internal',
+    'r_024_tim_akred_prodi_dan_direktorat','r_025_kepanitiaan_kegiatan_institusi']) }}">
     <a href="#">
         <i class="fa fa-graduation-cap"></i> <span>Rubrik Penunjang Kegiatan Akademik Dosen</span>
         <span class="pull-right-container">
@@ -167,6 +168,9 @@
         <li class="{{ set_active('r_020_assessor_bkd_lkd') }}"><a href="{{ route('r_020_assessor_bkd_lkd') }}"><i class="fa fa-graduation-cap"></i>Rubrik 20 Assessor BKD LKD </a></li>
         <li class="{{ set_active('r_021_reviewer_eclere_penelitian_dosen') }}"><a href="{{ route('r_021_reviewer_eclere_penelitian_dosen') }}"><i class="fa fa-graduation-cap"></i>Rubrik 21 Reviewer Eclereance Penelitian Dosen</a></li>
         <li class="{{ set_active('r_022_reviewer_eclere_penelitian_mhs') }}"><a href="{{ route('r_022_reviewer_eclere_penelitian_mhs') }}"><i class="fa fa-graduation-cap"></i>Rubrik 22 Reviewer Eclereance Penelitian Mahasiswa</a></li>
+        <li class="{{ set_active('r_023_auditor_mutu_assessor_akred_internal') }}"><a href="{{ route('r_023_auditor_mutu_assessor_akred_internal') }}"><i class="fa fa-graduation-cap"></i>Rubrik 23 Auditor Mutu Assessor Akreditasi Internal</a></li>
+        <li class="{{ set_active('r_024_tim_akred_prodi_dan_direktorat') }}"><a href="{{ route('r_024_tim_akred_prodi_dan_direktorat') }}"><i class="fa fa-graduation-cap"></i>Rubrik 24 Tim Akreditasi Prodi dan Direktorat</a></li>
+        <li class="{{ set_active('r_025_kepanitiaan_kegiatan_institusi') }}"><a href="{{ route('r_025_kepanitiaan_kegiatan_institusi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 25 Kepanitiaan Kegiatan Institusi</a></li>
 
     </ul>
 </li>

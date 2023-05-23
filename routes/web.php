@@ -34,6 +34,12 @@ use App\Http\Controllers\R19LatihNyuluhNatarCeramahWargaController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\R21ReviewerEclerePenelitianDosenController;
 use App\Http\Controllers\R22ReviewerEclerePenelitianMhsController;
+use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
+use App\Http\Controllers\R24TimAkredProdiDanDirektoratController;
+use App\Http\Controllers\R25KepanitiaanKegiatanInstitusiController;
+
+
+
 
 
 
@@ -424,5 +430,35 @@ Route::controller(R22ReviewerEclerePenelitianMhsController::class)->group(functi
     Route::get('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/edit', 'edit')->name('r_022_reviewer_eclere_penelitian_mhs.edit');
     Route::patch('/r_022_reviewer_eclere_penelitian_mhs/update', 'update')->name('r_022_reviewer_eclere_penelitian_mhs.update');
     Route::delete('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/delete', 'delete')->name('r_022_reviewer_eclere_penelitian_mhs.delete');
+});
+Route::controller(R23AuditorMutuAssessorAkredInternalController::class)->group(function () {
+    Route::get('/r_023_auditor_mutu_assessor_akred_internal', 'index')->name('r_023_auditor_mutu_assessor_akred_internal');
+    Route::get('/r_023_auditor_mutu_assessor_akred_internal/create', 'create')->name('r_023_auditor_mutu_assessor_akred_internal.create');
+    Route::post('/r_023_auditor_mutu_assessor_akred_internal', 'store')->name('r_023_auditor_mutu_assessor_akred_internal.store');
+    Route::patch('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/bkdset_active', 'bkdSetActive')->name('r_023_auditor_mutu_assessor_akred_internal.bkd_set_active');
+    Route::patch('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/bkdset_nonactive', 'bkdSetnonActive')->name('r_023_auditor_mutu_assessor_akred_internal.bkd_set_nonactive');
+    Route::get('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/edit', 'edit')->name('r_023_auditor_mutu_assessor_akred_internal.edit');
+    Route::patch('/r_023_auditor_mutu_assessor_akred_internal/update', 'update')->name('r_023_auditor_mutu_assessor_akred_internal.update');
+    Route::delete('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/delete', 'delete')->name('r_023_auditor_mutu_assessor_akred_internal.delete');
+});
+Route::controller(R24TimAkredProdiDanDirektoratController::class)->group(function () {
+    Route::get('/r_024_tim_akred_prodi_dan_direktorat', 'index')->name('r_024_tim_akred_prodi_dan_direktorat');
+    Route::get('/r_024_tim_akred_prodi_dan_direktorat/create', 'create')->name('r_024_tim_akred_prodi_dan_direktorat.create');
+    Route::post('/r_024_tim_akred_prodi_dan_direktorat', 'store')->name('r_024_tim_akred_prodi_dan_direktorat.store');
+    Route::patch('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/bkdset_active', 'bkdSetActive')->name('r_024_tim_akred_prodi_dan_direktorat.bkd_set_active');
+    Route::patch('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/bkdset_nonactive', 'bkdSetnonActive')->name('r_024_tim_akred_prodi_dan_direktorat.bkd_set_nonactive');
+    Route::get('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/edit', 'edit')->name('r_024_tim_akred_prodi_dan_direktorat.edit');
+    Route::patch('/r_024_tim_akred_prodi_dan_direktorat/update', 'update')->name('r_024_tim_akred_prodi_dan_direktorat.update');
+    Route::delete('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/delete', 'delete')->name('r_024_tim_akred_prodi_dan_direktorat.delete');
+});
+Route::controller(R25KepanitiaanKegiatanInstitusiController::class)->group(function () {
+    Route::get('/r_025_kepanitiaan_kegiatan_institusi', 'index')->name('r_025_kepanitiaan_kegiatan_institusi');
+    Route::get('/r_025_kepanitiaan_kegiatan_institusi/create', 'create')->name('r_025_kepanitiaan_kegiatan_institusi.create');
+    Route::post('/r_025_kepanitiaan_kegiatan_institusi', 'store')->name('r_025_kepanitiaan_kegiatan_institusi.store');
+    Route::patch('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/bkdset_active', 'bkdSetActive')->name('r_025_kepanitiaan_kegiatan_institusi.bkd_set_active');
+    Route::patch('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/bkdset_nonactive', 'bkdSetnonActive')->name('r_025_kepanitiaan_kegiatan_institusi.bkd_set_nonactive');
+    Route::get('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/edit', 'edit')->name('r_025_kepanitiaan_kegiatan_institusi.edit');
+    Route::patch('/r_025_kepanitiaan_kegiatan_institusi/update', 'update')->name('r_025_kepanitiaan_kegiatan_institusi.update');
+    Route::delete('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/delete', 'delete')->name('r_025_kepanitiaan_kegiatan_institusi.delete');
 });
 // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen

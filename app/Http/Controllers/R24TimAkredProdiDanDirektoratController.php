@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R023AuditorMutuAssessorAkredInternal;
+use App\Models\R024TimAkredProdiDanDirektorat;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class R23AuditorMutuAssessorAkredInternalController extends Controller
+class R24TimAkredProdiDanDirektoratController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::orderBy('created_at','desc')->get();
+        $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[
-           'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
-           'r023auditormutuassessorakredinternals' =>  $r023auditormutuassessorakredinternals,
+        return view('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
+           'pegawais'                       =>  $pegawais,
+           'periode'                        =>  $periode,
+           'r024timakredprodirektorats'     =>  $r024timakredprodirektorats,
        ]);
    }
 
@@ -40,10 +40,10 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
-       $simpan = R023AuditorMutuAssessorAkredInternal::create([
+       $simpan = R024TimAkredProdiDanDirektorat::create([
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->nip,
-           'judul_kegiatan'      =>  $request->judul_kegiatan,
+           'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
            'point'             =>  null,
@@ -51,18 +51,18 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
 
        if ($simpan) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal baru berhasil ditambahkan',
-               'url'   =>  url('/r_023_auditor_mutu_assessor_akred_internal/'),
+               'text'  =>  'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat baru berhasil ditambahkan',
+               'url'   =>  url('/r_024_tim_akred_prodi_dan_direktorat/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal disimpan']);
+           return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal disimpan']);
        }
    }
-   public function edit(R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
-       return $r23auditmutuasesorakredinternal;
+   public function edit(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
+       return $r24timakredprodirektorat;
    }
 
-   public function update(Request $request, R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
+   public function update(Request $request, R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
        $rules = [
            'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
@@ -79,7 +79,7 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
-       $update = R023AuditorMutuAssessorAkredInternal::where('id',$request->r23auditmutuasesorakredinternal_id_edit)->update([
+       $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
            'periode_id'                 =>  $periode->id,
            'nip'                        =>  $request->nip,
            'judul_kegiatan'             =>  $request->judul_kegiatan,
@@ -90,31 +90,31 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal diubah',
-               'url'   =>  url('/r_023_auditor_mutu_assessor_akred_internal/'),
+               'text'  =>  'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat diubah',
+               'url'   =>  url('/r_024_tim_akred_prodi_dan_direktorat/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal diubah']);
        }
    }
-   public function delete(R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
-       $delete = $r23auditmutuasesorakredinternal->delete();
+   public function delete(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
+       $delete = $r24timakredprodirektorat->delete();
        if ($delete) {
            $notification = array(
-               'message' => 'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi berhasil dihapus',
+               'message' => 'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_023_auditor_mutu_assessor_akred_internal')->with($notification);
+           return redirect()->route('r_024_tim_akred_prodi_dan_direktorat')->with($notification);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R023AuditorMutuAssessorAkredInternal $r023auditormutuassessorakredinternal){
-       $update = $r023auditormutuassessorakredinternal->update([
+   public function bkdSetNonActive(R024TimAkredProdiDanDirektorat $r024timakredprodirektorat){
+       $update = $r024timakredprodirektorat->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -122,7 +122,7 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_023_auditor_mutu_assessor_akred_internal')->with($notification);
+           return redirect()->route('r_024_tim_akred_prodi_dan_direktorat')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
@@ -132,8 +132,8 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
    }
 
-   public function bkdSetActive(R023AuditorMutuAssessorAkredInternal $r023auditormutuassessorakredinternal){
-       $update = $r023auditormutuassessorakredinternal->update([
+   public function bkdSetActive(R024TimAkredProdiDanDirektorat $r024timakredprodirektorat){
+       $update = $r024timakredprodirektorat->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -141,7 +141,7 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
                'message' => 'Yeay, data bkd berhasil diaktifkan',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_023_auditor_mutu_assessor_akred_internal')->with($notification);
+           return redirect()->route('r_024_tim_akred_prodi_dan_direktorat')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, data bkd gagal diaktifkan',
