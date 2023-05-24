@@ -1,12 +1,12 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_025_kepanitiaan_kegiatan_institusi.store') }}" method="POST" id="form-tambah-r-25">
+            <form action="{{ route('r_030_pengelola_kepk.store') }}" method="POST" id="form-tambah-r-30">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 25 Kepanitiaan Kegiatan Institusi</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 30 Pengelola KEPK</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -24,11 +24,6 @@
                                     <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Judul Kegiatan</label>
-                            <input type="text" class="form-control" id="judul_kegiatan" name="judul_kegiatan">
                         </div>
 
                         <div class="form-group col-md-12" >
@@ -58,7 +53,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-r-25',function (event){
+        $(document).on('submit','#form-tambah-r-30',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

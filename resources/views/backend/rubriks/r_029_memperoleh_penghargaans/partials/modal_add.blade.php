@@ -1,12 +1,12 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_025_kepanitiaan_kegiatan_institusi.store') }}" method="POST" id="form-tambah-r-25">
+            <form action="{{ route('r_029_memperoleh_penghargaan.store') }}" method="POST" id="form-tambah-r-29">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 25 Kepanitiaan Kegiatan Institusi</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 29 Memperoleh Penghargaan</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -26,19 +26,12 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Judul Kegiatan</label>
-                            <input type="text" class="form-control" id="judul_kegiatan" name="judul_kegiatan">
-                        </div>
-
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Jabatan</label>
-                            <select name="jabatan" class="form-control" id="jabatan">
-                                <option disabled selected>-- pilih Jabatan --</option>
-                                <option value="ketua">Ketua</option>
-                                <option value="wakil">Wakil Ketua</option>
-                                <option value="sekretaris">Sekretaris</option>
-                                <option value="anggota">Anggota</option>
+                            <label for="nip" class="col-form-label">Judul Penghargaan</label>
+                            <select name="judul_penghargaan" class="form-control" id="judul_penghargaan">
+                                <option disabled selected>-- pilih Judul Penghargaan --</option>
+                                <option value="dosen_berprestasi_nasional">Dosen Berprestasi Nasional</option>
+                                <option value="reviewer_internasional_berscopus">Reviewer Internasional Berscopus</option>
                             </select>
                         </div>
 
@@ -58,7 +51,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-r-25',function (event){
+        $(document).on('submit','#form-tambah-r-29',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

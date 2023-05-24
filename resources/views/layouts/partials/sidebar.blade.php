@@ -157,7 +157,9 @@
 <li class="treeview {{ set_active(
     ['r_020_assessor_bkd_lkd','r_019_latih_nyuluh_natar_ceramah_warga','r_021_reviewer_eclere_penelitian_dosen',
     'r_022_reviewer_eclere_penelitian_mhs','r_023_auditor_mutu_assessor_akred_internal',
-    'r_024_tim_akred_prodi_dan_direktorat','r_025_kepanitiaan_kegiatan_institusi']) }}">
+    'r_024_tim_akred_prodi_dan_direktorat','r_025_kepanitiaan_kegiatan_institusi',
+    'r_026_pengelola_jurnal_buletin','r_027_keanggotaan_senat',
+    'r_028_melaksanakan_pengembangan_diri','r_029_memperoleh_penghargaan','r_030_pengelola_kepk']) }}">
     <a href="#">
         <i class="fa fa-graduation-cap"></i> <span>Rubrik Penunjang Kegiatan Akademik Dosen</span>
         <span class="pull-right-container">
@@ -171,6 +173,11 @@
         <li class="{{ set_active('r_023_auditor_mutu_assessor_akred_internal') }}"><a href="{{ route('r_023_auditor_mutu_assessor_akred_internal') }}"><i class="fa fa-graduation-cap"></i>Rubrik 23 Auditor Mutu Assessor Akreditasi Internal</a></li>
         <li class="{{ set_active('r_024_tim_akred_prodi_dan_direktorat') }}"><a href="{{ route('r_024_tim_akred_prodi_dan_direktorat') }}"><i class="fa fa-graduation-cap"></i>Rubrik 24 Tim Akreditasi Prodi dan Direktorat</a></li>
         <li class="{{ set_active('r_025_kepanitiaan_kegiatan_institusi') }}"><a href="{{ route('r_025_kepanitiaan_kegiatan_institusi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 25 Kepanitiaan Kegiatan Institusi</a></li>
+        <li class="{{ set_active('r_026_pengelola_jurnal_buletin') }}"><a href="{{ route('r_026_pengelola_jurnal_buletin') }}"><i class="fa fa-graduation-cap"></i>Rubrik 26 Pengelola Jurnal Buletin</a></li>
+        <li class="{{ set_active('r_027_keanggotaan_senat') }}"><a href="{{ route('r_027_keanggotaan_senat') }}"><i class="fa fa-graduation-cap"></i>Rubrik 27 Keanggotaan Senat</a></li>
+        <li class="{{ set_active('r_028_melaksanakan_pengembangan_diri') }}"><a href="{{ route('r_028_melaksanakan_pengembangan_diri') }}"><i class="fa fa-graduation-cap"></i>Rubrik 28 Melaksanakan Pengembangan Diri</a></li>
+        <li class="{{ set_active('r_029_memperoleh_penghargaan') }}"><a href="{{ route('r_029_memperoleh_penghargaan') }}"><i class="fa fa-graduation-cap"></i>Rubrik 29 Memperoleh Penghargaan</a></li>
+        <li class="{{ set_active('r_030_pengelola_kepk') }}"><a href="{{ route('r_030_pengelola_kepk') }}"><i class="fa fa-graduation-cap"></i>Rubrik 30 Pengelola KEPK</a></li>
 
     </ul>
 </li>

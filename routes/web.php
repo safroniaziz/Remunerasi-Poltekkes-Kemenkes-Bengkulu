@@ -37,6 +37,11 @@ use App\Http\Controllers\R22ReviewerEclerePenelitianMhsController;
 use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\R24TimAkredProdiDanDirektoratController;
 use App\Http\Controllers\R25KepanitiaanKegiatanInstitusiController;
+use App\Http\Controllers\R26PengelolaJurnalBuletinController;
+use App\Http\Controllers\R27KeanggotaanSenatController;
+use App\Http\Controllers\R28MelaksanakanPengembanganDiriController;
+use App\Http\Controllers\R29MemperolehPenghargaanController;
+use App\Http\Controllers\R30PengelolaKepkController;
 
 
 
@@ -460,5 +465,55 @@ Route::controller(R25KepanitiaanKegiatanInstitusiController::class)->group(funct
     Route::get('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/edit', 'edit')->name('r_025_kepanitiaan_kegiatan_institusi.edit');
     Route::patch('/r_025_kepanitiaan_kegiatan_institusi/update', 'update')->name('r_025_kepanitiaan_kegiatan_institusi.update');
     Route::delete('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/delete', 'delete')->name('r_025_kepanitiaan_kegiatan_institusi.delete');
+});
+Route::controller(R26PengelolaJurnalBuletinController::class)->group(function () {
+    Route::get('/r_026_pengelola_jurnal_buletin', 'index')->name('r_026_pengelola_jurnal_buletin');
+    Route::get('/r_026_pengelola_jurnal_buletin/create', 'create')->name('r_026_pengelola_jurnal_buletin.create');
+    Route::post('/r_026_pengelola_jurnal_buletin', 'store')->name('r_026_pengelola_jurnal_buletin.store');
+    Route::patch('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/bkdset_active', 'bkdSetActive')->name('r_026_pengelola_jurnal_buletin.bkd_set_active');
+    Route::patch('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/bkdset_nonactive', 'bkdSetnonActive')->name('r_026_pengelola_jurnal_buletin.bkd_set_nonactive');
+    Route::get('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/edit', 'edit')->name('r_026_pengelola_jurnal_buletin.edit');
+    Route::patch('/r_026_pengelola_jurnal_buletin/update', 'update')->name('r_026_pengelola_jurnal_buletin.update');
+    Route::delete('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/delete', 'delete')->name('r_026_pengelola_jurnal_buletin.delete');
+});
+Route::controller(R27KeanggotaanSenatController::class)->group(function () {
+    Route::get('/r_027_keanggotaan_senat', 'index')->name('r_027_keanggotaan_senat');
+    Route::get('/r_027_keanggotaan_senat/create', 'create')->name('r_027_keanggotaan_senat.create');
+    Route::post('/r_027_keanggotaan_senat', 'store')->name('r_027_keanggotaan_senat.store');
+    Route::patch('/r_027_keanggotaan_senat/{r27keanggotaansenat}/bkdset_active', 'bkdSetActive')->name('r_027_keanggotaan_senat.bkd_set_active');
+    Route::patch('/r_027_keanggotaan_senat/{r27keanggotaansenat}/bkdset_nonactive', 'bkdSetnonActive')->name('r_027_keanggotaan_senat.bkd_set_nonactive');
+    Route::get('/r_027_keanggotaan_senat/{r27keanggotaansenat}/edit', 'edit')->name('r_027_keanggotaan_senat.edit');
+    Route::patch('/r_027_keanggotaan_senat/update', 'update')->name('r_027_keanggotaan_senat.update');
+    Route::delete('/r_027_keanggotaan_senat/{r27keanggotaansenat}/delete', 'delete')->name('r_027_keanggotaan_senat.delete');
+});
+Route::controller(R28MelaksanakanPengembanganDiriController::class)->group(function () {
+    Route::get('/r_028_melaksanakan_pengembangan_diri', 'index')->name('r_028_melaksanakan_pengembangan_diri');
+    Route::get('/r_028_melaksanakan_pengembangan_diri/create', 'create')->name('r_028_melaksanakan_pengembangan_diri.create');
+    Route::post('/r_028_melaksanakan_pengembangan_diri', 'store')->name('r_028_melaksanakan_pengembangan_diri.store');
+    Route::patch('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/bkdset_active', 'bkdSetActive')->name('r_028_melaksanakan_pengembangan_diri.bkd_set_active');
+    Route::patch('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/bkdset_nonactive', 'bkdSetnonActive')->name('r_028_melaksanakan_pengembangan_diri.bkd_set_nonactive');
+    Route::get('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/edit', 'edit')->name('r_028_melaksanakan_pengembangan_diri.edit');
+    Route::patch('/r_028_melaksanakan_pengembangan_diri/update', 'update')->name('r_028_melaksanakan_pengembangan_diri.update');
+    Route::delete('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/delete', 'delete')->name('r_028_melaksanakan_pengembangan_diri.delete');
+});
+Route::controller(R29MemperolehPenghargaanController::class)->group(function () {
+    Route::get('/r_029_memperoleh_penghargaan', 'index')->name('r_029_memperoleh_penghargaan');
+    Route::get('/r_029_memperoleh_penghargaan/create', 'create')->name('r_029_memperoleh_penghargaan.create');
+    Route::post('/r_029_memperoleh_penghargaan', 'store')->name('r_029_memperoleh_penghargaan.store');
+    Route::patch('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/bkdset_active', 'bkdSetActive')->name('r_029_memperoleh_penghargaan.bkd_set_active');
+    Route::patch('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/bkdset_nonactive', 'bkdSetnonActive')->name('r_029_memperoleh_penghargaan.bkd_set_nonactive');
+    Route::get('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/edit', 'edit')->name('r_029_memperoleh_penghargaan.edit');
+    Route::patch('/r_029_memperoleh_penghargaan/update', 'update')->name('r_029_memperoleh_penghargaan.update');
+    Route::delete('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/delete', 'delete')->name('r_029_memperoleh_penghargaan.delete');
+});
+Route::controller(R30PengelolaKepkController::class)->group(function () {
+    Route::get('/r_030_pengelola_kepk', 'index')->name('r_030_pengelola_kepk');
+    Route::get('/r_030_pengelola_kepk/create', 'create')->name('r_030_pengelola_kepk.create');
+    Route::post('/r_030_pengelola_kepk', 'store')->name('r_030_pengelola_kepk.store');
+    Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/bkdset_active', 'bkdSetActive')->name('r_030_pengelola_kepk.bkd_set_active');
+    Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/bkdset_nonactive', 'bkdSetnonActive')->name('r_030_pengelola_kepk.bkd_set_nonactive');
+    Route::get('/r_030_pengelola_kepk/{r030pengelolakepk}/edit', 'edit')->name('r_030_pengelola_kepk.edit');
+    Route::patch('/r_030_pengelola_kepk/update', 'update')->name('r_030_pengelola_kepk.update');
+    Route::delete('/r_030_pengelola_kepk/{r030pengelolakepk}/delete', 'delete')->name('r_030_pengelola_kepk.delete');
 });
 // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen

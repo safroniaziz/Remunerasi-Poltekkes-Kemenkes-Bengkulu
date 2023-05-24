@@ -1,15 +1,16 @@
-<div class="modal fade" id="modal-default">
+<div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_025_kepanitiaan_kegiatan_institusi.store') }}" method="POST" id="form-tambah-r-25">
-                {{ csrf_field() }} {{ method_field('POST') }}
+            <form action="{{ route('r_030_pengelola_kepk.update') }}" method="POST" id="form-edit-R30">
+                {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 25 Kepanitiaan Kegiatan Institusi</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Edit Rubrik 30 Pengelola KEPK</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <input type="hidden" name="r030pengelolakepk_id_edit" id="r030pengelolakepk_id_edit">
 
                         <div class="form-group col-md-12" >
                             <label for="periode_id" class="col-form-label">Periode Aktif</label>
@@ -18,22 +19,18 @@
 
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
+                            <select name="nip" id="nip_edit" class="form-control">
                                 <option disabled selected>-- Pilih NIP --</option>
                                 @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
-                                @endforeach
+                                    <option
+                                  value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
+                                    @endforeach</option>
                             </select>
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Judul Kegiatan</label>
-                            <input type="text" class="form-control" id="judul_kegiatan" name="judul_kegiatan">
                         </div>
 
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Jabatan</label>
-                            <select name="jabatan" class="form-control" id="jabatan">
+                            <select name="jabatan" class="form-control" id="jabatan_edit">
                                 <option disabled selected>-- pilih Jabatan --</option>
                                 <option value="ketua">Ketua</option>
                                 <option value="wakil">Wakil Ketua</option>
@@ -58,7 +55,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-r-25',function (event){
+        $(document).on('submit','#form-edit-R30',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),
@@ -79,9 +76,5 @@
                 }
             })
         });
-
-        $('#tmt_jabatan_fungsional').datepicker({
-            format: 'yyyy/mm/dd', autoclose: true
-        })
     </script>
 @endpush
