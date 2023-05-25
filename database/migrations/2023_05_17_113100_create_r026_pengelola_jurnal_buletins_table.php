@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('r026_pengelola_jurnal_buletins', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('periode_id');
+            $table->string('nip',18);
+            $table->string('judul_kegiatan');
+            $table->string('jabatan');
+            $table->string('edisi_terbit');
+            $table->boolean('is_bkd');
+            $table->boolean('is_verified');
+            $table->double('point')->nullable();
             $table->timestamps();
+
+            $table->foreign('periode_id')->references('id')->on('periodes');
+            $table->foreign('nip')->references('nip')->on('pegawais');
         });
     }
 
