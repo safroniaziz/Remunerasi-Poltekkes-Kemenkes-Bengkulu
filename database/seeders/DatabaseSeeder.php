@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             NilaiEwmpSeeder::class,
             PangkatGolonganSeeder::class,
             JabatanFungsionalSeeder::class,
+            UserRolePermissionSeeder::class,
         ]);
     }
 }
