@@ -111,7 +111,7 @@
             ajax: {
                 type: 'get',
                 dataType: 'json',
-                url: '/cari_dosen/get_data_dosen',
+                url: '{{ route("cari_dosen.get_data_dosen") }}',
                 data: function(params) {
                     return {
                         keyword: params.term

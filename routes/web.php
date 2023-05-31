@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function(){
     Route::controller(SessionController::class)->group(function () {
         Route::get('/cari_dosen', 'cariDosen')->name('cari_dosen');
         Route::post('/cari_dosen', 'cari')->name('cari_dosen.post');
-        Route::get('/cari_dosen/get_data_dosen','getDataDosen');
+        Route::get('/cari_dosen/get_data_dose','getDataDosen')->name('cari_dosen.get_data_dosen');
         Route::get('/remove_session','removeSession')->name('cari_dosen.remove_session');
     });
     
