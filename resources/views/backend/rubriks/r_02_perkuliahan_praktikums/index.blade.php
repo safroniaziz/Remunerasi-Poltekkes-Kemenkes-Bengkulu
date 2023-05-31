@@ -60,9 +60,21 @@
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_sks }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_tatap_muka }}</td>
+                                            <td class="text-center">
+                                                @if ($r02perkuliahanpraktikum->is_bkd == 1)
+                                                    Ya
+                                                @else
+                                                    Tidak
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r02perkuliahanpraktikum->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->point }}</td>
-                                            <td></td>
-                                            <td></td>
                                             {{--  <td>
                                                 @if ($r02perkuliahanpraktikum->is_bkd== 1)
                                                     <form action="{{ route('r_02_perkuliahan_praktikum.set_nonactive',[$r02perkuliahanpraktikum->id]) }}" method="POST">

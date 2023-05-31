@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\R03MembimbingPencapaianKompetensi;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
-
 
 class R03MembimbingPencapaianKompetensiController extends Controller
 {

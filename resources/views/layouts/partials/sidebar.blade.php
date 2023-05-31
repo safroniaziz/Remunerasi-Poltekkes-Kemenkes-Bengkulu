@@ -227,7 +227,7 @@
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
         <i class="fa fa-info-circle"></i>
-        <span>Menulis Buku Ajar Ber-ISBN</span>
+        <span>Mengembangkan Modul Ber-ISBN</span>
     </a>
 </li>
 <li class="{{ set_active('r_012_membimbing_pkm') }}">
@@ -271,7 +271,7 @@
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
         <i class="fa fa-info-circle"></i>
-        <span>Karya Ilmiah Diplublikasikan</span>
+        <span>Karya Ilmiah Dipublikasikan</span>
     </a>
 </li>
 <li class="{{ set_active('r_016_naskah_buku_bahasa_terbit_edar_inter') }}">
