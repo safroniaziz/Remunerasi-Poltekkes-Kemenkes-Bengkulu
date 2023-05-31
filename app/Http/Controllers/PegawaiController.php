@@ -34,6 +34,9 @@ class PegawaiController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('read-pegawai')) {
+            abort(403);
+        }
         $jabatanDts = JabatanDt::all();
         return view('backend/dosens.create',[
             'jabatanDts'   =>   $jabatanDts,
