@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 02 Perkuliahan Praktikum
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 02
                                 </button>
                             </div>
                         </div>
@@ -75,33 +75,7 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->point }}</td>
-                                            {{--  <td>
-                                                @if ($r02perkuliahanpraktikum->is_bkd== 1)
-                                                    <form action="{{ route('r_02_perkuliahan_praktikum.set_nonactive',[$r02perkuliahanpraktikum->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
-                                                @else
-                                                    <form action="{{ route('r_02_perkuliahan_praktikum.set_active',[$r02perkuliahanpraktikum->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
-                                                @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r02perkuliahanpraktikum->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r02perkuliahanpraktikum->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r02perkuliahanpraktikum->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
-                                           <td>
+                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>
@@ -154,7 +128,6 @@
                     $('#modalEdit').modal('show');
                     $('#r02perkuliahanpraktikum_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);

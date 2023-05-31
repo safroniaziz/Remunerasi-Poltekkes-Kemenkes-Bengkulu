@@ -257,7 +257,7 @@
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
         <i class="fa fa-book"></i>
-        <span>Menulis Buku Ajar Ber-ISBN</span>
+        <span>Mengemb. Modul Ber-ISBN</span>
     </a>
 </li>
 @endcan

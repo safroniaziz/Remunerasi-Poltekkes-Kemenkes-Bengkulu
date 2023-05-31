@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 01 Perkuliahan Teori
+                    <i class="fa fa-users"></i>&nbsp; Manajemen Data Rubrik 01
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
@@ -128,7 +128,6 @@
                     $('#modalEdit').modal('show');
                     $('#r01perkuliahanteori_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);

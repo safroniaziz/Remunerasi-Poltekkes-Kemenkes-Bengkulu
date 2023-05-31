@@ -6,7 +6,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 03 Membimbing Tutorial Pencapaian Kompetensi</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 04 Membimbing Pendampingan Ukom</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -14,16 +14,6 @@
                         <div class="form-group col-md-12" >
                             <label for="periode_id" class="col-form-label">Periode Aktif</label>
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
-                        </div>
-
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
-                                @endforeach
-                            </select>
                         </div>
 
                         <div class="form-group col-md-12">

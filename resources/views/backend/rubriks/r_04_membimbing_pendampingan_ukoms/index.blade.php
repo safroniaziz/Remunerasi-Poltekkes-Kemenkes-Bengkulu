@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 04 Membimbing Pendampingan Ukom
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 04
                                 </button>
                             </div>
                         </div>
@@ -56,36 +56,22 @@
                                             <td class="text-center">{{ $r04membimbingpendampinganukom->nip }}</td>
                                             <td class="text-center">{{ $r04membimbingpendampinganukom->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r04membimbingpendampinganukom->jumlah_mahasiswa }}</td>
-                                            <td class="text-center">{{ $r04membimbingpendampinganukom->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r04membimbingpendampinganukom->is_bkd== 1)
-                                                    <form action="{{ route('r_04_membimbing_pendampingan_ukom.set_nonactive',[$r04membimbingpendampinganukom->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r04membimbingpendampinganukom->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_04_membimbing_pendampingan_ukom.set_active',[$r04membimbingpendampinganukom->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r04membimbingpendampinganukom->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r04membimbingpendampinganukom->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r04membimbingpendampinganukom->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
-                                           <td>
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r04membimbingpendampinganukom->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r04membimbingpendampinganukom->point }}</td>
+                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>
@@ -138,7 +124,6 @@
                     $('#modalEdit').modal('show');
                     $('#r04membimbingpendampinganukom_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                 },
                 error:function(){

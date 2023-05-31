@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NilaiEwmp;
 use App\Models\R01PerkuliahanTeori;
 use App\Models\Pegawai;
 use App\Models\Periode;
-use Illuminate\Http\Request;
+use App\Models\NilaiEwmp;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 
 class R01PerkuliahanTeoriController extends Controller
-{ 
+{
     private $nilai_ewmp;
     public function __construct()
     {
@@ -59,7 +59,7 @@ class R01PerkuliahanTeoriController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
         $periode = Periode::select('id')->where('is_active','1')->first();
-        
+
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $simpan = R01PerkuliahanTeori::create([

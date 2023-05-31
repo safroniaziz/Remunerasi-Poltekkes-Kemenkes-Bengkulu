@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R010MenulisBukuAjarBerisbn;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R10MenulisBukuAjarBerisbnController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r010_menulis_buku_ajar_berisbns')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r010-menulis-buku-ajar-berisbn')) {
             abort(403);
@@ -32,7 +40,6 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'             =>  'required|numeric',
            'judul'           =>  'required',
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
@@ -40,8 +47,6 @@ class R10MenulisBukuAjarBerisbnController extends Controller
 
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul.required'            => 'Judul harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
            'penulis_ke.required'       => 'Penulis harus diisi',
@@ -57,16 +62,23 @@ class R10MenulisBukuAjarBerisbnController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+        if ($request->penulis_ke=='penulis_utama') {
+            $point = 0.5 * $this->nilai_ewmp->ewmp;
+        }
+        else{
+            $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
+        }
+
        $simpan = R010MenulisBukuAjarBerisbn::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -90,15 +102,12 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                   =>  'required|numeric',
            'judul'           =>  'required',
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul.required'            => 'Judul harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
            'penulis_ke.required'       => 'Penulis harus diisi',
@@ -113,16 +122,22 @@ class R10MenulisBukuAjarBerisbnController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+        if ($request->penulis_ke=='penulis_utama') {
+            $point = 0.5 * $this->nilai_ewmp->ewmp;
+        }
+        else{
+            $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
+        }
        $update = R010MenulisBukuAjarBerisbn::where('id',$request->r010menulisbukuajarberisbn_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($update) {

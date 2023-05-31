@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R021ReviewerEclerePenelitianDosen;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R21ReviewerEclerePenelitianDosenController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r021_reviewer_eclere_penelitian_dosens')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r021-reviewer-eclere-penelitian-dosen')) {
             abort(403);
@@ -32,12 +40,9 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                         =>  'required|numeric',
            'judul_protokol_penelitian'   =>  'required',
        ];
        $text = [
-           'nip.required'                           => 'NIP harus dipilih',
-           'nip.numeric'                            => 'NIP harus berupa angka',
            'judul_protokol_penelitian.required'     => 'Judul Protokol Penelitian harus diisi',
        ];
 
@@ -47,13 +52,15 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $simpan = R021ReviewerEclerePenelitianDosen::create([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($simpan) {
@@ -77,12 +84,9 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                        =>  'required|numeric',
            'judul_protokol_penelitian'  =>  'required',
        ];
        $text = [
-           'nip.required'                       => 'NIP harus dipilih',
-           'nip.numeric'                        => 'NIP harus berupa angka',
            'judul_protokol_penelitian.required' => 'Judul Protokol Penelitian harus diisi',
        ];
 
@@ -92,13 +96,15 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $update = R021ReviewerEclerePenelitianDosen::where('id',$request->r21revieweclerepenelitidosen_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

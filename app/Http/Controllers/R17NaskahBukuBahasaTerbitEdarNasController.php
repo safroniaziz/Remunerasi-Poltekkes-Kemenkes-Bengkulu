@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R017NaskahBukuBahasaTerbitEdarNas;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r017_naskah_buku_bahasa_terbit_edar_nas')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r017-naskah-buku-bahasa-terbit-edar-nas')) {
             abort(403);
@@ -32,14 +40,11 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'             =>  'required|numeric',
            'judul_buku'      =>  'required',
            'isbn'            =>  'required',
 
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_buku.required'       => 'Judul_buku harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
        ];
@@ -51,14 +56,16 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $simpan = R017NaskahBukuBahasaTerbitEdarNas::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
-        'judul_buku'             =>  $request->judul_buku,
+        'nip'               =>  $request->session()->get('nip_dosen'),
+        'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -82,13 +89,10 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                  =>  'required|numeric',
            'judul_buku'           =>  'required',
            'isbn'                 =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_buku.required'       => 'Judul buku harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
        ];
@@ -100,14 +104,16 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $update = R017NaskahBukuBahasaTerbitEdarNas::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($update) {

@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R03MembimbingPencapaianKompetensiController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r03_membimbing_pencapaian_kompetensis')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r03-membimbing-capaian-kompetensi')) {
             abort(403);
@@ -24,7 +30,7 @@ class R03MembimbingPencapaianKompetensiController extends Controller
 
          return view('backend/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
-            'periode'                              =>  $periode,
+            'periode'                               =>  $periode,
             'r03membimbingpencapaiankompetensis'    =>  $r03membimbingpencapaiankompetensis,
         ]);
     }
@@ -34,12 +40,9 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
         ];
@@ -50,13 +53,15 @@ class R03MembimbingPencapaianKompetensiController extends Controller
         }
         $periode = Periode::select('id')->where('is_active','1')->first();
 
+        $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
+
         $simpan = R03MembimbingPencapaianKompetensi::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($simpan) {
@@ -80,12 +85,9 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
         ];
@@ -96,13 +98,15 @@ class R03MembimbingPencapaianKompetensiController extends Controller
         }
         $periode = Periode::select('id')->where('is_active','1')->first();
 
+        $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
+
         $update = R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($update) {

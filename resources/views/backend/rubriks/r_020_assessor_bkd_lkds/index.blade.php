@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 20 Assessor BKD LKD
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 20
                                 </button>
                             </div>
                         </div>
@@ -56,35 +56,21 @@
                                             <td class="text-center">{{ $r020assessorbkdlkd->nip }}</td>
                                             <td class="text-center">{{ $r020assessorbkdlkd->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r020assessorbkdlkd->jumlah_dosen }}</td>
-                                            <td class="text-center">{{ $r020assessorbkdlkd->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r020assessorbkdlkd->is_bkd== 1)
-                                                    <form action="{{ route('r_020_assessor_bkd_lkd.set_nonactive',[$r020assessorbkdlkd->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r020assessorbkdlkd->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_020_assessor_bkd_lkd.set_active',[$r020assessorbkdlkd->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r020assessorbkdlkd->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r020assessorbkdlkd->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r020assessorbkdlkd->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r020assessorbkdlkd->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r020assessorbkdlkd->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -138,7 +124,6 @@
                     $('#modalEdit').modal('show');
                     $('#r020assessorbkdlkd_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jumlah_dosen_edit').val(data.jumlah_dosen);
                 },
                 error:function(){
