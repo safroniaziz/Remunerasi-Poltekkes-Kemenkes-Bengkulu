@@ -93,6 +93,31 @@
     </a>
 </li>
 
+<li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN</li>
+<li class="{{ set_active('r_01_perkuliahan_teori') }}">
+    <a href="{{ route('r_01_perkuliahan_teori') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Perkuliahan Teori</span>
+    </a>
+</li>
+<li class="{{ set_active('r_02_perkuliahan_praktikum') }}">
+    <a href="{{ route('r_02_perkuliahan_praktikum') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Perkuliahan Praktikum</span>
+    </a>
+</li>
+<li class="{{ set_active('r_03_membimbing_pencapaian_kompetensi') }}">
+    <a href="{{ route('r_03_membimbing_pencapaian_kompetensi') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Pencapaian Kompetensi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_04_membimbing_pendampingan_ukom') }}">
+    <a href="{{ route('r_04_membimbing_pendampingan_ukom') }}">
+        <i class="fa fa-info-circle"></i>
+        <span>Pencapaian Kompetensi</span>
+    </a>
+</li>
 <li class="treeview {{ set_active(
     ['r_01_perkuliahan_teori','r_02_perkuliahan_praktikum','r_03_membimbing_pencapaian_kompetensi',
     'r_04_membimbing_pendampingan_ukom','r_05_membimbing_praktik_pkk_pbl_klinik',
@@ -100,15 +125,12 @@
     'r_08_menguji_seminar_proposal_kti_lta_skripsi','r_09_menguji_seminar_hasil_kti_lta_skripsi',
     'r_010_menulis_buku_ajar_berisbn','r_011_mengembangkan_modul_berisbn','r_012_membimbing_pkm']) }}">
     <a href="#">
-        <i class="fa fa-graduation-cap"></i> <span>Rubrik Pendidikan</span>
+        <i class="fa fa-graduation-cap"></i> <span>RUBRIK PENDIDIKAN</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
     </a>
     <ul class="treeview-menu " style="padding-left:25px;">
-        <li class="{{ set_active('r_01_perkuliahan_teori') }}"><a href="{{ route('r_01_perkuliahan_teori') }}"><i class="fa fa-graduation-cap"></i>Rubrik 01 Perkuliahan Teori</a></li>
-        <li class="{{ set_active('r_02_perkuliahan_praktikum') }}"><a href="{{ route('r_02_perkuliahan_praktikum') }}"><i class="fa fa-graduation-cap"></i>Rubrik 02 Perkuliahan Praktikum</a></li>
-        <li class="{{ set_active('r_03_membimbing_pencapaian_kompetensi') }}"><a href="{{ route('r_03_membimbing_pencapaian_kompetensi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 03 Membimbing Tutorial Pencapaian Kompetensi</a></li>
         <li class="{{ set_active('r_04_membimbing_pendampingan_ukom') }}"><a href="{{ route('r_04_membimbing_pendampingan_ukom') }}"><i class="fa fa-graduation-cap"></i>Rubrik 04 Membimbing Pendampingan UKOM</a></li>
         <li class="{{ set_active('r_05_membimbing_praktik_pkk_pbl_klinik') }}"><a href="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik') }}"><i class="fa fa-graduation-cap"></i>Rubrik 05 Membimbing Praktik PKK PBL Klinik</a></li>
         <li class="{{ set_active('r_06_menguji_ujian_osca') }}"><a href="{{ route('r_06_menguji_ujian_osca') }}"><i class="fa fa-graduation-cap"></i>Rubrik 06 Menguji Ujian Osca</a></li>
