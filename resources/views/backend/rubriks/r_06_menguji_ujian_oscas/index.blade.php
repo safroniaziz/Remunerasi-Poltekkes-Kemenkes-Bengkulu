@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 06 Menguji Ujian Osca
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 06
                                 </button>
                             </div>
                         </div>
@@ -56,35 +56,21 @@
                                             <td class="text-center">{{ $r06mengujiujianosca->nip }}</td>
                                             <td class="text-center">{{ $r06mengujiujianosca->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r06mengujiujianosca->jumlah_mahasiswa }}</td>
-                                            <td class="text-center">{{ $r06mengujiujianosca->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r06mengujiujianosca->is_bkd== 1)
-                                                    <form action="{{ route('r_06_menguji_ujian_osca.set_nonactive',[$r06mengujiujianosca->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r06mengujiujianosca->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_06_menguji_ujian_osca.set_active',[$r06mengujiujianosca->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r06mengujiujianosca->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r06mengujiujianosca->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r06mengujiujianosca->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r06mengujiujianosca->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r06mengujiujianosca->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -138,7 +124,6 @@
                     $('#modalEdit').modal('show');
                     $('#r06mengujiujianosca_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip').val(data.nip);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                 },
                 error:function(){

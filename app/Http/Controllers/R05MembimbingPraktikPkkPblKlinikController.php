@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R05MembimbingPraktikPkkPblKlinik;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R05MembimbingPraktikPkkPblKlinikController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r05_membimbing_praktik_pkk_pbl_kliniks')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r05-membimbing-praktik-pkk-pbl-klinik')) {
             abort(403);
@@ -32,14 +40,11 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -54,15 +59,17 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         }
         $periode = Periode::select('id')->where('is_active','1')->first();
 
+        $point = (($request->jumlah_tatap_muka/6)*($request->jumlah_mahasiswa/12))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
+
         $simpan = R05MembimbingPraktikPkkPblKlinik::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($simpan) {
@@ -86,14 +93,11 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -108,15 +112,17 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         }
         $periode = Periode::select('id')->where('is_active','1')->first();
 
+        $point = (($request->jumlah_tatap_muka/6)*($request->jumlah_mahasiswa/12))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
+
         $update = R05MembimbingPraktikPkkPblKlinik::where('id',$request->r05membimbingpraktikpkkpblklinik_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($update) {

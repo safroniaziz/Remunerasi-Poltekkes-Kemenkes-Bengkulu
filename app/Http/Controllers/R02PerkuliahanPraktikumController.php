@@ -6,11 +6,11 @@ use App\Models\R02PerkuliahanPraktikum;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Session;
 
 
 class R02PerkuliahanPraktikumController extends Controller

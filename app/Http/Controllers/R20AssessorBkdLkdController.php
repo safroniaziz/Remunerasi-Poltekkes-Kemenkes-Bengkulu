@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R020AssessorBkdLkd;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R20AssessorBkdLkdController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r020_assessor_bkd_lkds')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r020-assessor-bkd-lkd')) {
             abort(403);
@@ -32,12 +40,9 @@ class R20AssessorBkdLkdController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                   =>  'required|numeric',
            'jumlah_dosen'          =>  'required|numeric',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'jumlah_dosen.required'     => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'      => 'Jumlah Dosen harus berupa angka',
        ];
@@ -48,13 +53,15 @@ class R20AssessorBkdLkdController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
+
        $simpan = R020AssessorBkdLkd::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -78,12 +85,9 @@ class R20AssessorBkdLkdController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                   =>  'required|numeric',
            'jumlah_dosen'          =>  'required|numeric',
        ];
        $text = [
-           'nip.required'          => 'NIP harus dipilih',
-           'nip.numeric'           => 'NIP harus berupa angka',
            'jumlah_dosen.required' => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'  => 'Jumlah Dosen harus berupa angka',
        ];
@@ -94,13 +98,15 @@ class R20AssessorBkdLkdController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
+
        $update = R020AssessorBkdLkd::where('id',$request->r020assessorbkdlkd_id_edit)->update([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($update) {

@@ -166,7 +166,7 @@ class NilaiEwmpSeeder extends Seeder
                 'kelompok_rubrik_id'    =>  '5',
                 'nama_rubrik'           =>  'Rubrik 22 Reviewer Ethical Clearance Penelitian Mahasiswa',
                 'nama_tabel_rubrik'     =>  'r022_reviewer_eclere_penelitian_mhs',
-                'ewmp'                  =>  0.07,
+                'ewmp'                  =>  0.03,
                 'is_active'             =>  1,
             ],
             [

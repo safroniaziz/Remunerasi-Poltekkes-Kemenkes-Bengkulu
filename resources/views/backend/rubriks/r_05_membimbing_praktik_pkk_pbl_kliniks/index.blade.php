@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 05 Membimbing Praktik PKK PBL Klinik
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 05
                                 </button>
                             </div>
                         </div>
@@ -60,36 +60,22 @@
                                             <td class="text-center">{{ $r05membimbingpraktikpkkpblklinik->jumlah_sks }}</td>
                                             <td class="text-center">{{ $r05membimbingpraktikpkkpblklinik->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r05membimbingpraktikpkkpblklinik->jumlah_tatap_muka }}</td>
-                                            <td class="text-center">{{ $r05membimbingpraktikpkkpblklinik->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r05membimbingpraktikpkkpblklinik->is_bkd== 1)
-                                                    <form action="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik.set_nonactive',[$r05membimbingpraktikpkkpblklinik->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r05membimbingpraktikpkkpblklinik->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik.set_active',[$r05membimbingpraktikpkkpblklinik->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r05membimbingpraktikpkkpblklinik->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r05membimbingpraktikpkkpblklinik->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r05membimbingpraktikpkkpblklinik->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
-                                           <td>
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r05membimbingpraktikpkkpblklinik->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r05membimbingpraktikpkkpblklinik->point }}</td>
+                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>
@@ -142,7 +128,6 @@
                     $('#modalEdit').modal('show');
                     $('#r05membimbingpraktikpkkpblklinik_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);

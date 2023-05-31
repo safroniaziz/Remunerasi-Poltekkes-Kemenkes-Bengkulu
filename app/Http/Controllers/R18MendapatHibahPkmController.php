@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R018MendapatHibahPkm;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R18MendapatHibahPkmController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r018_mendapat_hibah_pkms')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r018-mendapat-hibah-pkm')) {
             abort(403);
@@ -32,12 +40,9 @@ class R18MendapatHibahPkmController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                  =>  'required|numeric',
            'judul_hibah_pkm'      =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_hibah_pkm.required'  => 'Judul Hibah Pkm harus diisi',
        ];
 
@@ -48,13 +53,15 @@ class R18MendapatHibahPkmController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $simpan = R018MendapatHibahPkm::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -78,12 +85,9 @@ class R18MendapatHibahPkmController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                  =>  'required|numeric',
            'judul_hibah_pkm'      =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_hibah_pkm.required'  => 'Judul hibah pkm harus diisi',
        ];
 
@@ -94,13 +98,15 @@ class R18MendapatHibahPkmController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $update = R018MendapatHibahPkm::where('id',$request->r018mendapathibahpkm_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($update) {

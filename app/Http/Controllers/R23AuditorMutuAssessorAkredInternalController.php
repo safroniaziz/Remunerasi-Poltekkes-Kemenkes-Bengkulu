@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R023AuditorMutuAssessorAkredInternal;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R23AuditorMutuAssessorAkredInternalController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r023_auditor_mutu_assessor_akred_internals')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r023-auditor-mutu-assessor-akred-internal')) {
             abort(403);
@@ -32,12 +40,9 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'              =>  'required|numeric',
            'judul_kegiatan'   =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
        ];
 
@@ -47,13 +52,15 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $simpan = R023AuditorMutuAssessorAkredInternal::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
-           'judul_kegiatan'      =>  $request->judul_kegiatan,
+           'nip'               =>  $request->session()->get('nip_dosen'),
+           'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -77,12 +84,9 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
        ];
 
@@ -92,13 +96,15 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $update = R023AuditorMutuAssessorAkredInternal::where('id',$request->r23auditmutuasesorakredinternal_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

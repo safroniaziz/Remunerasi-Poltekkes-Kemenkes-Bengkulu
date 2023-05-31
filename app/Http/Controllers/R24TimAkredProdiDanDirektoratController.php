@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\R024TimAkredProdiDanDirektorat;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\NilaiEwmp;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 
 class R24TimAkredProdiDanDirektoratController extends Controller
 {
+    private $nilai_ewmp;
+    public function __construct()
+    {
+        $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r024_tim_akred_prodi_dan_direktorats')->first();
+    }
+
     public function index(Request $request, Pegawai $pegawai){
         if (!Gate::allows('read-r024-tim-akred-prodi-dan-direktorat')) {
             abort(403);
@@ -32,13 +40,10 @@ class R24TimAkredProdiDanDirektoratController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                   =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
-           'judul_kegiatan.required'     => 'Judul Kegiatan harus diisi',
+           'judul_kegiatan.required'    => 'Judul Kegiatan harus diisi',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -47,13 +52,15 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $simpan = R024TimAkredProdiDanDirektorat::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -77,12 +84,9 @@ class R24TimAkredProdiDanDirektoratController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
        ];
 
@@ -92,13 +96,15 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+       $point = $this->nilai_ewmp->ewmp;
+
        $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

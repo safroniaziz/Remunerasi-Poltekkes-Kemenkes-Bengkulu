@@ -56,35 +56,21 @@
                                             <td class="text-center">{{ $r024timakredprodirektorat->nip }}</td>
                                             <td class="text-center">{{ $r024timakredprodirektorat->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r024timakredprodirektorat->judul_kegiatan }}</td>
-                                            <td class="text-center">{{ $r024timakredprodirektorat->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r024timakredprodirektorat->is_bkd== 1)
-                                                    <form action="{{ route('r_024_tim_akred_prodi_dan_direktorats.set_nonactive',[$r024timakredprodirektorat->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r024timakredprodirektorat->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_024_tim_akred_prodi_dan_direktorats.set_active',[$r024timakredprodirektorat->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r024timakredprodirektorat->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r024timakredprodirektorat->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r024timakredprodirektorat->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r024timakredprodirektorat->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r024timakredprodirektorat->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -138,7 +124,6 @@
                     $('#modalEdit').modal('show');
                     $('#r24timakredprodirektorat_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                 },
                 error:function(){
