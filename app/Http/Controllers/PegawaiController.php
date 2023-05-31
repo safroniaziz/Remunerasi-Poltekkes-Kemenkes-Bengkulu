@@ -8,6 +8,7 @@ use App\Models\JabatanFungsional;
 use App\Models\PangkatGolongan;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -15,6 +16,9 @@ use Illuminate\Validation\Rule;
 class PegawaiController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-pegawai')) {
+            abort(403);
+        }
         $nama = $request->query('nama');
         if (!empty($nama)) {
             $dosens = Pegawai::with(['jabatanFungsionals'])->where('nama','LIKE','%'.$nama.'%')
