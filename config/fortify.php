@@ -62,6 +62,7 @@ return [
     */
 
     'home' => RouteServiceProvider::HOME,
+    'homeoperatorverifikator' => RouteServiceProvider::HOMEOPERATORVERIFIKATOR,
 
     /*
     |--------------------------------------------------------------------------

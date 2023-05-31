@@ -8,8 +8,10 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -19,7 +21,22 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse  {
+            public function toResponse($request)
+            {
+                if (Auth::user()->hasRole('operator') || Auth::user()->hasRole('verifikator')) {
+                    return $request->wantsJson()
+                    ? response()->json(['two_factor' => false])
+                    : redirect()->intended(config('fortify.homeoperatorverifikator'));
+                }
+
+                if (Auth::user()->hasRole('pimpinan') || Auth::user()->hasRole('administrator')) {
+                    return $request->wantsJson()
+                    ? response()->json(['two_factor' => false])
+                    : redirect()->intended(config('fortify.home'));
+                }
+            }
+        });
     }
 
     /**

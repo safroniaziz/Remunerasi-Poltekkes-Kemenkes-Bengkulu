@@ -145,7 +145,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-magnifying-glass-chart"></i>
         <span>Memb. Capaian Kompetensi</span>
     </a>
 </li>
@@ -155,7 +155,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-square-poll-vertical"></i>
         <span>Memb. Pendamping UKOM</span>
     </a>
 </li>
@@ -165,7 +165,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-house-medical"></i>
         <span>Memb. Praktik PKK/PBL Klinik</span>
     </a>
 </li>
@@ -175,7 +175,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-briefcase-medical"></i>
         <span>Menguji Ujian OSCA</span>
     </a>
 </li>
@@ -186,7 +186,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-solid fa-address-book"></i>
         <span>Memb. Skripsi/LTA/LA Profesi</span>
     </a>
 </li>
@@ -196,7 +196,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-book-open-reader"></i>
         <span>Meng. Sempro. LTA/LA/Skripsi</span>
     </a>
 </li>
@@ -206,7 +206,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-laptop-code"></i>
         <span>Meng. Semhas. LTA/LA/Skripsi</span>
     </a>
 </li>
@@ -216,7 +216,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-book-bookmark"></i>
         <span>Menulis Buku Ajar Ber-ISBN</span>
     </a>
 </li>
@@ -226,7 +226,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-book"></i>
         <span>Menulis Buku Ajar Ber-ISBN</span>
     </a>
 </li>
@@ -236,7 +236,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-print"></i>
         <span>Membimbing PKM</span>
     </a>
 </li>
@@ -248,7 +248,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-message"></i>
         <span>Orasi Ilmiah Narasumber</span>
     </a>
 </li>
@@ -258,7 +258,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-envelope"></i>
         <span>Karya Inovasi</span>
     </a>
 </li>
@@ -270,7 +270,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-solid fa-file-word"></i>
         <span>Karya Ilmiah Diplublikasikan</span>
     </a>
 </li>
@@ -280,7 +280,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-folder-open"></i>
         <span>Naskah Buku Internasional</span>
     </a>
 </li>
@@ -290,7 +290,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-file-pdf"></i>
         <span>Naskah Buku Nasional</span>
     </a>
 </li>
@@ -302,7 +302,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-book-atlas"></i>
         <span>Mendapatkan Hibah PKM</span>
     </a>
 </li>
@@ -312,7 +312,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-magnifying-glass"></i>
         <span>Latihan Pada Masyarakat</span>
     </a>
 </li>
@@ -324,7 +324,7 @@
         @else
             <a class="bg-danger" style="cursor:not-allowed">
         @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-user-group"></i>
         <span>Assesor BKD/LKD</span>
     </a>
 </li>
@@ -334,7 +334,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-building-user"></i>
         <span>Rev. Ethical Clearance Dosen</span>
     </a>
 </li>
@@ -344,7 +344,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-user-graduate"></i>
         <span>Rev. Ethical Clearance Mhs</span>
     </a>
 </li>
@@ -354,7 +354,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-user-tie"></i>
         <span>Auditor Mutu/Akred. Internal</span>
     </a>
 </li>
@@ -364,7 +364,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-house-signal"></i>
         <span>Tim Akred. Prodi & Rektorat</span>
     </a>
 </li>
@@ -374,7 +374,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-building-columns"></i>
         <span>Panitia Kegiatan Institusi</span>
     </a>
 </li>
@@ -384,7 +384,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-file-powerpoint"></i>
         <span>Pengelola Jurnal/Buletin</span>
     </a>
 </li>
@@ -394,7 +394,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-users"></i>
         <span>Keanggotaan Senat</span>
     </a>
 </li>
@@ -404,7 +404,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-graduation-cap"></i>
         <span>Melaks. Pengembangan Diri</span>
     </a>
 </li>
@@ -414,7 +414,7 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-medal"></i>
         <span>Memperoleh Penghargaan</span>
     </a>
 </li>
@@ -424,7 +424,18 @@
     @else
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-shield-halved"></i>
         <span>Pengelola KEPK</span>
     </a>
+</li>
+
+<li style="padding-left:2px;">
+    <a class="dropdown-item" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+        <i class="fa fa-power-off text-danger"></i>{{__('Logout') }}
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
 </li>
