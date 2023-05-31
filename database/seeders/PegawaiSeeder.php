@@ -78,7 +78,23 @@ class PegawaiSeeder extends Seeder
                 'no_sertifikat_serdos'  =>  1234,
                 'no_whatsapp'           =>  1234,
                 'is_active'             =>  1,
-            ]
+            ],
+            [
+                'nip'                   =>  199007092019032025,
+                'nidn'                  =>  1234,
+                'nama'                  =>  'Julia Purnama Sari, S.T., M.Kom',
+                'slug'                  =>  'julia-purnama-sari-s-t-m-kom',
+                'email'                 =>  'juliapurnamasari@mail.com',
+                'jenis_kelamin'         =>  'P',
+                'jurusan'               =>  'kebidanan',
+                'jabatan_dt_id'         =>  1,
+                'nomor_rekening'        =>  1234,
+                'npwp'                  =>  1234,
+                'is_serdos'             =>  1,
+                'no_sertifikat_serdos'  =>  1234,
+                'no_whatsapp'           =>  1234,
+                'is_active'             =>  1,
+            ],
             ),
             );
     }
