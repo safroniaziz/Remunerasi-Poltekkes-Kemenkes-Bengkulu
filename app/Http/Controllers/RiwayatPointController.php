@@ -9,10 +9,14 @@ use App\Models\Rubrik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class RiwayatPointController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-riwayat-point')) {
+            abort(403);
+        }
         $nip = $request->query('nip');
         if (!empty($nip)) {
             $riwayatpoints = RiwayatPoint::where('nip','LIKE','%'.$nip.'%')
@@ -28,12 +32,18 @@ class RiwayatPointController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-riwayat-point')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         $periodes = Periode::all();
         return view('backend/riwayat_points.create',compact('dosens','periodes'));
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-riwayat-point')) {
+            abort(403);
+        }
         $rules = [
             'rubrik_id'       =>  'required',
             'periode_id'      =>  'required',
@@ -69,6 +79,9 @@ class RiwayatPointController extends Controller
         }
     }
     public function edit(RiwayatPoint $riwayatpoint){
+        if (!Gate::allows('edit-riwayat-point')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         $periodes = Periode::all();
         return view('backend.riwayat_points.edit',compact('dosens','periodes'),[
@@ -77,6 +90,9 @@ class RiwayatPointController extends Controller
     }
 
     public function update(Request $request, RiwayatPoint $riwayatpoint){
+        if (!Gate::allows('update-riwayat-point')) {
+            abort(403);
+        }
         $rules = [
             'rubrik_id'       =>  'required',
             'periode_id'      =>  'required',
@@ -112,6 +128,9 @@ class RiwayatPointController extends Controller
         }
     }
     public function delete(RiwayatPoint $riwayatpoint){
+        if (!Gate::allows('delete-riwayat-point')) {
+            abort(403);
+        }
         $delete = $riwayatpoint->delete();
 
         if ($delete) {

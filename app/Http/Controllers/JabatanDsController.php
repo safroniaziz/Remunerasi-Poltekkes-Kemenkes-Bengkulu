@@ -6,10 +6,15 @@ use App\Models\JabatanDs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
+
 
 class JabatanDsController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-jabatan-ds')) {
+            abort(403);
+        }
             $jabatands = JabatanDs::orderBy('created_at','desc')->get();
         return view('backend/jabatan_ds.index',[
             'jabatands'         =>  $jabatands,
@@ -17,10 +22,16 @@ class JabatanDsController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-jabatan-ds')) {
+            abort(403);
+        }
         return view('backend/jabatan_ds.create');
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-jabatan-ds')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_ds'       =>  'required',
             'grade'                 =>  'required|numeric',
@@ -76,12 +87,18 @@ class JabatanDsController extends Controller
         }
     }
     public function edit(Jabatands $jabatands){
+        if (!Gate::allows('edit-jabatan-ds')) {
+            abort(403);
+        }
         return view('backend.jabatan_ds.edit',[
             'jabatands'   =>  $jabatands,
         ]);
     }
 
     public function update(Request $request, Jabatands $jabatands){
+        if (!Gate::allows('update-jabatan-ds')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_ds'       =>  'required',
             'grade'                 =>  'required|numeric',
@@ -137,6 +154,9 @@ class JabatanDsController extends Controller
         }
     }
     public function delete(Jabatands $jabatands){
+        if (!Gate::allows('delete-jabatan-ds')) {
+            abort(403);
+        }
         $delete = $jabatands->delete();
 
         if ($delete) {

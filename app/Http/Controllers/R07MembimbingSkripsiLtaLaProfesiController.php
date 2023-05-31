@@ -8,12 +8,15 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Gate;
 
 class R07MembimbingSkripsiLtaLaProfesiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
-        $pegawais = Pegawai::all();
+        if (!Gate::allows('read-r07-membimbing-skripsi-lta-la-profesi')) {
+            abort(403);
+        }
+         $pegawais = Pegawai::all();
          $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -25,6 +28,9 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-r07-membimbing-skripsi-lta-la-profesi')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -67,10 +73,16 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         }
     }
     public function edit(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        if (!Gate::allows('edit-r07-membimbing-skripsi-lta-la-profesi')) {
+            abort(403);
+        }
         return $r07membimbingskripsiltalaprofesi;
     }
 
     public function update(Request $request, R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        if (!Gate::allows('update-r07-membimbing-skripsi-lta-la-profesi')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -111,6 +123,9 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         }
     }
     public function delete(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        if (!Gate::allows('delete-r07-membimbing-skripsi-lta-la-profesi')) {
+            abort(403);
+        }
         $delete = $r07membimbingskripsiltalaprofesi->delete();
         if ($delete) {
             $notification = array(

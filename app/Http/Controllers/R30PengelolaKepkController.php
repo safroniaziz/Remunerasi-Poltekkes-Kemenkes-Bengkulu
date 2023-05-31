@@ -8,30 +8,37 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R30PengelolaKepkController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r030-pengelola-kepk')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r030pengelolakepks = R030PengelolaKepk::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_030_pengelola_kepks.index',[
-           'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
+           'pegawais'               =>  $pegawais,
+           'periode'                =>  $periode,
            'r030pengelolakepks'     =>  $r030pengelolakepks,
        ]);
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r030-pengelola-kepk')) {
+        abort(403);
+    }
        $rules = [
-           'nip'                     =>  'required|numeric',
-           'jabatan'                 =>  'required',
+           'nip'         =>  'required|numeric',
+           'jabatan'     =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
-           'jabatan.required'          => 'Jabatan harus diisi',
+           'nip.required'      => 'NIP harus dipilih',
+           'nip.numeric'       => 'NIP harus berupa angka',
+           'jabatan.required'  => 'Jabatan harus diisi',
 
        ];
 
@@ -60,10 +67,16 @@ class R30PengelolaKepkController extends Controller
        }
    }
    public function edit(R030PengelolaKepk $r030pengelolakepk){
+    if (!Gate::allows('edit-r030-pengelola-kepk')) {
+        abort(403);
+    }
        return $r030pengelolakepk;
    }
 
    public function update(Request $request, R030PengelolaKepk $r030pengelolakepk){
+    if (!Gate::allows('update-r030-pengelola-kepk')) {
+        abort(403);
+    }
        $rules = [
            'nip'                     =>  'required|numeric',
            'jabatan'                 =>  'required',
@@ -100,6 +113,9 @@ class R30PengelolaKepkController extends Controller
        }
    }
    public function delete(R030PengelolaKepk $r030pengelolakepk){
+    if (!Gate::allows('delete-r030-pengelola-kepk')) {
+        abort(403);
+    }
        $delete = $r030pengelolakepk->delete();
        if ($delete) {
            $notification = array(

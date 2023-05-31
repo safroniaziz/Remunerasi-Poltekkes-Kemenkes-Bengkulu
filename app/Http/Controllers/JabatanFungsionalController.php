@@ -7,10 +7,14 @@ use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class JabatanFungsionalController extends Controller
 {
     public function index(){
+        if (!Gate::allows('read-jabatan-fungsional')) {
+            abort(403);
+        }
         $jabatanfungsionals = JabatanFungsional::get();
         $dosens = Pegawai::all();
         return view('backend/jabatan_fungsionals.index',[
@@ -20,11 +24,17 @@ class JabatanFungsionalController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-jabatan-fungsional')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         return view('backend/jabatan_fungsionals.create',compact('dosens'));
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-jabatan-fungsional')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_fungsional'       =>  'required',
             'nip'                           =>  'required|numeric',
@@ -60,10 +70,16 @@ class JabatanFungsionalController extends Controller
         }
     }
     public function edit(JabatanFungsional $jabatanfungsional){
+        if (!Gate::allows('edit-jabatan-fungsional')) {
+            abort(403);
+        }
         return $jabatanfungsional;
     }
 
     public function update(Request $request, JabatanFungsional $jabatanfungsional){
+        if (!Gate::allows('update-jabatan-fungsional')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_fungsional'       =>  'required',
             'nip'                           =>  'required|numeric',
@@ -137,6 +153,9 @@ class JabatanFungsionalController extends Controller
         }
     }
     public function delete(JabatanFungsional $jabatanfungsional){
+        if (!Gate::allows('delete-jabatan-fungsional')) {
+            abort(403);
+        }
         $delete = $jabatanfungsional->delete();
 
         if ($delete) {

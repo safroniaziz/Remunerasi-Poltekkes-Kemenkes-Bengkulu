@@ -7,10 +7,14 @@ use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class PangkatGolonganController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-pangkat-golongan')) {
+            abort(403);
+        }
         $nama_pangkat = $request->query('nama_pangkat');
         if (!empty($nama_pangkat)) {
             $pangkatgolongans = PangkatGolongan::where('nama_pangkat','LIKE','%'.$nama_pangkat.'%')
@@ -26,11 +30,17 @@ class PangkatGolonganController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-pangkat-golongan')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         return view('backend/pangkat_golongans.create',compact('dosens'));
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-pangkat-golongan')) {
+            abort(403);
+        }
         $rules = [
             'nip'                         =>  'required|numeric',
             'nama_pangkat'                =>  'required',
@@ -70,6 +80,9 @@ class PangkatGolonganController extends Controller
         }
     }
     public function edit(PangkatGolongan $pangkatgolongan){
+        if (!Gate::allows('edit-pangkat-golongan')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         return view('backend.pangkat_golongans.edit',compact('dosens'),[
             'pangkatgolongan'   =>  $pangkatgolongan,
@@ -77,6 +90,9 @@ class PangkatGolonganController extends Controller
     }
 
     public function update(Request $request, PangkatGolongan $pangkatgolongan){
+        if (!Gate::allows('update-pangkat-golongan')) {
+            abort(403);
+        }
         $rules = [
             'nama_pangkat'                =>  'required',
             'nip'                         =>  'required|numeric',
@@ -153,6 +169,9 @@ class PangkatGolonganController extends Controller
         }
     }
     public function delete(PangkatGolongan $pangkatgolongan){
+        if (!Gate::allows('delete-pangkat-golongan')) {
+            abort(403);
+        }
         $delete = $pangkatgolongan->delete();
 
         if ($delete) {

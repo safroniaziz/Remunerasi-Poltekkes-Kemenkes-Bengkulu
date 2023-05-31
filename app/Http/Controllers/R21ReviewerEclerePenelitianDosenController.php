@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R21ReviewerEclerePenelitianDosenController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r021-reviewer-eclere-penelitian-dosen')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r021reviewereclerepenelitiandosens = R021ReviewerEclerePenelitianDosen::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,14 +28,17 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r021-reviewer-eclere-penelitian-dosen')) {
+        abort(403);
+    }
        $rules = [
-           'nip'                   =>  'required|numeric',
-           'judul_protokol_penelitian'          =>  'required',
+           'nip'                         =>  'required|numeric',
+           'judul_protokol_penelitian'   =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
-           'judul_protokol_penelitian.required'     => 'Jumlah Dosen harus diisi',
+           'nip.required'                           => 'NIP harus dipilih',
+           'nip.numeric'                            => 'NIP harus berupa angka',
+           'judul_protokol_penelitian.required'     => 'Judul Protokol Penelitian harus diisi',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -41,12 +48,12 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
        $periode = Periode::select('id')->where('is_active','1')->first();
 
        $simpan = R021ReviewerEclerePenelitianDosen::create([
-           'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
-           'judul_protokol_penelitian'      =>  $request->judul_protokol_penelitian,
-           'is_bkd'            =>  0,
-           'is_verified'       =>  0,
-           'point'             =>  null,
+           'periode_id'                 =>  $periode->id,
+           'nip'                        =>  $request->nip,
+           'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
+           'is_bkd'                     =>  0,
+           'is_verified'                =>  0,
+           'point'                      =>  null,
        ]);
 
        if ($simpan) {
@@ -59,18 +66,24 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
        }
    }
    public function edit(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+    if (!Gate::allows('edit-r021-reviewer-eclere-penelitian-dosen')) {
+        abort(403);
+    }
        return $r21revieweclerepenelitidosen;
    }
 
    public function update(Request $request, R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+    if (!Gate::allows('update-r021-reviewer-eclere-penelitian-dosen')) {
+        abort(403);
+    }
        $rules = [
-           'nip'                   =>  'required|numeric',
-           'judul_protokol_penelitian'          =>  'required',
+           'nip'                        =>  'required|numeric',
+           'judul_protokol_penelitian'  =>  'required',
        ];
        $text = [
-           'nip.required'          => 'NIP harus dipilih',
-           'nip.numeric'           => 'NIP harus berupa angka',
-           'judul_protokol_penelitian.required' => 'Jumlah Dosen harus diisi',
+           'nip.required'                       => 'NIP harus dipilih',
+           'nip.numeric'                        => 'NIP harus berupa angka',
+           'judul_protokol_penelitian.required' => 'Judul Protokol Penelitian harus diisi',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -98,6 +111,9 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
        }
    }
    public function delete(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+    if (!Gate::allows('delete-r021-reviewer-eclere-penelitian-dosen')) {
+        abort(403);
+    }
        $delete = $r21revieweclerepenelitidosen->delete();
        if ($delete) {
            $notification = array(

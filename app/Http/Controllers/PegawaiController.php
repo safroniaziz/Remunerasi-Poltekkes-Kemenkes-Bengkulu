@@ -34,7 +34,7 @@ class PegawaiController extends Controller
     }
 
     public function create(){
-        if (!Gate::allows('read-pegawai')) {
+        if (!Gate::allows('create-pegawai')) {
             abort(403);
         }
         $jabatanDts = JabatanDt::all();
@@ -44,6 +44,9 @@ class PegawaiController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-pegawai')) {
+            abort(403);
+        }
         $rules = [
             'nama'                  =>  'required',
             'nip'                   =>  'required|numeric|unique:pegawais',
@@ -58,22 +61,22 @@ class PegawaiController extends Controller
         ];
         $text = [
             'nama.required'                     => 'Nama Lengkap harus diisi',
-            'nip.required'                      => 'Nip harus dipilih',  
-            'nip.numeric'                       => 'Nip harus berupa angka',  
-            'nip.unique'                        => 'Nip sudah digunakan',  
-            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',  
-            'nidn.numeric '                     => 'NIDN harus berupa angka',  
-            'email.required'                    => 'Email harus diisi', 
-            'email.email'                       => 'Email harus berupa email', 
-            'email.unique'                      => 'Email sudah digunakan', 
-            'jenis_kelamin.required'            => 'Jenis kelamin harus dipilih', 
-            'jurusan.required'                  => 'Jurusan harus diisi',    
-            'nomor_rekening.required'           => 'Nomor Rekening harus diisi',    
-            'nomor_rekening.numeric'            => 'Nomor Rekening harus berupa angka',    
-            'npwp.required'                     => 'NPWP harus diisi',   
-            'npwp.numeric'                      => 'NPWP harus berupa angka',   
-            'no_whatsapp.numeric'               => 'Nomor WhatsApp harus berupa angka ',   
-            'is_serdos.required'                => 'Status Serdos harus dipilih',   
+            'nip.required'                      => 'Nip harus dipilih',
+            'nip.numeric'                       => 'Nip harus berupa angka',
+            'nip.unique'                        => 'Nip sudah digunakan',
+            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',
+            'nidn.numeric '                     => 'NIDN harus berupa angka',
+            'email.required'                    => 'Email harus diisi',
+            'email.email'                       => 'Email harus berupa email',
+            'email.unique'                      => 'Email sudah digunakan',
+            'jenis_kelamin.required'            => 'Jenis kelamin harus dipilih',
+            'jurusan.required'                  => 'Jurusan harus diisi',
+            'nomor_rekening.required'           => 'Nomor Rekening harus diisi',
+            'nomor_rekening.numeric'            => 'Nomor Rekening harus berupa angka',
+            'npwp.required'                     => 'NPWP harus diisi',
+            'npwp.numeric'                      => 'NPWP harus berupa angka',
+            'no_whatsapp.numeric'               => 'Nomor WhatsApp harus berupa angka ',
+            'is_serdos.required'                => 'Status Serdos harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -97,7 +100,7 @@ class PegawaiController extends Controller
             'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
             'is_active'             =>  1,
         ]);
-        
+
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, dosen baru berhasil ditambahkan',
@@ -109,6 +112,9 @@ class PegawaiController extends Controller
     }
 
     public function edit(Pegawai $pegawai){
+        if (!Gate::allows('edit-pegawai')) {
+            abort(403);
+        }
         $jabatanDts = JabatanDt::all();
         return view('backend.dosens.edit',[
             'pegawai'   =>  $pegawai,
@@ -117,6 +123,9 @@ class PegawaiController extends Controller
     }
 
     public function update(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('update-pegawai')) {
+            abort(403);
+        }
         $rules = [
             'nama'                  =>  'required',
             'nip'                   =>  'required',
@@ -131,22 +140,22 @@ class PegawaiController extends Controller
         ];
         $text = [
             'nama.required'                     => 'Nama Lengkap harus diisi',
-            'nip.required'                      => 'Nip harus dipilih',  
-            'nip.numeric'                       => 'Nip harus berupa angka',  
-            'nip.unique'                        => 'Nip sudah digunakan',  
-            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',  
-            'nidn.numeric '                     => 'NIDN harus berupa angka',  
-            'email.required'                    => 'Email harus diisi', 
-            'email.email'                       => 'Email harus berupa email', 
-            'email.unique'                      => 'Email sudah digunakan', 
-            'jenis_kelamin.required'            => 'Jenis kelamin harus dipilih', 
-            'jurusan.required'                  => 'Jurusan harus diisi',    
-            'nomor_rekening.required'           => 'Nomor Rekening harus diisi',    
-            'nomor_rekening.numeric'            => 'Nomor Rekening harus berupa angka',    
-            'npwp.required'                     => 'NPWP harus diisi',   
-            'npwp.numeric'                      => 'NPWP harus berupa angka',   
-            'no_whatsapp.numeric'               => 'Nomor WhatsApp harus berupa angka ',   
-            'is_serdos.required'                => 'Status Serdos harus dipilih',   
+            'nip.required'                      => 'Nip harus dipilih',
+            'nip.numeric'                       => 'Nip harus berupa angka',
+            'nip.unique'                        => 'Nip sudah digunakan',
+            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',
+            'nidn.numeric '                     => 'NIDN harus berupa angka',
+            'email.required'                    => 'Email harus diisi',
+            'email.email'                       => 'Email harus berupa email',
+            'email.unique'                      => 'Email sudah digunakan',
+            'jenis_kelamin.required'            => 'Jenis kelamin harus dipilih',
+            'jurusan.required'                  => 'Jurusan harus diisi',
+            'nomor_rekening.required'           => 'Nomor Rekening harus diisi',
+            'nomor_rekening.numeric'            => 'Nomor Rekening harus berupa angka',
+            'npwp.required'                     => 'NPWP harus diisi',
+            'npwp.numeric'                      => 'NPWP harus berupa angka',
+            'no_whatsapp.numeric'               => 'Nomor WhatsApp harus berupa angka ',
+            'is_serdos.required'                => 'Status Serdos harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -169,7 +178,7 @@ class PegawaiController extends Controller
             'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
             'is_active'             =>  1,
         ]);
-        
+
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, dosen baru berhasil diubah',
@@ -219,6 +228,9 @@ class PegawaiController extends Controller
     }
 
     public function riwayatJabatanFungsional(Pegawai $pegawai){
+        if (!Gate::allows('read-jabatan-fungsional')) {
+            abort(403);
+        }
         $jabatans = JabatanDs::select('nama_jabatan_ds')->whereNotIn('nama_jabatan_ds',function($query) use ($pegawai) {
             $query->select('nama_jabatan_fungsional')->from('jabatan_fungsionals')->where('nip',$pegawai->nip);
          })->get();
@@ -227,8 +239,11 @@ class PegawaiController extends Controller
             'jabatans'  =>  $jabatans,
         ]);
     }
-    
+
     public function storeRiwayatJabatanFungsional(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('update-jabatan-fungsional')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_fungsional'       =>  'required',
             'tmt_jabatan_fungsional'        =>  'required|',
@@ -304,6 +319,9 @@ class PegawaiController extends Controller
     }
 
     public function deleteRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+        if (!Gate::allows('delete-jabatan-fungsional')) {
+            abort(403);
+        }
         if ($jabatanFungsional->is_active == 1) {
             $notification = array(
                 'message' => 'Ooopps, riwayat jabatan fungsional aktif tidak bisa dihapus',
@@ -321,12 +339,18 @@ class PegawaiController extends Controller
     }
 
     public function riwayatPangkatGolongan(Pegawai $pegawai){
+        if (!Gate::allows('read-pangkat-golongan')) {
+            abort(403);
+        }
         return view('backend.dosens.riwayat_pangkat_golongan',[
             'pegawai'   =>  $pegawai,
         ]);
     }
 
     public function storeRiwayatPangkatGolongan(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('store-pangkat-golongan')) {
+            abort(403);
+        }
         $rules = [
             'nama_pangkat'                  =>  'required',
             'golongan'                      =>  'required',
@@ -422,6 +446,9 @@ class PegawaiController extends Controller
     }
 
     public function deleteRiwayatPangkatGolongan(Pegawai $pegawai, PangkatGolongan $pangkatGolongan){
+        if (!Gate::allows('delete-pangkat-golongan')) {
+            abort(403);
+        }
         if ($pangkatGolongan->is_active == 1) {
             $notification = array(
                 'message' => 'Ooopps, riwayat pangkat & golongan aktif tidak bisa dihapus',
@@ -439,6 +466,9 @@ class PegawaiController extends Controller
     }
 
     public function riwayatJabatanDt(Pegawai $pegawai){
+        if (!Gate::allows('read-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         return view('backend.dosens.riwayat_jabatan_dt',[
             'pegawai'   =>  $pegawai,
         ]);

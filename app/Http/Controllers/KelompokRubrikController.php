@@ -5,11 +5,14 @@ use App\Models\KelompokRubrik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Gate;
 
 class KelompokRubrikController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-kelompok-rubrik')) {
+            abort(403);
+        }
         $kelompokrubriks = KelompokRubrik::orderBy('created_at','desc')->get();
         return view('backend/kelompok_rubriks.index',[
             'kelompokrubriks'         =>  $kelompokrubriks,
@@ -17,10 +20,16 @@ class KelompokRubrikController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-kelompok-rubrik')) {
+            abort(403);
+        }
         return view('backend/kelompok_rubriks.create');
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-kelompok-rubrik')) {
+            abort(403);
+        }
         $rules = [
             'nama_kelompok_rubrik'       =>  'required',
         ];
@@ -49,10 +58,16 @@ class KelompokRubrikController extends Controller
         }
     }
     public function edit(KelompokRubrik $kelompokrubrik){
+        if (!Gate::allows('edit-kelompok-rubrik')) {
+            abort(403);
+        }
         return $kelompokrubrik;
     }
 
     public function update(Request $request, KelompokRubrik $kelompokrubrik){
+        if (!Gate::allows('update-kelompok-rubrik')) {
+            abort(403);
+        }
         $rules = [
             'nama_kelompok_rubrik_edit'       =>  'required',
         ];
@@ -118,6 +133,9 @@ class KelompokRubrikController extends Controller
         }
     }
     public function delete(KelompokRubrik $kelompokrubrik){
+        if (!Gate::allows('delete-kelompok-rubrik')) {
+            abort(403);
+        }
         $delete = $kelompokrubrik->delete();
 
         if ($delete) {

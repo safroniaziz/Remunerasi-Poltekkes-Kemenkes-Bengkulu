@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r017-naskah-buku-bahasa-terbit-edar-nas')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r017-naskah-buku-bahasa-terbit-edar-nas')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul_buku'      =>  'required',
@@ -64,10 +71,16 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
        }
    }
    public function edit(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
+    if (!Gate::allows('edit-r017-naskah-buku-bahasa-terbit-edar-nas')) {
+        abort(403);
+    }
        return $r017naskahbukuterbitedarnas;
    }
 
    public function update(Request $request, R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
+    if (!Gate::allows('update-r017-naskah-buku-bahasa-terbit-edar-nas')) {
+        abort(403);
+    }
        $rules = [
            'nip'                  =>  'required|numeric',
            'judul_buku'           =>  'required',
@@ -107,6 +120,9 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
        }
    }
    public function delete(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
+    if (!Gate::allows('delete-r017-naskah-buku-bahasa-terbit-edar-nas')) {
+        abort(403);
+    }
     $delete = $r017naskahbukuterbitedarnas->delete();
     if ($delete) {
         $notification = array(

@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R23AuditorMutuAssessorAkredInternalController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r023-auditor-mutu-assessor-akred-internal')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,14 +28,17 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r023-auditor-mutu-assessor-akred-internal')) {
+        abort(403);
+    }
        $rules = [
-           'nip'                   =>  'required|numeric',
-           'judul_kegiatan'          =>  'required',
+           'nip'              =>  'required|numeric',
+           'judul_kegiatan'   =>  'required',
        ];
        $text = [
            'nip.required'              => 'NIP harus dipilih',
            'nip.numeric'               => 'NIP harus berupa angka',
-           'judul_kegiatan.required'     => 'Judul Kegiatan harus diisi',
+           'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -59,10 +66,16 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
    }
    public function edit(R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
+    if (!Gate::allows('edit-r023-auditor-mutu-assessor-akred-internal')) {
+        abort(403);
+    }
        return $r23auditmutuasesorakredinternal;
    }
 
    public function update(Request $request, R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
+    if (!Gate::allows('update-r023-auditor-mutu-assessor-akred-internal')) {
+        abort(403);
+    }
        $rules = [
            'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
@@ -98,6 +111,9 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        }
    }
    public function delete(R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
+    if (!Gate::allows('delete-r023-auditor-mutu-assessor-akred-internal')) {
+        abort(403);
+    }
        $delete = $r23auditmutuasesorakredinternal->delete();
        if ($delete) {
            $notification = array(

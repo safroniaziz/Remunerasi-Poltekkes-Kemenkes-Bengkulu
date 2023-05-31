@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R05MembimbingPraktikPkkPblKlinikController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r05-membimbing-praktik-pkk-pbl-klinik')) {
+            abort(403);
+        }
          $pegawais = Pegawai::all();
          $r05membimbingpraktikpkkpblkliniks = R05MembimbingPraktikPkkPblKlinik::orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-r05-membimbing-praktik-pkk-pbl-klinik')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
@@ -68,10 +75,16 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         }
     }
     public function edit(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
+        if (!Gate::allows('edit-r05-membimbing-praktik-pkk-pbl-klinik')) {
+            abort(403);
+        }
         return $r05membimbingpraktikpkkpblklinik;
     }
 
     public function update(Request $request, R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
+        if (!Gate::allows('update-r05-membimbing-praktik-pkk-pbl-klinik')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
@@ -116,6 +129,9 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         }
     }
     public function delete(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
+        if (!Gate::allows('delete-r05-membimbing-praktik-pkk-pbl-klinik')) {
+            abort(403);
+        }
         $delete = $r05membimbingpraktikpkkpblklinik->delete();
         if ($delete) {
             $notification = array(

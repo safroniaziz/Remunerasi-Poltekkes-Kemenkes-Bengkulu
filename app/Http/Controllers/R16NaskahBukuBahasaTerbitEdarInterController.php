@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r016-naskah-buku-bahasa-terbit-edar-inter')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r016naskahbukubahasaterbitedarinters = R016NaskahBukuBahasaTerbitEdarInter::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r016-naskah-buku-bahasa-terbit-edar-inter')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul_buku'           =>  'required',
@@ -64,10 +71,16 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
        }
    }
    public function edit(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+    if (!Gate::allows('edit-r016-naskah-buku-bahasa-terbit-edar-inter')) {
+        abort(403);
+    }
        return $r016naskahbukuterbitedarinter;
    }
 
    public function update(Request $request, R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+    if (!Gate::allows('update-r016-naskah-buku-bahasa-terbit-edar-inter')) {
+        abort(403);
+    }
        $rules = [
            'nip'                  =>  'required|numeric',
            'judul_buku'           =>  'required',
@@ -107,6 +120,9 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
        }
    }
    public function delete(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+    if (!Gate::allows('delete-r016-naskah-buku-bahasa-terbit-edar-inter')) {
+        abort(403);
+    }
        $delete = $r016naskahbukuterbitedarinter->delete();
        if ($delete) {
            $notification = array(

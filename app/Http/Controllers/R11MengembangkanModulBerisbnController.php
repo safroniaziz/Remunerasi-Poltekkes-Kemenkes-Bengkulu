@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R11MengembangkanModulBerisbnController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r011-mengembangkan-modul-berisbn')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r011mengembangkanmodulberisbns = R011MengembangkanModulBerisbn::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R11MengembangkanModulBerisbnController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r011-mengembangkan-modul-berisbn')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'judul'           =>  'required',
@@ -72,10 +79,16 @@ class R11MengembangkanModulBerisbnController extends Controller
        }
    }
    public function edit(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+    if (!Gate::allows('edit-r011-mengembangkan-modul-berisbn')) {
+        abort(403);
+    }
        return $r011mengembangkanmodulberisbn;
    }
 
    public function update(Request $request, R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+    if (!Gate::allows('update-r011-mengembangkan-modul-berisbn')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'judul'           =>  'required',
@@ -122,6 +135,9 @@ class R11MengembangkanModulBerisbnController extends Controller
        }
    }
    public function delete(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+    if (!Gate::allows('delete-r011-mengembangkan-modul-berisbn')) {
+        abort(403);
+    }
        $delete = $r011mengembangkanmodulberisbn->delete();
        if ($delete) {
            $notification = array(

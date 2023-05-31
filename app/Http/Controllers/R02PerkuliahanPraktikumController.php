@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R02PerkuliahanPraktikumController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r02-perkuliahan-praktikum')) {
+            abort(403);
+        }
          $pegawais = Pegawai::all();
          $r02perkuliahanpraktikums = r02perkuliahanpraktikum::orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R02PerkuliahanPraktikumController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-r02-perkuliahan-praktikum')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
@@ -68,10 +75,16 @@ class R02PerkuliahanPraktikumController extends Controller
         }
     }
     public function edit(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        if (!Gate::allows('edit-r02-perkuliahan-praktikum')) {
+            abort(403);
+        }
         return $r02perkuliahanpraktikum;
     }
 
     public function update(Request $request, R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        if (!Gate::allows('update-r02-perkuliahan-praktikum')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
@@ -116,6 +129,9 @@ class R02PerkuliahanPraktikumController extends Controller
         }
     }
     public function delete(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        if (!Gate::allows('delete-r02-perkuliahan-praktikum')) {
+            abort(403);
+        }
         $delete = $r02perkuliahanpraktikum->delete();
 
         if ($delete) {

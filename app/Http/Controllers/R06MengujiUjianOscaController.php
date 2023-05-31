@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R06MengujiUjianOscaController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r06-menguji-ujian-osca')) {
+            abort(403);
+        }
          $pegawais = Pegawai::all();
          $r06mengujiujianoscas = R06MengujiUjianOsca::orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R06MengujiUjianOscaController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-r06-menguji-ujian-osca')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -61,10 +68,16 @@ class R06MengujiUjianOscaController extends Controller
         }
     }
     public function edit(R06MengujiUjianOsca $r06mengujiujianosca){
+        if (!Gate::allows('edit-r06-menguji-ujian-osca')) {
+            abort(403);
+        }
         return $r06mengujiujianosca;
     }
 
     public function update(Request $request, R06MengujiUjianOsca $r06mengujiujianosca){
+        if (!Gate::allows('update-r06-menguji-ujian-osca')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -102,6 +115,9 @@ class R06MengujiUjianOscaController extends Controller
         }
     }
     public function delete(R06MengujiUjianOsca $r06mengujiujianosca){
+        if (!Gate::allows('delete-r06-menguji-ujian-osca')) {
+            abort(403);
+        }
         $delete = $r06mengujiujianosca->delete();
         if ($delete) {
             $notification = array(
