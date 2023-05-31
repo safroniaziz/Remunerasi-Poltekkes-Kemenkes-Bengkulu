@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -64,35 +64,21 @@
                                                     webinar
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $r028melaksanakanpengembangandiri->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r028melaksanakanpengembangandiri->is_bkd== 1)
-                                                    <form action="{{ route('r_028_melaksanakan_pengembangan_diri.set_nonactive',[$r028melaksanakanpengembangandiri->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r028melaksanakanpengembangandiri->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_028_melaksanakan_pengembangan_diri.set_active',[$r028melaksanakanpengembangandiri->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r028melaksanakanpengembangandiri->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r028melaksanakanpengembangandiri->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r028melaksanakanpengembangandiri->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r028melaksanakanpengembangandiri->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r028melaksanakanpengembangandiri->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -146,7 +132,6 @@
                     $('#modalEdit').modal('show');
                     $('#r28laksanakanpengembangandiri_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jenis_kegiatan_edit').val(data.jenis_kegiatan);
                 },
                 error:function(){

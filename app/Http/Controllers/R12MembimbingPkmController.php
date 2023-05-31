@@ -32,20 +32,15 @@ class R12MembimbingPkmController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                =>  'required|numeric',
            'tingkat_pkm'        =>  'required',
            'juara_ke'           =>  'required',
            'jumlah_pembimbing'  =>  'required|numeric',
-
        ];
        $text = [
-           'nip.required'                 => 'NIP harus dipilih',
-           'nip.numeric'                  => 'NIP harus berupa angka',
            'tingkat_pkm.required'         => 'tingkat_pkm harus diisi',
            'juara_ke.required'            => 'Penulis harus diisi',
            'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
-
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -54,16 +49,29 @@ class R12MembimbingPkmController extends Controller
        }
 
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->tingkat_pkm == "internasional") {
+            if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
+                $ewmp = 2;
+            }else{
+                $ewmp = 1;
+            }
+        }else{
+            if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
+                $ewmp = 1;
+            }else{
+                $ewmp = 0.5;
+            }
+        }
+        $point = $ewmp/$request->jumlah_pembimbing;
        $simpan = R012MembimbingPkm::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'tingkat_pkm'       =>  $request->tingkat_pkm,
         'juara_ke'          =>  $request->juara_ke,
         'jumlah_pembimbing' =>  $request->jumlah_pembimbing,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -87,14 +95,11 @@ class R12MembimbingPkmController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                =>  'required|numeric',
            'tingkat_pkm'        =>  'required',
            'juara_ke'           =>  'required',
            'jumlah_pembimbing'  =>  'required|numeric',
        ];
        $text = [
-           'nip.required'                 => 'NIP harus dipilih',
-           'nip.numeric'                  => 'NIP harus berupa angka',
            'tingkat_pkm.required'         => 'Tingkat Pkm harus diisi',
            'juara_ke.required'            => 'Penulis harus diisi',
            'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
@@ -107,17 +112,30 @@ class R12MembimbingPkmController extends Controller
        }
 
        $periode = Periode::select('id')->where('is_active','1')->first();
-
-       $update = R012MembimbingPkm::where('id',$request->r012membimbingpkm_id_edit)->update([
-        'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
-        'tingkat_pkm'       =>  $request->tingkat_pkm,
-        'juara_ke'          =>  $request->juara_ke,
-        'jumlah_pembimbing' =>  $request->jumlah_pembimbing,
-        'is_bkd'            =>  0,
-        'is_verified'       =>  0,
-        'point'             =>  null,
-       ]);
+        if ($request->tingkat_pkm == "internasional") {
+            if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
+                $ewmp = 2;
+            }else{
+                $ewmp = 1;
+            }
+        }else{
+            if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
+                $ewmp = 1;
+            }else{
+                $ewmp = 0.5;
+            }
+        }
+        $point = $ewmp/$request->jumlah_pembimbing;
+        $update = R012MembimbingPkm::where('id',$request->r012membimbingpkm_id_edit)->update([
+            'periode_id'        =>  $periode->id,
+            'nip'               =>  $request->session()->get('nip_dosen'),
+            'tingkat_pkm'       =>  $request->tingkat_pkm,
+            'juara_ke'          =>  $request->juara_ke,
+            'jumlah_pembimbing' =>  $request->jumlah_pembimbing,
+            'is_bkd'            =>  0,
+            'is_verified'       =>  0,
+            'point'             =>  $point,
+        ]);
 
        if ($update) {
            return response()->json([

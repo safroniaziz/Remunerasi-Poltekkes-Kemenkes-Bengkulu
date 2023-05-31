@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>

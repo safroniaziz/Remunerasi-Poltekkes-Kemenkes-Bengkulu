@@ -16,16 +16,6 @@
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Judul Kegiatan</label>
                             <input type="text" class="form-control" id="judul_kegiatan" name="judul_kegiatan">
@@ -36,7 +26,7 @@
                             <select name="jenis" class="form-control" id="jenis">
                                 <option disabled selected>-- pilih Jenis --</option>
                                 <option value="insidentil">Insidentil</option>
-                                <option value="non_isidentil">Latihan/ penyuluhan/ pantaran/ ceramah</option>
+                                <option value="non_isidentil">Latihan/penyuluhan/pantaran/ceramah</option>
                             </select>
                         </div>
 

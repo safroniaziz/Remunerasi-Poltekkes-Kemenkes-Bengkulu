@@ -33,14 +33,14 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul</th>
-                                        <th style="text-align:center; vertical-align:middle">Penulis</th>
+                                        <th style="text-align:center; vertical-align:middle">Status Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
@@ -59,38 +59,24 @@
                                             <td class="text-center">{{ $r014karyainovasi->nip }}</td>
                                             <td class="text-center">{{ $r014karyainovasi->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r014karyainovasi->judul }}</td>
-                                            <td class="text-center">{{ $r014karyainovasi->penulis_ke }}</td>
+                                            <td class="text-center">{{ $r014karyainovasi->penulis_ke == "penulis_utama" ? 'Penulis Utama' : 'Penulis Anggota' }}</td>
                                             <td class="text-center">{{ $r014karyainovasi->jumlah_penulis }}</td>
-                                            <td class="text-center">{{ $r014karyainovasi->jenis }}</td>
-                                            <td class="text-center">{{ $r014karyainovasi->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r014karyainovasi->is_bkd== 1)
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_nonactive',[$r014karyainovasi->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center" style="text-transform:capitalize">{{ $r014karyainovasi->jenis }}</td>
+                                            <td class="text-center">
+                                                @if ($r014karyainovasi->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_active',[$r014karyainovasi->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r014karyainovasi->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r014karyainovasi->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r014karyainovasi->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r014karyainovasi->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r014karyainovasi->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -144,7 +130,6 @@
                     $('#modalEdit').modal('show');
                     $('#r014karyainovasi_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#judul_edit').val(data.judul);
                     $('#penulis_ke_edit').val(data.penulis_ke);
                     $('#jumlah_penulis_edit').val(data.jumlah_penulis);

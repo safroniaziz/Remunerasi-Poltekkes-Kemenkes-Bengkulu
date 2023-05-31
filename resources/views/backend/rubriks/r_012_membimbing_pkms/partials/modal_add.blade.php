@@ -17,16 +17,6 @@
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Tingkat PKM </label>
                             <select name="tingkat_pkm" class="form-control" id="tingkat_pkm">
                                 <option disabled selected>-- pilih Tingkat PKM --</option>
@@ -40,14 +30,10 @@
                             <label for="nip" class="col-form-label">Juara </label>
                             <select name="juara_ke" class="form-control" id="juara_ke">
                                 <option disabled selected>-- pilih Juara --</option>
-                                <option value="1">Juara 1 Internasional</option>
-                                <option value="2">Juara 2 Internasional</option>
-                                <option value="3">Juara 3 Internasional</option>
-                                <option value="4">Internasional Tidak Juara</option>
-                                <option value="5">Juara 1 nasional</option>
-                                <option value="6">Juara 2 nasional</option>
-                                <option value="7">Juara 3 nasional</option>
-                                <option value="8">Nasional Tidak Juara</option>
+                                <option value="1">Juara 1</option>
+                                <option value="2">Juara 2</option>
+                                <option value="3">Juara 3</option>
+                                <option value="0">Tidak Juara</option>
                             </select>
                         </div>
 

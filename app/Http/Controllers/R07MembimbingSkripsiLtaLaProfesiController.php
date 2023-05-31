@@ -32,18 +32,14 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'pembimbing_ke'         =>  'required',
 
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
-
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -52,15 +48,20 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         }
 
         $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->pembimbing_ke == "pembimbing_utama") {
+            $ewmp = 0.25;
+        }else{
+            $ewmp = 0.20;
+        }
+        $point = $request->jumlah_mahasiswa * $ewmp;
         $simpan = R07MembimbingSkripsiLtaLaProfesi::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($simpan) {
@@ -84,13 +85,10 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'pembimbing_ke'         =>  'required',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
@@ -102,15 +100,20 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         }
 
         $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->pembimbing_ke == "pembimbing_utama") {
+            $ewmp = 0.25;
+        }else{
+            $ewmp = 0.20;
+        }
+        $point = $request->jumlah_mahasiswa * $ewmp;
         $update = R07MembimbingSkripsiLtaLaProfesi::where('id',$request->r07membimbingskripsiltalaprofesi_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($update) {

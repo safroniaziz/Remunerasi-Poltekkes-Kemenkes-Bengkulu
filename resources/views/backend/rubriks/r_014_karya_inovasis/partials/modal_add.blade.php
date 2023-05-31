@@ -16,24 +16,18 @@
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Judul</label>
                             <input type="text" class="form-control" id="judul" name="judul">
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Penulis Ke</label>
-                            <input type="text" class="form-control" id="penulis_ke" name="penulis_ke">
+                            <label for="exampleInputEmail1">Status Penulis</label>
+                            <select name="penulis_ke" class="form-control" id="penulis_ke">
+                                <option disabled selected>-- pilih status penulis --</option>
+                                <option value="penulis_utama">Penulis Utama</option>
+                                <option value="penulis_anggota">Penulis Anggota</option>
+                            </select>
                         </div>
 
                         <div class="form-group col-md-12">
@@ -45,20 +39,12 @@
                             <label for="exampleInputEmail1">Jenis</label>
                             <select name="jenis" class="form-control" id="jenis">
                                 <option disabled selected>-- pilih Jenis --</option>
-                                <option value="Q1">Internasional Q1</option>
-                                <option value="Q2">Internasional Q2</option>
-                                <option value="Q3">Internasional Q3</option>
-                                <option value="Q4">Internasional Q4</option>
-                                <option value="1">Nasional Sinta 1</option>
-                                <option value="2">Nasional Sinta 2</option>
-                                <option value="3">Nasional Sinta 3</option>
-                                <option value="4">Nasional Sinta 4</option>
-                                <option value="5">Nasional Sinta 5</option>
-                                <option value="6">Nasional Sinta 6</option>
-                                <option value="oral_presentation_inter">Seminar Oral Presentation Internasional</option>
+                                <option value="menghasilkan_pendapatan_blu">Menghasilkan Pendapatan BLU</option>
+                                <option value="paten_yang_belum_dikonversi">Paten Yang Belum Dikonversi</option>
+                                <option value="paten_sederhana">Paten Sederhana</option>
+                                <option value="hki">HKI</option>
                             </select>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -32,12 +32,9 @@ class R28MelaksanakanPengembanganDiriController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'jenis_kegiatan'          =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'jenis_kegiatan.required'   => 'Jenis Kegiatan harus diisi',
        ];
 
@@ -46,14 +43,21 @@ class R28MelaksanakanPengembanganDiriController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis_kegiatan == "pelatihan") {
+            $ewmp = 1.00;
+        }elseif ($request->jenis_kegiatan == "workshop") {
+            $ewmp = 0.25;
+        }else{
+            $ewmp = 0.15;
+        }
+        $point = $ewmp;
        $simpan = R028MelaksanakanPengembanganDiri::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'jenis_kegiatan'    =>  $request->jenis_kegiatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -77,12 +81,9 @@ class R28MelaksanakanPengembanganDiriController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'jenis_kegiatan'          =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'jenis_kegiatan.required' => 'Jenis Kegiatan harus diisi',
        ];
 
@@ -91,14 +92,21 @@ class R28MelaksanakanPengembanganDiriController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis_kegiatan == "pelatihan") {
+            $ewmp = 1.00;
+        }elseif ($request->jenis_kegiatan == "workshop") {
+            $ewmp = 0.25;
+        }else{
+            $ewmp = 0.15;
+        }
+        $point = $ewmp;
        $update = R028MelaksanakanPengembanganDiri::where('id',$request->r28laksanakanpengembangandiri_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'jenis_kegiatan'             =>  $request->jenis_kegiatan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

@@ -32,12 +32,9 @@ class R29MemperolehPenghargaanController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_penghargaan'       =>  'required',
        ];
        $text = [
-           'nip.required'               => 'NIP harus dipilih',
-           'nip.numeric'                => 'NIP harus berupa angka',
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
        ];
 
@@ -46,14 +43,19 @@ class R29MemperolehPenghargaanController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "dosen_berprestasi_nasional") {
+            $ewmp = 0.5;
+        }else{
+            $ewmp = 0.5;
+        }
+        $point = $ewmp;
        $simpan = R029MemperolehPenghargaan::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_penghargaan' =>  $request->judul_penghargaan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -77,12 +79,9 @@ class R29MemperolehPenghargaanController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_penghargaan'       =>  'required',
        ];
        $text = [
-           'nip.required'               => 'NIP harus dipilih',
-           'nip.numeric'                => 'NIP harus berupa angka',
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
        ];
 
@@ -91,14 +90,19 @@ class R29MemperolehPenghargaanController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "dosen_berprestasi_nasional") {
+            $ewmp = 0.5;
+        }else{
+            $ewmp = 0.5;
+        }
+        $point = $ewmp;
        $update = R029MemperolehPenghargaan::where('id',$request->r29memperolehpenghargaan_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_penghargaan'          =>  $request->judul_penghargaan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -58,35 +58,21 @@
                                             <td class="text-center">{{ $r08mengujiseminarproposalktiltaskripsi->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r08mengujiseminarproposalktiltaskripsi->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r08mengujiseminarproposalktiltaskripsi->jenis }}</td>
-                                            <td class="text-center">{{ $r08mengujiseminarproposalktiltaskripsi->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r08mengujiseminarproposalktiltaskripsi->is_bkd== 1)
-                                                    <form action="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi.set_nonactive',[$r08mengujiseminarproposalktiltaskripsi->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r08mengujiseminarproposalktiltaskripsi->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi.set_active',[$r08mengujiseminarproposalktiltaskripsi->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r08mengujiseminarproposalktiltaskripsi->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r08mengujiseminarproposalktiltaskripsi->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r08mengujiseminarproposalktiltaskripsi->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r08mengujiseminarproposalktiltaskripsi->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r08mengujiseminarproposalktiltaskripsi->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -140,7 +126,6 @@
                     $('#modalEdit').modal('show');
                     $('#r08mengujiseminarproposal_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jenis_edit').val(data.jenis);
                 },

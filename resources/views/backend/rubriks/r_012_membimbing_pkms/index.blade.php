@@ -33,16 +33,15 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
-                                        <th style="text-align:center; vertical-align:middle">Judul</th>
-                                        <th style="text-align:center; vertical-align:middle">ISBN</th>
-                                        <th style="text-align:center; vertical-align:middle">Penulis Ke </th>
-                                        <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
+                                        <th style="text-align:center; vertical-align:middle">Tingkat PKM</th>
+                                        <th style="text-align:center; vertical-align:middle">Juara Ke </th>
+                                        <th style="text-align:center; vertical-align:middle">Jumlah Pembimbing</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
@@ -58,39 +57,24 @@
                                             <td>{{ $index+1 }}</td>
                                             <td class="text-center">{{ $r012membimbingpkm->nip }}</td>
                                             <td class="text-center">{{ $r012membimbingpkm->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $r012membimbingpkm->judul }}</td>
-                                            <td class="text-center">{{ $r012membimbingpkm->isbn }}</td>
-                                            <td class="text-center">{{ $r012membimbingpkm->penulis_ke }}</td>
-                                            <td class="text-center">{{ $r012membimbingpkm->jumlah_penulis }}</td>
-                                            <td class="text-center">{{ $r012membimbingpkm->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r012membimbingpkm->is_bkd== 1)
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_nonactive',[$r012membimbingpkm->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">{{ $r012membimbingpkm->tingkat_pkm }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->juara_ke }}</td>
+                                            <td class="text-center">{{ $r012membimbingpkm->jumlah_pembimbing }}</td>
+                                            <td class="text-center">
+                                                @if ($r012membimbingpkm->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_active',[$r012membimbingpkm->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r012membimbingpkm->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r012membimbingpkm->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r012membimbingpkm->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r012membimbingpkm->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r012membimbingpkm->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -144,7 +128,6 @@
                     $('#modalEdit').modal('show');
                     $('#r012membimbingpkm_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#tingkat_pkm_edit').val(data.tingkat_pkm);
                     $('#isbn_edit').val(data.isbn);
                     $('#juara_ke_edit').val(data.juara_ke);

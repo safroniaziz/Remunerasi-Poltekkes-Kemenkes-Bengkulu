@@ -32,13 +32,10 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'               =>  'required|numeric',
            'judul_kegiatan'    =>  'required',
            'jenis'             =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul_kegiatan harus diisi',
            'jenis.required'            => 'Jenis harus diisi',
        ];
@@ -49,15 +46,20 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
        }
 
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis == "insidentil") {
+            $ewmp = 0.50;
+        }else{
+            $ewmp = 0.25;
+        }
+        $point = $ewmp;
        $simpan = R019LatihNyuluhNatarCeramahWarga::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -81,13 +83,10 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'             =>  'required|numeric',
            'judul_kegiatan'  =>  'required',
            'jenis'           =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jenis.required'            => 'Jenis harus diisi',
        ];
@@ -98,15 +97,20 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
        }
 
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+       if ($request->jenis == "insidentil") {
+            $ewmp = 0.50;
+        }else{
+            $ewmp = 0.25;
+        }
+        $point = $ewmp;
        $update = R019LatihNyuluhNatarCeramahWarga::where('id',$request->r019latihnyuluhnatarceramahwarga_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($update) {

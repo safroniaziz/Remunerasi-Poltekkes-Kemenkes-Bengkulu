@@ -17,16 +17,6 @@
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->nip }}">{{ $pegawai->nip }} -> {{ $pegawai->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Judul Penghargaan</label>
                             <select name="judul_penghargaan" class="form-control" id="judul_penghargaan">
                                 <option disabled selected>-- pilih Judul Penghargaan --</option>

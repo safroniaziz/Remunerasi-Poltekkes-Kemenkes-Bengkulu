@@ -32,18 +32,13 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'jenis'                 =>  'required',
-
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jenis.required'            => 'Jenis Seminar harus dipilih',
-
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -52,15 +47,20 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
 
         $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis == "KTI" || $request->jenis == "LTA") {
+            $ewmp = 0.05;
+        }else{
+            $ewmp = 0.06;
+        }
+        $point = $request->jumlah_mahasiswa * $ewmp;
         $simpan = R08MengujiSeminarProposalKtiLtaSkripsi::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'jenis'             =>  $request->jenis,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($simpan) {
@@ -84,13 +84,10 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             abort(403);
         }
         $rules = [
-            'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'jenis'                 =>  'required',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
-            'nip.numeric'               => 'NIP harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jenis.required'            => 'Jenis Seminar harus dipilih',
@@ -102,15 +99,20 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
 
         $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis == "KTI" || $request->jenis == "LTA") {
+            $ewmp = 0.05;
+        }else{
+            $ewmp = 0.06;
+        }
+        $point = $request->jumlah_mahasiswa * $ewmp;
         $update = R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$request->r08mengujiseminarproposal_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->nip,
+            'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'jenis'             =>  $request->jenis,
             'is_bkd'            =>  0,
             'is_verified'       =>  0,
-            'point'             =>  null,
+            'point'             =>  $point,
         ]);
 
         if ($update) {

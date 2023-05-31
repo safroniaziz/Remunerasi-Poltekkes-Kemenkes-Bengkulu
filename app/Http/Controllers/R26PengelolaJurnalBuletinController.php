@@ -32,19 +32,14 @@ class R26PengelolaJurnalBuletinController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
            'edisi_terbit'            =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jabatan.required'          => 'Jabatan harus diisi',
            'edisi_terbit.required'     => 'Edisi Terbit harus diisi',
-
-
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -52,16 +47,21 @@ class R26PengelolaJurnalBuletinController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua") {
+            $ewmp = 1.00;
+        }else{
+            $ewmp = 0.25;
+        }
+        $point = $ewmp;
        $simpan = R026PengelolaJurnalBuletin::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
            'edisi_terbit'      =>  $request->edisi_terbit,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -85,14 +85,11 @@ class R26PengelolaJurnalBuletinController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
            'edisi_terbit'            =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
            'jabatan.required'        => 'Jabatan harus diisi',
            'edisi_terbit.required'     => 'Edisi Terbit harus diisi',
@@ -103,16 +100,21 @@ class R26PengelolaJurnalBuletinController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua") {
+            $ewmp = 1.00;
+        }else{
+            $ewmp = 0.25;
+        }
+        $point = $ewmp;
        $update = R026PengelolaJurnalBuletin::where('id',$request->r26pengelolajurnalbuletin_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,
            'edisi_terbit'               =>  $request->edisi_terbit,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

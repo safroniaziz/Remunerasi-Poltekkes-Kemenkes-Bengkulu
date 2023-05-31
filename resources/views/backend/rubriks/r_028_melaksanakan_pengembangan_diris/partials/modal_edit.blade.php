@@ -18,21 +18,10 @@
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip_edit" class="form-control">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option
-                                  value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
-                                    @endforeach</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Jenis Kegiatan</label>
                             <select name="jenis_kegiatan" class="form-control" id="jenis_kegiatan_edit">
                                 <option disabled selected>-- pilih Jenis Kegiatan --</option>
-                                <option value="pelatihan">Pelatihan</option>
+                                <option value="pelatihan">Pelatihan (>= 30 Jam)</option>
                                 <option value="workshop">Workshop</option>
                                 <option value="webinar">Webinar</option>
                             </select>

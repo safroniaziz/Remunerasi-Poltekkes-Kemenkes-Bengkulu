@@ -32,7 +32,6 @@ class R14KaryaInovasiController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'             =>  'required|numeric',
            'judul'           =>  'required',
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
@@ -40,8 +39,6 @@ class R14KaryaInovasiController extends Controller
 
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul.required'            => 'Judul harus diisi',
            'penulis_ke.required'       => 'Penulis harus diisi',
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
@@ -56,17 +53,30 @@ class R14KaryaInovasiController extends Controller
        }
 
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis == "menghasilkan_pendapatan_blu") {
+            $ewmp = 5.00;
+        }elseif ($request->jenis == "paten_yang_belum_dikonversi") {
+            $ewmp = 4.00;
+        }elseif ($request->jenis == "paten_sederhana") {
+            $ewmp = 4.00;
+        }else{
+            $ewmp = 1.00;
+        }
+        if ($request->penulis_ke == "penulis_ke") {
+            $point = (60/100)*$ewmp;
+        }else {
+            $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
+        }
        $simpan = R014KaryaInovasi::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
         'jenis'             =>  $request->jenis,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -90,15 +100,12 @@ class R14KaryaInovasiController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'             =>  'required|numeric',
            'judul'           =>  'required',
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
            'jenis'           =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'judul.required'            => 'Judul harus diisi',
            'penulis_ke.required'       => 'Penulis harus diisi',
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
@@ -111,17 +118,30 @@ class R14KaryaInovasiController extends Controller
        }
 
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jenis == "menghasilkan_pendapatan_blu") {
+            $ewmp = 5.00;
+        }elseif ($request->jenis == "paten_yang_belum_dikonversi") {
+            $ewmp = 4.00;
+        }elseif ($request->jenis == "paten_sederhana") {
+            $ewmp = 4.00;
+        }else{
+            $ewmp = 1.00;
+        }
+        if ($request->penulis_ke == "penulis_utama") {
+            $point = (60/100)*$ewmp;
+        }else {
+            $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
+        }
        $update = R014KaryaInovasi::where('id',$request->r014karyainovasi_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
         'jenis'             =>  $request->jenis,
         'is_bkd'            =>  0,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($update) {

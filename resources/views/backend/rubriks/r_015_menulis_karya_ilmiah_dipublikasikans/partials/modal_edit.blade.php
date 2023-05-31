@@ -16,25 +16,18 @@
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip_edit" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option
-                                  value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
-                                    @endforeach</option>
-                            </select>
-                        </div>
-
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Judul</label>
                             <input type="text" class="form-control" id="judul_edit" name="judul">
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Penulis Ke</label>
-                            <input type="text" class="form-control" id="penulis_ke_edit" name="penulis_ke">
+                            <label for="exampleInputEmail1">Status Penulis</label>
+                            <select name="penulis_ke" class="form-control" id="penulis_ke_edit">
+                                <option disabled selected>-- pilih status penulis --</option>
+                                <option value="penulis_utama">Penulis Utama</option>
+                                <option value="penulis_anggota">Penulis Anggota</option>
+                            </select>
                         </div>
 
                         <div class="form-group col-md-12">
@@ -50,13 +43,13 @@
                                 <option value="Q2">Internasional Q2</option>
                                 <option value="Q3">Internasional Q3</option>
                                 <option value="Q4">Internasional Q4</option>
-                                <option value="1">Nasional Sinta 1</option>
-                                <option value="2">Nasional Sinta 2</option>
-                                <option value="3">Nasional Sinta 3</option>
-                                <option value="4">Nasional Sinta 4</option>
-                                <option value="5">Nasional Sinta 5</option>
-                                <option value="6">Nasional Sinta 6</option>
-                                <option value="oral_presentation_inter">Seminar Oral Presentation Internasional</option>
+                                <option value="sinta_1">Nasional Sinta 1</option>
+                                <option value="sinta_2">Nasional Sinta 2</option>
+                                <option value="sinta_3">Nasional Sinta 3</option>
+                                <option value="sinta_4">Nasional Sinta 4</option>
+                                <option value="sinta_5">Nasional Sinta 5</option>
+                                <option value="sinta_6">Nasional Sinta 6</option>
+                                <option value="oral_presentation_internasional">Seminar Oral Presentation Internasional</option>
                                 <option value="oral_presentation_nasional">Seminar Oral Presentation Nasional</option>
                                 <option value="poster_internasional">Seminar Poster Internasional</option>
                                 <option value="poster_nasional">Seminar Poster Nasional</option>

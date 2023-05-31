@@ -32,16 +32,12 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jabatan.required'          => 'Jabatan harus diisi',
-
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -49,15 +45,22 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
+            $ewmp = 1.00;
+        }elseif ($request->jabatan == "sekretaris") {
+            $ewmp = 0.25;
+        }else{
+            $ewmp = 0.20;
+        }
+        $point = $ewmp;
        $simpan = R025KepanitiaanKegiatanInstitusi::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -81,16 +84,12 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
            'jabatan.required'        => 'Jabatan harus diisi',
-
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -98,15 +97,22 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
+            $ewmp = 1.00;
+        }elseif ($request->jabatan == "sekretaris") {
+            $ewmp = 0.25;
+        }else{
+            $ewmp = 0.20;
+        }
+        $point = $ewmp;
        $update = R025KepanitiaanKegiatanInstitusi::where('id',$request->r25panitiakegiataninstitusi_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

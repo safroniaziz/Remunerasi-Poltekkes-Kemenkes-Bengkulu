@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -59,38 +59,54 @@
                                             <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->nip }}</td>
                                             <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->judul }}</td>
-                                            <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->penulis_ke }}</td>
+                                            <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->penulis_ke == "penulis_utama" ? 'Penulis Utama' : 'Penulis Anggota' }}</td>
                                             <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->jumlah_penulis }}</td>
-                                            <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->jenis }}</td>
-                                            <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r015menuliskaryailmiahdipublikasikan->is_bkd== 1)
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_nonactive',[$r015menuliskaryailmiahdipublikasikan->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r015menuliskaryailmiahdipublikasikan->jenis == "Q1")
+                                                    Internasional Q1
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "Q2")
+                                                    Internasional Q2
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "Q3")
+                                                    Internasional Q3
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "Q4")
+                                                    Internasional Q4
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "sinta_1")
+                                                    Nasional Sinta 1
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "sinta_2")
+                                                    Nasional Sinta 2
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "sinta_3")
+                                                    Nasional Sinta 3
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "sinta_4")
+                                                    Nasional Sinta 4
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "sinta_5")
+                                                    Nasional Sinta 5
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "sinta_6")
+                                                    Nasional Sinta 6
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "oral_presentation_internasional")
+                                                    Seminar Oral Presentation International
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "oral_presentation_nasional")
+                                                    Seminar Oral Presentation Nasional
+                                                @elseif ($r015menuliskaryailmiahdipublikasikan->jenis == "poster_internasional")
+                                                    Seminar Poster Internasional
                                                 @else
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_active',[$r015menuliskaryailmiahdipublikasikan->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Seminar Poster Nasional
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r015menuliskaryailmiahdipublikasikan->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r015menuliskaryailmiahdipublikasikan->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r015menuliskaryailmiahdipublikasikan->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r015menuliskaryailmiahdipublikasikan->is_bkd == 1)
+                                                    Ya
+                                                @else
+                                                    Tidak
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r015menuliskaryailmiahdipublikasikan->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r015menuliskaryailmiahdipublikasikan->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>

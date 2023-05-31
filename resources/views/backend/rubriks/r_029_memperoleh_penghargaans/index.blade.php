@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered" id="table" style="width:100%; m">
+                            <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
@@ -62,35 +62,21 @@
                                                     Reviewer internasional berscopus
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $r029memperolehpenghargaan->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r029memperolehpenghargaan->is_bkd== 1)
-                                                    <form action="{{ route('r_029_memperoleh_penghargaan.set_nonactive',[$r029memperolehpenghargaan->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r029memperolehpenghargaan->is_bkd == 1)
+                                                    Ya
                                                 @else
-                                                    <form action="{{ route('r_029_memperoleh_penghargaan.set_active',[$r029memperolehpenghargaan->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    Tidak
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r029memperolehpenghargaan->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r029memperolehpenghargaan->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r029memperolehpenghargaan->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r029memperolehpenghargaan->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r029memperolehpenghargaan->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>

@@ -32,12 +32,9 @@ class R30PengelolaKepkController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'         =>  'required|numeric',
            'jabatan'     =>  'required',
        ];
        $text = [
-           'nip.required'      => 'NIP harus dipilih',
-           'nip.numeric'       => 'NIP harus berupa angka',
            'jabatan.required'  => 'Jabatan harus diisi',
 
        ];
@@ -47,14 +44,21 @@ class R30PengelolaKepkController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua") {
+            $ewmp = 1.50;
+        }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {
+            $ewmp = 1.00;
+        }else{
+            $ewmp = 0.75;
+        }
+        $point = $ewmp;
        $simpan = R030PengelolaKepk::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -78,14 +82,10 @@ class R30PengelolaKepkController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'jabatan'                 =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'jabatan.required'        => 'Jabatan harus diisi',
-
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -93,14 +93,21 @@ class R30PengelolaKepkController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua") {
+            $ewmp = 1.50;
+        }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {
+            $ewmp = 1.00;
+        }else{
+            $ewmp = 0.20;
+        }
+        $point = $ewmp;
        $update = R030PengelolaKepk::where('id',$request->r030pengelolakepk_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

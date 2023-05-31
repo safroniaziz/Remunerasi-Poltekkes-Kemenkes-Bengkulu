@@ -32,12 +32,9 @@ class R27KeanggotaanSenatController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'jabatan'                 =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'jabatan.required'          => 'Jabatan harus diisi',
        ];
 
@@ -46,14 +43,21 @@ class R27KeanggotaanSenatController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if ($request->jabatan == "ketua") {
+            $ewmp = 1.00;
+        }elseif ($request->jabatan == "sekretaris") {
+            $ewmp = 0.75;
+        }else{
+            $ewmp = 0.50;
+        }
+        $point = $ewmp;
        $simpan = R027KeanggotaanSenat::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->nip,
+           'nip'               =>  $request->session()->get('nip_dosen'),
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  0,
            'is_verified'       =>  0,
-           'point'             =>  null,
+           'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -77,12 +81,9 @@ class R27KeanggotaanSenatController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'                     =>  'required|numeric',
            'jabatan'                 =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
            'jabatan.required'        => 'Jabatan harus diisi',
        ];
 
@@ -91,14 +92,21 @@ class R27KeanggotaanSenatController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        if($request->jabatan == "ketua") {
+            $ewmp = 1.00;
+        }elseif ($request->jabatan == "sekretaris") {
+            $ewmp = 0.75;
+        }else{
+            $ewmp = 0.50;
+        }
+        $point = $ewmp;
        $update = R027KeanggotaanSenat::where('id',$request->r27keanggotaansenat_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->nip,
+           'nip'                        =>  $request->session()->get('nip_dosen'),
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  0,
            'is_verified'                =>  0,
-           'point'                      =>  null,
+           'point'                      =>  $point,
        ]);
 
        if ($update) {

@@ -16,17 +16,6 @@
                             <input type="text" class="form-control" value="{{ $periode->nama_periode }}" disabled>
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">NIP</label>
-                            <select name="nip" id="nip_edit" class="form-control @error('nip') is-invalid @enderror">
-                                <option disabled selected>-- Pilih NIP --</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option
-                                  value="{{ $pegawai->nip }}">{{ $pegawai->nip }}
-                                    @endforeach</option>
-                            </select>
-                        </div>
-
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah Mahasiswa</label>
                             <input type="text" class="form-control" id="jumlah_mahasiswa_edit" name="jumlah_mahasiswa">
