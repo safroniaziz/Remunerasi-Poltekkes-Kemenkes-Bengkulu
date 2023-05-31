@@ -62,7 +62,7 @@ class UserRolePermissionSeeder extends Seeder
             $permission = Permission::create(['name'  =>  'edit-dosen']);
 
             $permission = Permission::create(['name'  =>  'read-presensi']);
-            $permission = Permission::create(['name'  =>  'create-r15']);
+            $permission = Permission::create(['name'  =>  'create-presensi']);
             $permission = Permission::create(['name'  =>  'update-presensi']);
             $permission = Permission::create(['name'  =>  'delete-presensi']);
 
