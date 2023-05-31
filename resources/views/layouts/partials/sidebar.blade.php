@@ -132,8 +132,13 @@
         </span>
     </a>
     <ul class="treeview-menu " style="padding-left:25px;">
-        <li class="{{ set_active('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><a href="{{ route('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><i class="fa fa-graduation-cap"></i>Rubrik 13 Orasi Ilmiah Narasumber </a></li>
-        <li class="{{ set_active('r_014_karya_inovasi') }}"><a href="{{ route('r_014_karya_inovasi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 14 Karya Inovasi</a></li>
+        @can('read-r013-orasi-ilmiah')
+            <li class="{{ set_active('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><a href="{{ route('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><i class="fa fa-graduation-cap"></i>Rubrik 13 Orasi Ilmiah Narasumber </a></li>
+        @endcan
+
+        @can('read-r014-karya-inovasi')
+            <li class="{{ set_active('r_014_karya_inovasi') }}"><a href="{{ route('r_014_karya_inovasi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 14 Karya Inovasi</a></li>
+        @endcan
     </ul>
 </li>
 
