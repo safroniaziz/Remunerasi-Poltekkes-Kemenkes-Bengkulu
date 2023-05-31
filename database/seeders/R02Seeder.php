@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\R01PerkuliahanTeori;
+use App\Models\R02PerkuliahanPraktikum;
 
-class R01Seeder extends Seeder
+class R02Seeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class R01Seeder extends Seeder
     public function run(): void
     {
         $faker = \Faker\Factory::create();
-        DB::table('r01_perkuliahan_teoris')->insert(array([
+        DB::table('r02_perkuliahan_praktikums')->insert(array([
             'periode_id'            =>  1,
             'nip'                   =>  198909032015041004,
             'jumlah_sks'            =>  2,

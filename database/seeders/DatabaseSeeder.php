@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
             PangkatGolonganSeeder::class,
             JabatanFungsionalSeeder::class,
             UserRolePermissionSeeder::class,
+            R01Seeder::class,
+            R02Seeder::class,
+
+
         ]);
     }
 }
