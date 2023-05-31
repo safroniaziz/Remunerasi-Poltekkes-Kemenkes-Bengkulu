@@ -24,6 +24,9 @@
 <script src="{{ asset('assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('assets/timepicker/bootstrap-timepicker.min.js') }}"></script>
 
+{{-- Font Awesome --}}
+<script src="https://kit.fontawesome.com/055120b175.js" crossorigin="anonymous"></script>
+
 {{-- Sidebar Setting --}}
 <script>
   $(document).ready(function () {

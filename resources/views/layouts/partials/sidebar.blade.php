@@ -1,11 +1,11 @@
-<li class="{{ set_active('dashboard') }}">
-    <a href="{{ route('dashboard') }}">
-        <i class="fa fa-home"></i>
-        <span>Dashboard</span>
-    </a>
-</li>
-
-<li class="header" style="font-weight:bold">DATA RUBRIK</li>
+@can('dashboard')
+    <li class="{{ set_active('dashboard') }}">
+        <a href="{{ route('dashboard') }}">
+            <i class="fa fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+@endcan
 @can('read-pegawai')
     <li class="{{ set_active([
             'dosen',
@@ -118,132 +118,312 @@
 </li>
 @endcan
 
-<li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN</li>
+<li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN REGULER</li>
 <li class="{{ set_active('r_01_perkuliahan_teori') }}">
-    <a href="{{ route('r_01_perkuliahan_teori') }}">
-        <i class="fa fa-info-circle"></i>
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_01_perkuliahan_teori') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-book"></i>
         <span>Perkuliahan Teori</span>
     </a>
 </li>
 <li class="{{ set_active('r_02_perkuliahan_praktikum') }}">
-    <a href="{{ route('r_02_perkuliahan_praktikum') }}">
-        <i class="fa fa-info-circle"></i>
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_02_perkuliahan_praktikum') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-book-open-reader"></i>
         <span>Perkuliahan Praktikum</span>
     </a>
 </li>
 <li class="{{ set_active('r_03_membimbing_pencapaian_kompetensi') }}">
-    <a href="{{ route('r_03_membimbing_pencapaian_kompetensi') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_03_membimbing_pencapaian_kompetensi') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
         <i class="fa fa-info-circle"></i>
-        <span>Pencapaian Kompetensi</span>
+        <span>Memb. Capaian Kompetensi</span>
     </a>
 </li>
 <li class="{{ set_active('r_04_membimbing_pendampingan_ukom') }}">
-    <a href="{{ route('r_04_membimbing_pendampingan_ukom') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_04_membimbing_pendampingan_ukom') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
         <i class="fa fa-info-circle"></i>
-        <span>Pencapaian Kompetensi</span>
+        <span>Memb. Pendamping UKOM</span>
+    </a>
+</li>
+<li class="{{ set_active('r_05_membimbing_praktik_pkk_pbl_klinik') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Memb. Praktik PKK/PBL Klinik</span>
+    </a>
+</li>
+<li class="{{ set_active('r_06_menguji_ujian_osca') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_06_menguji_ujian_osca') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Menguji Ujian OSCA</span>
+    </a>
+</li>
+<li class="{{ set_active('r_07_membimbing_skripsi_lta_la_profesi') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_07_membimbing_skripsi_lta_la_profesi') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Memb. Skripsi/LTA/LA Profesi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_08_menguji_seminar_proposal_kti_lta_skripsi') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Meng. Sempro. LTA/LA/Skripsi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_09_menguji_seminar_hasil_kti_lta_skripsi') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_09_menguji_seminar_hasil_kti_lta_skripsi') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Meng. Semhas. LTA/LA/Skripsi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_010_menulis_buku_ajar_berisbn') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_010_menulis_buku_ajar_berisbn') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Menulis Buku Ajar Ber-ISBN</span>
+    </a>
+</li>
+<li class="{{ set_active('r_011_mengembangkan_modul_berisbn') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_011_mengembangkan_modul_berisbn') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Menulis Buku Ajar Ber-ISBN</span>
+    </a>
+</li>
+<li class="{{ set_active('r_012_membimbing_pkm') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_012_membimbing_pkm') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Membimbing PKM</span>
     </a>
 </li>
 
-<li class="treeview {{ set_active(
-    ['r_01_perkuliahan_teori','r_02_perkuliahan_praktikum','r_03_membimbing_pencapaian_kompetensi',
-    'r_04_membimbing_pendampingan_ukom','r_05_membimbing_praktik_pkk_pbl_klinik',
-    'r_06_menguji_ujian_osca','r_07_membimbing_skripsi_lta_la_profesi',
-    'r_08_menguji_seminar_proposal_kti_lta_skripsi','r_09_menguji_seminar_hasil_kti_lta_skripsi',
-    'r_010_menulis_buku_ajar_berisbn','r_011_mengembangkan_modul_berisbn','r_012_membimbing_pkm']) }}">
-    <a href="#">
-        <i class="fa fa-graduation-cap"></i> <span>RUBRIK PENDIDIKAN</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+<li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN INSIDENTAL</li>
+<li class="{{ set_active('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Orasi Ilmiah Narasumber</span>
     </a>
-    <ul class="treeview-menu " style="padding-left:25px;">
-        <li class="{{ set_active('r_04_membimbing_pendampingan_ukom') }}"><a href="{{ route('r_04_membimbing_pendampingan_ukom') }}"><i class="fa fa-graduation-cap"></i>Rubrik 04 Membimbing Pendampingan UKOM</a></li>
-        <li class="{{ set_active('r_05_membimbing_praktik_pkk_pbl_klinik') }}"><a href="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik') }}"><i class="fa fa-graduation-cap"></i>Rubrik 05 Membimbing Praktik PKK PBL Klinik</a></li>
-        <li class="{{ set_active('r_06_menguji_ujian_osca') }}"><a href="{{ route('r_06_menguji_ujian_osca') }}"><i class="fa fa-graduation-cap"></i>Rubrik 06 Menguji Ujian Osca</a></li>
-        <li class="{{ set_active('r_07_membimbing_skripsi_lta_la_profesi') }}"><a href="{{ route('r_07_membimbing_skripsi_lta_la_profesi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 07 Membimbing Skripsi LRA LA Profesi</a></li>
-        <li class="{{ set_active('r_08_menguji_seminar_proposal_kti_lta_skripsi') }}"><a href="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 08 Menguji Seminar Proposal KTI LTA Skripsi</a></li>
-        <li class="{{ set_active('r_09_menguji_seminar_hasil_kti_lta_skripsi') }}"><a href="{{ route('r_09_menguji_seminar_hasil_kti_lta_skripsi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 09 Menguji Seminar Hasil KTI LTA Skripsi</a></li>
-        <li class="{{ set_active('r_010_menulis_buku_ajar_berisbn') }}"><a href="{{ route('r_010_menulis_buku_ajar_berisbn') }}"><i class="fa fa-graduation-cap"></i>Rubrik 10 Menulis Buku Ajar Berisbn</a></li>
-        <li class="{{ set_active('r_011_mengembangkan_modul_berisbn') }}"><a href="{{ route('r_011_mengembangkan_modul_berisbn') }}"><i class="fa fa-graduation-cap"></i>Rubrik 11 Mengembangkan Modul Berisbn</a></li>
-        <li class="{{ set_active('r_012_membimbing_pkm') }}"><a href="{{ route('r_012_membimbing_pkm') }}"><i class="fa fa-graduation-cap"></i>Rubrik 12 Membimbing PKM</a></li>
-
-    </ul>
+</li>
+<li class="{{ set_active('r_014_karya_inovasi') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_014_karya_inovasi') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Karya Inovasi</span>
+    </a>
 </li>
 
-
-<li class="treeview {{ set_active(
-    ['r_013_orasi_ilmiah_narasumber_bidang_ilmu','r_014_karya_inovasi']) }}">
-    <a href="#">
-        <i class="fa fa-graduation-cap"></i> <span>Rubrik Pendidikan Insidental</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+<li class="header" style="font-weight:bold">RUBRIK PELAKSANAAN PENELITIAN</li>
+<li class="{{ set_active('r_015_menulis_karya_ilmiah_dipublikasikan') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_015_menulis_karya_ilmiah_dipublikasikan') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Karya Ilmiah Diplublikasikan</span>
     </a>
-    <ul class="treeview-menu " style="padding-left:25px;">
-        @can('read-r013-orasi-ilmiah')
-            <li class="{{ set_active('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><a href="{{ route('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><i class="fa fa-graduation-cap"></i>Rubrik 13 Orasi Ilmiah Narasumber </a></li>
-        @endcan
-
-        @can('read-r014-karya-inovasi')
-            <li class="{{ set_active('r_014_karya_inovasi') }}"><a href="{{ route('r_014_karya_inovasi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 14 Karya Inovasi</a></li>
-        @endcan
-    </ul>
+</li>
+<li class="{{ set_active('r_016_naskah_buku_bahasa_terbit_edar_inter') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_016_naskah_buku_bahasa_terbit_edar_inter') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Naskah Buku Internasional</span>
+    </a>
+</li>
+<li class="{{ set_active('r_017_naskah_buku_bahasa_terbit_edar_nas') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Naskah Buku Nasional</span>
+    </a>
 </li>
 
-<li class="treeview {{ set_active(
-    ['r_015_menulis_karya_ilmiah_dipublikasikan','r_016_naskah_buku_bahasa_terbit_edar_inter','r_017_naskah_buku_bahasa_terbit_edar_nas']) }}">
-    <a href="#">
-        <i class="fa fa-graduation-cap"></i> <span>Rubrik Penelitian</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+<li class="header" style="font-weight:bold">RUBRIK PELAKSANAAN PENGABDIAN </li>
+<li class="{{ set_active('r_018_mendapat_hibah_pkm') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_018_mendapat_hibah_pkm') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Mendapatkan Hibah PKM</span>
     </a>
-    <ul class="treeview-menu " style="padding-left:25px;">
-        <li class="{{ set_active('r_015_menulis_karya_ilmiah_dipublikasikan') }}"><a href="{{ route('r_015_menulis_karya_ilmiah_dipublikasikan') }}"><i class="fa fa-graduation-cap"></i>Rubrik 15 Menulis Karya Ilmiah Dipublikasikan </a></li>
-        <li class="{{ set_active('r_016_naskah_buku_bahasa_terbit_edar_inter') }}"><a href="{{ route('r_016_naskah_buku_bahasa_terbit_edar_inter') }}"><i class="fa fa-graduation-cap"></i>Rubrik 16 Menulis Naskah Buku Bahasa Terbit Edar Internasional</a></li>
-        <li class="{{ set_active('r_017_naskah_buku_bahasa_terbit_edar_nas') }}"><a href="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas') }}"><i class="fa fa-graduation-cap"></i>Rubrik 17 Menulis Naskah Buku Bahasa Terbit Edar Nasional</a></li>
-    </ul>
+</li>
+<li class="{{ set_active('r_019_latih_nyuluh_natar_ceramah_warga') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_019_latih_nyuluh_natar_ceramah_warga') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Latihan Pada Masyarakat</span>
+    </a>
 </li>
 
-<li class="treeview {{ set_active(
-    ['r_018_mendapat_hibah_pkm','r_019_latih_nyuluh_natar_ceramah_warga']) }}">
-    <a href="#">
-        <i class="fa fa-graduation-cap"></i> <span>Rubrik Pengabdian</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+<li class="header" style="font-weight:bold">RUBRIK PENUNJANG AKADEMIK DOSEN</li>
+    <li class="{{ set_active('r_020_assessor_bkd_lkd') }} ">
+        @if(session()->has('nama_dosen'))
+            <a href="{{ route('r_020_assessor_bkd_lkd') }}">
+        @else
+            <a class="bg-danger" style="cursor:not-allowed">
+        @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Assesor BKD/LKD</span>
     </a>
-    <ul class="treeview-menu " style="padding-left:25px;">
-        <li class="{{ set_active('r_018_mendapat_hibah_pkm') }}"><a href="{{ route('r_018_mendapat_hibah_pkm') }}"><i class="fa fa-graduation-cap"></i>Rubrik 18 Mendapat Hibah PKM </a></li>
-        <li class="{{ set_active('r_019_latih_nyuluh_natar_ceramah_warga') }}"><a href="{{ route('r_019_latih_nyuluh_natar_ceramah_warga') }}"><i class="fa fa-graduation-cap"></i>Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat</a></li>
-    </ul>
 </li>
-
-<li class="treeview {{ set_active(
-    ['r_020_assessor_bkd_lkd','r_019_latih_nyuluh_natar_ceramah_warga','r_021_reviewer_eclere_penelitian_dosen',
-    'r_022_reviewer_eclere_penelitian_mhs','r_023_auditor_mutu_assessor_akred_internal',
-    'r_024_tim_akred_prodi_dan_direktorat','r_025_kepanitiaan_kegiatan_institusi',
-    'r_026_pengelola_jurnal_buletin','r_027_keanggotaan_senat',
-    'r_028_melaksanakan_pengembangan_diri','r_029_memperoleh_penghargaan','r_030_pengelola_kepk']) }}">
-    <a href="#">
-        <i class="fa fa-graduation-cap"></i> <span>Rubrik Penunjang Kegiatan Akademik Dosen</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+<li class="{{ set_active('r_021_reviewer_eclere_penelitian_dosen') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_021_reviewer_eclere_penelitian_dosen') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Rev. Ethical Clearance Dosen</span>
     </a>
-    <ul class="treeview-menu " style="padding-left:25px;">
-        <li class="{{ set_active('r_020_assessor_bkd_lkd') }}"><a href="{{ route('r_020_assessor_bkd_lkd') }}"><i class="fa fa-graduation-cap"></i>Rubrik 20 Assessor BKD LKD </a></li>
-        <li class="{{ set_active('r_021_reviewer_eclere_penelitian_dosen') }}"><a href="{{ route('r_021_reviewer_eclere_penelitian_dosen') }}"><i class="fa fa-graduation-cap"></i>Rubrik 21 Reviewer Eclereance Penelitian Dosen</a></li>
-        <li class="{{ set_active('r_022_reviewer_eclere_penelitian_mhs') }}"><a href="{{ route('r_022_reviewer_eclere_penelitian_mhs') }}"><i class="fa fa-graduation-cap"></i>Rubrik 22 Reviewer Eclereance Penelitian Mahasiswa</a></li>
-        <li class="{{ set_active('r_023_auditor_mutu_assessor_akred_internal') }}"><a href="{{ route('r_023_auditor_mutu_assessor_akred_internal') }}"><i class="fa fa-graduation-cap"></i>Rubrik 23 Auditor Mutu Assessor Akreditasi Internal</a></li>
-        <li class="{{ set_active('r_024_tim_akred_prodi_dan_direktorat') }}"><a href="{{ route('r_024_tim_akred_prodi_dan_direktorat') }}"><i class="fa fa-graduation-cap"></i>Rubrik 24 Tim Akreditasi Prodi dan Direktorat</a></li>
-        <li class="{{ set_active('r_025_kepanitiaan_kegiatan_institusi') }}"><a href="{{ route('r_025_kepanitiaan_kegiatan_institusi') }}"><i class="fa fa-graduation-cap"></i>Rubrik 25 Kepanitiaan Kegiatan Institusi</a></li>
-        <li class="{{ set_active('r_026_pengelola_jurnal_buletin') }}"><a href="{{ route('r_026_pengelola_jurnal_buletin') }}"><i class="fa fa-graduation-cap"></i>Rubrik 26 Pengelola Jurnal Buletin</a></li>
-        <li class="{{ set_active('r_027_keanggotaan_senat') }}"><a href="{{ route('r_027_keanggotaan_senat') }}"><i class="fa fa-graduation-cap"></i>Rubrik 27 Keanggotaan Senat</a></li>
-        <li class="{{ set_active('r_028_melaksanakan_pengembangan_diri') }}"><a href="{{ route('r_028_melaksanakan_pengembangan_diri') }}"><i class="fa fa-graduation-cap"></i>Rubrik 28 Melaksanakan Pengembangan Diri</a></li>
-        <li class="{{ set_active('r_029_memperoleh_penghargaan') }}"><a href="{{ route('r_029_memperoleh_penghargaan') }}"><i class="fa fa-graduation-cap"></i>Rubrik 29 Memperoleh Penghargaan</a></li>
-        <li class="{{ set_active('r_030_pengelola_kepk') }}"><a href="{{ route('r_030_pengelola_kepk') }}"><i class="fa fa-graduation-cap"></i>Rubrik 30 Pengelola KEPK</a></li>
-
-    </ul>
 </li>
-
+<li class="{{ set_active('r_022_reviewer_eclere_penelitian_mhs') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_022_reviewer_eclere_penelitian_mhs') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Rev. Ethical Clearance Mhs</span>
+    </a>
+</li>
+<li class="{{ set_active('r_023_auditor_mutu_assessor_akred_internal') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_023_auditor_mutu_assessor_akred_internal') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Auditor Mutu/Akred. Internal</span>
+    </a>
+</li>
+<li class="{{ set_active('r_024_tim_akred_prodi_dan_direktorat') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_024_tim_akred_prodi_dan_direktorat') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Tim Akred. Prodi & Rektorat</span>
+    </a>
+</li>
+<li class="{{ set_active('r_025_kepanitiaan_kegiatan_institusi') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_025_kepanitiaan_kegiatan_institusi') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Panitia Kegiatan Institusi</span>
+    </a>
+</li>
+<li class="{{ set_active('r_026_pengelola_jurnal_buletin') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_026_pengelola_jurnal_buletin') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Pengelola Jurnal/Buletin</span>
+    </a>
+</li>
+<li class="{{ set_active('r_027_keanggotaan_senat') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_027_keanggotaan_senat') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Keanggotaan Senat</span>
+    </a>
+</li>
+<li class="{{ set_active('r_028_melaksanakan_pengembangan_diri') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_028_melaksanakan_pengembangan_diri') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Melaks. Pengembangan Diri</span>
+    </a>
+</li>
+<li class="{{ set_active('r_029_memperoleh_penghargaan') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_029_memperoleh_penghargaan') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Memperoleh Penghargaan</span>
+    </a>
+</li>
+<li class="{{ set_active('r_030_pengelola_kepk') }}">
+    @if(session()->has('nama_dosen'))
+        <a href="{{ route('r_030_pengelola_kepk') }}">
+    @else
+        <a class="bg-danger" style="cursor:not-allowed">
+    @endif
+        <i class="fa fa-info-circle"></i>
+        <span>Pengelola KEPK</span>
+    </a>
+</li>

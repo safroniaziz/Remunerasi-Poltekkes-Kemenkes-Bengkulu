@@ -42,12 +42,7 @@ use App\Http\Controllers\R27KeanggotaanSenatController;
 use App\Http\Controllers\R28MelaksanakanPengembanganDiriController;
 use App\Http\Controllers\R29MemperolehPenghargaanController;
 use App\Http\Controllers\R30PengelolaKepkController;
-
-
-
-
-
-
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,11 +61,18 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function(){
-    Route::get('/dashboard', function () {
+    Route::get('/home', function () {
         activity()->log('Look mum, I logged something');
     
         return view('backend.dashboard');
     })->name('dashboard');
+
+    Route::controller(SessionController::class)->group(function () {
+        Route::get('/cari_dosen', 'cariDosen')->name('cari_dosen');
+        Route::post('/cari_dosen', 'cari')->name('cari_dosen.post');
+        Route::get('/cari_dosen/get_data_dosen','getDataDosen');
+        Route::get('/remove_session','removeSession')->name('cari_dosen.remove_session');
+    });
     
     // Master Data Route
     Route::controller(PegawaiController::class)->group(function () {
