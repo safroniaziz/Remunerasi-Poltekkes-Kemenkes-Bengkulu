@@ -844,67 +844,6 @@ class UserRolePermissionSeeder extends Seeder
             $role_administrator->givePermissionTo('update-user');
             $role_administrator->givePermissionTo('delete-user');
 
-            $role_administrator->givePermissionTo('read-r01-perkuliahan-teori');
-
-            $role_administrator->givePermissionTo('read-r02-perkuliahan-praktikum');
-
-            $role_administrator->givePermissionTo('read-r03-membimbing-capaian-kompetensi');
-
-            $role_administrator->givePermissionTo('read-r04-membimbing-pendampingan-ukom');
-
-            $role_administrator->givePermissionTo('read-r05-membimbing-praktik-pkk-pbl-klinik');
-
-            $role_administrator->givePermissionTo('read-r06-menguji-ujian-osca');
-
-            $role_administrator->givePermissionTo('read-r07-membimbing-skripsi-lta-la-profesi');
-
-            $role_administrator->givePermissionTo('read-r08-menguji-seminar-proposal-kti-lta-skripsi');
-
-            $role_administrator->givePermissionTo('read-r09-menguji-seminar-hasil-kti-lta-skripsi');
-
-            $role_administrator->givePermissionTo('read-r010-menulis-buku-ajar-berisbn');
-
-            $role_administrator->givePermissionTo('read-r011-mengembangkan-modul-berisbn');
-
-            $role_administrator->givePermissionTo('read-r012-membimbing-pkm');
-
-            $role_administrator->givePermissionTo('read-r013-orasi-ilmiah-narasumber-bidang-ilmu');
-
-            $role_administrator->givePermissionTo('read-r014-karya-inovasi');
-
-            $role_administrator->givePermissionTo('read-r015-menulis-karya-ilmiah-dipublikasikan');
-
-            $role_administrator->givePermissionTo('read-r016-naskah-buku-bahasa-terbit-edar-inter');
-
-            $role_administrator->givePermissionTo('read-r017-naskah-buku-bahasa-terbit-edar-nas');
-
-            $role_administrator->givePermissionTo('read-r018-mendapat-hibah-pkm');
-
-            $role_administrator->givePermissionTo('read-r019-latih-nyuluh-natar-ceramah-warga');
-
-            $role_administrator->givePermissionTo('read-r020-assessor-bkd-lkd');
-
-            $role_administrator->givePermissionTo('read-r021-reviewer-eclere-penelitian-dosen');
-
-            $role_administrator->givePermissionTo('read-r022-reviewer-eclere-penelitian-mhs');
-
-            $role_administrator->givePermissionTo('read-r023-auditor-mutu-assessor-akred-internal');
-
-            $role_administrator->givePermissionTo('read-r024-tim-akred-prodi-dan-direktorat');
-
-            $role_administrator->givePermissionTo('read-r025-kepanitiaan-kegiatan-institusi');
-
-            $role_administrator->givePermissionTo('read-r026-pengelola-jurnal-buletin');
-
-            $role_administrator->givePermissionTo('read-r027-keanggotaan-senat');
-
-            $role_administrator->givePermissionTo('read-r028-melaksanakan-pengembangan-diri');
-
-            $role_administrator->givePermissionTo('read-r029-memperoleh-penghargaan');
-
-            $role_administrator->givePermissionTo('read-r030-pengelola-kepk');
-
-
             $role_pimpinan->givePermissionTo('read-rekap-daftar-nominatif');
 
             $operator->assignRole('operator');
