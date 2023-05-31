@@ -118,6 +118,13 @@
 </li>
 @endcan
 
+<li class="{{ set_active('generate_point_rubrik') }}">
+    <a href="{{ route('generate_point_rubrik') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Generate Point Rubrik</span>
+    </a>
+</li>
+
 @can('read-r01-perkuliahan-teori')
 <li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN REGULER</li>
 <li class="{{ set_active('r_01_perkuliahan_teori') }}">

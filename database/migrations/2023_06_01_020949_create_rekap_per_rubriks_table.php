@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('riwayat_points', function (Blueprint $table) {
+        Schema::create('rekap_per_rubriks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_rubrik');
             $table->unsignedBigInteger('periode_id');
-            $table->string('nip',18);
-            $table->double('point');
+            $table->string('nama_rubrik');
+            $table->double('total_point');
             $table->timestamps();
-            $table->softDeletes();
-            
-            $table->foreign('periode_id')->references('id')->on('periodes');
-            $table->foreign('nip')->references('nip')->on('pegawais');
         });
     }
 
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('riwayat_points');
+        Schema::dropIfExists('rekap_per_rubriks');
     }
 };

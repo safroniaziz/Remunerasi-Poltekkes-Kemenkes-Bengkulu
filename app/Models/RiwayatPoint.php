@@ -11,7 +11,7 @@ class RiwayatPoint extends Model
     use HasFactory, SoftDeletes;
     
     protected $fillable = [
-       'rubrik_id','periode_id','nip','point'
+       'nama_rubrik','periode_id','nip','point'
     ];
 
     public function periode(){

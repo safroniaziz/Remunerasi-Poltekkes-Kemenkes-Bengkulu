@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GeneratePointRubrikController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\JabatanDtController;
 use App\Http\Controllers\JabatanDsController;
@@ -190,6 +191,7 @@ Route::middleware('auth')->group(function(){
         Route::patch('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt:slug}/update', 'update')->name('riwayat_jabatan_dt.update');
         Route::delete('/manajemen_riwayat_jabatan_dt/{riwayatjabatandt}/delete', 'delete')->name('riwayat_jabatan_dt.delete');
     });
+
     Route::controller(RiwayatPointController::class)->group(function () {
         Route::get('/manajemen_riwayat_point', 'index')->name('riwayat_point');
         Route::get('/manajemen_riwayat_point/create', 'create')->name('riwayat_point.create');
@@ -197,6 +199,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/manajemen_riwayat_point/{riwayatpoint}/edit', 'edit')->name('riwayat_point.edit');
         Route::patch('/manajemen_riwayat_point/update', 'update')->name('riwayat_point.update');
         Route::delete('/manajemen_riwayat_point/{riwayatpoint}/delete', 'delete')->name('riwayat_point.delete');
+    });
+
+    Route::controller(GeneratePointRubrikController::class)->group(function () {
+        Route::get('/generate_point_rubrik', 'index')->name('generate_point_rubrik');
+        Route::get('/generate_point_rubrik/generate', 'generate')->name('generate_point_rubrik.generate');
     });
     // End Of Data Master Route
     
