@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r09-menguji-seminar-hasil-kti-lta-skripsi')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r09-menguji-seminar-hasil-kti-lta-skripsi')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'jumlah_mahasiswa'      =>  'required|numeric',
@@ -66,10 +73,16 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        }
    }
    public function edit(R09MengujiSeminarhasilKtiLtaSkripsi $r09mengujiseminarhasil){
-       return $r09mengujiseminarhasil;
+    if (!Gate::allows('edit-r09-menguji-seminar-hasil-kti-lta-skripsi')) {
+        abort(403);
+    }
+    return $r09mengujiseminarhasil;
    }
 
    public function update(Request $request, R09MengujiSeminarhasilKtiLtaSkripsi $r09mengujiseminarhasil){
+    if (!Gate::allows('update-r09-menguji-seminar-hasil-kti-lta-skripsi')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'jumlah_mahasiswa'      =>  'required|numeric',
@@ -110,7 +123,10 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        }
    }
    public function delete(R09MengujiSeminarhasilKtiLtaSkripsi $r09mengujiseminarhasil){
-       $delete = $r09mengujiseminarhasil->delete();
+    if (!Gate::allows('delete-r09-menguji-seminar-hasil-kti-lta-skripsi')) {
+        abort(403);
+    }
+    $delete = $r09mengujiseminarhasil->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',

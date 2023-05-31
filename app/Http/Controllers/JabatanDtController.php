@@ -6,9 +6,14 @@ use App\Models\JabatanDt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
+
 class JabatanDtController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-jabatan-dt')) {
+            abort(403);
+        }
         $jabatandts = JabatanDt::orderBy('created_at','desc')->get();
         return view('backend/jabatan_dts.index',[
             'jabatandts'         =>  $jabatandts,
@@ -16,10 +21,16 @@ class JabatanDtController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-jabatan-dt')) {
+            abort(403);
+        }
         return view('backend/jabatan_dts.create');
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-jabatan-dt')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_dt'       =>  'required',
             'grade'                 =>  'required|numeric',
@@ -75,12 +86,18 @@ class JabatanDtController extends Controller
         }
     }
     public function edit(JabatanDt $jabatandt){
+        if (!Gate::allows('edit-jabatan-dt')) {
+            abort(403);
+        }
         return view('backend.jabatan_dts.edit',[
             'jabatandt'   =>  $jabatandt,
         ]);
     }
 
     public function update(Request $request, JabatanDt $jabatandt){
+        if (!Gate::allows('update-jabatan-dt')) {
+            abort(403);
+        }
         $rules = [
             'nama_jabatan_dt'       =>  'required',
             'grade'                 =>  'required|numeric',
@@ -136,6 +153,9 @@ class JabatanDtController extends Controller
         }
     }
     public function delete(Jabatandt $jabatandt){
+        if (!Gate::allows('delete-jabatan-dt')) {
+            abort(403);
+        }
         $delete = $jabatandt->delete();
 
         if ($delete) {

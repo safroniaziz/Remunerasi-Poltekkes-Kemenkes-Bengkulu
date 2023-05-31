@@ -180,7 +180,7 @@
         </span>
     </a>
     <ul class="treeview-menu " style="padding-left:25px;">
-        @can('read-r013-orasi-ilmiah')
+        @can('read-r013-orasi-ilmiah-narasumber-bidang-ilmu')
             <li class="{{ set_active('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><a href="{{ route('r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><i class="fa fa-graduation-cap"></i>Rubrik 13 Orasi Ilmiah Narasumber </a></li>
         @endcan
 

@@ -7,10 +7,14 @@ use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class RiwayatJabatanDtController extends Controller
 {
     public function index(){
+        if (!Gate::allows('read-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         $riwayatjabatandts = RiwayatJabatanDt::orderBy('created_at','desc')->get();
         return view('backend/riwayat_jabatan_dts.index',[
             'riwayatjabatandts'         =>  $riwayatjabatandts,
@@ -18,18 +22,24 @@ class RiwayatJabatanDtController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         return view('backend/riwayat_jabatan_dts.create',compact('dosens'));
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         $rules = [
             'nip'                           =>  'required',
             'nip'                           =>  'required|numeric',
             'tmt_jabatan_fungsional'        =>  'required|numeric',
         ];
         $text = [
-            'nip.required'  => 'nama jabatan fungsional harus diisi',
+            'nip.required'                      => 'nama jabatan fungsional harus diisi',
             'nip.required'                      => 'Nip harus dipilih',
             'nip.numeric'                       => 'Nip harus berupa angka',
             'tmt_jabatan_fungsional.required'   => 'tmt jabatan fungsional harus diisi',
@@ -42,7 +52,6 @@ class RiwayatJabatanDtController extends Controller
         }
         $simpan = RiwayatJabatanDt::create([
             'nip'                           =>  $request->nip,
-            'nip'       =>  $request->nip,
             'slug'                          =>  Str::slug($request->nip),
             'tmt_jabatan_fungsional'        =>  $request->tmt_jabatan_fungsional,
             'is_active'                     =>  1,
@@ -58,6 +67,9 @@ class RiwayatJabatanDtController extends Controller
         }
     }
     public function edit(RiwayatJabatandt $riwayatjabatandt){
+        if (!Gate::allows('edit-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         return view('backend.riwayat_jabatan_dts.edit',compact('dosens'),[
             'riwayatjabatandt'   =>  $riwayatjabatandt,
@@ -65,13 +77,16 @@ class RiwayatJabatanDtController extends Controller
     }
 
     public function update(Request $request, RiwayatJabatandt $riwayatjabatandt){
+        if (!Gate::allows('update-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         $rules = [
-            'nip'       =>  'required',
+            'nip'                           =>  'required',
             'nip'                           =>  'required|numeric',
             'tmt_jabatan_fungsional'        =>  'required|numeric',
         ];
         $text = [
-            'nip.required'          => 'nama jabatan fungsional harus diisi',
+            'nip.required'                              => 'nama jabatan fungsional harus diisi',
             'nip.required'                              => 'Nip harus dipilih',
             'nip.numeric'                               => 'Nip harus berupa angka',
             'tmt_jabatan_fungsional.required'           => 'harga point fungsional harus diisi',
@@ -85,7 +100,6 @@ class RiwayatJabatanDtController extends Controller
 
         $update = $riwayatjabatandt->update([
             'nip'                           =>  $request->nip,
-            'nip'       =>  $request->nip,
             'slug'                          =>  Str::slug($request->nip),
             'tmt_jabatan_fungsional'        =>  $request->tmt_jabatan_fungsional,
             'is_active'                     =>  1,
@@ -138,6 +152,9 @@ class RiwayatJabatanDtController extends Controller
         }
     }
     public function delete(RiwayatJabatandt $riwayatjabatandt){
+        if (!Gate::allows('delete-riwayat-jabatan-dt')) {
+            abort(403);
+        }
         $delete = $riwayatjabatandt->delete();
 
         if ($delete) {

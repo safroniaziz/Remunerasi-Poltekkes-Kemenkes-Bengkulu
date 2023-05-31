@@ -7,10 +7,14 @@ use App\Models\KelompokRubrik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class NilaiEwmpController extends Controller
 {
     public function index(){
+        if (!Gate::allows('read-nilai-ewmp')) {
+            abort(403);
+        }
         $nilaiEwmps = NilaiEwmp::paginate(10);
         return view('backend/nilai_ewmps.index',[
             'nilaiEwmps'         =>  $nilaiEwmps,
@@ -18,11 +22,17 @@ class NilaiEwmpController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-nilai-ewmp')) {
+            abort(403);
+        }
         $kelompokrubriks = KelompokRubrik::all();
         return view('backend/nilai_ewmps.create',compact('kelompokrubriks'));
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-nilai-ewmp')) {
+            abort(403);
+        }
         $rules = [
             'kelompok_rubrik_id'   =>  'required',
             'nama_rubrik'          =>  'required',
@@ -61,6 +71,9 @@ class NilaiEwmpController extends Controller
         }
     }
     public function edit(NilaiEwmp $nilaiewmp){
+        if (!Gate::allows('edit-nilai-ewmp')) {
+            abort(403);
+        }
         $kelompokrubriks = KelompokRubrik::all();
         return view('backend.nilai_ewmps.edit',compact('kelompokrubriks'),[
             'nilaiewmp'   =>  $nilaiewmp,
@@ -68,6 +81,9 @@ class NilaiEwmpController extends Controller
     }
 
     public function update(Request $request, NilaiEwmp $nilaiewmp){
+        if (!Gate::allows('update-nilai-ewmp')) {
+            abort(403);
+        }
         $rules = [
             'kelompok_rubrik_id'   =>  'required',
             'nama_rubrik'          =>  'required',
@@ -142,6 +158,9 @@ class NilaiEwmpController extends Controller
         }
     }
     public function delete(NilaiEwmp $nilaiewmp){
+        if (!Gate::allows('delete-nilai-ewmp')) {
+            abort(403);
+        }
         $delete = $nilaiewmp->delete();
 
         if ($delete) {

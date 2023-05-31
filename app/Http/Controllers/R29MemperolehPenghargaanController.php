@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R29MemperolehPenghargaanController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r029-memperoleh-penghargaan')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r029memperolehpenghargaans = R029MemperolehPenghargaan::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,9 +28,12 @@ class R29MemperolehPenghargaanController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r029-memperoleh-penghargaan')) {
+        abort(403);
+    }
        $rules = [
            'nip'                     =>  'required|numeric',
-           'judul_penghargaan'          =>  'required',
+           'judul_penghargaan'       =>  'required',
        ];
        $text = [
            'nip.required'               => 'NIP harus dipilih',
@@ -59,17 +66,23 @@ class R29MemperolehPenghargaanController extends Controller
        }
    }
    public function edit(R029MemperolehPenghargaan $r29memperolehpenghargaan){
+    if (!Gate::allows('edit-r029-memperoleh-penghargaan')) {
+        abort(403);
+    }
        return $r29memperolehpenghargaan;
    }
 
    public function update(Request $request, R029MemperolehPenghargaan $r29memperolehpenghargaan){
+    if (!Gate::allows('update-r029-memperoleh-penghargaan')) {
+        abort(403);
+    }
        $rules = [
            'nip'                     =>  'required|numeric',
-           'judul_penghargaan'          =>  'required',
+           'judul_penghargaan'       =>  'required',
        ];
        $text = [
-           'nip.required'            => 'NIP harus dipilih',
-           'nip.numeric'             => 'NIP harus berupa angka',
+           'nip.required'               => 'NIP harus dipilih',
+           'nip.numeric'                => 'NIP harus berupa angka',
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
        ];
 
@@ -98,6 +111,9 @@ class R29MemperolehPenghargaanController extends Controller
        }
    }
    public function delete(R029MemperolehPenghargaan $r29memperolehpenghargaan){
+    if (!Gate::allows('delete-r029-memperoleh-penghargaan')) {
+        abort(403);
+    }
        $delete = $r29memperolehpenghargaan->delete();
        if ($delete) {
            $notification = array(

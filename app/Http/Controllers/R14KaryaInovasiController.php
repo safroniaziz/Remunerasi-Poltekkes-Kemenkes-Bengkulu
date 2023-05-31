@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R14KaryaInovasiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r014-karya-inovasi')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r014karyainovasis = R014KaryaInovasi::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R14KaryaInovasiController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r014-karya-inovasi')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul'           =>  'required',
@@ -72,10 +79,16 @@ class R14KaryaInovasiController extends Controller
        }
    }
    public function edit(R014KaryaInovasi $r014karyainovasi){
+    if (!Gate::allows('edit-r014-karya-inovasi')) {
+        abort(403);
+    }
        return $r014karyainovasi;
    }
 
    public function update(Request $request, R014KaryaInovasi $r014karyainovasi){
+    if (!Gate::allows('update-r014-karya-inovasi')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul'           =>  'required',
@@ -121,6 +134,9 @@ class R14KaryaInovasiController extends Controller
        }
    }
    public function delete(R014KaryaInovasi $r014karyainovasi){
+    if (!Gate::allows('delete-r014-karya-inovasi')) {
+        abort(403);
+    }
        $delete = $r014karyainovasi->delete();
        if ($delete) {
            $notification = array(

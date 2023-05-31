@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R28MelaksanakanPengembanganDiriController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r028-melaksanakan-pengembangan-diri')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r028melaksanakanpengembangandiris = R028MelaksanakanPengembanganDiri::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R28MelaksanakanPengembanganDiriController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r028-melaksanakan-pengembangan-diri')) {
+        abort(403);
+    }
        $rules = [
            'nip'                     =>  'required|numeric',
            'jenis_kegiatan'          =>  'required',
@@ -59,10 +66,16 @@ class R28MelaksanakanPengembanganDiriController extends Controller
        }
    }
    public function edit(R028MelaksanakanPengembanganDiri $r28laksanakanpengembangandiri){
+    if (!Gate::allows('edit-r028-melaksanakan-pengembangan-diri')) {
+        abort(403);
+    }
        return $r28laksanakanpengembangandiri;
    }
 
    public function update(Request $request, R028MelaksanakanPengembanganDiri $r28laksanakanpengembangandiri){
+    if (!Gate::allows('update-r028-melaksanakan-pengembangan-diri')) {
+        abort(403);
+    }
        $rules = [
            'nip'                     =>  'required|numeric',
            'jenis_kegiatan'          =>  'required',
@@ -98,6 +111,9 @@ class R28MelaksanakanPengembanganDiriController extends Controller
        }
    }
    public function delete(R028MelaksanakanPengembanganDiri $r28laksanakanpengembangandiri){
+    if (!Gate::allows('delete-r028-melaksanakan-pengembangan-diri')) {
+        abort(403);
+    }
        $delete = $r28laksanakanpengembangandiri->delete();
        if ($delete) {
            $notification = array(

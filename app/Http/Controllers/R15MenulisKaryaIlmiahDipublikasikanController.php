@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r015-menulis-karya-ilmiah-dipublikasikan')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r015menuliskaryailmiahdipublikasikans = R015MenulisKaryaIlmiahDipublikasikan::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r015-menulis-karya-ilmiah-dipublikasikan')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul'           =>  'required',
@@ -72,10 +79,16 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
        }
    }
    public function edit(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
+    if (!Gate::allows('edit-r015-menulis-karya-ilmiah-dipublikasikan')) {
+        abort(403);
+    }
        return $r015karyailmiahpublikasi;
    }
 
    public function update(Request $request, R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
+    if (!Gate::allows('update-r015-menulis-karya-ilmiah-dipublikasikan')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul'           =>  'required',
@@ -121,6 +134,9 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
        }
    }
    public function delete(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
+    if (!Gate::allows('delete-r015-menulis-karya-ilmiah-dipublikasikan')) {
+        abort(403);
+    }
        $delete = $r015karyailmiahpublikasi->delete();
        if ($delete) {
            $notification = array(

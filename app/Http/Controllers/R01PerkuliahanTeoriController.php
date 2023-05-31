@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R01PerkuliahanTeoriController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r01-perkuliahan-teori')) {
+            abort(403);
+        }
          $pegawais = Pegawai::all();
          $r01perkuliahanteoris = R01PerkuliahanTeori::orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R01PerkuliahanTeoriController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-r01-perkuliahan-teori')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
@@ -68,10 +75,16 @@ class R01PerkuliahanTeoriController extends Controller
         }
     }
     public function edit(R01PerkuliahanTeori $r01perkuliahanteori){
+        if (!Gate::allows('edit-r01-perkuliahan-teori')) {
+            abort(403);
+        }
         return $r01perkuliahanteori;
     }
 
     public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
+        if (!Gate::allows('update-r01-perkuliahan-teori')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_sks'            =>  'required|numeric',
@@ -116,6 +129,9 @@ class R01PerkuliahanTeoriController extends Controller
         }
     }
     public function delete(R01PerkuliahanTeori $r01perkuliahanteori){
+        if (!Gate::allows('delete-r01-perkuliahan-teori')) {
+            abort(403);
+        }
         $delete = $r01perkuliahanteori->delete();
         if ($delete) {
             $notification = array(

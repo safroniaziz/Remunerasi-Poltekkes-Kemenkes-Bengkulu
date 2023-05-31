@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R19LatihNyuluhNatarCeramahWargaController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r019-latih-nyuluh-natar-ceramah-warga')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r019-latih-nyuluh-natar-ceramah-warga')) {
+        abort(403);
+    }
        $rules = [
            'nip'               =>  'required|numeric',
            'judul_kegiatan'    =>  'required',
@@ -63,14 +70,20 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
        }
    }
    public function edit(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
+    if (!Gate::allows('edit-r019-latih-nyuluh-natar-ceramah-warga')) {
+        abort(403);
+    }
        return $r019latihnyuluhnatarceramahwarga;
    }
 
    public function update(Request $request, R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
+    if (!Gate::allows('update-r019-latih-nyuluh-natar-ceramah-warga')) {
+        abort(403);
+    }
        $rules = [
            'nip'             =>  'required|numeric',
            'judul_kegiatan'  =>  'required',
-           'jenis'    =>  'required',
+           'jenis'           =>  'required',
        ];
        $text = [
            'nip.required'              => 'NIP harus dipilih',
@@ -106,6 +119,9 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
        }
    }
    public function delete(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
+    if (!Gate::allows('delete-r019-latih-nyuluh-natar-ceramah-warga')) {
+        abort(403);
+    }
        $delete = $r019latihnyuluhnatarceramahwarga->delete();
        if ($delete) {
            $notification = array(

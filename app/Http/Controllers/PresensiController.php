@@ -7,10 +7,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class PresensiController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-presensi')) {
+            abort(403);
+        }
         $presensis = Presensi::orderBy('created_at','desc')->get();
         return view('backend/presensis.index',[
             'presensis'         =>  $presensis,
@@ -18,12 +22,18 @@ class PresensiController extends Controller
     }
 
     public function create(){
+        if (!Gate::allows('create-presensi')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         $periodes = Periode::all();
         return view('backend/presensis.create',compact('dosens','periodes'));
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-presensi')) {
+            abort(403);
+        }
         $rules = [
             'periode_id'       =>  'required',
             'nip'              =>  'required',
@@ -57,6 +67,9 @@ class PresensiController extends Controller
         }
     }
     public function edit(Presensi $presensi){
+        if (!Gate::allows('edit-presensi')) {
+            abort(403);
+        }
         $dosens = Pegawai::all();
         $periodes = Periode::all();
         return view('backend.presensis.edit',compact('dosens','periodes'),[
@@ -65,6 +78,9 @@ class PresensiController extends Controller
     }
 
     public function update(Request $request, Presensi $presensi){
+        if (!Gate::allows('update-presensi')) {
+            abort(403);
+        }
         $rules = [
             'periode_id'       =>  'required',
         ];
@@ -96,6 +112,9 @@ class PresensiController extends Controller
         }
     }
     public function delete(Presensi $presensi){
+        if (!Gate::allows('delete-presensi')) {
+            abort(403);
+        }
         $delete = $presensi->delete();
 
         if ($delete) {

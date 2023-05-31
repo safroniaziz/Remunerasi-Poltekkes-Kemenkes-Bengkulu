@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\Gate;
 
 class PengumumanController extends Controller
 {
     public function index(Request $request){
+        if (!Gate::allows('read-pengumumen')) {
+            abort(403);
+        }
         $isi_pengumuman = $request->query('isi_pengumuman');
         if (!empty($isi_pengumuman)) {
             $pengumumans = Pengumuman::where('isi_pengumuman','LIKE','%'.$isi_pengumuman.'%')
@@ -26,6 +30,9 @@ class PengumumanController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-pengumumen')) {
+            abort(403);
+        }
         $rules = [
             'isi_pengumuman'       =>  'required',
             'tanggal_pengumuman'   =>  'required|',
@@ -58,10 +65,16 @@ class PengumumanController extends Controller
         }
     }
     public function edit(Pengumuman $pengumuman){
+        if (!Gate::allows('edit-pengumumen')) {
+            abort(403);
+        }
         return $pengumuman;
     }
 
     public function update(Request $request, Pengumuman $pengumuman){
+        if (!Gate::allows('update-pengumumen')) {
+            abort(403);
+        }
         $rules = [
             'judul_pengumuman_edit'         =>  'required',
             'isi_pengumuman_edit'           =>  'required',
@@ -134,6 +147,9 @@ class PengumumanController extends Controller
         }
     }
     public function delete(Pengumuman $pengumuman){
+        if (!Gate::allows('delete-pengumumen')) {
+            abort(403);
+        }
         $delete = $pengumuman->delete();
 
         if ($delete) {

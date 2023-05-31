@@ -8,11 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Gate;
 
 class R20AssessorBkdLkdController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r020-assessor-bkd-lkd')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r020assessorbkdlkds = R020AssessorBkdLkd::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -25,6 +28,9 @@ class R20AssessorBkdLkdController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r020-assessor-bkd-lkd')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'jumlah_dosen'          =>  'required|numeric',
@@ -61,10 +67,16 @@ class R20AssessorBkdLkdController extends Controller
        }
    }
    public function edit(R020AssessorBkdLkd $r020assessorbkdlkd){
+    if (!Gate::allows('edit-r020-assessor-bkd-lkd')) {
+        abort(403);
+    }
        return $r020assessorbkdlkd;
    }
 
    public function update(Request $request, R020AssessorBkdLkd $r020assessorbkdlkd){
+    if (!Gate::allows('update-r020-assessor-bkd-lkd')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'jumlah_dosen'          =>  'required|numeric',
@@ -101,6 +113,9 @@ class R20AssessorBkdLkdController extends Controller
        }
    }
    public function delete(R020AssessorBkdLkd $r020assessorbkdlkd){
+    if (!Gate::allows('delete-r020-assessor-bkd-lkd')) {
+        abort(403);
+    }
        $delete = $r020assessorbkdlkd->delete();
        if ($delete) {
            $notification = array(

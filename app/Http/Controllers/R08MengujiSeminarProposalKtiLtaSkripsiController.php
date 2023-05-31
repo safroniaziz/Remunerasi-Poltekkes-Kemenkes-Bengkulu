@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
+            abort(403);
+        }
          $pegawais = Pegawai::all();
          $r08mengujiseminarproposalktiltaskripsis = R08MengujiSeminarProposalKtiLtaSkripsi::orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,6 +28,9 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -66,10 +73,16 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
     }
     public function edit(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        if (!Gate::allows('edit-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
+            abort(403);
+        }
         return $r08mengujiseminarproposal;
     }
 
     public function update(Request $request, R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        if (!Gate::allows('update-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
+            abort(403);
+        }
         $rules = [
             'nip'                   =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -110,6 +123,9 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
     }
     public function delete(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        if (!Gate::allows('delete-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
+            abort(403);
+        }
         $delete = $r08mengujiseminarproposal->delete();
         if ($delete) {
             $notification = array(

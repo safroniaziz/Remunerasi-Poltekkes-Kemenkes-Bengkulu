@@ -6,10 +6,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class PeriodeController extends Controller
 {
     public function index(){
+        if (!Gate::allows('read-periode')) {
+            abort(403);
+        }
         $periodes = Periode::orderBy('created_at','desc')->get();
         return view('backend/periode_penilaians.index',[
             'periodes'    =>  $periodes,
@@ -17,6 +21,9 @@ class PeriodeController extends Controller
     }
 
     public function store(Request $request){
+        if (!Gate::allows('store-periode')) {
+            abort(403);
+        }
         $rules = [
             'nama_periode'              =>  'required',
             'periode_siakad_id'         =>  'required',
@@ -65,10 +72,16 @@ class PeriodeController extends Controller
     }
 
     public function edit(Periode $periode){
+        if (!Gate::allows('edit-periode')) {
+            abort(403);
+        }
         return $periode;
     }
 
     public function update(Request $request){
+        if (!Gate::allows('update-periode')) {
+            abort(403);
+        }
         $rules = [
             'nama_periode_edit'              =>  'required',
             'periode_siakad_id_edit'         =>  'required',
@@ -152,6 +165,9 @@ class PeriodeController extends Controller
     }
 
     public function delete(Periode $periode){
+        if (!Gate::allows('delete-periode')) {
+            abort(403);
+        }
         $delete = $periode->delete();
 
         if ($delete) {

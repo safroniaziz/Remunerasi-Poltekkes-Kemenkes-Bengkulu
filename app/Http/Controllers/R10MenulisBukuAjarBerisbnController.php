@@ -8,10 +8,14 @@ use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class R10MenulisBukuAjarBerisbnController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('read-r010-menulis-buku-ajar-berisbn')) {
+            abort(403);
+        }
         $pegawais = Pegawai::all();
         $r010menulisbukuajarberisbns = R010MenulisBukuAjarBerisbn::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -24,8 +28,11 @@ class R10MenulisBukuAjarBerisbnController extends Controller
    }
 
    public function store(Request $request){
+    if (!Gate::allows('store-r010-menulis-buku-ajar-berisbn')) {
+        abort(403);
+    }
        $rules = [
-           'nip'                   =>  'required|numeric',
+           'nip'             =>  'required|numeric',
            'judul'           =>  'required',
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
@@ -72,10 +79,16 @@ class R10MenulisBukuAjarBerisbnController extends Controller
        }
    }
    public function edit(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+    if (!Gate::allows('edit-r010-menulis-buku-ajar-berisbn')) {
+        abort(403);
+    }
        return $r010menulisbukuajarberisbn;
    }
 
    public function update(Request $request, R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+    if (!Gate::allows('update-r010-menulis-buku-ajar-berisbn')) {
+        abort(403);
+    }
        $rules = [
            'nip'                   =>  'required|numeric',
            'judul'           =>  'required',
@@ -122,6 +135,9 @@ class R10MenulisBukuAjarBerisbnController extends Controller
        }
    }
    public function delete(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+    if (!Gate::allows('delete-r010-menulis-buku-ajar-berisbn')) {
+        abort(403);
+    }
        $delete = $r010menulisbukuajarberisbn->delete();
        if ($delete) {
            $notification = array(
