@@ -197,10 +197,10 @@ class UserRolePermissionSeeder extends Seeder
             $permission = Permission::create(['name'  =>  'update-r012-membimbing-pkm']);
             $permission = Permission::create(['name'  =>  'delete-r012-membimbing-pkm']);
 
-            $permission = Permission::create(['name'  =>  'read-r013-orasi-ilmiah']);
-            $permission = Permission::create(['name'  =>  'create-r013-orasi-ilmiah']);
-            $permission = Permission::create(['name'  =>  'update-r013-orasi-ilmiah']);
-            $permission = Permission::create(['name'  =>  'delete-r013-orasi-ilmiah']);
+            $permission = Permission::create(['name'  =>  'read-r013-orasi-ilmiah_narasumber_bidang_ilmu']);
+            $permission = Permission::create(['name'  =>  'create-r013-orasi-ilmiah_narasumber_bidang_ilmu']);
+            $permission = Permission::create(['name'  =>  'update-r013-orasi-ilmiah_narasumber_bidang_ilmu']);
+            $permission = Permission::create(['name'  =>  'delete-r013-orasi-ilmiah_narasumber_bidang_ilmu']);
 
             $permission = Permission::create(['name'  =>  'read-r014-karya-inovasi']);
             $permission = Permission::create(['name'  =>  'create-r014-karya-inovasi']);
@@ -347,10 +347,10 @@ class UserRolePermissionSeeder extends Seeder
             $role_operator->givePermissionTo('update-r012-membimbing-pkm');
             $role_operator->givePermissionTo('delete-r012-membimbing-pkm');
 
-            $role_operator->givePermissionTo('read-r013-orasi-ilmiah');
-            $role_operator->givePermissionTo('create-r013-orasi-ilmiah');
-            $role_operator->givePermissionTo('update-r013-orasi-ilmiah');
-            $role_operator->givePermissionTo('delete-r013-orasi-ilmiah');
+            $role_operator->givePermissionTo('read-r013-orasi-ilmiah_narasumber_bidang_ilmu');
+            $role_operator->givePermissionTo('create-r013-orasi-ilmiah_narasumber_bidang_ilmu');
+            $role_operator->givePermissionTo('update-r013-orasi-ilmiah_narasumber_bidang_ilmu');
+            $role_operator->givePermissionTo('delete-r013-orasi-ilmiah_narasumber_bidang_ilmu');
 
             $role_operator->givePermissionTo('read-r014-karya-inovasi');
             $role_operator->givePermissionTo('create-r014-karya-inovasi');
@@ -497,10 +497,10 @@ class UserRolePermissionSeeder extends Seeder
             // $role_verifikator->givePermissionTo('update-r012-membimbing-pkm');
             // $role_verifikator->givePermissionTo('delete-r012-membimbing-pkm');
 
-            // $role_verifikator->givePermissionTo('read-r013-orasi-ilmiah');
-            // $role_verifikator->givePermissionTo('create-r013-orasi-ilmiah');
-            // $role_verifikator->givePermissionTo('update-r013-orasi-ilmiah');
-            // $role_verifikator->givePermissionTo('delete-r013-orasi-ilmiah');
+            // $role_verifikator->givePermissionTo('read-r013-orasi-ilmiah_narasumber_bidang_ilmu');
+            // $role_verifikator->givePermissionTo('create-r013-orasi-ilmiah_narasumber_bidang_ilmu');
+            // $role_verifikator->givePermissionTo('update-r013-orasi-ilmiah_narasumber_bidang_ilmu');
+            // $role_verifikator->givePermissionTo('delete-r013-orasi-ilmiah_narasumber_bidang_ilmu');
 
             // $role_verifikator->givePermissionTo('read-r014-karya-inovasi');
             // $role_verifikator->givePermissionTo('create-r014-karya-inovasi');
@@ -696,7 +696,7 @@ class UserRolePermissionSeeder extends Seeder
 
             $role_administrator->givePermissionTo('read-r012-membimbing-pkm');
 
-            $role_administrator->givePermissionTo('read-r013-orasi-ilmiah');
+            $role_administrator->givePermissionTo('read-r013-orasi-ilmiah_narasumber_bidang_ilmu');
 
             $role_administrator->givePermissionTo('read-r014-karya-inovasi');
 

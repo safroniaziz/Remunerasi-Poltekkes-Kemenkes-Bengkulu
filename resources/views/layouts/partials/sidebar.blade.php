@@ -5,26 +5,29 @@
     </a>
 </li>
 
-<li class="header" style="font-weight:bold">DATA MASTER</li>
-<li class="{{ set_active([
-    'dosen',
-    'dosen.riwayat_jabatan_fungsional',
-    'dosen.riwayat_jabatan_fungsional.update',
-    'dosen.riwayat_jabatan_fungsional.store',
-    'dosen.riwayat_jabatan_fungsional.set_active',
-    'dosen.riwayat_jabatan_fungsional.delete',
-    'dosen.riwayat_pangkat_golongan',
-    'dosen.riwayat_pangkat_golongan.update',
-    'dosen.riwayat_pangkat_golongan.store',
-    'dosen.riwayat_pangkat_golongan.set_active',
-    'dosen.riwayat_pangkat_golongan.delete'
-]) }}">
-    <a href="{{ route('dosen') }}">
-        <i class="fa fa-users"></i>
-        <span>Data Dosen</span>
-    </a>
-</li>
+<li class="header" style="font-weight:bold">DATA RUBRIK</li>
+@can('read-pegawai')
+    <li class="{{ set_active([
+            'dosen',
+            'dosen.riwayat_jabatan_fungsional',
+            'dosen.riwayat_jabatan_fungsional.update',
+            'dosen.riwayat_jabatan_fungsional.store',
+            'dosen.riwayat_jabatan_fungsional.set_active',
+            'dosen.riwayat_jabatan_fungsional.delete',
+            'dosen.riwayat_pangkat_golongan',
+            'dosen.riwayat_pangkat_golongan.update',
+            'dosen.riwayat_pangkat_golongan.store',
+            'dosen.riwayat_pangkat_golongan.set_active',
+            'dosen.riwayat_pangkat_golongan.delete'
+        ]) }}">
+        <a href="{{ route('dosen') }}">
+            <i class="fa fa-users"></i>
+            <span>Data Dosen</span>
+        </a>
+    </li>
+@endcan
 
+@can('read-jabatan-dt')
 <li class="treeview {{ set_active([
         'jabatan_dt','jabatan_dt.create','jabatan_dt.edit',
         'jabatan_ds','jabatan_ds.create','jabatan_ds.edit',
@@ -40,51 +43,72 @@
         <li class="{{ set_active(['jabatan_ds','jabatan_ds.create','jabatan_ds.edit']) }}"><a href="{{ route('jabatan_ds') }}"><i class="fa fa-circle-o"></i>Jabatan DS</a></li>
     </ul>
 </li>
+@endcan
 
+@can('read-pangkat-golongan')
 <li class="{{ set_active('pangkat_golongan') }}">
     <a href="{{ route('pangkat_golongan') }}">
         <i class="fa fa-gg"></i>
         <span>Data Pangkat Golongan</span>
     </a>
 </li>
+@endcan
 
+@can('read-pegawai')
 <li class="{{ set_active('kelompok_rubrik') }}">
     <a href="{{ route('kelompok_rubrik') }}">
         <i class="fa fa-file-powerpoint-o"></i>
         <span>Data Kelompok Rubrik</span>
     </a>
 </li>
+@endcan
+
+@can('read-nilai-ewmp')
 <li class="{{ set_active('nilai_ewmp') }}">
     <a href="{{ route('nilai_ewmp') }}">
         <i class="fa fa-check-square-o"></i>
         <span>Data Nilai Ewmp</span>
     </a>
 </li>
+@endcan
+
+@can('read-presensi')
 <li class="{{ set_active('presensi') }}">
     <a href="{{ route('presensi') }}">
         <i class="fa fa-info-circle"></i>
         <span>Data presensi</span>
     </a>
 </li>
+@endcan
+
+@can('read-pengumumen')
 <li class="{{ set_active('pengumuman') }}">
     <a href="{{ route('pengumuman') }}">
         <i class="fa fa-info-circle"></i>
         <span>Data Pengumuman</span>
     </a>
 </li>
+@endcan
+
+@can('read-riwayat-jabatan-dt')
 <li class="{{ set_active('riwayat_jabatan_dt') }}">
     <a href="{{ route('riwayat_jabatan_dt') }}">
         <i class="fa fa-info-circle"></i>
         <span>Data Riwayat Jabatan DT</span>
     </a>
 </li>
+@endcan
+
+@can('read-riwayat-point')
 <li class="{{ set_active('riwayat_point') }}">
     <a href="{{ route('riwayat_point') }}">
         <i class="fa fa-info-circle"></i>
         <span>Data Riwayat Point</span>
     </a>
 </li>
+@endcan
 
+@can('read-periode')
 <li class="header" style="font-weight:bold">PENGATURAN</li>
 <li class="{{ set_active('periode_penilaian') }}">
     <a href="{{ route('periode_penilaian') }}">
@@ -92,7 +116,9 @@
         <span>Periode Penilaian</span>
     </a>
 </li>
+@endcan
 
+{{--  @can('read-pegawai')  --}}
 <li class="treeview {{ set_active(
     ['r_01_perkuliahan_teori','r_02_perkuliahan_praktikum','r_03_membimbing_pencapaian_kompetensi',
     'r_04_membimbing_pendampingan_ukom','r_05_membimbing_praktik_pkk_pbl_klinik',
