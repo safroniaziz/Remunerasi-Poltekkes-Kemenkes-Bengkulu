@@ -9,9 +9,6 @@ use App\Models\R02PerkuliahanPraktikum;
 
 class R02Seeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $faker = \Faker\Factory::create();
@@ -23,7 +20,7 @@ class R02Seeder extends Seeder
             'jumlah_tatap_muka'     =>  16,
             'is_bkd'                =>  0,
             'is_verified'           =>  1,
-            'point'                 =>  1,
+            'point'                 =>  3,
 
         ],
         [
@@ -34,7 +31,7 @@ class R02Seeder extends Seeder
             'jumlah_tatap_muka'     =>  16,
             'is_bkd'                =>  0,
             'is_verified'           =>  1,
-            'point'                 =>  1,
+            'point'                 =>  4.5,
         ],
         [
             'periode_id'            =>  1,
@@ -44,7 +41,7 @@ class R02Seeder extends Seeder
             'jumlah_tatap_muka'     =>  16,
             'is_bkd'                =>  1,
             'is_verified'           =>  1,
-            'point'                 =>  1,
+            'point'                 =>  6,
         ],
         [
             'periode_id'            =>  1,
@@ -54,7 +51,7 @@ class R02Seeder extends Seeder
             'jumlah_tatap_muka'     =>  16,
             'is_bkd'                =>  0,
             'is_verified'           =>  1,
-            'point'                 =>  1,
+            'point'                 =>  3,
         ],
         [
             'periode_id'            =>  1,
@@ -64,7 +61,7 @@ class R02Seeder extends Seeder
             'jumlah_tatap_muka'     =>  16,
             'is_bkd'                =>  1,
             'is_verified'           =>  0,
-            'point'                 =>  1,
+            'point'                 =>  4.5,
         ],
         [
             'periode_id'            =>  1,
@@ -74,7 +71,7 @@ class R02Seeder extends Seeder
             'jumlah_tatap_muka'     =>  16,
             'is_bkd'                =>  0,
             'is_verified'           =>  0,
-            'point'                 =>  1,
+            'point'                 =>  6,
         ]
             ),
 
