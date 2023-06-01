@@ -204,6 +204,8 @@ Route::middleware('auth')->group(function(){
     Route::controller(GeneratePointRubrikController::class)->group(function () {
         Route::get('/generate_point_rubrik', 'index')->name('generate_point_rubrik');
         Route::get('/generate_point_rubrik/generate', 'generate')->name('generate_point_rubrik.generate');
+        Route::get('/generate_point_per_rubrik/{rekapPerRubrik:kode_rubrik}/generate', 'rekapPointPerRubrik')->name('generate_point_per_rubrik');
+        Route::get('/isian_rubrik/{rekapPerRubrik:kode_rubrik}/detail', 'detailIsianRubrik')->name('detail_isian_rubrik');
     });
     // End Of Data Master Route
     

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rekap_per_rubriks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periode_id');
+            $table->string('kode_rubrik');
             $table->string('nama_rubrik');
             $table->double('total_point');
             $table->timestamps();
