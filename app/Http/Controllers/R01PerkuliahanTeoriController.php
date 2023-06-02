@@ -25,7 +25,8 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-         $r01perkuliahanteoris = R01PerkuliahanTeori::orderBy('created_at','desc')->get();
+         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$request->session()->get('nip_dosen'))
+                                                    ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_01_perkuliahan_teoris.index',[

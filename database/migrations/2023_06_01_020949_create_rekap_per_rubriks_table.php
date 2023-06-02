@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rekap_per_rubriks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('periode_id');
+            $table->unsignedBigInteger('periode_id')->reference('id')->on('periodes');;
             $table->string('kode_rubrik');
             $table->string('nama_rubrik');
             $table->integer('jumlah_data_seluruh');

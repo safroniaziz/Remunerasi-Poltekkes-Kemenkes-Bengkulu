@@ -13,6 +13,7 @@ use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\RiwayatPointController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\PointRubrikDosenController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R02PerkuliahanPraktikumController;
 use App\Http\Controllers\R03MembimbingPencapaianKompetensiController;
@@ -207,6 +208,10 @@ Route::middleware('auth')->group(function(){
         Route::get('/generate_point_per_rubrik/{rekapPerRubrik:kode_rubrik}/generate', 'rekapPointPerRubrik')->name('generate_point_per_rubrik');
         Route::get('/isian_rubrik/{rekapPerRubrik:kode_rubrik}/detail', 'detailIsianRubrik')->name('detail_isian_rubrik');
         Route::patch('/generate_point_massal', 'generatePointMassal')->name('generate_point_massal');
+    });
+
+    Route::controller(PointRubrikDosenController::class)->group(function () {
+        Route::get('/point_rubrik_dosen', 'index')->name('point_rubrik_dosen');
     });
     // End Of Data Master Route
 

@@ -33,19 +33,19 @@ class GeneratePointRubrikController extends Controller
         $dosens = Pegawai::select('nip')->get();
         $totalPoint = array();
         $riwayatPoint = array();
+        $rekapPerDosen = array();
         for ($i=0; $i <count($rubriks) ; $i++) { 
             $total_point = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
                             ->where('periode_id',$this->periode->id)
                             ->where('is_bkd',0)
                             ->where('is_verified',1)
                             ->first();
-            $tidak_terhitung = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))
+            $tidak_terhitung = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),DB::raw('count(id) as jumlah_data'))
                                         ->where('periode_id',$this->periode->id)
                                         ->where('is_bkd',1)
                                         ->orWhere('is_verified',0)
                                         ->first();
-
-            $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))->first();
+            $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),DB::raw('count(id) as jumlah_data'))->first();
             $totalPoint[] = array(
                 'periode_id'    =>  $this->periode->id,
                 'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
@@ -68,6 +68,7 @@ class GeneratePointRubrikController extends Controller
                             ->where('is_verified',1)
                             ->where('nip',$dosens[$j]['nip'])
                             ->first();
+                
                 $riwayatPoint[] = array(
                     'nama_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
                     'periode_id'    =>  $this->periode->id,
@@ -76,10 +77,17 @@ class GeneratePointRubrikController extends Controller
                     'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                     'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                 );
+
+                $total_point     =  array_sum(array_column($riwayatPoint, 'total_point'));
+                $rekapPerDosen[] = array(
+                    'nip'           =>  $dosens[$j]['nip'],
+                    'periode_id'    =>  $this->periode->id,
+                    'total_point_dosen' =>  $total_point,
+                );
             }
         }
         RekapPerRubrik::insert($totalPoint);
-        RiwayatPoint::insert($riwayatPoint);
+        // RiwayatPoint::insert($riwayatPoint);
 
         $success = array(
             'message' => 'Berhasil, Generate Point Rubrik Berhasil Dilakukan',

@@ -125,6 +125,13 @@
     </a>
 </li>
 
+<li class="{{ set_active(['point_rubrik_dosen']) }}">
+    <a href="{{ route('point_rubrik_dosen') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Point Rubrik Dosen</span>
+    </a>
+</li>
+
 @can('read-r01-perkuliahan-teori')
 <li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN REGULER</li>
 <li class="{{ set_active('r_01_perkuliahan_teori') }}">
