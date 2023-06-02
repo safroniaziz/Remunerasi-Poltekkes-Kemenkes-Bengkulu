@@ -139,43 +139,6 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
-       $update = $r21revieweclerepenelitidosen->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_021_reviewer_eclere_penelitian_dosen')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
-       $update = $r21revieweclerepenelitidosen->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_021_reviewer_eclere_penelitian_dosen')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
         $r21revieweclerepenelitidosen->update([

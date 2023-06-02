@@ -147,43 +147,6 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
-        $update = $r07membimbingskripsiltalaprofesi->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
-        $update = $r07membimbingskripsiltalaprofesi->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
         $r07membimbingskripsiltalaprofesi->update([

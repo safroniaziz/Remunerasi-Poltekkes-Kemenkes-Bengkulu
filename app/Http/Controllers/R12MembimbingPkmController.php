@@ -169,43 +169,6 @@ class R12MembimbingPkmController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R012MembimbingPkm $r012membimbingpkm){
-       $update = $r012membimbingpkm->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_012_membimbing_pkm')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R012MembimbingPkm $r012membimbingpkm){
-       $update = $r012membimbingpkm->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_012_membimbing_pkm')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R012MembimbingPkm $r012membimbingpkm){
         $r012membimbingpkm->update([

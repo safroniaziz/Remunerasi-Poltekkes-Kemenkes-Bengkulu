@@ -159,43 +159,6 @@ class R02PerkuliahanPraktikumController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
-        $update = $r02perkuliahanpraktikum->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_02_perkuliahan_praktikum')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
-        $update = $r02perkuliahanpraktikum->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_02_perkuliahan_praktikum')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
         $r02perkuliahanpraktikum->update([

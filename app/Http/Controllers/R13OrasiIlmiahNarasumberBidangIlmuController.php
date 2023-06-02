@@ -151,43 +151,6 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R013OrasiIlmiahNarasumberBidangIlmu $r013orasiilmiahnarasumber){
-       $update = $r013orasiilmiahnarasumber->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_013_orasi_ilmiah_narasumber_bidang_ilmu')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R013OrasiIlmiahNarasumberBidangIlmu $r013orasiilmiahnarasumber){
-       $update = $r013orasiilmiahnarasumber->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_013_orasi_ilmiah_narasumber_bidang_ilmu')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R013OrasiIlmiahNarasumberBidangIlmu $r013orasiilmiahnarasumber){
         $r013orasiilmiahnarasumber->update([

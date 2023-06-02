@@ -174,43 +174,6 @@ class R14KaryaInovasiController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R014KaryaInovasi $r014karyainovasi){
-       $update = $r014karyainovasi->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_014_karya_inovasi')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R014KaryaInovasi $r014karyainovasi){
-       $update = $r014karyainovasi->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_014_karya_inovasi')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R014KaryaInovasi $r014karyainovasi){
         $r014karyainovasi->update([

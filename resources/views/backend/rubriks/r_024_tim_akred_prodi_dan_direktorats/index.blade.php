@@ -41,9 +41,11 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul Kegiatan</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
-                                        <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
-                                        <th style="text-align:center; vertical-align:middle">Point</th>
+                                        @if(Auth::user()->hasRole('verifikator'))
+                                            <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
+                                            <th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                            <th style="text-align:center; vertical-align:middle">Point</th>
+                                        @endif
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -64,27 +66,29 @@
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
                                                 @endif
                                             </td>
-                                            <td class="text-center">
-                                                @if ($r024timakredprodirektorat->is_verified == 1)
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
-                                                @else
-                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($r024timakredprodirektorat->is_verified == 1)
-                                                    <form action="{{ route('r_024_tim_akred_prodi_dan_direktorat.tolak',[$r024timakredprodirektorat->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
-                                                @else
-                                                    <form action="{{ route('r_024_tim_akred_prodi_dan_direktorat.verifikasi',[$r024timakredprodirektorat->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">{{ $r024timakredprodirektorat->point }}</td>
+                                            @if(Auth::user()->hasRole('verifikator'))
+                                                <td class="text-center">
+                                                    @if ($r024timakredprodirektorat->is_verified == 1)
+                                                        <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                    @else
+                                                        <small class="label label-danger"><i class="fa fa-close"></i></small>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($r024timakredprodirektorat->is_verified == 1)
+                                                        <form action="{{ route('r_024_tim_akred_prodi_dan_direktorat.tolak',[$r024timakredprodirektorat->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                            <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('r_024_tim_akred_prodi_dan_direktorat.verifikasi',[$r024timakredprodirektorat->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                            <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">{{ $r024timakredprodirektorat->point }}</td>
+                                            @endif
                                             <td>
                                                 <table>
                                                     <tr>

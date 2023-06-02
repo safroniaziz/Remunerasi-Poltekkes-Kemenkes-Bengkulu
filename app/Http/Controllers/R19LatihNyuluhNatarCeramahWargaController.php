@@ -145,43 +145,6 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
-       $update = $r019latihnyuluhnatarceramahwarga->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_019_latih_nyuluh_natar_ceramah_warga')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
-       $update = $r019latihnyuluhnatarceramahwarga->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_019_latih_nyuluh_natar_ceramah_warga')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
         $r019latihnyuluhnatarceramahwarga->update([

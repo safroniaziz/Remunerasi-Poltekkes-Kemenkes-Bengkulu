@@ -157,43 +157,6 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
-        $update = $r05membimbingpraktikpkkpblklinik->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_05_membimbing_praktik_pkk_pbl_klinik')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
-        $update = $r05membimbingpraktikpkkpblklinik->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_05_membimbing_praktik_pkk_pbl_klinik')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
         $r05membimbingpraktikpkkpblklinik->update([

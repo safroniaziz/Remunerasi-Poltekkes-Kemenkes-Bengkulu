@@ -141,43 +141,6 @@ class R04MembimbingPendampinganUkomController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
-        $update = $r04membimbingpendampinganukom->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_04_membimbing_pendampingan_ukom')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
-        $update = $r04membimbingpendampinganukom->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_04_membimbing_pendampingan_ukom')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
         $r04membimbingpendampinganukom->update([
