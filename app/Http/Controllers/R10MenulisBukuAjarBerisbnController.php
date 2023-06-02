@@ -44,7 +44,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
-
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'judul.required'            => 'Judul harus diisi',
@@ -52,7 +52,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
            'penulis_ke.required'       => 'Penulis harus diisi',
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
-
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -76,7 +76,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         'isbn'              =>  $request->isbn,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
@@ -106,6 +106,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'judul.required'            => 'Judul harus diisi',
@@ -113,6 +114,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
            'penulis_ke.required'       => 'Penulis harus diisi',
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -135,7 +137,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         'isbn'              =>  $request->isbn,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);

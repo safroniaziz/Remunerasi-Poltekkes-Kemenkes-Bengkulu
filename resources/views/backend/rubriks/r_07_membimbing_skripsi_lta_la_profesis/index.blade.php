@@ -66,9 +66,9 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($r07membimbingskripsiltalaprofesi->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -134,6 +134,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#pembimbing_ke_edit').val(data.pembimbing_ke);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

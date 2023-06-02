@@ -34,10 +34,12 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
        $rules = [
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jabatan.required'          => 'Jabatan harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -58,7 +60,7 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -86,10 +88,12 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
        $rules = [
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
            'jabatan.required'        => 'Jabatan harus diisi',
+           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -110,7 +114,7 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,
-           'is_bkd'                     =>  0,
+           'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
        ]);

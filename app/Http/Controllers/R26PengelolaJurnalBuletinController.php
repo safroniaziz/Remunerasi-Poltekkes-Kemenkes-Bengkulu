@@ -35,11 +35,13 @@ class R26PengelolaJurnalBuletinController extends Controller
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
            'edisi_terbit'            =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jabatan.required'          => 'Jabatan harus diisi',
            'edisi_terbit.required'     => 'Edisi Terbit harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -59,7 +61,7 @@ class R26PengelolaJurnalBuletinController extends Controller
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
            'edisi_terbit'      =>  $request->edisi_terbit,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -88,11 +90,13 @@ class R26PengelolaJurnalBuletinController extends Controller
            'judul_kegiatan'          =>  'required',
            'jabatan'                 =>  'required',
            'edisi_terbit'            =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
            'jabatan.required'        => 'Jabatan harus diisi',
-           'edisi_terbit.required'     => 'Edisi Terbit harus diisi',
+           'edisi_terbit.required'   => 'Edisi Terbit harus diisi',
+           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -112,7 +116,7 @@ class R26PengelolaJurnalBuletinController extends Controller
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,
            'edisi_terbit'               =>  $request->edisi_terbit,
-           'is_bkd'                     =>  0,
+           'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
        ]);

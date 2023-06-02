@@ -33,9 +33,11 @@ class R29MemperolehPenghargaanController extends Controller
     }
        $rules = [
            'judul_penghargaan'       =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
+           'is_bkd.required'            => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -53,7 +55,7 @@ class R29MemperolehPenghargaanController extends Controller
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_penghargaan' =>  $request->judul_penghargaan,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -80,9 +82,11 @@ class R29MemperolehPenghargaanController extends Controller
     }
        $rules = [
            'judul_penghargaan'       =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
+           'is_bkd.required'            => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -100,7 +104,7 @@ class R29MemperolehPenghargaanController extends Controller
            'periode_id'                 =>  $periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_penghargaan'          =>  $request->judul_penghargaan,
-           'is_bkd'                     =>  0,
+           'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
        ]);

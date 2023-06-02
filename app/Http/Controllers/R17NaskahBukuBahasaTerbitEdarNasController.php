@@ -31,7 +31,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         return view('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
            'periode'                              =>  $periode,
-           'r017naskahbukubahasaterbitedarnas' =>  $r017naskahbukubahasaterbitedarnas,
+           'r017naskahbukubahasaterbitedarnas'    =>  $r017naskahbukubahasaterbitedarnas,
        ]);
    }
 
@@ -42,11 +42,12 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
        $rules = [
            'judul_buku'      =>  'required',
            'isbn'            =>  'required',
-
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'judul_buku.required'       => 'Judul_buku harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -63,7 +64,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
@@ -91,10 +92,12 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
        $rules = [
            'judul_buku'           =>  'required',
            'isbn'                 =>  'required',
+           'is_bkd'               =>  'required',
        ];
        $text = [
            'judul_buku.required'       => 'Judul buku harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -111,7 +114,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);

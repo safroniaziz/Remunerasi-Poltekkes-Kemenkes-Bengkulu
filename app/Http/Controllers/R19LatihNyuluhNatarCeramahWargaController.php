@@ -34,10 +34,12 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
        $rules = [
            'judul_kegiatan'    =>  'required',
            'jenis'             =>  'required',
+           'is_bkd'            =>  'required',
        ];
        $text = [
            'judul_kegiatan.required'   => 'Judul_kegiatan harus diisi',
            'jenis.required'            => 'Jenis harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -57,7 +59,7 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
@@ -85,10 +87,12 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
        $rules = [
            'judul_kegiatan'  =>  'required',
            'jenis'           =>  'required',
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jenis.required'            => 'Jenis harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -108,7 +112,7 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);

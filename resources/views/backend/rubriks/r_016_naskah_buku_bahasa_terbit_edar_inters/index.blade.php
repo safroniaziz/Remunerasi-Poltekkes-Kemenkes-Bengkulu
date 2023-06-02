@@ -60,9 +60,9 @@
                                             <td class="text-center">{{ $r016naskahbukubahasaterbitedarinter->isbn }}</td>
                                             <td class="text-center">
                                                 @if ($r016naskahbukubahasaterbitedarinter->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -128,6 +128,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#judul_buku_edit').val(data.judul_buku);
                     $('#isbn_edit').val(data.isbn);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

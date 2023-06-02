@@ -58,9 +58,9 @@
                                             <td class="text-center">{{ $r022reviewereclerepenelitianmhs->judul_protokol_penelitian }}</td>
                                             <td class="text-center">
                                                 @if ($r022reviewereclerepenelitianmhs->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -125,6 +125,7 @@
                     $('#r22revieweclerepenelitimhs_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
                     $('#judul_protokol_penelitian_edit').val(data.judul_protokol_penelitian);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

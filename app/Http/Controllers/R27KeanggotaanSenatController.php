@@ -33,9 +33,11 @@ class R27KeanggotaanSenatController extends Controller
     }
        $rules = [
            'jabatan'                 =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'jabatan.required'          => 'Jabatan harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -55,7 +57,7 @@ class R27KeanggotaanSenatController extends Controller
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jabatan'           =>  $request->jabatan,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -82,9 +84,11 @@ class R27KeanggotaanSenatController extends Controller
     }
        $rules = [
            'jabatan'                 =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'jabatan.required'        => 'Jabatan harus diisi',
+           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -104,7 +108,7 @@ class R27KeanggotaanSenatController extends Controller
            'periode_id'                 =>  $periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'jabatan'                    =>  $request->jabatan,
-           'is_bkd'                     =>  0,
+           'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
        ]);

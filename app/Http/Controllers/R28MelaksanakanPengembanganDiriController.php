@@ -33,9 +33,11 @@ class R28MelaksanakanPengembanganDiriController extends Controller
     }
        $rules = [
            'jenis_kegiatan'          =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'jenis_kegiatan.required'   => 'Jenis Kegiatan harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -55,7 +57,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jenis_kegiatan'    =>  $request->jenis_kegiatan,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -82,9 +84,11 @@ class R28MelaksanakanPengembanganDiriController extends Controller
     }
        $rules = [
            'jenis_kegiatan'          =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'jenis_kegiatan.required' => 'Jenis Kegiatan harus diisi',
+           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -104,7 +108,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
            'periode_id'                 =>  $periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'jenis_kegiatan'             =>  $request->jenis_kegiatan,
-           'is_bkd'                     =>  0,
+           'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
        ]);

@@ -64,9 +64,9 @@
                                             <td class="text-center">{{ $r010menulisbukuajarberisbn->jumlah_penulis }}</td>
                                             <td class="text-center">
                                                 @if ($r010menulisbukuajarberisbn->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -134,6 +134,7 @@
                     $('#isbn_edit').val(data.isbn);
                     $('#penulis_ke_edit').val(data.penulis_ke);
                     $('#jumlah_penulis_edit').val(data.jumlah_penulis);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

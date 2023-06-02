@@ -58,35 +58,21 @@
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->judul_kegiatan }}</td>
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->tingkatan_ke }}</td>
-                                            <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->point }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            {{--  <td>
-                                                @if ($r013orasiilmiahnarasumberbidangilmu->is_bkd== 1)
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_nonactive',[$r013orasiilmiahnarasumberbidangilmu->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                    </form>
+                                            <td class="text-center">
+                                                @if ($r013orasiilmiahnarasumberbidangilmu->is_bkd == 1)
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    <form action="{{ route('r_10_menulis_buku_ajar_berisbn.set_active',[$r013orasiilmiahnarasumberbidangilmu->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                    </form>
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
-                                           </td>  --}}
-                                           {{--  <td>
-                                            @if ($r013orasiilmiahnarasumberbidangilmu->is_verified== 1)
-                                                <form action="{{ route('r01_perkuliahan_teori.set_nonactive',[$r013orasiilmiahnarasumberbidangilmu->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('r01_perkuliahan_teori.set_active',[$r013orasiilmiahnarasumberbidangilmu->id]) }}" method="POST">
-                                                    {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                </form>
-                                            @endif
-                                       </td>  --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r013orasiilmiahnarasumberbidangilmu->is_verified == 1)
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @else
+                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
@@ -143,6 +129,7 @@
                     $('#nip_edit').val(data.nip);
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#tingkatan_ke_edit').val(data.tingkatan_ke);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

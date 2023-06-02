@@ -35,12 +35,14 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
            'nip'               =>  'required|numeric',
            'judul_kegiatan'    =>  'required',
            'tingkatan_ke'      =>  'required',
+           'is_bkd'            =>  'required',
        ];
        $text = [
            'nip.required'              => 'NIP harus dipilih',
            'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul_kegiatan harus diisi',
            'tingkatan_ke.required'     => 'Penulis harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -53,9 +55,9 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
        $simpan = R013OrasiIlmiahNarasumberBidangIlmu::create([
         'periode_id'        =>  $periode->id,
         'nip'               =>  $request->nip,
-        'judul_kegiatan'             =>  $request->judul_kegiatan,
+        'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  null,
        ]);
@@ -84,12 +86,14 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
            'nip'             =>  'required|numeric',
            'judul_kegiatan'  =>  'required',
            'tingkatan_ke'    =>  'required',
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'nip.required'              => 'NIP harus dipilih',
            'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'tingkatan_ke.required'     => 'Penulis harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -104,7 +108,7 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
         'nip'               =>  $request->nip,
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  null,
        ]);

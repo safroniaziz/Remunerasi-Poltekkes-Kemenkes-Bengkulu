@@ -44,6 +44,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
@@ -52,6 +53,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
+            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -68,7 +70,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);
@@ -97,6 +99,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
@@ -105,6 +108,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
+            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -121,7 +125,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);

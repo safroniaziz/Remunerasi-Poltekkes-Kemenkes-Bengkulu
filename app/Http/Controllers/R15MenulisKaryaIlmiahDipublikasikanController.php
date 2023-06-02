@@ -36,7 +36,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
            'jenis'           =>  'required',
-
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'judul.required'            => 'Judul harus diisi',
@@ -44,7 +44,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
            'jenis.required'            => 'Jumlah Penulis harus diisi',
-
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -94,7 +94,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
         'jenis'             =>  $request->jenis,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
@@ -124,6 +124,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            'penulis_ke'      =>  'required',
            'jumlah_penulis'  =>  'required|numeric',
            'jenis'           =>  'required',
+           'is_bkd'          =>  'required',
        ];
        $text = [
            'judul.required'            => 'Judul harus diisi',
@@ -131,6 +132,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
            'jenis.required'            => 'Jumlah Penulis harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -180,7 +182,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
         'jenis'             =>  $request->jenis,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
