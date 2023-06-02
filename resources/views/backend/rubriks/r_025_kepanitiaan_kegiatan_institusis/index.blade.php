@@ -70,9 +70,9 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($r025kepanitiaankegiataninstitusi->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -138,6 +138,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#jabatan_edit').val(data.jabatan);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

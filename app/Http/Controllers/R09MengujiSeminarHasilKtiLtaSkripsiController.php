@@ -34,11 +34,13 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        $rules = [
            'jumlah_mahasiswa'      =>  'required|numeric',
            'jenis'                 =>  'required',
+           'is_bkd'                =>  'required',
        ];
        $text = [
            'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
            'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
            'jenis.required'            => 'Jenis Seminar harus dipilih',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
        $validasi = Validator::make($request->all(), $rules, $text);
        if ($validasi->fails()) {
@@ -57,7 +59,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
            'jenis'             =>  $request->jenis,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -85,11 +87,13 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        $rules = [
            'jumlah_mahasiswa'      =>  'required|numeric',
            'jenis'                 =>  'required',
+           'is_bkd'                =>  'required',
        ];
        $text = [
            'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
            'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
            'jenis.required'            => 'Jenis Seminar harus dipilih',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
        if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.10;
@@ -109,7 +113,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
            'jenis'             =>  $request->jenis,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);

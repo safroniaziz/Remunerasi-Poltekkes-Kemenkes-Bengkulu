@@ -21,6 +21,15 @@
                             <input type="text" class="form-control" id="jumlah_mahasiswa" name="jumlah_mahasiswa">
                         </div>
 
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Rubrik BKD?</label>
+                            <select name="is_bkd" class="form-control" id="is_bkd">
+                                <option disabled selected>-- pilih --</option>
+                                <option value="0">Tidak</option>
+                                <option value="1">Ya</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

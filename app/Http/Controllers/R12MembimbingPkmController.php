@@ -35,12 +35,14 @@ class R12MembimbingPkmController extends Controller
            'tingkat_pkm'        =>  'required',
            'juara_ke'           =>  'required',
            'jumlah_pembimbing'  =>  'required|numeric',
+           'is_bkd'             =>  'required',
        ];
        $text = [
            'tingkat_pkm.required'         => 'tingkat_pkm harus diisi',
            'juara_ke.required'            => 'Penulis harus diisi',
            'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'is_bkd.required'              => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -69,7 +71,7 @@ class R12MembimbingPkmController extends Controller
         'tingkat_pkm'       =>  $request->tingkat_pkm,
         'juara_ke'          =>  $request->juara_ke,
         'jumlah_pembimbing' =>  $request->jumlah_pembimbing,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
@@ -98,12 +100,14 @@ class R12MembimbingPkmController extends Controller
            'tingkat_pkm'        =>  'required',
            'juara_ke'           =>  'required',
            'jumlah_pembimbing'  =>  'required|numeric',
+           'is_bkd'             =>  'required',
        ];
        $text = [
            'tingkat_pkm.required'         => 'Tingkat Pkm harus diisi',
            'juara_ke.required'            => 'Penulis harus diisi',
            'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'is_bkd.required'              => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -132,7 +136,7 @@ class R12MembimbingPkmController extends Controller
             'tingkat_pkm'       =>  $request->tingkat_pkm,
             'juara_ke'          =>  $request->juara_ke,
             'jumlah_pembimbing' =>  $request->jumlah_pembimbing,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);

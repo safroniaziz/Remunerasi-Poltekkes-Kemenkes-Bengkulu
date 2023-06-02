@@ -62,9 +62,9 @@
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_tatap_muka }}</td>
                                             <td class="text-center">
                                                 @if ($r01perkuliahanteori->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -131,6 +131,7 @@
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);

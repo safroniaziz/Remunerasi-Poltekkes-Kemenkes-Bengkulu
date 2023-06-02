@@ -21,8 +21,8 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
-            'pegawais'                =>  $pegawais,
-            'periode'                =>  $periode,
+            'pegawais'                             =>  $pegawais,
+            'periode'                              =>  $periode,
             'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,
         ]);
     }
@@ -34,12 +34,13 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         $rules = [
             'jumlah_mahasiswa'      =>  'required|numeric',
             'pembimbing_ke'         =>  'required',
-
+            'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
+            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -59,7 +60,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);
@@ -87,11 +88,13 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         $rules = [
             'jumlah_mahasiswa'      =>  'required|numeric',
             'pembimbing_ke'         =>  'required',
+            'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
+            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -111,7 +114,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);

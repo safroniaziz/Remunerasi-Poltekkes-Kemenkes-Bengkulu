@@ -41,9 +41,11 @@ class R18MendapatHibahPkmController extends Controller
     }
        $rules = [
            'judul_hibah_pkm'      =>  'required',
+           'is_bkd'               =>  'required',
        ];
        $text = [
            'judul_hibah_pkm.required'  => 'Judul Hibah Pkm harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -59,7 +61,7 @@ class R18MendapatHibahPkmController extends Controller
         'periode_id'        =>  $periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);
@@ -86,9 +88,11 @@ class R18MendapatHibahPkmController extends Controller
     }
        $rules = [
            'judul_hibah_pkm'      =>  'required',
+           'is_bkd'               =>  'required',
        ];
        $text = [
            'judul_hibah_pkm.required'  => 'Judul hibah pkm harus diisi',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -104,7 +108,7 @@ class R18MendapatHibahPkmController extends Controller
         'periode_id'        =>  $periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
-        'is_bkd'            =>  0,
+        'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
        ]);

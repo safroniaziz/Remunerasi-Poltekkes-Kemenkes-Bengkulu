@@ -41,9 +41,11 @@ class R24TimAkredProdiDanDirektoratController extends Controller
     }
        $rules = [
            'judul_kegiatan'          =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_kegiatan.required'    => 'Judul Kegiatan harus diisi',
+           'is_bkd.required'            => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -58,7 +60,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -85,9 +87,11 @@ class R24TimAkredProdiDanDirektoratController extends Controller
     }
        $rules = [
            'judul_kegiatan'          =>  'required',
+           'is_bkd'                  =>  'required',
        ];
        $text = [
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
+           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -102,7 +106,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
            'periode_id'                 =>  $periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
-           'is_bkd'                     =>  0,
+           'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
        ]);

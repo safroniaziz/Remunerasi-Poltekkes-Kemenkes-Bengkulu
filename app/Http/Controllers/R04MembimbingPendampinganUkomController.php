@@ -40,6 +40,8 @@ class R04MembimbingPendampinganUkomController extends Controller
         }
         $rules = [
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'is_bkd'                =>  'required',
+            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
         ];
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -58,7 +60,7 @@ class R04MembimbingPendampinganUkomController extends Controller
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);
@@ -85,10 +87,12 @@ class R04MembimbingPendampinganUkomController extends Controller
         }
         $rules = [
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -104,7 +108,7 @@ class R04MembimbingPendampinganUkomController extends Controller
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
-            'is_bkd'            =>  0,
+            'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);

@@ -38,6 +38,15 @@
                         </div>
 
                         <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Rubrik BKD?</label>
+                            <select name="is_bkd" class="form-control" id="is_bkd_edit">
+                                <option disabled selected>-- pilih --</option>
+                                <option value="0">Tidak</option>
+                                <option value="1">Ya</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah pembimbing</label>
                             <input type="text" class="form-control" id="jumlah_pembimbing_edit" name="jumlah_pembimbing">
                         </div>

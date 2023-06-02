@@ -41,10 +41,12 @@ class R20AssessorBkdLkdController extends Controller
     }
        $rules = [
            'jumlah_dosen'          =>  'required|numeric',
+           'is_bkd'                =>  'required',
        ];
        $text = [
            'jumlah_dosen.required'     => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'      => 'Jumlah Dosen harus berupa angka',
+           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -59,7 +61,7 @@ class R20AssessorBkdLkdController extends Controller
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_dosen'      =>  $request->jumlah_dosen,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);
@@ -86,10 +88,12 @@ class R20AssessorBkdLkdController extends Controller
     }
        $rules = [
            'jumlah_dosen'          =>  'required|numeric',
+           'is_bkd'                =>  'required',
        ];
        $text = [
            'jumlah_dosen.required' => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'  => 'Jumlah Dosen harus berupa angka',
+           'is_bkd.required'       => 'Rubrik BKD harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -104,7 +108,7 @@ class R20AssessorBkdLkdController extends Controller
            'periode_id'        =>  $periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_dosen'      =>  $request->jumlah_dosen,
-           'is_bkd'            =>  0,
+           'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
        ]);

@@ -60,9 +60,9 @@
                                             <td class="text-center">{{ $r019latihnyuluhnatarceramahwarga->jenis == "insidentil" ? 'Insidentil' : 'Latihan/Penyuluhan/Pantaran/Ceramah' }}</td>
                                             <td class="text-center">
                                                 @if ($r019latihnyuluhnatarceramahwarga->is_bkd == 1)
-                                                    Ya
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
                                                 @else
-                                                    Tidak
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -128,6 +128,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#jenis_edit').val(data.jenis);
+                    $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){
                     $('#gagal').show(100);
