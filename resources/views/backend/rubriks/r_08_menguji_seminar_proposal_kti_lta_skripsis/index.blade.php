@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 08 Menguji Seminar Proposal KTI LTA Skripsi
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 08
                                 </button>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                         <th style="text-align:center; vertical-align:middle">Jenis Seminar</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-<th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>

@@ -43,7 +43,7 @@
                                         <th style="text-align:center; vertical-align:middle">ISBN</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-<th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
