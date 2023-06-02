@@ -127,7 +127,6 @@
                     $('#modalEdit').modal('show');
                     $('#r013Orasiilmiahnarasumber_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
-                    $('#nip_edit').val(data.nip);
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#tingkatan_ke_edit').val(data.tingkatan_ke);
                     $('#is_bkd_edit').val(data.is_bkd);
