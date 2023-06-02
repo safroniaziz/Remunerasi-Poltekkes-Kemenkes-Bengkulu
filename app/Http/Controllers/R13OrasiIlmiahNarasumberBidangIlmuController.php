@@ -32,14 +32,11 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'               =>  'required|numeric',
            'judul_kegiatan'    =>  'required',
            'tingkatan_ke'      =>  'required',
            'is_bkd'            =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul_kegiatan harus diisi',
            'tingkatan_ke.required'     => 'Penulis harus diisi',
            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
@@ -52,14 +49,22 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+        if ($request->tingkatan_ke=='internasional') {
+            $point = 3;
+        }elseif ($request->tingkatan_ke=='nasional') {
+            $point = 2;
+        }else{
+            $point = 1;
+        }
+
        $simpan = R013OrasiIlmiahNarasumberBidangIlmu::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($simpan) {
@@ -83,14 +88,11 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
         abort(403);
     }
        $rules = [
-           'nip'             =>  'required|numeric',
            'judul_kegiatan'  =>  'required',
            'tingkatan_ke'    =>  'required',
            'is_bkd'          =>  'required',
        ];
        $text = [
-           'nip.required'              => 'NIP harus dipilih',
-           'nip.numeric'               => 'NIP harus berupa angka',
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'tingkatan_ke.required'     => 'Penulis harus diisi',
            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
@@ -103,14 +105,22 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
 
        $periode = Periode::select('id')->where('is_active','1')->first();
 
+        if ($request->tingkatan_ke=='internasional') {
+            $point = 3;
+        }elseif ($request->tingkatan_ke=='nasional') {
+            $point = 2;
+        }else{
+            $point = 1;
+        }
+
        $update = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$request->r013Orasiilmiahnarasumber_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->nip,
+        'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
-        'point'             =>  null,
+        'point'             =>  $point,
        ]);
 
        if ($update) {

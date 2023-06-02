@@ -196,4 +196,28 @@ class R02PerkuliahanPraktikumController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function verifikasi(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        $$r02perkuliahanpraktikum->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
+        $$r02perkuliahanpraktikum->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }
