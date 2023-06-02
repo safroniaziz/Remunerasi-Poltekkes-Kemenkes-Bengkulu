@@ -73,12 +73,12 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($r018mendapathibahpkm->is_verified == 1)
-                                                    <form action="{{ route('r_01_perkuliahan_teori.tolak',[$r018mendapathibahpkm->id]) }}" method="POST">
+                                                    <form action="{{ route('r_018_mendapat_hibah_pkm.tolak',[$r018mendapathibahpkm->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('r_01_perkuliahan_teori.verifikasi',[$r018mendapathibahpkm->id]) }}" method="POST">
+                                                    <form action="{{ route('r_018_mendapat_hibah_pkm.verifikasi',[$r018mendapathibahpkm->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}
                                                         <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
                                                     </form>
