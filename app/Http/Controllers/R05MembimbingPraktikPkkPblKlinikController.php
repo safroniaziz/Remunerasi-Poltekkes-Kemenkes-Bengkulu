@@ -194,4 +194,28 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function verifikasi(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
+        $r05membimbingpraktikpkkpblklinik->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
+        $r05membimbingpraktikpkkpblklinik->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -141,8 +141,8 @@ class R27KeanggotaanSenatController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R027KeanggotaanSenat $r027keanggotaansenat){
-       $update = $r027keanggotaansenat->update([
+   public function bkdSetNonActive(R027KeanggotaanSenat $r27keanggotaansenat){
+       $update = $r27keanggotaansenat->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -160,8 +160,8 @@ class R27KeanggotaanSenatController extends Controller
        }
    }
 
-   public function bkdSetActive(R027KeanggotaanSenat $r027keanggotaansenat){
-       $update = $r027keanggotaansenat->update([
+   public function bkdSetActive(R027KeanggotaanSenat $r27keanggotaansenat){
+       $update = $r27keanggotaansenat->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -178,4 +178,28 @@ class R27KeanggotaanSenatController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R027KeanggotaanSenat $r27keanggotaansenat){
+        $r27keanggotaansenat->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R027KeanggotaanSenat $r27keanggotaansenat){
+        $r27keanggotaansenat->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

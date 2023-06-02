@@ -147,8 +147,8 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R025KepanitiaanKegiatanInstitusi $r025kepanitiaankegiataninstitusi){
-       $update = $r025kepanitiaankegiataninstitusi->update([
+   public function bkdSetNonActive(R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
+       $update = $r25panitiakegiataninstitusi->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -166,8 +166,8 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
        }
    }
 
-   public function bkdSetActive(R025KepanitiaanKegiatanInstitusi $r025kepanitiaankegiataninstitusi){
-       $update = $r025kepanitiaankegiataninstitusi->update([
+   public function bkdSetActive(R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
+       $update = $r25panitiakegiataninstitusi->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -184,4 +184,28 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+   public function verifikasi(R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
+        $r25panitiakegiataninstitusi->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
+        $r25panitiakegiataninstitusi->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

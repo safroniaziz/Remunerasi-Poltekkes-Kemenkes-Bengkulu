@@ -142,8 +142,8 @@ class R06MengujiUjianOscaController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R06MengujiUjianOsca $R06MengujiUjianOsca){
-        $update = $R06MengujiUjianOsca->update([
+    public function bkdSetNonActive(R06MengujiUjianOsca $r06mengujiujianosca){
+        $update = $r06mengujiujianosca->update([
             'is_bkd' =>  0,
         ]);
         if ($update) {
@@ -161,8 +161,8 @@ class R06MengujiUjianOscaController extends Controller
         }
     }
 
-    public function bkdSetActive(R06MengujiUjianOsca $R06MengujiUjianOsca){
-        $update = $R06MengujiUjianOsca->update([
+    public function bkdSetActive(R06MengujiUjianOsca $r06mengujiujianosca){
+        $update = $r06mengujiujianosca->update([
             'is_bkd' =>  1,
         ]);
         if ($update) {
@@ -178,5 +178,29 @@ class R06MengujiUjianOscaController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function verifikasi(R06MengujiUjianOsca $r06mengujiujianosca){
+        $r06mengujiujianosca->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R06MengujiUjianOsca $r06mengujiujianosca){
+        $r06mengujiujianosca->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

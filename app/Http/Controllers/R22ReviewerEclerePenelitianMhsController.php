@@ -25,13 +25,13 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $R022ReviewerEclerePenelitianMhs = R022ReviewerEclerePenelitianMhs::orderBy('created_at','desc')->get();
+        $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
            'periode'                            =>  $periode,
-           'R022ReviewerEclerePenelitianMhs'    =>  $R022ReviewerEclerePenelitianMhs,
+           'r022reviewerpclerepenelitianmhs'    =>  $r022reviewereclerepenelitianmhs,
        ]);
    }
 
@@ -138,8 +138,8 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R022ReviewerEclerePenelitianMhs $R022ReviewerEclerePenelitianMhs){
-       $update = $R022ReviewerEclerePenelitianMhs->update([
+   public function bkdSetNonActive(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
+       $update = $r22revieweclerepenelitimhs->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -157,8 +157,8 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
        }
    }
 
-   public function bkdSetActive(R022ReviewerEclerePenelitianMhs $R022ReviewerEclerePenelitianMhs){
-       $update = $R022ReviewerEclerePenelitianMhs->update([
+   public function bkdSetActive(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
+       $update = $r22revieweclerepenelitimhs->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -175,4 +175,28 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
+        $r22revieweclerepenelitimhs->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
+        $r22revieweclerepenelitimhs->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -209,4 +209,28 @@ class R11MengembangkanModulBerisbnController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+        $r011mengembangkanmodulberisbn->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+        $r011mengembangkanmodulberisbn->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -139,8 +139,8 @@ class R24TimAkredProdiDanDirektoratController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R024TimAkredProdiDanDirektorat $r024timakredprodirektorat){
-       $update = $r024timakredprodirektorat->update([
+   public function bkdSetNonActive(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
+       $update = $r24timakredprodirektorat->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -158,8 +158,8 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        }
    }
 
-   public function bkdSetActive(R024TimAkredProdiDanDirektorat $r024timakredprodirektorat){
-       $update = $r024timakredprodirektorat->update([
+   public function bkdSetActive(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
+       $update = $r24timakredprodirektorat->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -176,4 +176,28 @@ class R24TimAkredProdiDanDirektoratController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
+        $r24timakredprodirektorat->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
+        $r24timakredprodirektorat->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -42,7 +42,7 @@
                                         <th style="text-align:center; vertical-align:middle">Judul Protokol Penelitian</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-<th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
@@ -51,35 +51,48 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($R022ReviewerEclerePenelitianMhs as $index => $R022ReviewerEclerePenelitianMhs)
+                                    @foreach ($r022reviewereclerepenelitianmhs as $index => $r022reviewereclerepenelitianmhs)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->nip }}</td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->judul_protokol_penelitian }}</td>
+                                            <td class="text-center">{{ $r022reviewereclerepenelitianmhs->nip }}</td>
+                                            <td class="text-center">{{ $r022reviewereclerepenelitianmhs->pegawai->nama }}</td>
+                                            <td class="text-center">{{ $r022reviewereclerepenelitianmhs->judul_protokol_penelitian }}</td>
                                             <td class="text-center">
-                                                @if ($R022ReviewerEclerePenelitianMhs->is_bkd == 1)
+                                                @if ($r022reviewereclerepenelitianmhs->is_bkd == 1)
                                                     <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
                                                 @else
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($R022ReviewerEclerePenelitianMhs->is_verified == 1)
+                                                @if ($r022reviewereclerepenelitianmhs->is_verified == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i></small>
                                                 @else
-                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->point }}</td>
-                                           <td>
+                                            <td class="text-center">
+                                                @if ($r022reviewereclerepenelitianmhs->is_verified == 1)
+                                                    <form action="{{ route('r_022_reviewer_eclere_penelitian_mhs.tolak',[$r022reviewereclerepenelitianmhs->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('r_022_reviewer_eclere_penelitian_mhs.verifikasi',[$r022reviewereclerepenelitianmhs->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r022reviewereclerepenelitianmhs->point }}</td>
+                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a onclick="editr22revieweclerepenelitimhs({{ $R022ReviewerEclerePenelitianMhs->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a onclick="editr22revieweclerepenelitimhs({{ $r022reviewereclerepenelitianmhs->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_022_reviewer_eclere_penelitian_mhs.delete',[$R022ReviewerEclerePenelitianMhs->id]) }}" method="POST">
+                                                            <form action="{{ route('r_022_reviewer_eclere_penelitian_mhs.delete',[$r022reviewereclerepenelitianmhs->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

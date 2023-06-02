@@ -178,4 +178,28 @@ class R04MembimbingPendampinganUkomController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function verifikasi(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
+        $r04membimbingpendampinganukom->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
+        $r04membimbingpendampinganukom->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

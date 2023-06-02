@@ -211,4 +211,28 @@ class R14KaryaInovasiController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R014KaryaInovasi $r014karyainovasi){
+        $r014karyainovasi->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R014KaryaInovasi $r014karyainovasi){
+        $r014karyainovasi->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

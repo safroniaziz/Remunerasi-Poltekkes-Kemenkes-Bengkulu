@@ -307,7 +307,7 @@ Route::middleware('auth')->group(function(){
         Route::patch('/r_06_menguji_ujian_osca/update', 'update')->name('r_06_menguji_ujian_osca.update');
         Route::delete('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/delete', 'delete')->name('r_06_menguji_ujian_osca.delete');
         Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/verifikasi', 'verifikasi')->name('r_06_menguji_ujian_osca.verifikasi');
-        Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/tolak', 'tolak')->name('r_06_menguji_ujian_osca.tolak');
     });
     Route::controller(R07MembimbingSkripsiLtaLaProfesiController::class)->group(function () {
         Route::get('/r_07_membimbing_skripsi_lta_la_profesi', 'index')->name('r_07_membimbing_skripsi_lta_la_profesi');
@@ -442,8 +442,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/edit', 'edit')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.edit');
         Route::patch('/r_017_naskah_buku_bahasa_terbit_edar_nas/update', 'update')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.update');
         Route::delete('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/delete', 'delete')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/verifikasi', 'verifikasi')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.verifikasi');
+        Route::patch('/r_017_naskah_buku_bahasa_terbit_edar_nas/{r017naskahbukuterbitedarnas}/tolak', 'tolak')->name('r_017_naskah_buku_bahasa_terbit_edar_nas.tolak');
     });
     // End Of Pengaturan/Setting Rubrik Penelitian
     // Pengaturan/Setting Rubrik Pengabdian
@@ -456,8 +456,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/edit', 'edit')->name('r_018_mendapat_hibah_pkm.edit');
         Route::patch('/r_018_mendapat_hibah_pkm/update', 'update')->name('r_018_mendapat_hibah_pkm.update');
         Route::delete('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/delete', 'delete')->name('r_018_mendapat_hibah_pkm.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/verifikasi', 'verifikasi')->name('r_018_mendapat_hibah_pkm.verifikasi');
+        Route::patch('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/tolak', 'tolak')->name('r_018_mendapat_hibah_pkm.tolak');
     });
     Route::controller(R19LatihNyuluhNatarCeramahWargaController::class)->group(function () {
         Route::get('/r_019_latih_nyuluh_natar_ceramah_warga', 'index')->name('r_019_latih_nyuluh_natar_ceramah_warga');
@@ -468,8 +468,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/edit', 'edit')->name('r_019_latih_nyuluh_natar_ceramah_warga.edit');
         Route::patch('/r_019_latih_nyuluh_natar_ceramah_warga/update', 'update')->name('r_019_latih_nyuluh_natar_ceramah_warga.update');
         Route::delete('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/delete', 'delete')->name('r_019_latih_nyuluh_natar_ceramah_warga.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/verifikasi', 'verifikasi')->name('r_019_latih_nyuluh_natar_ceramah_warga.verifikasi');
+        Route::patch('/r_019_latih_nyuluh_natar_ceramah_warga/{r019latihnyuluhnatarceramahwarga}/tolak', 'tolak')->name('r_019_latih_nyuluh_natar_ceramah_warga.tolak');
     });
     // End Of Pengaturan/Setting Rubrik Pengabdian
     // Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
@@ -482,8 +482,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/edit', 'edit')->name('r_020_assessor_bkd_lkd.edit');
         Route::patch('/r_020_assessor_bkd_lkd/update', 'update')->name('r_020_assessor_bkd_lkd.update');
         Route::delete('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/delete', 'delete')->name('r_020_assessor_bkd_lkd.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/verifikasi', 'verifikasi')->name('r_020_assessor_bkd_lkd.verifikasi');
+        Route::patch('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/tolak', 'tolak')->name('r_020_assessor_bkd_lkd.tolak');
     });
     Route::controller(R21ReviewerEclerePenelitianDosenController::class)->group(function () {
         Route::get('/r_021_reviewer_eclere_penelitian_dosen', 'index')->name('r_021_reviewer_eclere_penelitian_dosen');
@@ -494,8 +494,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/edit', 'edit')->name('r_021_reviewer_eclere_penelitian_dosen.edit');
         Route::patch('/r_021_reviewer_eclere_penelitian_dosen/update', 'update')->name('r_021_reviewer_eclere_penelitian_dosen.update');
         Route::delete('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/delete', 'delete')->name('r_021_reviewer_eclere_penelitian_dosen.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/verifikasi', 'verifikasi')->name('r_021_reviewer_eclere_penelitian_dosen.verifikasi');
+        Route::patch('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/tolak', 'tolak')->name('r_021_reviewer_eclere_penelitian_dosen.tolak');
     });
     Route::controller(R22ReviewerEclerePenelitianMhsController::class)->group(function () {
         Route::get('/r_022_reviewer_eclere_penelitian_mhs', 'index')->name('r_022_reviewer_eclere_penelitian_mhs');
@@ -506,8 +506,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/edit', 'edit')->name('r_022_reviewer_eclere_penelitian_mhs.edit');
         Route::patch('/r_022_reviewer_eclere_penelitian_mhs/update', 'update')->name('r_022_reviewer_eclere_penelitian_mhs.update');
         Route::delete('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/delete', 'delete')->name('r_022_reviewer_eclere_penelitian_mhs.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/verifikasi', 'verifikasi')->name('r_022_reviewer_eclere_penelitian_mhs.verifikasi');
+        Route::patch('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/tolak', 'tolak')->name('r_022_reviewer_eclere_penelitian_mhs.tolak');
     });
     Route::controller(R23AuditorMutuAssessorAkredInternalController::class)->group(function () {
         Route::get('/r_023_auditor_mutu_assessor_akred_internal', 'index')->name('r_023_auditor_mutu_assessor_akred_internal');
@@ -518,8 +518,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/edit', 'edit')->name('r_023_auditor_mutu_assessor_akred_internal.edit');
         Route::patch('/r_023_auditor_mutu_assessor_akred_internal/update', 'update')->name('r_023_auditor_mutu_assessor_akred_internal.update');
         Route::delete('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/delete', 'delete')->name('r_023_auditor_mutu_assessor_akred_internal.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/verifikasi', 'verifikasi')->name('r_023_auditor_mutu_assessor_akred_internal.verifikasi');
+        Route::patch('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/tolak', 'tolak')->name('r_023_auditor_mutu_assessor_akred_internal.tolak');
     });
     Route::controller(R24TimAkredProdiDanDirektoratController::class)->group(function () {
         Route::get('/r_024_tim_akred_prodi_dan_direktorat', 'index')->name('r_024_tim_akred_prodi_dan_direktorat');
@@ -530,8 +530,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/edit', 'edit')->name('r_024_tim_akred_prodi_dan_direktorat.edit');
         Route::patch('/r_024_tim_akred_prodi_dan_direktorat/update', 'update')->name('r_024_tim_akred_prodi_dan_direktorat.update');
         Route::delete('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/delete', 'delete')->name('r_024_tim_akred_prodi_dan_direktorat.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/verifikasi', 'verifikasi')->name('r_024_tim_akred_prodi_dan_direktorat.verifikasi');
+        Route::patch('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/tolak', 'tolak')->name('r_024_tim_akred_prodi_dan_direktorat.tolak');
     });
     Route::controller(R25KepanitiaanKegiatanInstitusiController::class)->group(function () {
         Route::get('/r_025_kepanitiaan_kegiatan_institusi', 'index')->name('r_025_kepanitiaan_kegiatan_institusi');
@@ -542,8 +542,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/edit', 'edit')->name('r_025_kepanitiaan_kegiatan_institusi.edit');
         Route::patch('/r_025_kepanitiaan_kegiatan_institusi/update', 'update')->name('r_025_kepanitiaan_kegiatan_institusi.update');
         Route::delete('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/delete', 'delete')->name('r_025_kepanitiaan_kegiatan_institusi.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/verifikasi', 'verifikasi')->name('r_025_kepanitiaan_kegiatan_institusi.verifikasi');
+        Route::patch('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/tolak', 'tolak')->name('r_025_kepanitiaan_kegiatan_institusi.tolak');
     });
     Route::controller(R26PengelolaJurnalBuletinController::class)->group(function () {
         Route::get('/r_026_pengelola_jurnal_buletin', 'index')->name('r_026_pengelola_jurnal_buletin');
@@ -554,8 +554,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/edit', 'edit')->name('r_026_pengelola_jurnal_buletin.edit');
         Route::patch('/r_026_pengelola_jurnal_buletin/update', 'update')->name('r_026_pengelola_jurnal_buletin.update');
         Route::delete('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/delete', 'delete')->name('r_026_pengelola_jurnal_buletin.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/verifikasi', 'verifikasi')->name('r_026_pengelola_jurnal_buletin.verifikasi');
+        Route::patch('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/tolak', 'tolak')->name('r_026_pengelola_jurnal_buletin.tolak');
     });
     Route::controller(R27KeanggotaanSenatController::class)->group(function () {
         Route::get('/r_027_keanggotaan_senat', 'index')->name('r_027_keanggotaan_senat');
@@ -566,8 +566,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_027_keanggotaan_senat/{r27keanggotaansenat}/edit', 'edit')->name('r_027_keanggotaan_senat.edit');
         Route::patch('/r_027_keanggotaan_senat/update', 'update')->name('r_027_keanggotaan_senat.update');
         Route::delete('/r_027_keanggotaan_senat/{r27keanggotaansenat}/delete', 'delete')->name('r_027_keanggotaan_senat.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_027_keanggotaan_senat/{r27keanggotaansenat}/verifikasi', 'verifikasi')->name('r_027_keanggotaan_senat.verifikasi');
+        Route::patch('/r_027_keanggotaan_senat/{r27keanggotaansenat}/tolak', 'tolak')->name('r_027_keanggotaan_senat.tolak');
     });
     Route::controller(R28MelaksanakanPengembanganDiriController::class)->group(function () {
         Route::get('/r_028_melaksanakan_pengembangan_diri', 'index')->name('r_028_melaksanakan_pengembangan_diri');
@@ -578,8 +578,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/edit', 'edit')->name('r_028_melaksanakan_pengembangan_diri.edit');
         Route::patch('/r_028_melaksanakan_pengembangan_diri/update', 'update')->name('r_028_melaksanakan_pengembangan_diri.update');
         Route::delete('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/delete', 'delete')->name('r_028_melaksanakan_pengembangan_diri.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/verifikasi', 'verifikasi')->name('r_028_melaksanakan_pengembangan_diri.verifikasi');
+        Route::patch('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/tolak', 'tolak')->name('r_028_melaksanakan_pengembangan_diri.tolak');
     });
     Route::controller(R29MemperolehPenghargaanController::class)->group(function () {
         Route::get('/r_029_memperoleh_penghargaan', 'index')->name('r_029_memperoleh_penghargaan');
@@ -590,8 +590,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/edit', 'edit')->name('r_029_memperoleh_penghargaan.edit');
         Route::patch('/r_029_memperoleh_penghargaan/update', 'update')->name('r_029_memperoleh_penghargaan.update');
         Route::delete('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/delete', 'delete')->name('r_029_memperoleh_penghargaan.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/verifikasi', 'verifikasi')->name('r_029_memperoleh_penghargaan.verifikasi');
+        Route::patch('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/tolak', 'tolak')->name('r_029_memperoleh_penghargaan.tolak');
     });
     Route::controller(R30PengelolaKepkController::class)->group(function () {
         Route::get('/r_030_pengelola_kepk', 'index')->name('r_030_pengelola_kepk');
@@ -602,8 +602,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/r_030_pengelola_kepk/{r030pengelolakepk}/edit', 'edit')->name('r_030_pengelola_kepk.edit');
         Route::patch('/r_030_pengelola_kepk/update', 'update')->name('r_030_pengelola_kepk.update');
         Route::delete('/r_030_pengelola_kepk/{r030pengelolakepk}/delete', 'delete')->name('r_030_pengelola_kepk.delete');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('r_02_perkuliahan_praktikum.verifikasi');
-        Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('r_02_perkuliahan_praktikum.tolak');
+        Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/verifikasi', 'verifikasi')->name('r_030_pengelola_kepk.verifikasi');
+        Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/tolak', 'tolak')->name('r_030_pengelola_kepk.tolak');
     });
     // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
 });

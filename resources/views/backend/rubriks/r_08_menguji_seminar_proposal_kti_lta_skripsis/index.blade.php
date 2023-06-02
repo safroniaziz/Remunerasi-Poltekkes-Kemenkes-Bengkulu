@@ -70,7 +70,20 @@
                                                 @if ($r08mengujiseminarproposalktiltaskripsi->is_verified == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i></small>
                                                 @else
-                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r08mengujiseminarproposalktiltaskripsi->is_verified == 1)
+                                                    <form action="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi.tolak',[$r08mengujiseminarproposalktiltaskripsi->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi.verifikasi',[$r08mengujiseminarproposalktiltaskripsi->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
+                                                    </form>
                                                 @endif
                                             </td>
                                             <td class="text-center">{{ $r08mengujiseminarproposalktiltaskripsi->point }}</td>
