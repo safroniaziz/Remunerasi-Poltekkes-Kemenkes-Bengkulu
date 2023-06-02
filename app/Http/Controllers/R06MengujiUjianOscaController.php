@@ -142,43 +142,6 @@ class R06MengujiUjianOscaController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R06MengujiUjianOsca $r06mengujiujianosca){
-        $update = $r06mengujiujianosca->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_06_menguji_ujian_osca')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R06MengujiUjianOsca $r06mengujiujianosca){
-        $update = $r06mengujiujianosca->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_06_menguji_ujian_osca')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R06MengujiUjianOsca $r06mengujiujianosca){
         $r06mengujiujianosca->update([

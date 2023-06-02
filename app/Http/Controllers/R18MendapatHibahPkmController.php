@@ -141,43 +141,6 @@ class R18MendapatHibahPkmController extends Controller
         return redirect()->back()->with($notification);
     }
 }
-   public function bkdSetNonActive(R018MendapatHibahPkm $r018mendapathibahpkm){
-       $update = $r018mendapathibahpkm->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'mesage' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'succes'
-           );
-           return redirect()->route('r_018_mendapat_hibah_pkm')->with($notification);
-       }else {
-           $notification = array(
-               'mesage' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R018MendapatHibahPkm $r018mendapathibahpkm){
-       $update = $r018mendapathibahpkm->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'mesage' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'succes'
-           );
-           return redirect()->route('r_018_mendapat_hibah_pkm')->with($notification);
-       }else {
-           $notification = array(
-               'mesage' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R018MendapatHibahPkm $r018mendapathibahpkm){
         $r018mendapathibahpkm->update([

@@ -139,43 +139,6 @@ class R24TimAkredProdiDanDirektoratController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
-       $update = $r24timakredprodirektorat->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_024_tim_akred_prodi_dan_direktorat')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
-       $update = $r24timakredprodirektorat->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_024_tim_akred_prodi_dan_direktorat')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
         $r24timakredprodirektorat->update([

@@ -160,43 +160,6 @@ class R01PerkuliahanTeoriController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R01PerkuliahanTeori $r01perkuliahanteori){
-        $update = $r01perkuliahanteori->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R01PerkuliahanTeori $r01perkuliahanteori){
-        $update = $r01perkuliahanteori->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R01PerkuliahanTeori $r01perkuliahanteori){
         $r01perkuliahanteori->update([

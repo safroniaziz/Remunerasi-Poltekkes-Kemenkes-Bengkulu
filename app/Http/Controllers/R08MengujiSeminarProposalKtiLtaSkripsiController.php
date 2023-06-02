@@ -147,43 +147,6 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposalktiltaskripsi){
-        $update = $r08mengujiseminarproposalktiltaskripsi->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_08_menguji_seminar_proposal_kti_lta_skripsi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
-        $update = $r08mengujiseminarproposal->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_08_menguji_seminar_proposal_kti_lta_skripsi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
         $r08mengujiseminarproposal->update([

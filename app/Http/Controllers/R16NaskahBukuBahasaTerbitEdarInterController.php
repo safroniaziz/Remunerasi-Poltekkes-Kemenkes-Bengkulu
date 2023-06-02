@@ -145,43 +145,6 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
-       $update = $r016naskahbukuterbitedarinter->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_016_naskah_buku_bahasa_terbit_edar_inter')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
-       $update = $r016naskahbukuterbitedarinter->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_016_naskah_buku_bahasa_terbit_edar_inter')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
         $r016naskahbukuterbitedarinter->update([

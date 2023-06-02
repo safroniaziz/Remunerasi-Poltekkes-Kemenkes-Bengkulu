@@ -215,43 +215,6 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
-       $update = $r015karyailmiahpublikasi->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_015_menulis_karya_ilmiah_dipublikasikan')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
-       $update = $r015karyailmiahpublikasi->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_015_menulis_karya_ilmiah_dipublikasikan')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
         $r015karyailmiahpublikasi->update([

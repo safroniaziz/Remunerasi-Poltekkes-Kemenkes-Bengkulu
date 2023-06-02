@@ -141,43 +141,6 @@ class R20AssessorBkdLkdController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R020AssessorBkdLkd $r020assessorbkdlkd){
-       $update = $r020assessorbkdlkd->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_020_assessor_bkd_lkd')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R020AssessorBkdLkd $r020assessorbkdlkd){
-       $update = $r020assessorbkdlkd->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_020_assessor_bkd_lkd')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R020AssessorBkdLkd $r020assessorbkdlkd){
         $r020assessorbkdlkd->update([

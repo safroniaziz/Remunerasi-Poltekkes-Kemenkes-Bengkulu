@@ -138,43 +138,6 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
-       $update = $r22revieweclerepenelitimhs->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_022_reviewer_eclere_penelitian_mhs')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
-       $update = $r22revieweclerepenelitimhs->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_022_reviewer_eclere_penelitian_mhs')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
         $r22revieweclerepenelitimhs->update([

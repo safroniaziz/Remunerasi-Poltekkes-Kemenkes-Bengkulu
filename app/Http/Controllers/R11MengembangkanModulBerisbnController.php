@@ -172,43 +172,6 @@ class R11MengembangkanModulBerisbnController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
-       $update = $r011mengembangkanmodulberisbn->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_011_mengembangkan_modul_berisbn')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
-       $update = $r011mengembangkanmodulberisbn->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_011_mengembangkan_modul_berisbn')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
         $r011mengembangkanmodulberisbn->update([

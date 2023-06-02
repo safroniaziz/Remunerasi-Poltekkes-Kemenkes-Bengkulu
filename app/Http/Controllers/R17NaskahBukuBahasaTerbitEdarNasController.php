@@ -147,43 +147,6 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         return redirect()->back()->with($notification);
     }
 }
-   public function bkdSetNonActive(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
-       $update = $r017naskahbukuterbitedarnas->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'mesage' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'succes'
-           );
-           return redirect()->route('r_017_naskah_buku_bahasa_terbit_edar_nas')->with($notification);
-       }else {
-           $notification = array(
-               'mesage' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
-       $update = $r017naskahbukuterbitedarnas->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'mesage' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'succes'
-           );
-           return redirect()->route('r_017_naskah_buku_bahasa_terbit_edar_nas')->with($notification);
-       }else {
-           $notification = array(
-               'mesage' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
         $r017naskahbukuterbitedarnas->update([

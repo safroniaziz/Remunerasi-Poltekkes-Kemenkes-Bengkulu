@@ -141,43 +141,6 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
-        $update = $r03bimbingcapaiankompetensi->update([
-            'is_bkd' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_03_membimbing_pencapaian_kompetensi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function bkdSetActive(R03MembimbingPencapaianKompetensi $r03membimbingpencapaiankompetensi){
-        $update = $r03membimbingpencapaiankompetensi->update([
-            'is_bkd' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data bkd berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_03_membimbing_pencapaian_kompetensi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data bkd gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
 
     public function verifikasi(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
         $r03bimbingcapaiankompetensi->update([

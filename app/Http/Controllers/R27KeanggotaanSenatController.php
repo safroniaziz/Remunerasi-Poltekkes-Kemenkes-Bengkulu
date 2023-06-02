@@ -141,43 +141,6 @@ class R27KeanggotaanSenatController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R027KeanggotaanSenat $r27keanggotaansenat){
-       $update = $r27keanggotaansenat->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_027_keanggotaan_senat')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R027KeanggotaanSenat $r27keanggotaansenat){
-       $update = $r27keanggotaansenat->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_027_keanggotaan_senat')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R027KeanggotaanSenat $r27keanggotaansenat){
         $r27keanggotaansenat->update([

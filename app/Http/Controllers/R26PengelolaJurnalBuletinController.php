@@ -149,43 +149,6 @@ class R26PengelolaJurnalBuletinController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
-       $update = $r26pengelolajurnalbuletin->update([
-           'is_bkd' =>  0,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil dinonaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_026_pengelola_jurnal_buletin')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal dinonaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
-
-   public function bkdSetActive(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
-       $update = $r26pengelolajurnalbuletin->update([
-           'is_bkd' =>  1,
-       ]);
-       if ($update) {
-           $notification = array(
-               'message' => 'Yeay, data bkd berhasil diaktifkan',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_026_pengelola_jurnal_buletin')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, data bkd gagal diaktifkan',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
-   }
 
     public function verifikasi(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
         $r26pengelolajurnalbuletin->update([
