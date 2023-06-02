@@ -15,6 +15,9 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row">
+                        <div class="col-md-12" style="margin-bottom: 5px !important;">
+                            <a href="{{ route('generate_point_rubrik') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                        </div>
                         <div class="col-md-12">
                             <table class="table table-hover table-striped" style="width: 100%">
                                 <tr>
@@ -23,14 +26,36 @@
                                     <td>{{ $rekapPerRubrik->nama_rubrik }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Kode Rubrik</th>
+                                    <th>Jumlah Data Masuk</th>
                                     <th> : </th>
-                                    <td>{{ $rekapPerRubrik->kode_rubrik }}</td>
+                                    <td>{{ $rekapPerRubrik->jumlah_data_seluruh }} Data</td>
                                 </tr>
                                 <tr>
-                                    <th>Total Point</th>
+                                    <th>Jumlah Seluruh Point</th>
                                     <th> : </th>
-                                    <td>{{ $rekapPerRubrik->total_point }}</td>
+                                    <td>{{ $rekapPerRubrik->jumlah_point_seluruh }} Point</td>
+                                </tr>
+                                <tr>
+                                    <th>Jumlah Data Dihitung</th>
+                                    <th> : </th>
+                                    <td>{{ $rekapPerRubrik->jumlah_data_terhitung }} Data</td>
+                                </tr>
+                                <tr>
+                                    <th>Jumlah Data Tidak Dihitung</th>
+                                    <th> : </th>
+                                    <td>{{ $rekapPerRubrik->jumlah_data_tidak_terhitung }} Data</td>
+                                </tr>
+                                <tr>
+                                    <th>Jumlah Point Tidak Dihitung</th>
+                                    <th> : </th>
+                                    <td>{{ $rekapPerRubrik->jumlah_point_tidak_terhitung }} Point</td>
+                                </tr>
+                                <tr class="bg-green">
+                                    <th>Total Point Dihitung</th>
+                                    <th> : </th>
+                                    <td>
+                                        <b>{{ $rekapPerRubrik->total_point }} Point</b>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -45,6 +70,11 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <i class="fa fa-info-circle"></i>&nbsp;<b>Perhatian</b> : Data yang dimunculkan dibawah ini hanya data yang dihitung menjadi point dan rupiah
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <table class="table table-hover table-bordered table-striped" style="width: 100%" id="table">
                                 <thead class="bg-primary">

@@ -117,4 +117,34 @@ class GeneratePointRubrikController extends Controller
             'rekapPerRubrik'   =>  $rekapPerRubrik,
         ]);
     }
+
+    public function generatePointMassal(Request $request){
+        if (!empty($request->kode_rubriks)) {
+            for ($i=0; $i < count($request->kode_rubriks); $i++) {
+                $className = 'App\\Models\\' . Str::studly(Str::singular($request->kode_rubriks[$i]));
+                $total_point = $className::select(DB::raw('IFNULL(sum(point),0) as total_point'))
+                            ->where('periode_id',$this->periode->id)
+                            ->where('is_bkd',0)
+                            ->where('is_verified',1)
+                            ->first();
+                RekapPerRubrik::where('kode_rubrik',$request->kode_rubriks[$i])->update([
+                    'total_point'   =>  $total_point->total_point,
+                ]);
+            }
+
+            $notification = array(
+                'message' => 'Berhasil, proses pembaruan data point rubrik berhasil dilakukan',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('generate_point_rubrik')->with($notification);
+           
+        }
+        else{
+            $notification = array(
+                'message' => 'Ooopps, silahkan pilih beberapa rubrik terlebih dahulu',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('generate_point_rubrik')->with($notification);
+        }
+    }
 }
