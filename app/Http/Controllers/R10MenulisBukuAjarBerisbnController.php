@@ -207,4 +207,28 @@ class R10MenulisBukuAjarBerisbnController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+        $r010menulisbukuajarberisbn->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+        $r010menulisbukuajarberisbn->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

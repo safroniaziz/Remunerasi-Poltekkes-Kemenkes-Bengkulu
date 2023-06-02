@@ -43,7 +43,7 @@
                                         <th style="text-align:center; vertical-align:middle">ISBN</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-<th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
@@ -52,36 +52,49 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($R017NaskahBukuBahasaTerbitEdarNa as $index => $R017NaskahBukuBahasaTerbitEdarNa)
+                                    @foreach ($r017naskahbukubahasaterbitedarnas as $index => $r017naskahbukubahasaterbitedarnas)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td class="text-center">{{ $R017NaskahBukuBahasaTerbitEdarNa->nip }}</td>
-                                            <td class="text-center">{{ $R017NaskahBukuBahasaTerbitEdarNa->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $R017NaskahBukuBahasaTerbitEdarNa->judul_buku }}</td>
-                                            <td class="text-center">{{ $R017NaskahBukuBahasaTerbitEdarNa->isbn }}</td>
+                                            <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->nip }}</td>
+                                            <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->pegawai->nama }}</td>
+                                            <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->judul_buku }}</td>
+                                            <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->isbn }}</td>
                                             <td class="text-center">
-                                                @if ($R017NaskahBukuBahasaTerbitEdarNa->is_bkd == 1)
+                                                @if ($r017naskahbukubahasaterbitedarnas->is_bkd == 1)
                                                     <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
                                                 @else
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($R017NaskahBukuBahasaTerbitEdarNa->is_verified == 1)
+                                                @if ($r017naskahbukubahasaterbitedarnas->is_verified == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i></small>
                                                 @else
-                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $R017NaskahBukuBahasaTerbitEdarNa->point }}</td>
-                                           <td>
+                                            <td class="text-center">
+                                                @if ($r017naskahbukubahasaterbitedarnas->is_verified == 1)
+                                                    <form action="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas.tolak',[$r017naskahbukubahasaterbitedarnas->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas.verifikasi',[$r017naskahbukubahasaterbitedarnas->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->point }}</td>
+                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a onclick="editr017naskahbukuterbitedarnas({{ $R017NaskahBukuBahasaTerbitEdarNa->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a onclick="editr017naskahbukuterbitedarnas({{ $r017naskahbukubahasaterbitedarnas->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas.delete',[$R017NaskahBukuBahasaTerbitEdarNa->id]) }}" method="POST">
+                                                            <form action="{{ route('r_017_naskah_buku_bahasa_terbit_edar_nas.delete',[$r017naskahbukubahasaterbitedarnas->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

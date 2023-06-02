@@ -166,8 +166,8 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
     }
 
-    public function bkdSetActive(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposalktiltaskripsi){
-        $update = $r08mengujiseminarproposalktiltaskripsi->update([
+    public function bkdSetActive(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        $update = $r08mengujiseminarproposal->update([
             'is_bkd' =>  1,
         ]);
         if ($update) {
@@ -183,5 +183,29 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function verifikasi(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        $r08mengujiseminarproposal->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        $r08mengujiseminarproposal->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

@@ -21,29 +21,30 @@
                             <input type="text" class="form-control" id="judul_kegiatan" name="judul_kegiatan">
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Jabatan</label>
-                            <select name="jabatan" class="form-control" id="jabatan">
-                                <option disabled selected>-- pilih Jabatan --</option>
-                                <option value="ketua">Ketua</option>
-                                <option value="anggota">Anggota</option>
-                            </select>
+                        <div>
+                            <div class="form-group col-md-12" >
+                                <label for="nip" class="col-form-label">Jabatan</label>
+                                <select name="jabatan" class="form-control" id="jabatan">
+                                    <option disabled selected>-- pilih Jabatan --</option>
+                                    <option value="ketua">Ketua</option>
+                                    <option value="anggota">Anggota</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="exampleInputEmail1">Edisi Terbit</label>
+                                <input type="text" class="form-control" id="edisi_terbit" name="edisi_terbit">
+                            </div>
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Edisi Terbit</label>
-                            <input type="text" class="form-control" id="edisi_terbit" name="edisi_terbit">
+                            <label for="exampleInputEmail1">Rubrik BKD?</label>
+                            <select name="is_bkd" class="form-control" id="is_bkd">
+                                <option disabled selected>-- pilih --</option>
+                                <option value="0">Tidak</option>
+                                <option value="1">Ya</option>
+                            </select>
                         </div>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <label for="exampleInputEmail1">Rubrik BKD?</label>
-                        <select name="is_bkd" class="form-control" id="is_bkd">
-                            <option disabled selected>-- pilih --</option>
-                            <option value="0">Tidak</option>
-                            <option value="1">Ya</option>
-                        </select>
-                    </div>
 
                 </div>
                 <div class="modal-footer">

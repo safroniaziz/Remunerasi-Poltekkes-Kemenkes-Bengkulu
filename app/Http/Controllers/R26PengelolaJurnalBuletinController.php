@@ -149,8 +149,8 @@ class R26PengelolaJurnalBuletinController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R026PengelolaJurnalBuletin $r026pengelolajurnalbuletin){
-       $update = $r026pengelolajurnalbuletin->update([
+   public function bkdSetNonActive(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
+       $update = $r26pengelolajurnalbuletin->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -168,8 +168,8 @@ class R26PengelolaJurnalBuletinController extends Controller
        }
    }
 
-   public function bkdSetActive(R026PengelolaJurnalBuletin $r026pengelolajurnalbuletin){
-       $update = $r026pengelolajurnalbuletin->update([
+   public function bkdSetActive(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
+       $update = $r26pengelolajurnalbuletin->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -186,4 +186,28 @@ class R26PengelolaJurnalBuletinController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
+        $r26pengelolajurnalbuletin->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
+        $r26pengelolajurnalbuletin->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

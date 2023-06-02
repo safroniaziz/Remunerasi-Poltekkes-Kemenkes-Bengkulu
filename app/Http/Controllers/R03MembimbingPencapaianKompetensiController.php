@@ -141,8 +141,8 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-    public function bkdSetNonActive(R03MembimbingPencapaianKompetensi $r03membimbingpencapaiankompetensi){
-        $update = $r03membimbingpencapaiankompetensi->update([
+    public function bkdSetNonActive(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
+        $update = $r03bimbingcapaiankompetensi->update([
             'is_bkd' =>  0,
         ]);
         if ($update) {
@@ -177,5 +177,29 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function verifikasi(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
+        $r03bimbingcapaiankompetensi->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
+        $r03bimbingcapaiankompetensi->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

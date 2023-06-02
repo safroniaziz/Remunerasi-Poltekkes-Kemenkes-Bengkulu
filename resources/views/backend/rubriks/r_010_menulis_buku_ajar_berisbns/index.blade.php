@@ -45,7 +45,7 @@
                                         <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-<th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
@@ -74,11 +74,24 @@
                                                 @if ($r010menulisbukuajarberisbn->is_verified == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i></small>
                                                 @else
-                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r010menulisbukuajarberisbn->is_verified == 1)
+                                                    <form action="{{ route('r_010_menulis_buku_ajar_berisbn.tolak',[$r010menulisbukuajarberisbn->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('r_010_menulis_buku_ajar_berisbn.verifikasi',[$r010menulisbukuajarberisbn->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
+                                                    </form>
                                                 @endif
                                             </td>
                                             <td class="text-center">{{ $r010menulisbukuajarberisbn->point }}</td>
-                                           <td>
+                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>

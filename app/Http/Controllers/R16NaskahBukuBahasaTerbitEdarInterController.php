@@ -145,8 +145,8 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukubahasaterbitedarinter){
-       $update = $r016naskahbukubahasaterbitedarinter->update([
+   public function bkdSetNonActive(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+       $update = $r016naskahbukuterbitedarinter->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -164,8 +164,8 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
        }
    }
 
-   public function bkdSetActive(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukubahasaterbitedarinter){
-       $update = $r016naskahbukubahasaterbitedarinter->update([
+   public function bkdSetActive(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+       $update = $r016naskahbukuterbitedarinter->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -182,4 +182,28 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+        $r016naskahbukuterbitedarinter->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
+        $r016naskahbukuterbitedarinter->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

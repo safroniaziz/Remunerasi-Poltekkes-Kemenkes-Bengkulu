@@ -184,4 +184,28 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function verifikasi(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        $r07membimbingskripsiltalaprofesi->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
+        $r07membimbingskripsiltalaprofesi->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -206,4 +206,28 @@ class R12MembimbingPkmController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R012MembimbingPkm $r012membimbingpkm){
+        $r012membimbingpkm->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R012MembimbingPkm $r012membimbingpkm){
+        $r012membimbingpkm->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -198,7 +198,7 @@ class R02PerkuliahanPraktikumController extends Controller
     }
 
     public function verifikasi(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
-        $$r02perkuliahanpraktikum->update([
+        $r02perkuliahanpraktikum->update([
             'is_verified'   =>  1,
         ]);
 
@@ -210,7 +210,7 @@ class R02PerkuliahanPraktikumController extends Controller
     }
 
     public function tolak(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
-        $$r02perkuliahanpraktikum->update([
+        $r02perkuliahanpraktikum->update([
             'is_verified'   =>  0,
         ]);
 

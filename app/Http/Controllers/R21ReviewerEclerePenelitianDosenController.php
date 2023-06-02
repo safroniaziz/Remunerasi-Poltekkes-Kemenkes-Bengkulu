@@ -139,8 +139,8 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R021ReviewerEclerePenelitianDosen $r021reviewereclerepenelitiandosen){
-       $update = $r021reviewereclerepenelitiandosen->update([
+   public function bkdSetNonActive(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+       $update = $r21revieweclerepenelitidosen->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -158,8 +158,8 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
        }
    }
 
-   public function bkdSetActive(R021ReviewerEclerePenelitianDosen $r021reviewereclerepenelitiandosen){
-       $update = $r021reviewereclerepenelitiandosen->update([
+   public function bkdSetActive(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+       $update = $r21revieweclerepenelitidosen->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
@@ -176,4 +176,28 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
            return redirect()->back()->with($notification);
        }
    }
+
+    public function verifikasi(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+        $r21revieweclerepenelitidosen->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
+        $r21revieweclerepenelitidosen->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

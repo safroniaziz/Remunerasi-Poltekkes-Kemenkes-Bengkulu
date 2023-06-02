@@ -70,7 +70,20 @@
                                                 @if ($r016naskahbukubahasaterbitedarinter->is_verified == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i></small>
                                                 @else
-                                                    <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
+                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($r016naskahbukubahasaterbitedarinter->is_verified == 1)
+                                                    <form action="{{ route('r_016_naskah_buku_bahasa_terbit_edar_inter.tolak',[$r016naskahbukubahasaterbitedarinter->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('r_016_naskah_buku_bahasa_terbit_edar_inter.verifikasi',[$r016naskahbukubahasaterbitedarinter->id]) }}" method="POST">
+                                                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                                                        <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
+                                                    </form>
                                                 @endif
                                             </td>
                                             <td class="text-center">{{ $r016naskahbukubahasaterbitedarinter->point }}</td>
