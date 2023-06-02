@@ -196,4 +196,28 @@ class R01PerkuliahanTeoriController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function verifikasi(R01PerkuliahanTeori $r01perkuliahanteori){
+        $r01perkuliahanteori->update([
+            'is_verified'   =>  1,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function tolak(R01PerkuliahanTeori $r01perkuliahanteori){
+        $r01perkuliahanteori->update([
+            'is_verified'   =>  0,
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil, status verifikasi berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

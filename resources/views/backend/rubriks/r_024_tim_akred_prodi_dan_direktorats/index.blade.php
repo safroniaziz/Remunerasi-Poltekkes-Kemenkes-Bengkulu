@@ -41,7 +41,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul Kegiatan</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
-                                        <th style="text-align:center; vertical-align:middle">Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
+<th style="text-align:center; vertical-align:middle">Verifikasi</th>
                                         <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
@@ -58,9 +59,9 @@
                                             <td class="text-center">{{ $r024timakredprodirektorat->judul_kegiatan }}</td>
                                             <td class="text-center">
                                                 @if ($r024timakredprodirektorat->is_bkd == 1)
-                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>Ya</small>
+                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
                                                 @else
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>Tidak</small>
+                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
