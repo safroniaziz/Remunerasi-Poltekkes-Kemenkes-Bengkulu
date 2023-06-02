@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R017NaskahBukuBahasaTerbitEdarNas;
+use App\Models\R017NaskahBukuBahasaTerbitEdarNa;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
@@ -25,13 +25,13 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::orderBy('created_at','desc')->get();
+        $R017NaskahBukuBahasaTerbitEdarNa = R017NaskahBukuBahasaTerbitEdarNa::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
            'periode'                              =>  $periode,
-           'r017naskahbukubahasaterbitedarnas'    =>  $r017naskahbukubahasaterbitedarnas,
+           'R017NaskahBukuBahasaTerbitEdarNa'    =>  $R017NaskahBukuBahasaTerbitEdarNa,
        ]);
    }
 
@@ -59,7 +59,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $point = $this->nilai_ewmp->ewmp;
 
-       $simpan = R017NaskahBukuBahasaTerbitEdarNas::create([
+       $simpan = R017NaskahBukuBahasaTerbitEdarNa::create([
         'periode_id'        =>  $periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
@@ -78,14 +78,14 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas gagal disimpan']);
        }
    }
-   public function edit(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
+   public function edit(R017NaskahBukuBahasaTerbitEdarNa $r017naskahbukuterbitedarnas){
     if (!Gate::allows('edit-r017-naskah-buku-bahasa-terbit-edar-nas')) {
         abort(403);
     }
        return $r017naskahbukuterbitedarnas;
    }
 
-   public function update(Request $request, R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
+   public function update(Request $request, R017NaskahBukuBahasaTerbitEdarNa $r017naskahbukuterbitedarnas){
     if (!Gate::allows('update-r017-naskah-buku-bahasa-terbit-edar-nas')) {
         abort(403);
     }
@@ -109,7 +109,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $point = $this->nilai_ewmp->ewmp;
 
-       $update = R017NaskahBukuBahasaTerbitEdarNas::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->update([
+       $update = R017NaskahBukuBahasaTerbitEdarNa::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->update([
         'periode_id'        =>  $periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
@@ -128,7 +128,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas anda gagal diubah']);
        }
    }
-   public function delete(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
+   public function delete(R017NaskahBukuBahasaTerbitEdarNa $r017naskahbukuterbitedarnas){
     if (!Gate::allows('delete-r017-naskah-buku-bahasa-terbit-edar-nas')) {
         abort(403);
     }
@@ -147,8 +147,8 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         return redirect()->back()->with($notification);
     }
 }
-   public function bkdSetNonActive(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukubahasaterbitedarnas){
-       $update = $r017naskahbukubahasaterbitedarnas->update([
+   public function bkdSetNonActive(R017NaskahBukuBahasaTerbitEdarNa $R017NaskahBukuBahasaTerbitEdarNa){
+       $update = $R017NaskahBukuBahasaTerbitEdarNa->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -166,8 +166,8 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
        }
    }
 
-   public function bkdSetActive(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukubahasaterbitedarnas){
-       $update = $r017naskahbukubahasaterbitedarnas->update([
+   public function bkdSetActive(R017NaskahBukuBahasaTerbitEdarNa $R017NaskahBukuBahasaTerbitEdarNa){
+       $update = $R017NaskahBukuBahasaTerbitEdarNa->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {

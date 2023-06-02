@@ -97,7 +97,12 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('detail_isian_rubrik',[$dataRubrik->kode_rubrik]) }}" class="btn btn-info btn-flat btn-sm"><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
+                                                    @if ($statusRubrik->total_point != $dataRubrik->total_point)
+                                                        <a class="btn btn-info btn-flat btn-sm" disabled ><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
+                                                    @else
+                                                        <a href="{{ route('detail_isian_rubrik',[$dataRubrik->kode_rubrik]) }}" class="btn btn-info btn-flat btn-sm"><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
+                                                    @endif
+                                                    
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -13,6 +13,11 @@ class RekapPerRubrik extends Model
         'kode_rubrik',
         'nama_rubrik',
         'total_point',
+        'jumlah_data_seluruh',
+        'jumlah_point_seluruh',
+        'jumlah_data_terhitung',
+        'jumlah_data_tidak_terhitung',
+        'jumlah_point_tidak_terhitung',
     ];
 
     public function periode(){

@@ -6,10 +6,8 @@ use App\Models\R016NaskahBukuBahasaTerbitEdarInter;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 
 class R16NaskahBukuBahasaTerbitEdarInterController extends Controller

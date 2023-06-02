@@ -34,15 +34,29 @@ class GeneratePointRubrikController extends Controller
         $totalPoint = array();
         $riwayatPoint = array();
         for ($i=0; $i <count($rubriks) ; $i++) { 
-            $total_point = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as total_point'))
+            $total_point = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
                             ->where('periode_id',$this->periode->id)
                             ->where('is_bkd',0)
                             ->where('is_verified',1)
                             ->first();
+            $className = 'App\\Models\\' . Str::studly(Str::singular($rubriks[$i]['nama_tabel_rubrik']));
+            $tidak_terhitung = $className::select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))
+                                        ->where('periode_id',$this->periode->id)
+                                        ->where('is_bkd',1)
+                                        ->orWhere('is_verified',0)
+                                        ->first();
+
+            $jumlah_data_seluruh = $className::select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))->first();
             $totalPoint[] = array(
                 'periode_id'    =>  $this->periode->id,
                 'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
                 'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
+                'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
+                'jumlah_data_seluruh'   =>  $jumlah_data_seluruh->jumlah_data,
+                'jumlah_point_seluruh'   =>  $jumlah_data_seluruh->jumlah_point,
+                'jumlah_data_terhitung'   =>  $total_point->jumlah_data_terhitung,
+                'jumlah_data_tidak_terhitung'   =>  $tidak_terhitung->jumlah_data,
+                'jumlah_point_tidak_terhitung'   =>  $tidak_terhitung->jumlah_point,
                 'total_point'   =>  $total_point->total_point,
                 'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                 'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),

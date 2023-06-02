@@ -16,6 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('periode_id');
             $table->string('kode_rubrik');
             $table->string('nama_rubrik');
+            $table->integer('jumlah_data_seluruh');
+            $table->double('jumlah_point_seluruh');
+            $table->integer('jumlah_data_terhitung');
+            $table->integer('jumlah_data_tidak_terhitung');
+            $table->double('jumlah_point_tidak_terhitung');
             $table->double('total_point');
             $table->timestamps();
         });
