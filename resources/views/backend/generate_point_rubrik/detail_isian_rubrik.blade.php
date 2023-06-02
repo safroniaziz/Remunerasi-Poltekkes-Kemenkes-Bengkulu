@@ -88,12 +88,64 @@
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $detailIsianRubrik->nip }}</td>
                                             <td>{{ $detailIsianRubrik->pegawai->nama }}</td>
-                                            @if ($rekapPerRubrik->kode_rubrik == "r01_perkuliahan_teoris" || $rekapPerRubrik->kode_rubrik == "r02_perkuliahan_praktikums")
+                                            @if ($rekapPerRubrik->kode_rubrik == "r01_perkuliahan_teoris" || $rekapPerRubrik->kode_rubrik == "r02_perkuliahan_praktikums" || $rekapPerRubrik->kode_rubrik == "r05_membimbing_praktik_pkk_pbl_kliniks")
                                                 <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_sks }}</td>
                                                 <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_mahasiswa }}</td>
                                                 <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_tatap_muka }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r03_membimbing_pencapaian_kompetensis" || $rekapPerRubrik->kode_rubrik == "r04_membimbing_pendampingan_ukoms" || $rekapPerRubrik->kode_rubrik == "r06_menguji_ujian_oscas")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_mahasiswa }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r07_membimbing_skripsi_lta_la_profesis")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_mahasiswa }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->pembimbing_ke }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r08_menguji_seminar_proposal_kti_lta_skripsis" || $rekapPerRubrik->kode_rubrik == "r09_menguji_seminar_hasil_kti_lta_skripsis")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_mahasiswa }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jenis }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r010_menulis_buku_ajar_berisbns" || $rekapPerRubrik->kode_rubrik == "r011_mengembangkan_modul_berisbns")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->isbn }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->penulis_ke }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_penulis }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r012_membimbing_pkms")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->tingkat_pkm }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->juara_ke }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_pembimbing }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r013_orasi_ilmiah_narasumber_bidang_ilmus")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_kegiatan }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->tingkatan_ke }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r014_karya_inovasis" || $rekapPerRubrik->kode_rubrik == "r015_menulis_karya_ilmiah_dipublikasikans")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->penulis_ke }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jenis }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_penulis }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r016_naskah_buku_bahasa_terbit_edar_inters" || $rekapPerRubrik->kode_rubrik == "r017_naskah_buku_bahasa_terbit_edar_nas")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_buku }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->isbn }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r018_mendapat_hibah_pkms")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_hibah_pkm }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r019_latih_nyuluh_natar_ceramah_wargas")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_kegiatan }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jenis }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r020_assessor_bkd_lkds")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_dosen }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r021_reviewer_eclere_penelitian_dosens" || $rekapPerRubrik->kode_rubrik == "r022_reviewer_eclere_penelitian_mhs")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jumlah_protokol_penelitian }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r023_auditor_mutu_assessor_akred_internals" || $rekapPerRubrik->kode_rubrik == "r024_tim_akred_prodi_dan_direktorats")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_kegiatan }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r025_kepanitiaan_kegiatan_institusis")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_kegiatan }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jabatan }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r026_pengelola_jurnal_buletins")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_kegiatan }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jabatan }}</td>
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->edisi_terbit }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r027_keanggotaan_senats" || $rekapPerRubrik->kode_rubrik == "r030_pengelola_kepks")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jabatan }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r028_melaksanakan_pengembangan_diris")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->jenis_kegiatan }}</td>
+                                            @elseif ($rekapPerRubrik->kode_rubrik == "r029_memperoleh_penghargaans")
+                                                <td style=" text-align:center">{{ $detailIsianRubrik->judul_penghargaan }}</td>
                                             @endif
-                                            <td class="text-center" style="font-weight: bold;">{{ $detailIsianRubrik->point }}</td>
+                                                <td class="text-center" style="font-weight: bold;">{{ $detailIsianRubrik->point }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
