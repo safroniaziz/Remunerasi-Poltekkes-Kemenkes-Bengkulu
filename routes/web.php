@@ -223,7 +223,6 @@ Route::middleware('auth')->group(function(){
     });
     // End Of Pesan & Pengumuman Route
 
-
     // Pengaturan/Setting Route
     Route::controller(PeriodeController::class)->group(function () {
         Route::get('/manajemen_data_periode', 'index')->name('periode_penilaian');
