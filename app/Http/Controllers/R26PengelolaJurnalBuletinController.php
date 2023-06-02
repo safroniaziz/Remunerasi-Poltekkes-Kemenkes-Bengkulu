@@ -17,7 +17,8 @@ class R26PengelolaJurnalBuletinController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::orderBy('created_at','desc')->get();
+        $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$request->session()->get('nip_dosen'))
+                                                                 ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_026_pengelola_jurnal_buletins.index',[

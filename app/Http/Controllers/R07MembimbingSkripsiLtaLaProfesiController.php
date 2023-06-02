@@ -17,7 +17,8 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-         $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::orderBy('created_at','desc')->get();
+         $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::where('nip',$request->session()->get('nip_dosen'))
+                                                                            ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[

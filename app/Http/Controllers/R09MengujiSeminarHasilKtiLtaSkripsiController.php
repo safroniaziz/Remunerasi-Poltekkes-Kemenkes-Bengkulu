@@ -17,7 +17,8 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::orderBy('created_at','desc')->get();
+        $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
+                                                                                   ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_09_menguji_seminar_hasil_kti_lta_skripsis.index',[

@@ -25,7 +25,8 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::orderBy('created_at','desc')->get();
+        $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$request->session()->get('nip_dosen'))
+                                                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[

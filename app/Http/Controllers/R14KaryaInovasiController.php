@@ -17,7 +17,8 @@ class R14KaryaInovasiController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r014karyainovasis = R014KaryaInovasi::orderBy('created_at','desc')->get();
+        $r014karyainovasis = R014KaryaInovasi::where('nip',$request->session()->get('nip_dosen'))
+                                             ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_014_karya_inovasis.index',[

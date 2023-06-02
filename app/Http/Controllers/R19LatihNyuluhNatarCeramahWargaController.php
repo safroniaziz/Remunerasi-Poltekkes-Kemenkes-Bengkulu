@@ -17,7 +17,8 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::orderBy('created_at','desc')->get();
+        $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::where('nip',$request->session()->get('nip_dosen'))
+                                                                             ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[

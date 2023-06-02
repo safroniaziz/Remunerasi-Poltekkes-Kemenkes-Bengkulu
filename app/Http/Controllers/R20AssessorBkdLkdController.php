@@ -25,7 +25,8 @@ class R20AssessorBkdLkdController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r020assessorbkdlkds = R020AssessorBkdLkd::orderBy('created_at','desc')->get();
+        $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$request->session()->get('nip_dosen'))
+                                                 ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_020_assessor_bkd_lkds.index',[

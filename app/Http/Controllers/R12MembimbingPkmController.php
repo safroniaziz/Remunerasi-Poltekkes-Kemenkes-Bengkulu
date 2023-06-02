@@ -17,7 +17,8 @@ class R12MembimbingPkmController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r012membimbingpkms = R012MembimbingPkm::orderBy('created_at','desc')->get();
+        $r012membimbingpkms = R012MembimbingPkm::where('nip',$request->session()->get('nip_dosen'))
+                                               ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_012_membimbing_pkms.index',[

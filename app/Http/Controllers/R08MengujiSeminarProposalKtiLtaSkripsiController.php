@@ -17,7 +17,8 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-         $r08mengujiseminarproposalktiltaskripsis = R08MengujiSeminarProposalKtiLtaSkripsi::orderBy('created_at','desc')->get();
+         $r08mengujiseminarproposalktiltaskripsis = R08MengujiSeminarProposalKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
+                                                                                          ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[

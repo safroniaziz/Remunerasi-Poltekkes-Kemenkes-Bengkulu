@@ -17,7 +17,8 @@ class R30PengelolaKepkController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r030pengelolakepks = R030PengelolaKepk::orderBy('created_at','desc')->get();
+        $r030pengelolakepks = R030PengelolaKepk::where('nip',$request->session()->get('nip_dosen'))
+                                               ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_030_pengelola_kepks.index',[

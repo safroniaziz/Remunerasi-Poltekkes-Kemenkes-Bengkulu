@@ -25,7 +25,8 @@ class R24TimAkredProdiDanDirektoratController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::orderBy('created_at','desc')->get();
+        $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$request->session()->get('nip_dosen'))
+                                                                    ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[

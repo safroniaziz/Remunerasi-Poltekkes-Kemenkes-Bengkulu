@@ -25,7 +25,8 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-         $r05membimbingpraktikpkkpblkliniks = R05MembimbingPraktikPkkPblKlinik::orderBy('created_at','desc')->get();
+         $r05membimbingpraktikpkkpblkliniks = R05MembimbingPraktikPkkPblKlinik::where('nip',$request->session()->get('nip_dosen'))
+                                                                              ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[

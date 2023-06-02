@@ -25,7 +25,8 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r021reviewereclerepenelitiandosens = R021ReviewerEclerePenelitianDosen::orderBy('created_at','desc')->get();
+        $r021reviewereclerepenelitiandosens = R021ReviewerEclerePenelitianDosen::where('nip',$request->session()->get('nip_dosen'))
+                                                                               ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_021_reviewer_eclere_penelitian_dosens.index',[
