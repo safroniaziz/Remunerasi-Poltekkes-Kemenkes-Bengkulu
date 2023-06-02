@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\R022ReviewerEclerePenelitianMh;
+use App\Models\R022ReviewerEclerePenelitianMhs;
 
 
 class R022Seeder extends Seeder

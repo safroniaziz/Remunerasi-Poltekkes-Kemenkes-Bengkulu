@@ -51,35 +51,35 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($R022ReviewerEclerePenelitianMh as $index => $R022ReviewerEclerePenelitianMh)
+                                    @foreach ($R022ReviewerEclerePenelitianMhs as $index => $R022ReviewerEclerePenelitianMhs)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMh->nip }}</td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMh->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMh->judul_protokol_penelitian }}</td>
+                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->nip }}</td>
+                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->pegawai->nama }}</td>
+                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->judul_protokol_penelitian }}</td>
                                             <td class="text-center">
-                                                @if ($R022ReviewerEclerePenelitianMh->is_bkd == 1)
+                                                @if ($R022ReviewerEclerePenelitianMhs->is_bkd == 1)
                                                     <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
                                                 @else
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($R022ReviewerEclerePenelitianMh->is_verified == 1)
+                                                @if ($R022ReviewerEclerePenelitianMhs->is_verified == 1)
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i></small>
                                                 @else
                                                     <small class="label label-warning"><i class="fa fa-clock-o"></i></small>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMh->point }}</td>
+                                            <td class="text-center">{{ $R022ReviewerEclerePenelitianMhs->point }}</td>
                                            <td>
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a onclick="editr22revieweclerepenelitimhs({{ $R022ReviewerEclerePenelitianMh->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a onclick="editr22revieweclerepenelitimhs({{ $R022ReviewerEclerePenelitianMhs->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_022_reviewer_eclere_penelitian_mhs.delete',[$R022ReviewerEclerePenelitianMh->id]) }}" method="POST">
+                                                            <form action="{{ route('r_022_reviewer_eclere_penelitian_mhs.delete',[$R022ReviewerEclerePenelitianMhs->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

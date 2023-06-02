@@ -39,14 +39,13 @@ class GeneratePointRubrikController extends Controller
                             ->where('is_bkd',0)
                             ->where('is_verified',1)
                             ->first();
-            $className = 'App\\Models\\' . Str::studly(Str::singular($rubriks[$i]['nama_tabel_rubrik']));
-            $tidak_terhitung = $className::select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))
+            $tidak_terhitung = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))
                                         ->where('periode_id',$this->periode->id)
                                         ->where('is_bkd',1)
                                         ->orWhere('is_verified',0)
                                         ->first();
 
-            $jumlah_data_seluruh = $className::select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))->first();
+            $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('sum(point) as jumlah_point'),DB::raw('count(id) as jumlah_data'))->first();
             $totalPoint[] = array(
                 'periode_id'    =>  $this->periode->id,
                 'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],

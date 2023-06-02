@@ -25,13 +25,13 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::orderBy('created_at','desc')->get();
+        $R022ReviewerEclerePenelitianMhs = R022ReviewerEclerePenelitianMhs::orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
            'periode'                            =>  $periode,
-           'r022reviewereclerepenelitianmhs'    =>  $r022reviewereclerepenelitianmhs,
+           'R022ReviewerEclerePenelitianMhs'    =>  $R022ReviewerEclerePenelitianMhs,
        ]);
    }
 
@@ -138,8 +138,8 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
            return redirect()->back()->with($notification);
        }
    }
-   public function bkdSetNonActive(R022ReviewerEclerePenelitianMhs $r022reviewereclerepenelitianmhs){
-       $update = $r022reviewereclerepenelitianmhs->update([
+   public function bkdSetNonActive(R022ReviewerEclerePenelitianMhs $R022ReviewerEclerePenelitianMhs){
+       $update = $R022ReviewerEclerePenelitianMhs->update([
            'is_bkd' =>  0,
        ]);
        if ($update) {
@@ -157,8 +157,8 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
        }
    }
 
-   public function bkdSetActive(R022ReviewerEclerePenelitianMhs $r022reviewereclerepenelitianmhs){
-       $update = $r022reviewereclerepenelitianmhs->update([
+   public function bkdSetActive(R022ReviewerEclerePenelitianMhs $R022ReviewerEclerePenelitianMhs){
+       $update = $R022ReviewerEclerePenelitianMhs->update([
            'is_bkd' =>  1,
        ]);
        if ($update) {
