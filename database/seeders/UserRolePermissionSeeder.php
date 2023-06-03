@@ -62,7 +62,11 @@ class UserRolePermissionSeeder extends Seeder
 
             $role_verifikator = Role::create(['name'  =>  'verifikator']);
 
-
+            $permission = Permission::create(['name'  =>  'read-user']);
+            $permission = Permission::create(['name'  =>  'store-user']);
+            $permission = Permission::create(['name'  =>  'edit-user']);
+            $permission = Permission::create(['name'  =>  'update-user']);
+            $permission = Permission::create(['name'  =>  'delete-user']);
 
             $permission = Permission::create(['name'  =>  'read-role']);
             $permission = Permission::create(['name'  =>  'store-role']);
@@ -726,6 +730,12 @@ class UserRolePermissionSeeder extends Seeder
             $role_verifikator->givePermissionTo('edit-r030-pengelola-kepk');
             $role_verifikator->givePermissionTo('update-r030-pengelola-kepk');
             $role_verifikator->givePermissionTo('delete-r030-pengelola-kepk');
+
+            $role_administrator->givePermissionTo('read-user');
+            $role_administrator->givePermissionTo('store-user');
+            $role_administrator->givePermissionTo('edit-user');
+            $role_administrator->givePermissionTo('update-user');
+            $role_administrator->givePermissionTo('delete-user');
 
             $role_administrator->givePermissionTo('read-role');
             $role_administrator->givePermissionTo('store-role');

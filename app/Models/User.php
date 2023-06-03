@@ -24,6 +24,7 @@ class User extends Authenticatable
         'level_jurusan',
         'email',
         'password',
+        'is_active',
     ];
 
     /**
