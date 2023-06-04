@@ -132,6 +132,15 @@
     </a>
 </li>
 
+@can('read-user')
+<li class="{{ set_active(['manajemen_data_user']) }}">
+    <a href="{{ route('manajemen_data_user') }}">
+        <i class="fa fa-clock-o"></i>
+        <span>Data User</span>
+    </a>
+</li>
+@endcan
+
 @can('read-r01-perkuliahan-teori')
 <li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN REGULER</li>
 <li class="{{ set_active('r_01_perkuliahan_teori') }}">

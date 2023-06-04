@@ -17,7 +17,8 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::orderBy('created_at','desc')->get();
+        $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::where('nip',$request->session()->get('nip_dosen'))
+                                                                                   ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[

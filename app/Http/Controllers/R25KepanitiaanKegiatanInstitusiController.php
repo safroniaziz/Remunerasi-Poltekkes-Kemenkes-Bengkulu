@@ -17,7 +17,8 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::orderBy('created_at','desc')->get();
+        $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::where('nip',$request->session()->get('nip_dosen'))
+                                                                             ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[

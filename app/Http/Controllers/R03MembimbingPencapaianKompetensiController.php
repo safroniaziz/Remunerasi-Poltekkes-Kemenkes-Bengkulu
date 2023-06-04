@@ -25,7 +25,8 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-         $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::orderBy('created_at','desc')->get();
+         $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$request->session()->get('nip_dosen'))
+                                                                                ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[

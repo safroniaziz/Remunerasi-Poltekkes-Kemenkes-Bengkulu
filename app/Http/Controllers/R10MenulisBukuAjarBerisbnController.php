@@ -25,7 +25,8 @@ class R10MenulisBukuAjarBerisbnController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r010menulisbukuajarberisbns = R010MenulisBukuAjarBerisbn::orderBy('created_at','desc')->get();
+        $r010menulisbukuajarberisbns = R010MenulisBukuAjarBerisbn::where('nip',$request->session()->get('nip_dosen'))
+                                                                 ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_010_menulis_buku_ajar_berisbns.index',[

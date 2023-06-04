@@ -25,7 +25,8 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::orderBy('created_at','desc')->get();
+        $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::where('nip',$request->session()->get('nip_dosen'))
+                                                                                     ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[

@@ -26,7 +26,8 @@ class R02PerkuliahanPraktikumController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-         $r02perkuliahanpraktikums = r02perkuliahanpraktikum::orderBy('created_at','desc')->get();
+         $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$request->session()->get('nip_dosen'))
+                                                            ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[

@@ -17,7 +17,8 @@ class R29MemperolehPenghargaanController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r029memperolehpenghargaans = R029MemperolehPenghargaan::orderBy('created_at','desc')->get();
+        $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$request->session()->get('nip_dosen'))
+                                                               ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_029_memperoleh_penghargaans.index',[

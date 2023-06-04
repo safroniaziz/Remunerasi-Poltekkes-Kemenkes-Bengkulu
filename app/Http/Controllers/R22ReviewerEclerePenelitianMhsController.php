@@ -25,7 +25,8 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::orderBy('created_at','desc')->get();
+        $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::where('nip',$request->session()->get('nip_dosen'))
+                                                                          ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[

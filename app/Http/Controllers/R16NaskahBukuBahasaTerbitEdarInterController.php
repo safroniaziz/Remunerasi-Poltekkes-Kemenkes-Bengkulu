@@ -23,7 +23,8 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
             abort(403);
         }
         $pegawais = Pegawai::all();
-        $r016naskahbukubahasaterbitedarinters = R016NaskahBukuBahasaTerbitEdarInter::orderBy('created_at','desc')->get();
+        $r016naskahbukubahasaterbitedarinters = R016NaskahBukuBahasaTerbitEdarInter::where('nip',$request->session()->get('nip_dosen'))
+                                                                                   ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/rubriks/r_016_naskah_buku_bahasa_terbit_edar_inters.index',[
