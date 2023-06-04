@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
+use App\Models\RekapPerDosen;
 use Illuminate\Support\Str;
 use App\Models\RiwayatPoint;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class GeneratePointRubrikController extends Controller
 
     public function index(){
         $dataRubriks = RekapPerRubrik::with(['periode'])->where('periode_id',$this->periode->id)->get();
+        activity()->log('Mengakses halaman generate point rubrik');
         return view('backend/generate_point_rubrik.index',[
             'dataRubriks'   =>  $dataRubriks,
             'periode'       =>  $this->periode,
@@ -33,7 +35,6 @@ class GeneratePointRubrikController extends Controller
         $dosens = Pegawai::select('nip')->get();
         $totalPoint = array();
         $riwayatPoint = array();
-        $rekapPerDosen = array();
         for ($i=0; $i <count($rubriks) ; $i++) { 
             $total_point = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
                             ->where('periode_id',$this->periode->id)
@@ -77,18 +78,23 @@ class GeneratePointRubrikController extends Controller
                     'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                     'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                 );
-
-                $total_point     =  array_sum(array_column($riwayatPoint, 'total_point'));
-                $rekapPerDosen[] = array(
-                    'nip'           =>  $dosens[$j]['nip'],
-                    'periode_id'    =>  $this->periode->id,
-                    'total_point_dosen' =>  $total_point,
-                );
             }
         }
+        
         RekapPerRubrik::insert($totalPoint);
-        // RiwayatPoint::insert($riwayatPoint);
-
+        $riwayat_point = RiwayatPoint::insert($riwayatPoint);
+        $rekapPerDosen = array();
+        for ($k=0; $k <count($dosens) ; $k++) { 
+            $total_point = RiwayatPoint::select(DB::raw('sum(point) as total_point'))->where('nip',$dosens[$k]['nip'])->first();
+            $rekapPerDosen[] = array(
+                'nip'           =>  $dosens[$k]['nip'],
+                'periode_id'    =>  $this->periode->id,
+                'total_point_dosen'   =>  $total_point->total_point,
+                'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+                'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+            );
+        }
+        RekapPerDosen::insert($rekapPerDosen);
         $success = array(
             'message' => 'Berhasil, Generate Point Rubrik Berhasil Dilakukan',
             'alert-type' => 'success'

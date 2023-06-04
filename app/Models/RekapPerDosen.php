@@ -11,6 +11,7 @@ class RekapPerDosen extends Model
 
     protected $fillable = [
         'nip',
-        'total_point',
+        'periode_id',
+        'total_point_dosen',
     ];
 }

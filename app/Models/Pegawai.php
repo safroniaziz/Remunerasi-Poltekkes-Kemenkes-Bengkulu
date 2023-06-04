@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -34,6 +35,8 @@ class Pegawai extends Model
         'is_active',
     ];
 
+    protected $appends = ['total_point'];
+
     public function jabatanFungsionals(){
         return $this->hasMany(jabatanFungsional::class,'nip');
     }
@@ -51,6 +54,10 @@ class Pegawai extends Model
     }
     public function riwayatPoints(){
         return $this->hasMany(RiwayatPoint::class,'nip');
+    }
+
+    public function getTotalPointAttribute(){
+        return $this->riwayatPoints()->sum('point');
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('rekap_per_dosens', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('nip')->reference('id')->on('pegawais');
-            $table->unsignedBigInteger('periode_id')->reference('id')->on('periodes');
-            $table->double('total_point_dosen');
+            $table->string('nip')->reference('nip')->on('pegawais');
+            $table->string('periode_id')->reference('id')->on('periodes');
+            $table->double('total_point');
             $table->timestamps();
         });
     }

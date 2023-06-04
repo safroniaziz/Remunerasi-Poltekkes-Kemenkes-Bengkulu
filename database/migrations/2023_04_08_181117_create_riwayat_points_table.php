@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('riwayat_points', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rekap_per_dosen_id')->reference('id')->on('rekap_per_dosens');
             $table->unsignedBigInteger('periode_id');
             $table->string('nama_rubrik');
             $table->string('nip',18);
