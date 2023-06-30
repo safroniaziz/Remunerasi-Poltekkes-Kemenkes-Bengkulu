@@ -63,6 +63,24 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/api', function () {
+    require_once(base_path('api/loader.php'));
+    $test = 'mahasiswa';
+    $action = str_replace('~','-',$test);
+echo '<div style="float:right;width:73%;">';
+if ($test!='' && file_exists('sample/'.$action.'.php')) {
+	include_once 'sample/'.$action.'.php';
+
+	echo '<textarea style="width:100%;height:100px;">';
+	echo $response;
+	echo '</textarea>';
+	echo '<hr />';
+	echo '<pre>';
+	print_r(json_decode($response,true));
+}
+echo '</div>';
+});
+
 Route::middleware('auth')->group(function(){
     Route::get('/home', function () {
         activity()->log('Look mum, I logged something');
