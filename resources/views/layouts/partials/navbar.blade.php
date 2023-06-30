@@ -51,10 +51,8 @@
     <!-- Control Sidebar Toggle Button -->
     <li style="background:#dc3545;">
       @if (isset($_SESSION['nama']))
-        <a data-toggle="control-sidebar" href="{{ route('logoutDosen') }}"
-            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-            <i class="fa fa-power-off"></i>&nbsp; {{ __('logoutDosen') }}
+        <a href="{{ route('logoutDosen') }}">
+            <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
         </a>
       @else
         <a data-toggle="control-sidebar" href="{{ route('logout') }}"

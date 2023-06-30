@@ -538,10 +538,8 @@
 
 <li style="padding-left:2px;">
     @if (isset($_SESSION['nama']))
-        <a class="dropdown-item" href="{{ route('logoutDosen') }}"
-            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-            <i class="fa fa-power-off text-danger"></i>{{__('logoutDosen') }}
+        <a href="{{ route('logoutDosen') }}">
+            <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
         </a>
     @else
         <a class="dropdown-item" href="{{ route('logout') }}"
