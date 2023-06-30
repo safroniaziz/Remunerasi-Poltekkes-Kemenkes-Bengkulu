@@ -65,9 +65,9 @@ Route::get('/', function () {
 
 Route::get('/api', function () {
     require_once(app_path('Helpers/api/loader.php'));
-    $test = 'prodi';
+    $test = 'dosen';
     $action = str_replace('~','-',$test);
-    if ($test!='' && file_exists('sample/'.$action.'.php')) {
+    if ($test!='' && file_exists(app_path('Helpers/api/sample/' . $action . '.php'))) {
         require_once(app_path('Helpers/api/sample/'.$action.'.php'));
         echo '<textarea style="width:100%;height:100px;">';
         echo $response;
