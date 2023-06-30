@@ -16,6 +16,8 @@
 	'bootstrap':true,	// optional if you have bootstrap fill false
 	// 'url_callback':'https://poltekkes.risetsetiawan.org/app/Helpers/api/oAuth2SiakadCallback.php',
 	'url_callback':'https://poltekkes.risetsetiawan.org/public/callback',
-}
+    }
+
+    alert(oAuth2Siakad);
 </script>
 <script src="https://siakad.poltekkesbengkulu.ac.id/application/js/oAuth2/"></script>
