@@ -7,8 +7,8 @@ if (!defined('loader_api_siakad')) {
 	error_reporting(E_ALL);
 	ini_set('display_errors',1);
 
-	include_once dirname(__FILE__).'/ApiEnc.class.php';
-	include_once dirname(__FILE__).'/curl.api.php';
-	include_once dirname(__FILE__).'/config.php';
+	require_once(app_path('Helpers/api/ApiEnc.class.php'));
+	require_once(app_path('Helpers/api/curl.api.php'));
+	require_once(app_path('Helpers/api/config.php'));
 }
 ?>

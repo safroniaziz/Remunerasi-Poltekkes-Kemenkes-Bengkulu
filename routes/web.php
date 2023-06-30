@@ -64,11 +64,11 @@ Route::get('/', function () {
 });
 
 Route::get('/api', function () {
-    require_once(base_path('api/loader.php'));
+    require_once(app_path('Helpers/api/loader.php'));
     $test = 'prodi';
     $action = str_replace('~','-',$test);
     if ($test!='' && file_exists('sample/'.$action.'.php')) {
-        require_once(base_path('api/sample/'.$action.'.php'));
+        require_once(app_path('api/sample/'.$action.'.php'));
         echo '<textarea style="width:100%;height:100px;">';
         echo $response;
         echo '</textarea>';
