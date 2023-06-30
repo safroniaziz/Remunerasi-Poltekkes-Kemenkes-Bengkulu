@@ -64,6 +64,11 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('home');
 
+Route::get('/logoutDosen',function(){
+    session_destroy();
+    return redirect()->route('home');
+})->name('logoutDosen');
+
 // Route::middleware('auth')->group(function(){
     Route::middleware(['isDosen'])->get('/home', function () {
         activity()->log('Look mum, I logged something');

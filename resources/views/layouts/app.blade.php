@@ -52,7 +52,7 @@
             </div>
             <div class="pull-left info" style="padding: 2px 5px 5px 15px;">
               <p>Login Administrator</p>
-              <a href="#"><i class="fa fa-user" style="text-transform: capitalize"></i>
+              <a href="#" style="text-transform: capitalize"><i class="fa fa-user"></i>
                 @yield('user-login2')
               </a>
             </div>

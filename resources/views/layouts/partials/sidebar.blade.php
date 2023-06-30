@@ -537,12 +537,21 @@
 @endcan
 
 <li style="padding-left:2px;">
-    <a class="dropdown-item" href="{{ route('logout') }}"
-        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-        <i class="fa fa-power-off text-danger"></i>{{__('Logout') }}
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+    @if (isset($_SESSION['nama']))
+        <a class="dropdown-item" href="{{ route('logoutDosen') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fa fa-power-off text-danger"></i>{{__('logoutDosen') }}
+        </a>
+    @else
+        <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fa fa-power-off text-danger"></i>{{__('Logout') }}
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    @endif
+    
 </li>

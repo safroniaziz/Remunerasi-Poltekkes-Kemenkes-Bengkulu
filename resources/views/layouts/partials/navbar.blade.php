@@ -50,14 +50,23 @@
     </li>
     <!-- Control Sidebar Toggle Button -->
     <li style="background:#dc3545;">
-      <a data-toggle="control-sidebar" href="{{ route('logout') }}"
-          onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-          <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
-      </a>
-      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-      </form>
+      @if (isset($_SESSION['nama']))
+        <a data-toggle="control-sidebar" href="{{ route('logoutDosen') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fa fa-power-off"></i>&nbsp; {{ __('logoutDosen') }}
+        </a>
+      @else
+        <a data-toggle="control-sidebar" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+      @endif
+      
     </li>
   </ul>
 </div>
