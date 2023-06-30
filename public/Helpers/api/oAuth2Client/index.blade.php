@@ -18,8 +18,14 @@
 	'url_callback':'https://poltekkes.risetsetiawan.org/public/callback',
     }
 
-    var urlCallback = oAuth2Siakad.url_callback;
-    console.log(urlCallback);
+    fetch(oAuth2Siakad.url_callback)
+  .then(response => response.text())
+  .then(data => {
+    console.log(data); // Output: berhasil
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 </script>
 <script src="https://siakad.poltekkesbengkulu.ac.id/application/js/oAuth2/"></script>
