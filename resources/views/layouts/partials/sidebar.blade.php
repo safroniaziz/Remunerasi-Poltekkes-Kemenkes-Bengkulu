@@ -539,7 +539,7 @@
 <li style="padding-left:2px;">
     @if (isset($_SESSION['nama']))
         <a href="{{ route('logoutDosen') }}">
-            <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
+            <i class="fa fa-power-off text-danger"></i>&nbsp; {{ __('Logout') }}
         </a>
     @else
         <a class="dropdown-item" href="{{ route('logout') }}"
