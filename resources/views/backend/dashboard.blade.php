@@ -3,7 +3,7 @@
 @section('page','Dashboard')
 @section('user-login2')
     
-    @if (isset(Session::get('nama')))
+    @if (Session::get('nama') != null || Session::get('nama') != "")
         {{ Session::get('nama') }}
     @endif
 @endsection
