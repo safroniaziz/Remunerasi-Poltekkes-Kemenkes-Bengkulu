@@ -1,52 +1,53 @@
 <?php
 
-use App\Http\Controllers\GeneratePointRubrikController;
-use App\Http\Controllers\PegawaiController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\JabatanDtController;
+use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\JabatanDsController;
-use App\Http\Controllers\JabatanFungsionalController;
-use App\Http\Controllers\PangkatGolonganController;
-use App\Http\Controllers\KelompokRubrikController;
+use App\Http\Controllers\JabatanDtController;
 use App\Http\Controllers\NilaiEwmpController;
 use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\PresensiController;
-use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\RiwayatPointController;
-use App\Http\Controllers\PeriodeController;
-use App\Http\Controllers\PointRubrikDosenController;
-use App\Http\Controllers\R01PerkuliahanTeoriController;
-use App\Http\Controllers\R02PerkuliahanPraktikumController;
-use App\Http\Controllers\R03MembimbingPencapaianKompetensiController;
-use App\Http\Controllers\R04MembimbingPendampinganUkomController;
-use App\Http\Controllers\R05MembimbingPraktikPkkPblKlinikController;
-use App\Http\Controllers\R06MengujiUjianOscaController;
-use App\Http\Controllers\R07MembimbingSkripsiLtaLaProfesiController;
-use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
-use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
-use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
-use App\Http\Controllers\R11MengembangkanModulBerisbnController;
-use App\Http\Controllers\R12MembimbingPkmController;
-use App\Http\Controllers\R13OrasiIlmiahNarasumberBidangIlmuController;
+use App\Http\Controllers\KelompokRubrikController;
+use App\Http\Controllers\PangkatGolonganController;
 use App\Http\Controllers\R14KaryaInovasiController;
-use App\Http\Controllers\R15MenulisKaryaIlmiahDipublikasikanController;
-use App\Http\Controllers\R16NaskahBukuBahasaTerbitEdarInterController;
-use App\Http\Controllers\R17NaskahBukuBahasaTerbitEdarNasController;
-use App\Http\Controllers\R18MendapatHibahPkmController;
-use App\Http\Controllers\R19LatihNyuluhNatarCeramahWargaController;
-use App\Http\Controllers\R20AssessorBkdLkdController;
-use App\Http\Controllers\R21ReviewerEclerePenelitianDosenController;
-use App\Http\Controllers\R22ReviewerEclerePenelitianMhsController;
-use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
-use App\Http\Controllers\R24TimAkredProdiDanDirektoratController;
-use App\Http\Controllers\R25KepanitiaanKegiatanInstitusiController;
-use App\Http\Controllers\R26PengelolaJurnalBuletinController;
-use App\Http\Controllers\R27KeanggotaanSenatController;
-use App\Http\Controllers\R28MelaksanakanPengembanganDiriController;
-use App\Http\Controllers\R29MemperolehPenghargaanController;
+use App\Http\Controllers\PointRubrikDosenController;
+use App\Http\Controllers\R12MembimbingPkmController;
 use App\Http\Controllers\R30PengelolaKepkController;
-use App\Http\Controllers\SessionController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RiwayatJabatanDtController;
+use App\Http\Controllers\JabatanFungsionalController;
+use App\Http\Controllers\R20AssessorBkdLkdController;
+use App\Http\Controllers\GeneratePointRubrikController;
+use App\Http\Controllers\R01PerkuliahanTeoriController;
+use App\Http\Controllers\R06MengujiUjianOscaController;
+use App\Http\Controllers\R18MendapatHibahPkmController;
+use App\Http\Controllers\R27KeanggotaanSenatController;
+use App\Http\Controllers\R02PerkuliahanPraktikumController;
+use App\Http\Controllers\R29MemperolehPenghargaanController;
+use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
+use App\Http\Controllers\R26PengelolaJurnalBuletinController;
+use App\Http\Controllers\R11MengembangkanModulBerisbnController;
+use App\Http\Controllers\R04MembimbingPendampinganUkomController;
+use App\Http\Controllers\R24TimAkredProdiDanDirektoratController;
+use App\Http\Controllers\R22ReviewerEclerePenelitianMhsController;
+use App\Http\Controllers\R19LatihNyuluhNatarCeramahWargaController;
+use App\Http\Controllers\R25KepanitiaanKegiatanInstitusiController;
+use App\Http\Controllers\R28MelaksanakanPengembanganDiriController;
+use App\Http\Controllers\R05MembimbingPraktikPkkPblKlinikController;
+use App\Http\Controllers\R07MembimbingSkripsiLtaLaProfesiController;
+use App\Http\Controllers\R17NaskahBukuBahasaTerbitEdarNasController;
+use App\Http\Controllers\R21ReviewerEclerePenelitianDosenController;
+use App\Http\Controllers\R03MembimbingPencapaianKompetensiController;
+use App\Http\Controllers\R13OrasiIlmiahNarasumberBidangIlmuController;
+use App\Http\Controllers\R16NaskahBukuBahasaTerbitEdarInterController;
+use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
+use App\Http\Controllers\R15MenulisKaryaIlmiahDipublikasikanController;
+use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
+use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +70,7 @@ Route::get('/callback', function () {
 
 // Route::middleware('auth')->group(function(){
     Route::get('/home', function () {
-        return $_SESSION['nama'];
+        return Session::get('nama');
         activity()->log('Look mum, I logged something');
 
         return view('backend.dashboard');
