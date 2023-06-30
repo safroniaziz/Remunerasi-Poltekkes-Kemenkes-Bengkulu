@@ -17,15 +17,5 @@
 	// 'url_callback':'https://poltekkes.risetsetiawan.org/app/Helpers/api/oAuth2SiakadCallback.php',
 	'url_callback':'https://poltekkes.risetsetiawan.org/public/callback',
     }
-
-    fetch(oAuth2Siakad.url_callback)
-  .then(response => response.text())
-  .then(data => {
-    console.log(data); // Output: berhasil
-  })
-  .catch(error => {
-    console.log(error);
-  });
-
 </script>
 <script src="https://siakad.poltekkesbengkulu.ac.id/application/js/oAuth2/"></script>
