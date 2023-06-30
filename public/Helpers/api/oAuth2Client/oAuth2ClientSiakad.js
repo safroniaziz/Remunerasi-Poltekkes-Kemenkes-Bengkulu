@@ -11,5 +11,5 @@ var oAuth2Siakad = {
 	'jquery':true,	// optional if you have jquery fill false
 	'bootstrap':true,	// optional if you have bootstrap fill false
 	// 'url_callback':'https://poltekkes.risetsetiawan.org/app/Helpers/api/oAuth2SiakadCallback.php',
-	'url_callback':'https://poltekkes.risetsetiawan.org/callback/',
+	'url_callback':'https://poltekkes.risetsetiawan.org/public/callback',
 }
