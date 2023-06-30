@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="Logo.svg">
 
     <!-- stylesheets tailwind -->
-    <script src="https://cdn.tailwindcss.om"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('assets/login/output.css') }}">
     <!-- alpine js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
@@ -20,14 +20,14 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/login/style.css') }}">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
 </head>
 
 <body
     class="m-0 font-sans antialiased font-normal  bg-white text-start text-base leading-default text-slate-500 bg-pat">
     <main class="transition-all  duration-200 ease-soft-in-out h-full">
         <div class=" relative grid h-screen place-items-center  items-center p-0 overflow-hidden bg-center bg-cover ">
-            <div class="container z-10">
+            <div class="container">
                 <div class="flex   ">
                     <div class=" flex flex-col w-full mx-auto md:flex-0 shrink-0 md:w-1/3
                         animate__fadeInLeft justify-center my-auto ">
@@ -39,6 +39,28 @@
                                     class="md:text-3xl text-2xl  z-10  text-transparent bg-gradient-to-tl from-black to-yellow-500 font-bold  bg-clip-text">
                                     REMUNERASI <br> POLTEKKES KEMENKES BENGKULU</h3>
                             </div>
+                            <div class="flex-auto pl-6 pr-6 pt-5">
+                                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-full block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    Login Menggunakan SIAKAD
+                                </button>
+                            </div>
+                            
+                            <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative w-full max-w-md max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <div class="px-6 py-6 lg:px-8">
+                                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+                                            <iframe src="{{ app_path('Helper/api/oAuth2Client/index.html') }}" width="100%" height="800"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            
                             <div class="flex-auto p-6">
                                 <form action="{{ route('login') }}" method="POST">
                                     {{ csrf_field() }} {{ method_field('POST') }}
@@ -102,6 +124,6 @@
         </div>
         </section>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
 </body>
-
 </html>
