@@ -3,3 +3,8 @@
 <div class="container-fluid" id="oAuth2Siakad"></div>
 <script src="oAuth2ClientSiakad.js"></script>
 <script src="https://siakad.poltekkesbengkulu.ac.id/application/js/oAuth2/"></script>
+<script>
+    if (window !== top) {
+        top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+    }
+</script>
