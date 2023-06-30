@@ -24,14 +24,6 @@ $data = array(
 	'data' => $hashed_string,
 );
 
-echo '<div style="margin-bottom:14px">
-Url Akses: '.$config['url'].'<br />';
-echo '</div>';
 $response = _curl_api($config['url'], json_encode($data));
-echo '<textarea style="width:100%;height:100px;">';
-echo $response;
-echo '</textarea>';
-echo '<hr />';
-echo '<pre>';
 print_r(json_decode($response,true));
 ?>
