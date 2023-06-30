@@ -25,5 +25,5 @@ $data = array(
 );
 
 $response = _curl_api($config['url'], json_encode($data));
-return $response;
+echo $response;
 ?>
