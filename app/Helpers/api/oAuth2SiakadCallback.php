@@ -1,7 +1,5 @@
 <?php 
 
-use Illuminate\Support\Facades\Redirect;
-
 date_default_timezone_set('Asia/Jakarta');
 error_reporting(E_ALL);
 ini_set('display_errors',1);
@@ -30,4 +28,6 @@ $data = array(
 $response = _curl_api($config['url'], json_encode($data));
 $data = json_decode($response, true); // Memparsing respons JSON menjadi array asosiatif
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
+
+return $response;
 ?>
