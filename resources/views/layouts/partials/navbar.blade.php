@@ -41,7 +41,7 @@
     </li>
   
     <li class="dropdown user user-menu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform: capitalize">
           <i class="fa fa-user"></i>
           <span class="hidden-xs">
               @yield('user-login2') 
