@@ -67,7 +67,7 @@ Route::get('/callback', function () {
     return 'berhasil';
 })->name('callback');
 
-Route::middleware('auth')->group(function(){
+// Route::middleware('auth')->group(function(){
     Route::get('/home', function () {
         activity()->log('Look mum, I logged something');
 
@@ -567,4 +567,4 @@ Route::middleware('auth')->group(function(){
         Route::patch('/manajemen_data_user/{user}/active', 'active')->name('manajemen_data_user.active');
         Route::patch('/manajemen_data_user/{user}/nonactive', 'nonactive')->name('manajemen_data_user.nonactive');
     });
-});
+// });
