@@ -30,7 +30,7 @@ $data = json_decode($response, true); // Memparsing respons JSON menjadi array a
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
 
 session_start();
-$_SESSION['nama'] = $name;
+$_SESSION['nama'] = 'haii';
 echo "<script>
     if (window.top !== window.self) {
         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
