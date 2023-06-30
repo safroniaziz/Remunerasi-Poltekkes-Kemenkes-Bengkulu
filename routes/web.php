@@ -70,7 +70,8 @@ Route::get('/callback', function () {
 
 // Route::middleware('auth')->group(function(){
     Route::get('/home', function () {
-        return Session::get('nama');
+        session_start();
+        return $_SESSION['nama'];
         activity()->log('Look mum, I logged something');
 
         return view('backend.dashboard');
