@@ -65,7 +65,7 @@ Route::get('/', function () {
 
 Route::get('/api', function () {
     require_once(base_path('api/loader.php'));
-    $test = 'mahasiswa';
+    $test = 'prodi';
     $action = str_replace('~','-',$test);
     if ($test!='' && file_exists('sample/'.$action.'.php')) {
         require_once(base_path('api/sample/'.$action.'.php'));
