@@ -25,5 +25,7 @@ $data = array(
 );
 
 $response = _curl_api($config['url'], json_encode($data));
-echo $response;
+$data = json_decode($response, true); // Memparsing respons JSON menjadi array asosiatif
+$name = $data['data']['name']; // Mengakses nilai "name" dari array $data
+echo $name; // Output: Test Remun
 ?>
