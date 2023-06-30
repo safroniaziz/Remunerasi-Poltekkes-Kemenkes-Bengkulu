@@ -13,3 +13,5 @@ var oAuth2Siakad = {
 	// 'url_callback':'https://poltekkes.risetsetiawan.org/app/Helpers/api/oAuth2SiakadCallback.php',
 	'url_callback':'https://poltekkes.risetsetiawan.org/public/callback',
 }
+
+alert(oAuth2Siakad);
