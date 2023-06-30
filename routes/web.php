@@ -63,19 +63,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/api', function () {
-    require_once(app_path('Helpers/api/loader.php'));
-    $test = 'prodi';
-    $action = str_replace('~','-',$test);
-    if ($test!='' && file_exists(app_path('Helpers/api/sample/' . $action . '.php'))) {
-        require_once(app_path('Helpers/api/sample/'.$action.'.php'));
-        echo '<textarea style="width:100%;height:100px;">';
-        echo $response;
-        echo '</textarea>';
-        echo '<hr />';
-        echo '<pre>';
-        print_r(json_decode($response,true));
-    }
+Route::get('/callback', function () {
+    return 'callback';
 });
 
 Route::middleware('auth')->group(function(){

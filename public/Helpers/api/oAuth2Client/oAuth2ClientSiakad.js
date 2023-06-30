@@ -1,4 +1,3 @@
-var callbackUrl = "{{ route('callback') }}";
 var oAuth2Siakad = {
 	'url':'https://siakad.poltekkesbengkulu.ac.id/',
 	'params':{
@@ -11,5 +10,5 @@ var oAuth2Siakad = {
 	'type':'dosen',
 	'jquery':true,	// optional if you have jquery fill false
 	'bootstrap':true,	// optional if you have bootstrap fill false
-	'url_callback':callbackUrl,
+	'url_callback': "{{ route('callback') }}",
 }
