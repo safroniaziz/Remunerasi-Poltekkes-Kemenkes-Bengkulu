@@ -2,9 +2,9 @@
 @section('subTitle','Dashboard')
 @section('page','Dashboard')
 @section('user-login2')
-    session_start();
-    @if (isset($_SESSION['nama']))
-        {{ $_SESSION['nama'] }}
+    
+    @if (isset(Session::get('nama')))
+        {{ Session::get('nama') }}
     @endif
 @endsection
 @section('content')
