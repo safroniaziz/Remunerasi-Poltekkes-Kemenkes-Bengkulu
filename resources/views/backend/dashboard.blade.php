@@ -2,9 +2,6 @@
 @section('subTitle','Dashboard')
 @section('page','Dashboard')
 @section('user-login2')
-    @php
-        session_start();
-    @endphp
     @if (isset($_SESSION['nama']))
         {{ $_SESSION['nama'] }}
     @endif
