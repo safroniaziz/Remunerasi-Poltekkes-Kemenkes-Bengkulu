@@ -39,11 +39,6 @@
                                     class="md:text-3xl text-2xl  z-10  text-transparent bg-gradient-to-tl from-black to-yellow-500 font-bold  bg-clip-text">
                                     REMUNERASI <br> POLTEKKES KEMENKES BENGKULU</h3>
                             </div>
-                            <div class="flex-auto pl-6 pr-6 pt-5">
-                                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-full block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                                    Login Menggunakan SIAKAD
-                                </button>
-                            </div>
                             
                             <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                 <div class="relative w-full max-w-md max-h-full">
@@ -54,14 +49,14 @@
                                             <span class="sr-only">Close modal</span>
                                         </button>
                                         <div class="px-6 py-6 lg:px-8">
-                                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
-                                            <iframe src="{{ asset('Helpers/api/oAuth2Client/index.blade.php') }}" width="100%" height="800"></iframe>
+                                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Login Akun Siakad (Dosen)</h3>
+                                            <iframe src="{{ asset('Helpers/api/oAuth2Client/index.blade.php') }}" width="100%" height="190"></iframe>
                                         </div>
                                     </div>
                                 </div>
                             </div> 
                             
-                            <div class="flex-auto p-6">
+                            <div class="flex-auto pt-6 pl-6 pr-6 pb-2">
                                 <form action="{{ route('login') }}" method="POST">
                                     {{ csrf_field() }} {{ method_field('POST') }}
                                     @if (session('status'))
@@ -96,14 +91,14 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center
-                                            text-white uppercase align-middle transition-all bg-transparent border-0
-                                            rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs
-                                            ease-soft-in tracking-tight-soft bg-gradient-to-tl from-black to-yellow-500
-                                            hover:scale-105 hover:shadow-soft-xs active:opacity-85
-                                            tracking-[3px]">LOGIN</button>
+                                        <button type="submit" class="w-full block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">LOGIN</button>
                                     </div>
                                 </form>
+                            </div>
+                            <div class="flex-auto pl-6 pr-6">
+                                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-full block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    Login Menggunakan SIAKAD
+                                </button>
                             </div>
                         </div>
                     </div>

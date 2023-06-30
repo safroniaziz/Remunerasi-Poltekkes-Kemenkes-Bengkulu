@@ -1,7 +1,28 @@
+.oAuth2SiakadTitle{
+    display: none;
+}
 
 .oAuthSiakadInput {
-	
+    padding-right: 0px !important;
+    padding-left: 0px !important;
 }
+
+.oAuthSiakadButton{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+#oAuth2SiakadSubmit{
+    background-color: #f4b80c !important;
+    border: none !important;
+}
+
+#oAuth2SiakadSubmit:hover{
+    background-color: #d7a311 !important;
+    border: none !important;
+    transition: 300ms ease-in-out;
+}
+
 #oAuth2Siakad {
 }
 #oAuth2SiakadInput1 {
