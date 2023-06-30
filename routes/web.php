@@ -65,6 +65,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/logoutDosen',function(){
+    session_start();
     session_destroy();
     return redirect()->route('home');
 })->name('logoutDosen');
