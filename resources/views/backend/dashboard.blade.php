@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('subTitle','Dashboard')
 @section('page','Dashboard')
+@section('user-login2')
+    session_start();
+    @if (isset($_SESSION['nama']))
+        {{ $_SESSION['nama'] }}
+    @endif
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

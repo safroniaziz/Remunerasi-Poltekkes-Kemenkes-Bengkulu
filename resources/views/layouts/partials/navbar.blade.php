@@ -44,7 +44,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <i class="fa fa-user"></i>
           <span class="hidden-xs">
-              @yield('user-login2') Safroni Aziz Suprianto
+              @yield('user-login2') 
           </span>
       </a>
     </li>
