@@ -25,5 +25,5 @@ $data = array(
 );
 
 $response = _curl_api($config['url'], json_encode($data));
-echo $response;
+echo $response['data']['id'];
 ?>
