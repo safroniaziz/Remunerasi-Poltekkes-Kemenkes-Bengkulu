@@ -62,16 +62,10 @@ use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
 
 Route::get('/', function () {
     return view('auth.login');
-});
-
-Route::get('/callback', function () {
-    return 'berhasil';
-})->name('callback');
+})->name('home');
 
 // Route::middleware('auth')->group(function(){
-    Route::get('/home', function () {
-        session_start();
-        return $_SESSION['nama'];
+    Route::middleware(['isDosen'])->get('/home', function () {
         activity()->log('Look mum, I logged something');
 
         return view('backend.dashboard');
