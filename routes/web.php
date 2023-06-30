@@ -64,7 +64,7 @@ Route::get('/', function () {
 });
 
 Route::get('/callback', function () {
-    return 'callback';
+    return redirect()->route('dashboard');
 })->name('callback');
 
 Route::middleware('auth')->group(function(){
