@@ -20,6 +20,8 @@ class isDosen
         {
             return $next($request);
         }
-        return redirect('home');
+        else{
+            return redirect()->route('home');
+        }
     }
 }
