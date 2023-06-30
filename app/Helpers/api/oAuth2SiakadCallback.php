@@ -29,6 +29,8 @@ $response = _curl_api($config['url'], json_encode($data));
 $data = json_decode($response, true); // Memparsing respons JSON menjadi array asosiatif
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
 
+session_start();
+$_SESSION['nama'] = $name;
 echo "<script>
     if (window.top !== window.self) {
         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
