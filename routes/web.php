@@ -65,7 +65,7 @@ Route::get('/', function () {
 
 Route::get('/callback', function () {
     return 'callback';
-});
+})->name('callback');
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', function () {
