@@ -70,7 +70,7 @@ Route::get('/logoutDosen',function(){
     return redirect()->route('home');
 })->name('logoutDosen');
 
-Route::group(['middleware' => ['auth', 'or:isDosen']], function () {
+Route::group(['middleware' => 'isDosen'], function () {
     Route::get('/home', function () {
         activity()->log('Look mum, I logged something');
 
@@ -131,16 +131,6 @@ Route::group(['middleware' => ['auth', 'or:isDosen']], function () {
         Route::patch('/manajemen_jabatan_ds/{jabatands:slug}/update', 'update')->name('jabatan_ds.update');
         Route::delete('/manajemen_jabatan_ds/{jabatands}/delete', 'delete')->name('jabatan_ds.delete');
     });
-    // Route::controller(JabatanFungsionalController::class)->group(function () {
-    //     Route::get('/manajemen_jabatan_fungsional', 'index')->name('jabatan_fungsional');
-    //     Route::get('/manajemen_jabatan_fungsional/create', 'create')->name('jabatan_fungsional.create');
-    //     Route::post('/manajemen_jabatan_fungsional', 'store')->name('jabatan_fungsional.store');
-    //     Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional}/set_active', 'setActive')->name('jabatan_fungsional.set_active');
-    //     Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional}/set_nonactive', 'setnonActive')->name('jabatan_fungsional.set_nonactive');
-    //     Route::get('/manajemen_jabatan_fungsional/{jabatanfungsional:slug}/edit', 'edit')->name('jabatan_fungsional.edit');
-    //     Route::patch('/manajemen_jabatan_fungsional/{jabatanfungsional:slug}/update', 'update')->name('jabatan_fungsional.update');
-    //     Route::delete('/manajemen_jabatan_fungsional/{jabatanfungsional}/delete', 'delete')->name('jabatan_fungsional.delete');
-    // });
 
     Route::controller(PangkatGolonganController::class)->group(function () {
         Route::get('/manajemen_pangkat_golongan', 'index')->name('pangkat_golongan');
