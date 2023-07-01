@@ -15,7 +15,13 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <div class="col-md-12">Selamat datang <strong> Safroni Aziz Suprianto </strong> di halaman Dashboard Administrator <b> Sistem Informasi Remunerasi, Politeknik Kesehatan, Kementerian Kesehatan Bengkulu</b></div>
+                        <div class="col-md-12">Selamat datang 
+                            <strong>
+                                @if (isset($_SESSION['nama']))
+                                    {{ $_SESSION['nama'] }}
+                                @endif    
+                            </strong> 
+                            di halaman Dashboard Administrator <b> Sistem Informasi Remunerasi, Politeknik Kesehatan, Kementerian Kesehatan Bengkulu</b></div>
                     </div>
                 </div>
             </section>
