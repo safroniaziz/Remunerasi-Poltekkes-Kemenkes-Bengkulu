@@ -1,11 +1,11 @@
-@can('dashboard')
+{{-- @can('dashboard') --}}
     <li class="{{ set_active('dashboard') }}">
         <a href="{{ route('dashboard') }}">
             <i class="fa fa-home"></i>
             <span>Dashboard</span>
         </a>
     </li>
-@endcan
+{{-- @endcan --}}
 @can('read-pegawai')
     <li class="{{ set_active([
             'dosen',
