@@ -74,6 +74,14 @@ Route::group(['middleware' => 'isDosen'], function () {
     Route::get('/home', function () {
         activity()->log('Look mum, I logged something');
 
+        return view('backend.dosen.dashboard');
+    })->name('dosen.dashboard');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', function () {
+        activity()->log('Look mum, I logged something');
+
         return view('backend.dashboard');
     })->name('dashboard');
 
