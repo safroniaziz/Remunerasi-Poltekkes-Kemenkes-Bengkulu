@@ -71,7 +71,7 @@ Route::get('/logoutDosen',function(){
 })->name('logoutDosen');
 
 Route::group(['middleware' => 'isDosen'], function () {
-    Route::get('/home', function () {
+    Route::get('/dosen/home', function () {
         activity()->log('Look mum, I logged something');
 
         return view('backend.dosen.dashboard');
