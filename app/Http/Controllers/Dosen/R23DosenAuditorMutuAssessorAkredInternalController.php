@@ -27,7 +27,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
                                                                                      ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[
+        return view('backend/dosen/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[
            'pegawais'                              =>  $pegawais,
            'periode'                               =>  $periode,
            'r023auditormutuassessorakredinternals' =>  $r023auditormutuassessorakredinternals,

@@ -27,7 +27,7 @@ class R20DosenAssessorBkdLkdController extends Controller
                                                  ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_020_assessor_bkd_lkds.index',[
+        return view('backend/dosen/rubriks/r_020_assessor_bkd_lkds.index',[
            'pegawais'               =>  $pegawais,
            'periode'                =>  $periode,
            'r020assessorbkdlkds'    =>  $r020assessorbkdlkds,

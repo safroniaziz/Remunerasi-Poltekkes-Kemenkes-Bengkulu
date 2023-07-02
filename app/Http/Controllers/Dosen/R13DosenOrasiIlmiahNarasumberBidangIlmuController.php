@@ -19,7 +19,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
                                                                                    ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
+        return view('backend/dosen/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
            'pegawais'                               =>  $pegawais,
            'periode'                                =>  $periode,
            'r013orasiilmiahnarasumberbidangilmus'   =>  $r013orasiilmiahnarasumberbidangilmus,

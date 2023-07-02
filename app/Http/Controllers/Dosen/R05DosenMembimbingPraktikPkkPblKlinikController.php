@@ -27,7 +27,7 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
                                                                               ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-         return view('backend/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
+         return view('backend/dosen/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
             'pegawais'                             =>  $pegawais,
             'periode'                              =>  $periode,
             'r05membimbingpraktikpkkpblkliniks'    =>  $r05membimbingpraktikpkkpblkliniks,

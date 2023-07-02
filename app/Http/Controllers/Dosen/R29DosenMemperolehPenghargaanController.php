@@ -19,7 +19,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
                                                                ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_029_memperoleh_penghargaans.index',[
+        return view('backend/dosen/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
            'periode'                               =>  $periode,
            'r029memperolehpenghargaans'     =>  $r029memperolehpenghargaans,

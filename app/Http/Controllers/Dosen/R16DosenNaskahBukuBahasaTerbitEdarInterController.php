@@ -25,7 +25,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
                                                                                    ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_016_naskah_buku_bahasa_terbit_edar_inters.index',[
+        return view('backend/dosen/rubriks/r_016_naskah_buku_bahasa_terbit_edar_inters.index',[
            'pegawais'                             =>  $pegawais,
            'periode'                              =>  $periode,
            'r016naskahbukubahasaterbitedarinters' =>  $r016naskahbukubahasaterbitedarinters,

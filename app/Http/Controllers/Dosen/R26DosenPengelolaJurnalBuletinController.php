@@ -19,7 +19,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
                                                                  ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_026_pengelola_jurnal_buletins.index',[
+        return view('backend/dosen/rubriks/r_026_pengelola_jurnal_buletins.index',[
            'pegawais'                        =>  $pegawais,
            'periode'                         =>  $periode,
            'r026pengelolajurnalbuletins'     =>  $r026pengelolajurnalbuletins,

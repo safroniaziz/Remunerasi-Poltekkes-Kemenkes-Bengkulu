@@ -27,7 +27,7 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
                                                                  ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
+        return view('backend/dosen/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
            'pegawais'                          =>  $pegawais,
            'periode'                           =>  $periode,
            'r010menulisbukuajarberisbns'       =>  $r010menulisbukuajarberisbns,

@@ -27,7 +27,7 @@ class R18DosenMendapatHibahPkmController extends Controller
                                                      ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_018_mendapat_hibah_pkms.index',[
+        return view('backend/dosen/rubriks/r_018_mendapat_hibah_pkms.index',[
            'pegawais'             =>  $pegawais,
            'periode'              =>  $periode,
            'r018mendapathibahpkms' =>  $r018mendapathibahpkms,

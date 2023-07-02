@@ -19,7 +19,7 @@ class R14DosenKaryaInovasiController extends Controller
                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_014_karya_inovasis.index',[
+        return view('backend/dosen/rubriks/r_014_karya_inovasis.index',[
            'pegawais'                =>  $pegawais,
            'periode'                 =>  $periode,
            'r014karyainovasis'       =>  $r014karyainovasis,
