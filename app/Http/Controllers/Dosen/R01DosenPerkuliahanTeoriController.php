@@ -21,9 +21,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
     }
 
     public function index(Request $request, Pegawai $pegawai){
-        if (!Gate::allows('read-r01-perkuliahan-teori')) {
-            abort(403);
-        }
          $pegawais = Pegawai::all();
          $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$request->session()->get('nip_dosen'))
                                                     ->orderBy('created_at','desc')->get();
@@ -37,9 +34,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
     }
 
     public function store(Request $request){
-        if (!Gate::allows('store-r01-perkuliahan-teori')) {
-            abort(403);
-        }
         $rules = [
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
@@ -86,16 +80,10 @@ class R01DosenPerkuliahanTeoriController extends Controller
         }
     }
     public function edit(R01PerkuliahanTeori $r01perkuliahanteori){
-        if (!Gate::allows('edit-r01-perkuliahan-teori')) {
-            abort(403);
-        }
         return $r01perkuliahanteori;
     }
 
     public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
-        if (!Gate::allows('update-r01-perkuliahan-teori')) {
-            abort(403);
-        }
         $rules = [
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
@@ -142,9 +130,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
         }
     }
     public function delete(R01PerkuliahanTeori $r01perkuliahanteori){
-        if (!Gate::allows('delete-r01-perkuliahan-teori')) {
-            abort(403);
-        }
         $delete = $r01perkuliahanteori->delete();
         if ($delete) {
             $notification = array(
