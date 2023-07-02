@@ -30,18 +30,22 @@ $data = json_decode($response, true); // Memparsing respons JSON menjadi array a
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
 
 session_start();
-$_SESSION['nama'] = $data['data']['name'];
-$_SESSION['kode'] = $data['data']['kode'];
-$_SESSION['gelar'] = $data['data']['gelar'];
-$_SESSION['namatitle'] = $data['data']['nametitle'];
-$_SESSION['nidn'] = $data['data']['nidn'];
-echo "<script>
-    if (window.top !== window.self) {
-        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
-    } else {
-        window.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
-    }
-</script>";
+$data = array([
+	'nama'	=>	$data['data']['name'],
+	'kode'	=>	$data['data']['kode'],
+	'gelar'	=>	$data['data']['gelar'],
+	'namatitle'	=>	$data['data']['namatitle'],
+	'nidn'	=>	$data['data']['nidn'],
+]);
+
+echo $data;
+// echo "<script>
+//     if (window.top !== window.self) {
+//         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+//     } else {
+//         window.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+//     }
+// </script>";
 
 ?>
 
