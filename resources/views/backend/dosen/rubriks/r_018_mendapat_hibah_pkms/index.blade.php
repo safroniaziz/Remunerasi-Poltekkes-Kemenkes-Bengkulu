@@ -2,6 +2,14 @@
 @section('subTitle','Data Rubrik 18 Mendapat Hibah PKM')
 @section('page','Data Rubrik 18 Mendapat Hibah PKM')
 @section('subPage','Semua Data')
+@section('login_as')
+    Dosen
+@endsection
+@section('user-login2')
+    @if (isset($_SESSION['data']['nama']))
+        {{ $_SESSION['data']['nama'] }}
+    @endif
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
