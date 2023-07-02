@@ -15,7 +15,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::where('nip',$request->session()->get('nip_dosen'))
+        $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::where('nip',$_SESSION['data']['kode'])
                                                                                    ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -55,7 +55,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
 
        $simpan = R013OrasiIlmiahNarasumberBidangIlmu::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
         'is_bkd'            =>  $request->is_bkd,
@@ -105,7 +105,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
 
        $update = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$request->r013Orasiilmiahnarasumber_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
         'is_bkd'            =>  $request->is_bkd,

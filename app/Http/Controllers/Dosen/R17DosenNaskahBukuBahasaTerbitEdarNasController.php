@@ -23,7 +23,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$request->session()->get('nip_dosen'))
+        $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$_SESSION['data']['kode'])
                                                                               ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -57,7 +57,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $simpan = R017NaskahBukuBahasaTerbitEdarNas::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
         'is_bkd'            =>  $request->is_bkd,
@@ -101,7 +101,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $update = R017NaskahBukuBahasaTerbitEdarNas::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
         'is_bkd'            =>  $request->is_bkd,

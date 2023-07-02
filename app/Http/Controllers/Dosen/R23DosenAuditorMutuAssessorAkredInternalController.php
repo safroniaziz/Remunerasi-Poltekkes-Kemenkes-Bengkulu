@@ -23,7 +23,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::where('nip',$request->session()->get('nip_dosen'))
+        $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::where('nip',$_SESSION['data']['kode'])
                                                                                      ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -53,7 +53,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
 
        $simpan = R023AuditorMutuAssessorAkredInternal::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -93,7 +93,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
 
        $update = R023AuditorMutuAssessorAkredInternal::where('id',$request->r23auditmutuasesorakredinternal_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

@@ -23,7 +23,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r021reviewereclerepenelitiandosens = R021ReviewerEclerePenelitianDosen::where('nip',$request->session()->get('nip_dosen'))
+        $r021reviewereclerepenelitiandosens = R021ReviewerEclerePenelitianDosen::where('nip',$_SESSION['data']['kode'])
                                                                                ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -54,7 +54,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
 
        $simpan = R021ReviewerEclerePenelitianDosen::create([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
@@ -94,7 +94,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
 
        $update = R021ReviewerEclerePenelitianDosen::where('id',$request->r21revieweclerepenelitidosen_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

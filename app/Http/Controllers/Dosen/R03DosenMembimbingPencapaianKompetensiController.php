@@ -23,7 +23,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
          $pegawais = Pegawai::all();
-         $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$request->session()->get('nip_dosen'))
+         $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$_SESSION['data']['kode'])
                                                                                 ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -55,7 +55,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         $simpan = R03MembimbingPencapaianKompetensi::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
@@ -96,7 +96,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         $update = R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,

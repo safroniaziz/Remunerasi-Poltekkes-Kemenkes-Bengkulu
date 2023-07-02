@@ -15,7 +15,7 @@ class R30DosenPengelolaKepkController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r030pengelolakepks = R030PengelolaKepk::where('nip',$request->session()->get('nip_dosen'))
+        $r030pengelolakepks = R030PengelolaKepk::where('nip',$_SESSION['data']['kode'])
                                                ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -51,7 +51,7 @@ class R30DosenPengelolaKepkController extends Controller
         $point = $ewmp;
        $simpan = R030PengelolaKepk::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -96,7 +96,7 @@ class R30DosenPengelolaKepkController extends Controller
         $point = $ewmp;
        $update = R030PengelolaKepk::where('id',$request->r030pengelolakepk_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

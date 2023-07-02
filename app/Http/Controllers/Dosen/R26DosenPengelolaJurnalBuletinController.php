@@ -15,7 +15,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$request->session()->get('nip_dosen'))
+        $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$_SESSION['data']['kode'])
                                                                  ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -53,7 +53,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
         $point = $ewmp;
        $simpan = R026PengelolaJurnalBuletin::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
            'edisi_terbit'      =>  $request->edisi_terbit,
@@ -102,7 +102,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
         $point = $ewmp;
        $update = R026PengelolaJurnalBuletin::where('id',$request->r26pengelolajurnalbuletin_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,
            'edisi_terbit'               =>  $request->edisi_terbit,

@@ -15,7 +15,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::where('nip',$request->session()->get('nip_dosen'))
+        $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::where('nip',$_SESSION['data']['kode'])
                                                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -52,7 +52,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         $point = $ewmp;
        $simpan = R019LatihNyuluhNatarCeramahWarga::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
         'is_bkd'            =>  $request->is_bkd,
@@ -99,7 +99,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         $point = $ewmp;
        $update = R019LatihNyuluhNatarCeramahWarga::where('id',$request->r019latihnyuluhnatarceramahwarga_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
         'is_bkd'            =>  $request->is_bkd,

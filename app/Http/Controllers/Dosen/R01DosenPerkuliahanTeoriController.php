@@ -62,7 +62,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $simpan = R01PerkuliahanTeori::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -112,7 +112,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,

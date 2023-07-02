@@ -23,7 +23,7 @@ class R20DosenAssessorBkdLkdController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$request->session()->get('nip_dosen'))
+        $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$_SESSION['data']['kode'])
                                                  ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -55,7 +55,7 @@ class R20DosenAssessorBkdLkdController extends Controller
 
        $simpan = R020AssessorBkdLkd::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -96,7 +96,7 @@ class R20DosenAssessorBkdLkdController extends Controller
 
        $update = R020AssessorBkdLkd::where('id',$request->r020assessorbkdlkd_id_edit)->update([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,

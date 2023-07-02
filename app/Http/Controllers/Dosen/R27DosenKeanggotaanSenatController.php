@@ -15,7 +15,7 @@ class R27DosenKeanggotaanSenatController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r027keanggotaansenats = R027KeanggotaanSenat::where('nip',$request->session()->get('nip_dosen'))
+        $r027keanggotaansenats = R027KeanggotaanSenat::where('nip',$_SESSION['data']['kode'])
                                                      ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -51,7 +51,7 @@ class R27DosenKeanggotaanSenatController extends Controller
         $point = $ewmp;
        $simpan = R027KeanggotaanSenat::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -96,7 +96,7 @@ class R27DosenKeanggotaanSenatController extends Controller
         $point = $ewmp;
        $update = R027KeanggotaanSenat::where('id',$request->r27keanggotaansenat_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

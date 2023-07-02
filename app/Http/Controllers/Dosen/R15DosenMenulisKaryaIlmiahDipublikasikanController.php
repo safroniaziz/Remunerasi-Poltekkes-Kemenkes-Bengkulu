@@ -15,7 +15,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r015menuliskaryailmiahdipublikasikans = R015MenulisKaryaIlmiahDipublikasikan::where('nip',$request->session()->get('nip_dosen'))
+        $r015menuliskaryailmiahdipublikasikans = R015MenulisKaryaIlmiahDipublikasikan::where('nip',$_SESSION['data']['kode'])
                                                                                      ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -85,7 +85,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         }
        $simpan = R015MenulisKaryaIlmiahDipublikasikan::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
@@ -167,7 +167,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         }
        $update = R015MenulisKaryaIlmiahDipublikasikan::where('id',$request->r015karyailmiahpublikasi_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,

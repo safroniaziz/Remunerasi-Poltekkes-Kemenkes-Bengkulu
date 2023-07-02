@@ -15,7 +15,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$request->session()->get('nip_dosen'))
+        $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$_SESSION['data']['kode'])
                                                                ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -49,7 +49,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
         $point = $ewmp;
        $simpan = R029MemperolehPenghargaan::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'judul_penghargaan' =>  $request->judul_penghargaan,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -92,7 +92,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
         $point = $ewmp;
        $update = R029MemperolehPenghargaan::where('id',$request->r29memperolehpenghargaan_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_penghargaan'          =>  $request->judul_penghargaan,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

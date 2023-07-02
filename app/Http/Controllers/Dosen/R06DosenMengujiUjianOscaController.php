@@ -23,7 +23,7 @@ class R06DosenMengujiUjianOscaController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
          $pegawais = Pegawai::all();
-         $r06mengujiujianoscas = R06MengujiUjianOsca::where('nip',$request->session()->get('nip_dosen'))
+         $r06mengujiujianoscas = R06MengujiUjianOsca::where('nip',$_SESSION['data']['kode'])
                                                     ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -55,7 +55,7 @@ class R06DosenMengujiUjianOscaController extends Controller
 
         $simpan = R06MengujiUjianOsca::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
@@ -97,7 +97,7 @@ class R06DosenMengujiUjianOscaController extends Controller
 
         $update = R06MengujiUjianOsca::where('id',$request->r06mengujiujianosca_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,

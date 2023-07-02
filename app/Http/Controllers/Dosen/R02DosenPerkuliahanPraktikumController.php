@@ -24,7 +24,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
          $pegawais = Pegawai::all();
-         $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$request->session()->get('nip_dosen'))
+         $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$_SESSION['data']['kode'])
                                                             ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -62,7 +62,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
         $simpan = R02PerkuliahanPraktikum::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -111,7 +111,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
         $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,

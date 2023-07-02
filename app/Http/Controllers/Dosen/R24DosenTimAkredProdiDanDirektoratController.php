@@ -23,7 +23,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$request->session()->get('nip_dosen'))
+        $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$_SESSION['data']['kode'])
                                                                     ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -54,7 +54,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
 
        $simpan = R024TimAkredProdiDanDirektorat::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -94,7 +94,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
 
        $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

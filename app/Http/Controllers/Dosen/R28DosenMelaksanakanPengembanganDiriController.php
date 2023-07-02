@@ -15,7 +15,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r028melaksanakanpengembangandiris = R028MelaksanakanPengembanganDiri::where('nip',$request->session()->get('nip_dosen'))
+        $r028melaksanakanpengembangandiris = R028MelaksanakanPengembanganDiri::where('nip',$_SESSION['data']['kode'])
                                                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -51,7 +51,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
         $point = $ewmp;
        $simpan = R028MelaksanakanPengembanganDiri::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jenis_kegiatan'    =>  $request->jenis_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
@@ -96,7 +96,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
         $point = $ewmp;
        $update = R028MelaksanakanPengembanganDiri::where('id',$request->r28laksanakanpengembangandiri_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'jenis_kegiatan'             =>  $request->jenis_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,

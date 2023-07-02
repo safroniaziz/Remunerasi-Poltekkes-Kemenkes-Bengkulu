@@ -15,7 +15,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::where('nip',$request->session()->get('nip_dosen'))
+        $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::where('nip',$_SESSION['data']['kode'])
                                                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -53,7 +53,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
         $point = $ewmp;
        $simpan = R025KepanitiaanKegiatanInstitusi::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  $request->is_bkd,
@@ -101,7 +101,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
         $point = $ewmp;
        $update = R025KepanitiaanKegiatanInstitusi::where('id',$request->r25panitiakegiataninstitusi_id_edit)->update([
            'periode_id'                 =>  $periode->id,
-           'nip'                        =>  $request->session()->get('nip_dosen'),
+           'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  $request->is_bkd,

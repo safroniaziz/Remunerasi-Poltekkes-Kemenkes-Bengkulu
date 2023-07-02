@@ -15,7 +15,7 @@ class R14DosenKaryaInovasiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r014karyainovasis = R014KaryaInovasi::where('nip',$request->session()->get('nip_dosen'))
+        $r014karyainovasis = R014KaryaInovasi::where('nip',$_SESSION['data']['kode'])
                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -65,7 +65,7 @@ class R14DosenKaryaInovasiController extends Controller
         }
        $simpan = R014KaryaInovasi::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,
@@ -126,7 +126,7 @@ class R14DosenKaryaInovasiController extends Controller
         }
        $update = R014KaryaInovasi::where('id',$request->r014karyainovasi_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
         'jumlah_penulis'    =>  $request->jumlah_penulis,

@@ -15,7 +15,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
+        $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::where('nip',$_SESSION['data']['kode'])
                                                                                    ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -52,7 +52,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
         $point = $request->jumlah_mahasiswa * $ewmp;
        $simpan = R09MengujiSeminarHasilKtiLtaSkripsi::create([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
            'jenis'             =>  $request->jenis,
            'is_bkd'            =>  $request->is_bkd,
@@ -100,7 +100,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
 
        $update = R09MengujiSeminarHasilKtiLtaSkripsi::where('id',$request->r09mengujiseminarhasil_id_edit)->update([
            'periode_id'        =>  $periode->id,
-           'nip'               =>  $request->session()->get('nip_dosen'),
+           'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
            'jenis'             =>  $request->jenis,
            'is_bkd'            =>  $request->is_bkd,

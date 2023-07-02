@@ -21,7 +21,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r016naskahbukubahasaterbitedarinters = R016NaskahBukuBahasaTerbitEdarInter::where('nip',$request->session()->get('nip_dosen'))
+        $r016naskahbukubahasaterbitedarinters = R016NaskahBukuBahasaTerbitEdarInter::where('nip',$_SESSION['data']['kode'])
                                                                                    ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -55,7 +55,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
 
        $simpan = R016NaskahBukuBahasaTerbitEdarInter::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
         'is_bkd'            =>  $request->is_bkd,
@@ -99,7 +99,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
 
        $update = R016NaskahBukuBahasaTerbitEdarInter::where('id',$request->r016naskahbukuterbitedarinter_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
         'is_bkd'            =>  $request->is_bkd,

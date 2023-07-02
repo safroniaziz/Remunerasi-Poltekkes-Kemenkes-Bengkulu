@@ -23,7 +23,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r011mengembangkanmodulberisbns = R011MengembangkanModulBerisbn::where('nip',$request->session()->get('nip_dosen'))
+        $r011mengembangkanmodulberisbns = R011MengembangkanModulBerisbn::where('nip',$_SESSION['data']['kode'])
                                                                        ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -68,7 +68,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
 
        $simpan = R011MengembangkanModulBerisbn::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,
         'penulis_ke'        =>  $request->penulis_ke,
@@ -124,7 +124,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
 
        $update = R011MengembangkanModulBerisbn::where('id',$request->r011mengembangkanmodulberisbn_id_edit)->update([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,
         'penulis_ke'        =>  $request->penulis_ke,

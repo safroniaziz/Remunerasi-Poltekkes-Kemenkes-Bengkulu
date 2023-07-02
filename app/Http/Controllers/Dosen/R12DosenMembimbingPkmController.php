@@ -15,7 +15,7 @@ class R12DosenMembimbingPkmController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
         $pegawais = Pegawai::all();
-        $r012membimbingpkms = R012MembimbingPkm::where('nip',$request->session()->get('nip_dosen'))
+        $r012membimbingpkms = R012MembimbingPkm::where('nip',$_SESSION['data']['kode'])
                                                ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -63,7 +63,7 @@ class R12DosenMembimbingPkmController extends Controller
         $point = $ewmp/$request->jumlah_pembimbing;
        $simpan = R012MembimbingPkm::create([
         'periode_id'        =>  $periode->id,
-        'nip'               =>  $request->session()->get('nip_dosen'),
+        'nip'               =>  $_SESSION['data']['kode'],
         'tingkat_pkm'       =>  $request->tingkat_pkm,
         'juara_ke'          =>  $request->juara_ke,
         'jumlah_pembimbing' =>  $request->jumlah_pembimbing,
@@ -122,7 +122,7 @@ class R12DosenMembimbingPkmController extends Controller
         $point = $ewmp/$request->jumlah_pembimbing;
         $update = R012MembimbingPkm::where('id',$request->r012membimbingpkm_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'tingkat_pkm'       =>  $request->tingkat_pkm,
             'juara_ke'          =>  $request->juara_ke,
             'jumlah_pembimbing' =>  $request->jumlah_pembimbing,

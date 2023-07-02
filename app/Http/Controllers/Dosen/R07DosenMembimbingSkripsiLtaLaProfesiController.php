@@ -15,7 +15,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
 {
     public function index(Request $request, Pegawai $pegawai){
          $pegawais = Pegawai::all();
-         $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::where('nip',$request->session()->get('nip_dosen'))
+         $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::where('nip',$_SESSION['data']['kode'])
                                                                             ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
@@ -53,7 +53,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
         $point = $request->jumlah_mahasiswa * $ewmp;
         $simpan = R07MembimbingSkripsiLtaLaProfesi::create([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
             'is_bkd'            =>  $request->is_bkd,
@@ -101,7 +101,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
         $point = $request->jumlah_mahasiswa * $ewmp;
         $update = R07MembimbingSkripsiLtaLaProfesi::where('id',$request->r07membimbingskripsiltalaprofesi_id_edit)->update([
             'periode_id'        =>  $periode->id,
-            'nip'               =>  $request->session()->get('nip_dosen'),
+            'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
             'is_bkd'            =>  $request->is_bkd,
