@@ -38,13 +38,13 @@ $_SESSION['data'] = [
     'nidn'      => $data['data']['nidn'],
 ];
 
-// echo "<script>
-//     if (window.top !== window.self) {
-//         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
-//     } else {
-//         window.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
-//     }
-// </script>";
+echo "<script>
+    if (window.top !== window.self) {
+        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+    } else {
+        window.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+    }
+</script>";
 
 ?>
 
