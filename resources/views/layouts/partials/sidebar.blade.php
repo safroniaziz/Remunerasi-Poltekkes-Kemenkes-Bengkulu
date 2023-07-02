@@ -537,7 +537,7 @@
 @endcan
 
 <li style="padding-left:2px;">
-    @if (isset($_SESSION['nama']))
+    @if (isset($_SESSION['data']['nama']))
         <a href="{{ route('logoutDosen') }}">
             <i class="fa fa-power-off text-danger"></i>&nbsp; {{ __('Logout') }}
         </a>

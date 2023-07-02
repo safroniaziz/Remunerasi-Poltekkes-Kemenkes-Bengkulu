@@ -51,7 +51,7 @@
               <img src="{{ asset('assets/img/logo.svg') }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info" style="padding: 2px 5px 5px 15px;">
-              <p>Login Administrator</p>
+              <p>Login @yield('login_as')</p>
               <a href="#" style="text-transform: capitalize"><i class="fa fa-user"></i>
                 @yield('user-login2')
               </a>
@@ -60,7 +60,7 @@
       
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu" data-widget="tree">
-            @include('layouts.partials.sidebar')
+            @yield('sidebar')
           </ul>
         </section>
         <!-- /.sidebar -->
