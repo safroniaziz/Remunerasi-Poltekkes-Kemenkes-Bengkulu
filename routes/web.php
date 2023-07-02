@@ -70,13 +70,13 @@ Route::get('/logoutDosen',function(){
     return redirect()->route('home');
 })->name('logoutDosen');
 
-Route::group(['middleware' => 'isDosen'], function () {
+// Route::group(['middleware' => 'isDosen'], function () {
     Route::get('/dosen/home', function () {
         activity()->log('Look mum, I logged something');
 
         return view('backend.dosen.dashboard');
     })->name('dosen.dashboard');
-});
+// });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', function () {
