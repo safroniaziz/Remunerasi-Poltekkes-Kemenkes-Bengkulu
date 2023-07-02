@@ -40,9 +40,9 @@ $_SESSION['data'] = [
 
 echo "<script>
     if (window.top !== window.self) {
-        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
     } else {
-        window.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
+        window.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
     }
 </script>";
 
