@@ -21,7 +21,7 @@ class isDosen
             return $next($request);
         }
         else{
-            return redirect()->route('dosen.home');
+            return redirect()->route('home');
         }
     }
 }
