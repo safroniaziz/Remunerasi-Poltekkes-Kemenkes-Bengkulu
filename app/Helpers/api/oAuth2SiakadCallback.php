@@ -30,7 +30,7 @@ $data = json_decode($response, true); // Memparsing respons JSON menjadi array a
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
 
 session_start();
-$data = [
+$_SESSION['data'] = [
     'nama'      => $data['data']['name'],
     'kode'      => $data['data']['kode'],
     'gelar'     => $data['data']['gelar'],
@@ -38,7 +38,6 @@ $data = [
     'nidn'      => $data['data']['nidn'],
 ];
 
-print_r($data);
 // echo "<script>
 //     if (window.top !== window.self) {
 //         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
