@@ -19,7 +19,7 @@ class R30DosenPengelolaKepkController extends Controller
                                                ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_030_pengelola_kepks.index',[
+        return view('backend/dosen/rubriks/r_030_pengelola_kepks.index',[
            'pegawais'               =>  $pegawais,
            'periode'                =>  $periode,
            'r030pengelolakepks'     =>  $r030pengelolakepks,

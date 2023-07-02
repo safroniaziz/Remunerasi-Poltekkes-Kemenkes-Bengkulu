@@ -19,7 +19,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
                                                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[
+        return view('backend/dosen/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[
            'pegawais'                               =>  $pegawais,
            'periode'                                =>  $periode,
            'r019latihnyuluhnatarceramahwargas'       =>  $r019latihnyuluhnatarceramahwargas,

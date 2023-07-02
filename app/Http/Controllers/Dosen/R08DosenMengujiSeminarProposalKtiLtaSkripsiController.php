@@ -19,7 +19,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
                                                                                           ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-         return view('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
+         return view('backend/dosen/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
             'pegawais'                                   =>  $pegawais,
             'periode'                                    =>  $periode,
             'r08mengujiseminarproposalktiltaskripsis'    =>  $r08mengujiseminarproposalktiltaskripsis,

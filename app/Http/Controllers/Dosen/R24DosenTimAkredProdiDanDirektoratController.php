@@ -27,7 +27,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
                                                                     ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
+        return view('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
            'periode'                        =>  $periode,
            'r024timakredprodirektorats'     =>  $r024timakredprodirektorats,

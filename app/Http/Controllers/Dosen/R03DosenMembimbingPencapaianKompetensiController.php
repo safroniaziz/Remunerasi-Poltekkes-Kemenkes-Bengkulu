@@ -27,7 +27,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
                                                                                 ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-         return view('backend/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
+         return view('backend/dosen/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
             'periode'                               =>  $periode,
             'r03membimbingpencapaiankompetensis'    =>  $r03membimbingpencapaiankompetensis,

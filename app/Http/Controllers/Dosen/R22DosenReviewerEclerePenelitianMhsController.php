@@ -27,7 +27,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
                                                                           ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
+        return view('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
            'periode'                            =>  $periode,
            'r022reviewereclerepenelitianmhs'    =>  $r022reviewereclerepenelitianmhs,

@@ -19,7 +19,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
                                                                             ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-         return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
+         return view('backend/dosen/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
             'pegawais'                             =>  $pegawais,
             'periode'                              =>  $periode,
             'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,

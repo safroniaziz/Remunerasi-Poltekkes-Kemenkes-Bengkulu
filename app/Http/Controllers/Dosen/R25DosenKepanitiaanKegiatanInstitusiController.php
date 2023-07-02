@@ -19,7 +19,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
                                                                              ->orderBy('created_at','desc')->get();
         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-        return view('backend/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
+        return view('backend/dosen/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
            'pegawais'                              =>  $pegawais,
            'periode'                               =>  $periode,
            'r025kepanitiaankegiataninstitusis'     =>  $r025kepanitiaankegiataninstitusis,
