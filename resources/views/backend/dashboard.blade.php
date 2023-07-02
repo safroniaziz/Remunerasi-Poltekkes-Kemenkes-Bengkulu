@@ -2,12 +2,13 @@
 @section('subTitle','Dashboard')
 @section('page','Dashboard')
 @section('login_as')
-    Dosen
+    Selamat Datang,
 @endsection
 @section('user-login2')
-    @if (isset($_SESSION['data']['nama']))
-        {{ $_SESSION['data']['nama'] }}
-    @endif
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
 @endsection
 @section('content')
     <div class="row">
