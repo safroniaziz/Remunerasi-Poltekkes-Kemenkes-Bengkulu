@@ -3,7 +3,7 @@
 @section('page','Data Rubrik 24 Tim Akreditasi Prodi dan Direktorat')
 @section('subPage','Semua Data')
 @section('login_as')
-    Dosen
+    Halaman Dosen
 @endsection
 @section('user-login2')
     @if (isset($_SESSION['data']['nama']))

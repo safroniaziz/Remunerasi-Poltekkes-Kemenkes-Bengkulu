@@ -3,7 +3,7 @@
 @section('page','Data Rubrik 20 Assessor BKD LKD')
 @section('subPage','Semua Data')
 @section('login_as')
-    Dosen
+    Halaman Dosen
 @endsection
 @section('user-login2')
     @if (isset($_SESSION['data']['nama']))
