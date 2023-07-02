@@ -2,6 +2,14 @@
 @section('subTitle','Data Rubrik 05 Membimbing Praktik PKK PBL Klinik')
 @section('page','Data Rubrik 05 Membimbing Praktik PKK PBL Klinik')
 @section('subPage','Semua Data')
+@section('login_as')
+    Dosen
+@endsection
+@section('user-login2')
+    @if (isset($_SESSION['data']['nama']))
+        {{ $_SESSION['data']['nama'] }}
+    @endif
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
