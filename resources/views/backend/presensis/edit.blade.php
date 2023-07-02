@@ -2,6 +2,15 @@
 @section('subTitle','Data Presensi')
 @section('page','Data Presensi')
 @section('subPage','Edit Data Presensi')
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

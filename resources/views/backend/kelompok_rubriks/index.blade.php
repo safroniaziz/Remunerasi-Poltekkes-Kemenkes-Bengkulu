@@ -2,6 +2,15 @@
 @section('subTitle','Data Kelompok Rubrik')
 @section('page','Data Kelompok Rubrik')
 @section('subPage','Semua Data Kelompok Rubrik')
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -129,7 +138,7 @@
             });
             return false;
         }
- 
+
         $('.show_confirm').click(function(event) {
             var form =  $(this).closest("form");
             var name = $(this).data("name");

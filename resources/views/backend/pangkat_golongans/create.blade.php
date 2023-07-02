@@ -2,6 +2,15 @@
 @section('subTitle','Data Pangkat Golongan')
 @section('page','Data Pangkat Golongan')
 @section('subPage','Semua Data Pangkat Golongan')
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

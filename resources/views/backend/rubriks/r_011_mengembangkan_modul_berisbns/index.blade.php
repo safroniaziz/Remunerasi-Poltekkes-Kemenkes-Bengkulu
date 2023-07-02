@@ -2,6 +2,15 @@
 @section('subTitle','Data Rubrik 11 Mengembangkan Modul Berisbn')
 @section('page','Data Rubrik 11 Mengembangkan Modul Berisbn')
 @section('subPage','Semua Data')
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

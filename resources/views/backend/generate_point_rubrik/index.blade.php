@@ -6,6 +6,15 @@
     type="text/css" />
     @include('backend/generate_point_rubrik._loader')
 @endpush
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -26,7 +35,7 @@
                                 <!-- Loading Spinner Wrapper-->
                                 <div class="loader text-center">
                                     <div class="loader-inner">
-    
+
                                         <!-- Animated Spinner -->
                                         <div class="lds-roller mb-3">
                                             <div></div>
@@ -38,7 +47,7 @@
                                             <div></div>
                                             <div></div>
                                         </div>
-                                        
+
                                         <!-- Spinner Description Text [For Demo Purpose]-->
                                         <h4 class="font-weight-bold">Proses Generate Point Sedang Berjalan</h4>
                                         <p class="font-italic text-white">Harap untuk menunggu hingga proses selesai</p>
@@ -85,7 +94,7 @@
                                                         <tr  @if (number_format($statusRubrik->total_point,2) != number_format($dataRubrik->total_point,2))
                                                             style="background:#f2dede"
                                                         @endif>
-                                                            
+
                                                             @if (number_format($statusRubrik->total_point,2) == number_format($dataRubrik->total_point,2))
                                                                 <td style="text-align:center;">
                                                                     <input type="checkbox" disabled>
@@ -106,11 +115,11 @@
                                                                     </a>
                                                                 @else
                                                                     <a class="text-success">
-                                                                        <i class="fa fa-check-circle"></i>&nbsp; Sudah Diperbarui                                                        
+                                                                        <i class="fa fa-check-circle"></i>&nbsp; Sudah Diperbarui
                                                                     </a>
                                                                 @endif
                                                             </td>
-                                                            <td style="text-align: center"> 
+                                                            <td style="text-align: center">
                                                                 @if (number_format($statusRubrik->total_point,2) != number_format($dataRubrik->total_point,2))
                                                                     <a href="{{ route('generate_point_per_rubrik',[$dataRubrik->kode_rubrik]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Perbarui</a>
                                                                 @else
@@ -123,7 +132,7 @@
                                                                 @else
                                                                     <a href="{{ route('detail_isian_rubrik',[$dataRubrik->kode_rubrik]) }}" class="btn btn-info btn-flat btn-sm"><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
                                                                 @endif
-                                                                
+
                                                             </td>
                                                         </tr>
                                                     @endforeach

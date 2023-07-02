@@ -2,6 +2,15 @@
 @section('subTitle','Data Jabatan fungsional')
 @section('page','Data Jabatan fungsional')
 @section('subPage','Semua Data Jabatan fungsional')
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

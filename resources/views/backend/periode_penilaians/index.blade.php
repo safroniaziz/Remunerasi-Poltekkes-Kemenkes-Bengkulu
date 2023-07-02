@@ -2,6 +2,15 @@
 @section('subTitle','Data Periode Penilaian')
 @section('page','Data Periode Penilaian')
 @section('subPage','Semua Data')
+@section('login_as')
+    Selamat Datang,
+@endsection
+@section('user-login2')
+    {{ Auth::user()->nama_user }}
+@endsection
+@section('sidebar')
+    @include('layouts.partials.sidebar')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -135,7 +144,7 @@
                 responsive : true,
             });
         } );
-        
+
         function editPeriode(id){
             $.ajaxSetup({
                 headers: {
@@ -161,7 +170,7 @@
             });
             return false;
         }
- 
+
         $('.show_confirm').click(function(event) {
             var form =  $(this).closest("form");
             var name = $(this).data("name");
