@@ -27,7 +27,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                                                     ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
-         return view('backend/rubriks/r_01_perkuliahan_teoris.index',[
+         return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
             'pegawais'                =>  $pegawais,
             'periode'                 =>  $periode,
             'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
