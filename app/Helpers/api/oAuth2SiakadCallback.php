@@ -34,7 +34,7 @@ $data = array([
 	'nama'	=>	$data['data']['name'],
 	'kode'	=>	$data['data']['kode'],
 	'gelar'	=>	$data['data']['gelar'],
-	'namatitle'	=>	$data['data']['namatitle'],
+	'namatitle'	=>	$data['data']['nametitle'],
 	'nidn'	=>	$data['data']['nidn'],
 ]);
 
