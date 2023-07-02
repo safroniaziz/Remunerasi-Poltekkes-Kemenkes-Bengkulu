@@ -38,7 +38,7 @@ $data = [
     'nidn'      => $data['data']['nidn'],
 ];
 
-echo $data;
+print_r($data);
 // echo "<script>
 //     if (window.top !== window.self) {
 //         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/home';
