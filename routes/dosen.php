@@ -1,6 +1,37 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Dosen\R14DosenKaryaInovasiController;
+use App\Http\Controllers\Dosen\R12DosenMembimbingPkmController;
+use App\Http\Controllers\Dosen\R30DosenPengelolaKepkController;
+use App\Http\Controllers\Dosen\R20DosenAssessorBkdLkdController;
+use App\Http\Controllers\Dosen\R01DosenPerkuliahanTeoriController;
+use App\Http\Controllers\Dosen\R06DosenMengujiUjianOscaController;
+use App\Http\Controllers\Dosen\R18DosenMendapatHibahPkmController;
+use App\Http\Controllers\Dosen\R27DosenKeanggotaanSenatController;
+use App\Http\Controllers\Dosen\R02DosenPerkuliahanPraktikumController;
+use App\Http\Controllers\Dosen\R29DosenMemperolehPenghargaanController;
+use App\Http\Controllers\Dosen\R10DosenMenulisBukuAjarBerisbnController;
+use App\Http\Controllers\Dosen\R26DosenPengelolaJurnalBuletinController;
+use App\Http\Controllers\Dosen\R11DosenMengembangkanModulBerisbnController;
+use App\Http\Controllers\Dosen\R04DosenMembimbingPendampinganUkomController;
+use App\Http\Controllers\Dosen\R24DosenTimAkredProdiDanDirektoratController;
+use App\Http\Controllers\Dosen\R22DosenReviewerEclerePenelitianMhsController;
+use App\Http\Controllers\Dosen\R19DosenLatihNyuluhNatarCeramahWargaController;
+use App\Http\Controllers\Dosen\R25DosenKepanitiaanKegiatanInstitusiController;
+use App\Http\Controllers\Dosen\R28DosenMelaksanakanPengembanganDiriController;
+use App\Http\Controllers\Dosen\R05DosenMembimbingPraktikPkkPblKlinikController;
+use App\Http\Controllers\Dosen\R07DosenMembimbingSkripsiLtaLaProfesiController;
+use App\Http\Controllers\Dosen\R17DosenNaskahBukuBahasaTerbitEdarNasController;
+use App\Http\Controllers\Dosen\R21DosenReviewerEclerePenelitianDosenController;
+use App\Http\Controllers\Dosen\R03DosenMembimbingPencapaianKompetensiController;
+use App\Http\Controllers\Dosen\R13DosenOrasiIlmiahNarasumberBidangIlmuController;
+use App\Http\Controllers\Dosen\R16DosenNaskahBukuBahasaTerbitEdarInterController;
+use App\Http\Controllers\Dosen\R09DosenMengujiSeminarHasilKtiLtaSkripsiController;
+use App\Http\Controllers\Dosen\R15DosenMenulisKaryaIlmiahDipublikasikanController;
+use App\Http\Controllers\Dosen\R23DosenAuditorMutuAssessorAkredInternalController;
+use App\Http\Controllers\Dosen\R08DosenMengujiSeminarProposalKtiLtaSkripsiController;
 
 Route::get('/home', function () {
     activity()->log('Look mum, I logged something');
@@ -9,7 +40,7 @@ Route::get('/home', function () {
 })->name('dosen.dashboard');
 
 // Pengaturan/Setting Rubrik Pendidikan
-Route::controller(R01PerkuliahanTeoriController::class)->group(function () {
+Route::controller(R01DosenPerkuliahanTeoriController::class)->group(function () {
     Route::get('/r_01_perkuliahan_teori', 'index')->name('dosen.r_01_perkuliahan_teori');
     Route::get('/r_01_perkuliahan_teori/create', 'create')->name('dosen.r_01_perkuliahan_teori.create');
     Route::post('/r_01_perkuliahan_teori', 'store')->name('dosen.r_01_perkuliahan_teori.store');
@@ -19,7 +50,7 @@ Route::controller(R01PerkuliahanTeoriController::class)->group(function () {
     Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/verifikasi', 'verifikasi')->name('dosen.r_01_perkuliahan_teori.verifikasi');
     Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/tolak', 'tolak')->name('dosen.r_01_perkuliahan_teori.tolak');
 });
-Route::controller(R02PerkuliahanPraktikumController::class)->group(function () {
+Route::controller(R02DosenPerkuliahanPraktikumController::class)->group(function () {
     Route::get('/r_02_perkuliahan_praktikum', 'index')->name('dosen.r_02_perkuliahan_praktikum');
     Route::get('/r_02_perkuliahan_praktikum/create', 'create')->name('dosen.r_02_perkuliahan_praktikum.create');
     Route::post('/r_02_perkuliahan_praktikum', 'store')->name('dosen.r_02_perkuliahan_praktikum.store');
@@ -29,7 +60,7 @@ Route::controller(R02PerkuliahanPraktikumController::class)->group(function () {
     Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('dosen.r_02_perkuliahan_praktikum.verifikasi');
     Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('dosen.r_02_perkuliahan_praktikum.tolak');
 });
-Route::controller(R03MembimbingPencapaianKompetensiController::class)->group(function () {
+Route::controller(R03DosenMembimbingPencapaianKompetensiController::class)->group(function () {
     Route::get('/r_03_membimbing_pencapaian_kompetensi', 'index')->name('dosen.r_03_membimbing_pencapaian_kompetensi');
     Route::get('/r_03_membimbing_pencapaian_kompetensi/create', 'create')->name('dosen.r_03_membimbing_pencapaian_kompetensi.create');
     Route::post('/r_03_membimbing_pencapaian_kompetensi', 'store')->name('dosen.r_03_membimbing_pencapaian_kompetensi.store');
@@ -39,7 +70,7 @@ Route::controller(R03MembimbingPencapaianKompetensiController::class)->group(fun
     Route::patch('/r_03_membimbing_pencapaian_kompetensi/{r03bimbingcapaiankompetensi}/verifikasi', 'verifikasi')->name('dosen.r_03_membimbing_pencapaian_kompetensi.verifikasi');
     Route::patch('/r_03_membimbing_pencapaian_kompetensi/{r03bimbingcapaiankompetensi}/tolak', 'tolak')->name('dosen.r_03_membimbing_pencapaian_kompetensi.tolak');
 });
-Route::controller(R04MembimbingPendampinganUkomController::class)->group(function () {
+Route::controller(R04DosenMembimbingPendampinganUkomController::class)->group(function () {
     Route::get('/r_04_membimbing_pendampingan_ukom', 'index')->name('dosen.r_04_membimbing_pendampingan_ukom');
     Route::get('/r_04_membimbing_pendampingan_ukom/create', 'create')->name('dosen.r_04_membimbing_pendampingan_ukom.create');
     Route::post('/r_04_membimbing_pendampingan_ukom', 'store')->name('dosen.r_04_membimbing_pendampingan_ukom.store');
@@ -49,7 +80,7 @@ Route::controller(R04MembimbingPendampinganUkomController::class)->group(functio
     Route::patch('/r_04_membimbing_pendampingan_ukom/{r04membimbingpendampinganukom}/verifikasi', 'verifikasi')->name('dosen.r_04_membimbing_pendampingan_ukom.verifikasi');
     Route::patch('/r_04_membimbing_pendampingan_ukom/{r04membimbingpendampinganukom}/tolak', 'tolak')->name('dosen.r_04_membimbing_pendampingan_ukom.tolak');
 });
-Route::controller(R05MembimbingPraktikPkkPblKlinikController::class)->group(function () {
+Route::controller(R05DosenMembimbingPraktikPkkPblKlinikController::class)->group(function () {
     Route::get('/r_05_membimbing_praktik_pkk_pbl_klinik', 'index')->name('dosen.r_05_membimbing_praktik_pkk_pbl_klinik');
     Route::get('/r_05_membimbing_praktik_pkk_pbl_klinik/create', 'create')->name('dosen.r_05_membimbing_praktik_pkk_pbl_klinik.create');
     Route::post('/r_05_membimbing_praktik_pkk_pbl_klinik', 'store')->name('dosen.r_05_membimbing_praktik_pkk_pbl_klinik.store');
@@ -59,7 +90,7 @@ Route::controller(R05MembimbingPraktikPkkPblKlinikController::class)->group(func
     Route::patch('/r_05_membimbing_praktik_pkk_pbl_klinik/{r05membimbingpraktikpkkpblklinik}/verifikasi', 'verifikasi')->name('dosen.r_05_membimbing_praktik_pkk_pbl_klinik.verifikasi');
     Route::patch('/r_05_membimbing_praktik_pkk_pbl_klinik/{r05membimbingpraktikpkkpblklinik}/tolak', 'tolak')->name('dosen.r_05_membimbing_praktik_pkk_pbl_klinik.tolak');
 });
-Route::controller(R06MengujiUjianOscaController::class)->group(function () {
+Route::controller(R06DosenMengujiUjianOscaController::class)->group(function () {
     Route::get('/r_06_menguji_ujian_osca', 'index')->name('dosen.r_06_menguji_ujian_osca');
     Route::get('/r_06_menguji_ujian_osca/create', 'create')->name('dosen.r_06_menguji_ujian_osca.create');
     Route::post('/r_06_menguji_ujian_osca', 'store')->name('dosen.r_06_menguji_ujian_osca.store');
@@ -69,7 +100,7 @@ Route::controller(R06MengujiUjianOscaController::class)->group(function () {
     Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/verifikasi', 'verifikasi')->name('dosen.r_06_menguji_ujian_osca.verifikasi');
     Route::patch('/r_06_menguji_ujian_osca/{r06mengujiujianosca}/tolak', 'tolak')->name('dosen.r_06_menguji_ujian_osca.tolak');
 });
-Route::controller(R07MembimbingSkripsiLtaLaProfesiController::class)->group(function () {
+Route::controller(R07DosenMembimbingSkripsiLtaLaProfesiController::class)->group(function () {
     Route::get('/r_07_membimbing_skripsi_lta_la_profesi', 'index')->name('dosen.r_07_membimbing_skripsi_lta_la_profesi');
     Route::get('/r_07_membimbing_skripsi_lta_la_profesi/create', 'create')->name('dosen.r_07_membimbing_skripsi_lta_la_profesi.create');
     Route::post('/r_07_membimbing_skripsi_lta_la_profesi', 'store')->name('dosen.r_07_membimbing_skripsi_lta_la_profesi.store');
@@ -79,7 +110,7 @@ Route::controller(R07MembimbingSkripsiLtaLaProfesiController::class)->group(func
     Route::patch('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/verifikasi', 'verifikasi')->name('dosen.r_07_membimbing_skripsi_lta_la_profesi.verifikasi');
     Route::patch('/r_07_membimbing_skripsi_lta_la_profesi/{r07membimbingskripsiltalaprofesi}/tolak', 'tolak')->name('dosen.r_07_membimbing_skripsi_lta_la_profesi.tolak');
 });
-Route::controller(R08MengujiSeminarProposalKtiLtaSkripsiController::class)->group(function () {
+Route::controller(R08DosenMengujiSeminarProposalKtiLtaSkripsiController::class)->group(function () {
     Route::get('/r_08_menguji_seminar_proposal_kti_lta_skripsi', 'index')->name('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi');
     Route::get('/r_08_menguji_seminar_proposal_kti_lta_skripsi/create', 'create')->name('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi.create');
     Route::post('/r_08_menguji_seminar_proposal_kti_lta_skripsi', 'store')->name('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi.store');
@@ -89,7 +120,7 @@ Route::controller(R08MengujiSeminarProposalKtiLtaSkripsiController::class)->grou
     Route::patch('/r_08_menguji_seminar_proposal_kti_lta_skripsi/{r08mengujiseminarproposal}/verifikasi', 'verifikasi')->name('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi.verifikasi');
     Route::patch('/r_08_menguji_seminar_proposal_kti_lta_skripsi/{r08mengujiseminarproposal}/tolak', 'tolak')->name('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi.tolak');
 });
-Route::controller(R09MengujiSeminarHasilKtiLtaSkripsiController::class)->group(function () {
+Route::controller(R09DosenMengujiSeminarHasilKtiLtaSkripsiController::class)->group(function () {
     Route::get('/r_09_menguji_seminar_hasil_kti_lta_skripsi', 'index')->name('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi');
     Route::get('/r_09_menguji_seminar_hasil_kti_lta_skripsi/create', 'create')->name('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi.create');
     Route::post('/r_09_menguji_seminar_hasil_kti_lta_skripsi', 'store')->name('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi.store');
@@ -99,7 +130,7 @@ Route::controller(R09MengujiSeminarHasilKtiLtaSkripsiController::class)->group(f
     Route::patch('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/verifikasi', 'verifikasi')->name('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi.verifikasi');
     Route::patch('/r_09_menguji_seminar_hasil_kti_lta_skripsi/{r09mengujiseminarhasil}/tolak', 'tolak')->name('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi.tolak');
 });
-Route::controller(R10MenulisBukuAjarBerisbnController::class)->group(function () {
+Route::controller(R10DosenMenulisBukuAjarBerisbnController::class)->group(function () {
     Route::get('/r_010_menulis_buku_ajar_berisbn', 'index')->name('dosen.r_010_menulis_buku_ajar_berisbn');
     Route::get('/r_010_menulis_buku_ajar_berisbn/create', 'create')->name('dosen.r_010_menulis_buku_ajar_berisbn.create');
     Route::post('/r_010_menulis_buku_ajar_berisbn', 'store')->name('dosen.r_010_menulis_buku_ajar_berisbn.store');
@@ -109,7 +140,7 @@ Route::controller(R10MenulisBukuAjarBerisbnController::class)->group(function ()
     Route::patch('/r_010_menulis_buku_ajar_berisbn/{r010menulisbukuajarberisbn}/verifikasi', 'verifikasi')->name('dosen.r_010_menulis_buku_ajar_berisbn.verifikasi');
     Route::patch('/r_010_menulis_buku_ajar_berisbn/{r010menulisbukuajarberisbn}/tolak', 'tolak')->name('dosen.r_010_menulis_buku_ajar_berisbn.tolak');
 });
-Route::controller(R11MengembangkanModulBerisbnController::class)->group(function () {
+Route::controller(R11DosenMengembangkanModulBerisbnController::class)->group(function () {
     Route::get('/r_011_mengembangkan_modul_berisbn', 'index')->name('dosen.r_011_mengembangkan_modul_berisbn');
     Route::get('/r_011_mengembangkan_modul_berisbn/create', 'create')->name('dosen.r_011_mengembangkan_modul_berisbn.create');
     Route::post('/r_011_mengembangkan_modul_berisbn', 'store')->name('dosen.r_011_mengembangkan_modul_berisbn.store');
@@ -119,7 +150,7 @@ Route::controller(R11MengembangkanModulBerisbnController::class)->group(function
     Route::patch('/r_011_mengembangkan_modul_berisbn/{r011mengembangkanmodulberisbn}/verifikasi', 'verifikasi')->name('dosen.r_011_mengembangkan_modul_berisbn.verifikasi');
     Route::patch('/r_011_mengembangkan_modul_berisbn/{r011mengembangkanmodulberisbn}/tolak', 'tolak')->name('dosen.r_011_mengembangkan_modul_berisbn.tolak');
 });
-Route::controller(R12MembimbingPkmController::class)->group(function () {
+Route::controller(R12DosenMembimbingPkmController::class)->group(function () {
     Route::get('/r_012_membimbing_pkm', 'index')->name('dosen.r_012_membimbing_pkm');
     Route::get('/r_012_membimbing_pkm/create', 'create')->name('dosen.r_012_membimbing_pkm.create');
     Route::post('/r_012_membimbing_pkm', 'store')->name('dosen.r_012_membimbing_pkm.store');
@@ -131,7 +162,7 @@ Route::controller(R12MembimbingPkmController::class)->group(function () {
 });
 // End Of Pengaturan/Setting Rubrik Pendidikan
 // Pengaturan/Setting Rubrik Pendidikan Insidental
-Route::controller(R13OrasiIlmiahNarasumberBidangIlmuController::class)->group(function () {
+Route::controller(R13DosenOrasiIlmiahNarasumberBidangIlmuController::class)->group(function () {
     Route::get('/r_013_orasi_ilmiah_narasumber_bidang_ilmu', 'index')->name('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu');
     Route::get('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/create', 'create')->name('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu.create');
     Route::post('/r_013_orasi_ilmiah_narasumber_bidang_ilmu', 'store')->name('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu.store');
@@ -141,7 +172,7 @@ Route::controller(R13OrasiIlmiahNarasumberBidangIlmuController::class)->group(fu
     Route::patch('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/verifikasi', 'verifikasi')->name('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu.verifikasi');
     Route::patch('/r_013_orasi_ilmiah_narasumber_bidang_ilmu/{r013orasiilmiahnarasumber}/tolak', 'tolak')->name('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu.tolak');
 });
-Route::controller(R14KaryaInovasiController::class)->group(function () {
+Route::controller(R14DosenKaryaInovasiController::class)->group(function () {
     Route::get('/r_014_karya_inovasi', 'index')->name('dosen.r_014_karya_inovasi');
     Route::get('/r_014_karya_inovasi/create', 'create')->name('dosen.r_014_karya_inovasi.create');
     Route::post('/r_014_karya_inovasi', 'store')->name('dosen.r_014_karya_inovasi.store');
@@ -153,7 +184,7 @@ Route::controller(R14KaryaInovasiController::class)->group(function () {
 });
 // End Of Pengaturan/Setting Rubrik Pendidikan Insidental
 // Pengaturan/Setting Rubrik Penelitian
-Route::controller(R15MenulisKaryaIlmiahDipublikasikanController::class)->group(function () {
+Route::controller(R15DosenMenulisKaryaIlmiahDipublikasikanController::class)->group(function () {
     Route::get('/r_015_menulis_karya_ilmiah_dipublikasikan', 'index')->name('dosen.r_015_menulis_karya_ilmiah_dipublikasikan');
     Route::get('/r_015_menulis_karya_ilmiah_dipublikasikan/create', 'create')->name('dosen.r_015_menulis_karya_ilmiah_dipublikasikan.create');
     Route::post('/r_015_menulis_karya_ilmiah_dipublikasikan', 'store')->name('dosen.r_015_menulis_karya_ilmiah_dipublikasikan.store');
@@ -163,7 +194,7 @@ Route::controller(R15MenulisKaryaIlmiahDipublikasikanController::class)->group(f
     Route::patch('/r_015_menulis_karya_ilmiah_dipublikasikan/{r015karyailmiahpublikasi}/verifikasi', 'verifikasi')->name('dosen.r_015_menulis_karya_ilmiah_dipublikasikan.verifikasi');
     Route::patch('/r_015_menulis_karya_ilmiah_dipublikasikan/{r015karyailmiahpublikasi}/tolak', 'tolak')->name('dosen.r_015_menulis_karya_ilmiah_dipublikasikan.tolak');
 });
-Route::controller(R16NaskahBukuBahasaTerbitEdarInterController::class)->group(function () {
+Route::controller(R16DosenNaskahBukuBahasaTerbitEdarInterController::class)->group(function () {
     Route::get('/r_016_naskah_buku_bahasa_terbit_edar_inter', 'index')->name('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter');
     Route::get('/r_016_naskah_buku_bahasa_terbit_edar_inter/create', 'create')->name('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter.create');
     Route::post('/r_016_naskah_buku_bahasa_terbit_edar_inter', 'store')->name('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter.store');
@@ -173,7 +204,7 @@ Route::controller(R16NaskahBukuBahasaTerbitEdarInterController::class)->group(fu
     Route::patch('/r_016_naskah_buku_bahasa_terbit_edar_inter/{r016naskahbukuterbitedarinter}/verifikasi', 'verifikasi')->name('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter.verifikasi');
     Route::patch('/r_016_naskah_buku_bahasa_terbit_edar_inter/{r016naskahbukuterbitedarinter}/tolak', 'tolak')->name('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter.tolak');
 });
-Route::controller(R17NaskahBukuBahasaTerbitEdarNasController::class)->group(function () {
+Route::controller(R17DosenNaskahBukuBahasaTerbitEdarNasController::class)->group(function () {
     Route::get('/r_017_naskah_buku_bahasa_terbit_edar_nas', 'index')->name('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas');
     Route::get('/r_017_naskah_buku_bahasa_terbit_edar_nas/create', 'create')->name('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas.create');
     Route::post('/r_017_naskah_buku_bahasa_terbit_edar_nas', 'store')->name('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas.store');
@@ -185,7 +216,7 @@ Route::controller(R17NaskahBukuBahasaTerbitEdarNasController::class)->group(func
 });
 // End Of Pengaturan/Setting Rubrik Penelitian
 // Pengaturan/Setting Rubrik Pengabdian
-Route::controller(R18MendapatHibahPkmController::class)->group(function () {
+Route::controller(R18DosenMendapatHibahPkmController::class)->group(function () {
     Route::get('/r_018_mendapat_hibah_pkm', 'index')->name('dosen.r_018_mendapat_hibah_pkm');
     Route::get('/r_018_mendapat_hibah_pkm/create', 'create')->name('dosen.r_018_mendapat_hibah_pkm.create');
     Route::post('/r_018_mendapat_hibah_pkm', 'store')->name('dosen.r_018_mendapat_hibah_pkm.store');
@@ -195,7 +226,7 @@ Route::controller(R18MendapatHibahPkmController::class)->group(function () {
     Route::patch('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/verifikasi', 'verifikasi')->name('dosen.r_018_mendapat_hibah_pkm.verifikasi');
     Route::patch('/r_018_mendapat_hibah_pkm/{r018mendapathibahpkm}/tolak', 'tolak')->name('dosen.r_018_mendapat_hibah_pkm.tolak');
 });
-Route::controller(R19LatihNyuluhNatarCeramahWargaController::class)->group(function () {
+Route::controller(R19DosenLatihNyuluhNatarCeramahWargaController::class)->group(function () {
     Route::get('/r_019_latih_nyuluh_natar_ceramah_warga', 'index')->name('dosen.r_019_latih_nyuluh_natar_ceramah_warga');
     Route::get('/r_019_latih_nyuluh_natar_ceramah_warga/create', 'create')->name('dosen.r_019_latih_nyuluh_natar_ceramah_warga.create');
     Route::post('/r_019_latih_nyuluh_natar_ceramah_warga', 'store')->name('dosen.r_019_latih_nyuluh_natar_ceramah_warga.store');
@@ -207,7 +238,7 @@ Route::controller(R19LatihNyuluhNatarCeramahWargaController::class)->group(funct
 });
 // End Of Pengaturan/Setting Rubrik Pengabdian
 // Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
-Route::controller(R20AssessorBkdLkdController::class)->group(function () {
+Route::controller(R20DosenAssessorBkdLkdController::class)->group(function () {
     Route::get('/r_020_assessor_bkd_lkd', 'index')->name('dosen.r_020_assessor_bkd_lkd');
     Route::get('/r_020_assessor_bkd_lkd/create', 'create')->name('dosen.r_020_assessor_bkd_lkd.create');
     Route::post('/r_020_assessor_bkd_lkd', 'store')->name('dosen.r_020_assessor_bkd_lkd.store');
@@ -217,7 +248,7 @@ Route::controller(R20AssessorBkdLkdController::class)->group(function () {
     Route::patch('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/verifikasi', 'verifikasi')->name('dosen.r_020_assessor_bkd_lkd.verifikasi');
     Route::patch('/r_020_assessor_bkd_lkd/{r020assessorbkdlkd}/tolak', 'tolak')->name('dosen.r_020_assessor_bkd_lkd.tolak');
 });
-Route::controller(R21ReviewerEclerePenelitianDosenController::class)->group(function () {
+Route::controller(R21DosenReviewerEclerePenelitianDosenController::class)->group(function () {
     Route::get('/r_021_reviewer_eclere_penelitian_dosen', 'index')->name('dosen.r_021_reviewer_eclere_penelitian_dosen');
     Route::get('/r_021_reviewer_eclere_penelitian_dosen/create', 'create')->name('dosen.r_021_reviewer_eclere_penelitian_dosen.create');
     Route::post('/r_021_reviewer_eclere_penelitian_dosen', 'store')->name('dosen.r_021_reviewer_eclere_penelitian_dosen.store');
@@ -227,7 +258,7 @@ Route::controller(R21ReviewerEclerePenelitianDosenController::class)->group(func
     Route::patch('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/verifikasi', 'verifikasi')->name('dosen.r_021_reviewer_eclere_penelitian_dosen.verifikasi');
     Route::patch('/r_021_reviewer_eclere_penelitian_dosen/{r21revieweclerepenelitidosen}/tolak', 'tolak')->name('dosen.r_021_reviewer_eclere_penelitian_dosen.tolak');
 });
-Route::controller(R22ReviewerEclerePenelitianMhsController::class)->group(function () {
+Route::controller(R22DosenReviewerEclerePenelitianMhsController::class)->group(function () {
     Route::get('/r_022_reviewer_eclere_penelitian_mhs', 'index')->name('dosen.r_022_reviewer_eclere_penelitian_mhs');
     Route::get('/r_022_reviewer_eclere_penelitian_mhs/create', 'create')->name('dosen.r_022_reviewer_eclere_penelitian_mhs.create');
     Route::post('/r_022_reviewer_eclere_penelitian_mhs', 'store')->name('dosen.r_022_reviewer_eclere_penelitian_mhs.store');
@@ -237,7 +268,7 @@ Route::controller(R22ReviewerEclerePenelitianMhsController::class)->group(functi
     Route::patch('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/verifikasi', 'verifikasi')->name('dosen.r_022_reviewer_eclere_penelitian_mhs.verifikasi');
     Route::patch('/r_022_reviewer_eclere_penelitian_mhs/{r22revieweclerepenelitimhs}/tolak', 'tolak')->name('dosen.r_022_reviewer_eclere_penelitian_mhs.tolak');
 });
-Route::controller(R23AuditorMutuAssessorAkredInternalController::class)->group(function () {
+Route::controller(R23DosenAuditorMutuAssessorAkredInternalController::class)->group(function () {
     Route::get('/r_023_auditor_mutu_assessor_akred_internal', 'index')->name('dosen.r_023_auditor_mutu_assessor_akred_internal');
     Route::get('/r_023_auditor_mutu_assessor_akred_internal/create', 'create')->name('dosen.r_023_auditor_mutu_assessor_akred_internal.create');
     Route::post('/r_023_auditor_mutu_assessor_akred_internal', 'store')->name('dosen.r_023_auditor_mutu_assessor_akred_internal.store');
@@ -247,7 +278,7 @@ Route::controller(R23AuditorMutuAssessorAkredInternalController::class)->group(f
     Route::patch('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/verifikasi', 'verifikasi')->name('dosen.r_023_auditor_mutu_assessor_akred_internal.verifikasi');
     Route::patch('/r_023_auditor_mutu_assessor_akred_internal/{r23auditmutuasesorakredinternal}/tolak', 'tolak')->name('dosen.r_023_auditor_mutu_assessor_akred_internal.tolak');
 });
-Route::controller(R24TimAkredProdiDanDirektoratController::class)->group(function () {
+Route::controller(R24DosenTimAkredProdiDanDirektoratController::class)->group(function () {
     Route::get('/r_024_tim_akred_prodi_dan_direktorat', 'index')->name('dosen.r_024_tim_akred_prodi_dan_direktorat');
     Route::get('/r_024_tim_akred_prodi_dan_direktorat/create', 'create')->name('dosen.r_024_tim_akred_prodi_dan_direktorat.create');
     Route::post('/r_024_tim_akred_prodi_dan_direktorat', 'store')->name('dosen.r_024_tim_akred_prodi_dan_direktorat.store');
@@ -257,7 +288,7 @@ Route::controller(R24TimAkredProdiDanDirektoratController::class)->group(functio
     Route::patch('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/verifikasi', 'verifikasi')->name('dosen.r_024_tim_akred_prodi_dan_direktorat.verifikasi');
     Route::patch('/r_024_tim_akred_prodi_dan_direktorat/{r24timakredprodirektorat}/tolak', 'tolak')->name('dosen.r_024_tim_akred_prodi_dan_direktorat.tolak');
 });
-Route::controller(R25KepanitiaanKegiatanInstitusiController::class)->group(function () {
+Route::controller(R25DosenKepanitiaanKegiatanInstitusiController::class)->group(function () {
     Route::get('/r_025_kepanitiaan_kegiatan_institusi', 'index')->name('dosen.r_025_kepanitiaan_kegiatan_institusi');
     Route::get('/r_025_kepanitiaan_kegiatan_institusi/create', 'create')->name('dosen.r_025_kepanitiaan_kegiatan_institusi.create');
     Route::post('/r_025_kepanitiaan_kegiatan_institusi', 'store')->name('dosen.r_025_kepanitiaan_kegiatan_institusi.store');
@@ -267,7 +298,7 @@ Route::controller(R25KepanitiaanKegiatanInstitusiController::class)->group(funct
     Route::patch('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/verifikasi', 'verifikasi')->name('dosen.r_025_kepanitiaan_kegiatan_institusi.verifikasi');
     Route::patch('/r_025_kepanitiaan_kegiatan_institusi/{r25panitiakegiataninstitusi}/tolak', 'tolak')->name('dosen.r_025_kepanitiaan_kegiatan_institusi.tolak');
 });
-Route::controller(R26PengelolaJurnalBuletinController::class)->group(function () {
+Route::controller(R26DosenPengelolaJurnalBuletinController::class)->group(function () {
     Route::get('/r_026_pengelola_jurnal_buletin', 'index')->name('dosen.r_026_pengelola_jurnal_buletin');
     Route::get('/r_026_pengelola_jurnal_buletin/create', 'create')->name('dosen.r_026_pengelola_jurnal_buletin.create');
     Route::post('/r_026_pengelola_jurnal_buletin', 'store')->name('dosen.r_026_pengelola_jurnal_buletin.store');
@@ -277,7 +308,7 @@ Route::controller(R26PengelolaJurnalBuletinController::class)->group(function ()
     Route::patch('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/verifikasi', 'verifikasi')->name('dosen.r_026_pengelola_jurnal_buletin.verifikasi');
     Route::patch('/r_026_pengelola_jurnal_buletin/{r26pengelolajurnalbuletin}/tolak', 'tolak')->name('dosen.r_026_pengelola_jurnal_buletin.tolak');
 });
-Route::controller(R27KeanggotaanSenatController::class)->group(function () {
+Route::controller(R27DosenKeanggotaanSenatController::class)->group(function () {
     Route::get('/r_027_keanggotaan_senat', 'index')->name('dosen.r_027_keanggotaan_senat');
     Route::get('/r_027_keanggotaan_senat/create', 'create')->name('dosen.r_027_keanggotaan_senat.create');
     Route::post('/r_027_keanggotaan_senat', 'store')->name('dosen.r_027_keanggotaan_senat.store');
@@ -287,7 +318,7 @@ Route::controller(R27KeanggotaanSenatController::class)->group(function () {
     Route::patch('/r_027_keanggotaan_senat/{r27keanggotaansenat}/verifikasi', 'verifikasi')->name('dosen.r_027_keanggotaan_senat.verifikasi');
     Route::patch('/r_027_keanggotaan_senat/{r27keanggotaansenat}/tolak', 'tolak')->name('dosen.r_027_keanggotaan_senat.tolak');
 });
-Route::controller(R28MelaksanakanPengembanganDiriController::class)->group(function () {
+Route::controller(R28DosenMelaksanakanPengembanganDiriController::class)->group(function () {
     Route::get('/r_028_melaksanakan_pengembangan_diri', 'index')->name('dosen.r_028_melaksanakan_pengembangan_diri');
     Route::get('/r_028_melaksanakan_pengembangan_diri/create', 'create')->name('dosen.r_028_melaksanakan_pengembangan_diri.create');
     Route::post('/r_028_melaksanakan_pengembangan_diri', 'store')->name('dosen.r_028_melaksanakan_pengembangan_diri.store');
@@ -297,7 +328,7 @@ Route::controller(R28MelaksanakanPengembanganDiriController::class)->group(funct
     Route::patch('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/verifikasi', 'verifikasi')->name('dosen.r_028_melaksanakan_pengembangan_diri.verifikasi');
     Route::patch('/r_028_melaksanakan_pengembangan_diri/{r28laksanakanpengembangandiri}/tolak', 'tolak')->name('dosen.r_028_melaksanakan_pengembangan_diri.tolak');
 });
-Route::controller(R29MemperolehPenghargaanController::class)->group(function () {
+Route::controller(R29DosenMemperolehPenghargaanController::class)->group(function () {
     Route::get('/r_029_memperoleh_penghargaan', 'index')->name('dosen.r_029_memperoleh_penghargaan');
     Route::get('/r_029_memperoleh_penghargaan/create', 'create')->name('dosen.r_029_memperoleh_penghargaan.create');
     Route::post('/r_029_memperoleh_penghargaan', 'store')->name('dosen.r_029_memperoleh_penghargaan.store');
@@ -307,7 +338,7 @@ Route::controller(R29MemperolehPenghargaanController::class)->group(function () 
     Route::patch('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/verifikasi', 'verifikasi')->name('dosen.r_029_memperoleh_penghargaan.verifikasi');
     Route::patch('/r_029_memperoleh_penghargaan/{r29memperolehpenghargaan}/tolak', 'tolak')->name('dosen.r_029_memperoleh_penghargaan.tolak');
 });
-Route::controller(R30PengelolaKepkController::class)->group(function () {
+Route::controller(R30DosenPengelolaKepkController::class)->group(function () {
     Route::get('/r_030_pengelola_kepk', 'index')->name('dosen.r_030_pengelola_kepk');
     Route::get('/r_030_pengelola_kepk/create', 'create')->name('dosen.r_030_pengelola_kepk.create');
     Route::post('/r_030_pengelola_kepk', 'store')->name('dosen.r_030_pengelola_kepk.store');

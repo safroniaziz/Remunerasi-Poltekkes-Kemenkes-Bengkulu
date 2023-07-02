@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dosen;
 
+use App\Http\Controllers\Controller;
 use App\Models\R01PerkuliahanTeori;
 use App\Models\Pegawai;
 use App\Models\Periode;
@@ -22,7 +23,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
          $pegawais = Pegawai::all();
-         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$request->session()->get('nip_dosen'))
+         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
                                                     ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
