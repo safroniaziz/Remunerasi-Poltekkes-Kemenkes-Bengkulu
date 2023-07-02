@@ -4,6 +4,9 @@
 @section('sidebar')
     @include('layouts.partials.sidebar_dosen')
 @endsection
+@section('login_as')
+    Dosen
+@endsection
 @section('user-login2')
     @if (isset($_SESSION['data']['nama']))
         {{ $_SESSION['data']['nama'] }}
