@@ -41,6 +41,9 @@
                                             <td>{{ $dosen->nip }}</td>
                                             <td>{{ $dosen->nama }}</td>
                                             <td>{{ $dosen->total_point }}</td>
+                                            <td>
+                                                <a href="" class="btn btn-success btn-sm btn-flat"><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
