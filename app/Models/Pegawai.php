@@ -52,6 +52,7 @@ class Pegawai extends Model
     public function presensis(){
         return $this->hasMany(Presensi::class,'nip');
     }
+    
     public function riwayatPoints(){
         return $this->hasMany(RiwayatPoint::class,'nip');
     }
