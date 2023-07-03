@@ -70,8 +70,6 @@ Route::get('/logoutDosen',function(){
     return redirect()->route('home');
 })->name('logoutDosen');
 
-
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', function () {
         activity()->log('Look mum, I logged something');
