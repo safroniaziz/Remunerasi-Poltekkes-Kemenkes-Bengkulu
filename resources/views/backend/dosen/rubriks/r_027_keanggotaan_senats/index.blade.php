@@ -113,9 +113,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_027_keanggotaan_senats.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_027_keanggotaan_senats.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_027_keanggotaan_senats.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_027_keanggotaan_senats.partials.modal_edit')
                 </div>
             </section>
         </div>

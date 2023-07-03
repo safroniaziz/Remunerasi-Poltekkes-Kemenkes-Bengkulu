@@ -112,9 +112,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_028_melaksanakan_pengembangan_diris.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_028_melaksanakan_pengembangan_diris.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_028_melaksanakan_pengembangan_diris.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_028_melaksanakan_pengembangan_diris.partials.modal_edit')
                 </div>
             </section>
         </div>

@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_edit')
                 </div>
             </section>
         </div>

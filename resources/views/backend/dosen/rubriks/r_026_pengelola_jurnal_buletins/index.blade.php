@@ -117,9 +117,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_026_pengelola_jurnal_buletins.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_026_pengelola_jurnal_buletins.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_026_pengelola_jurnal_buletins.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_026_pengelola_jurnal_buletins.partials.modal_edit')
                 </div>
             </section>
         </div>

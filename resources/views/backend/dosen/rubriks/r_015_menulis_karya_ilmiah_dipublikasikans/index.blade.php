@@ -139,9 +139,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.partials.modal_edit')
                 </div>
             </section>
         </div>

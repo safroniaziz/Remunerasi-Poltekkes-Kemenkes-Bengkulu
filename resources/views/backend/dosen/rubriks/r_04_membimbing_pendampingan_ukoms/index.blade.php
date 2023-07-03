@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_edit')
                 </div>
             </section>
         </div>

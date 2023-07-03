@@ -105,9 +105,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.partials.modal_edit')
                 </div>
             </section>
         </div>

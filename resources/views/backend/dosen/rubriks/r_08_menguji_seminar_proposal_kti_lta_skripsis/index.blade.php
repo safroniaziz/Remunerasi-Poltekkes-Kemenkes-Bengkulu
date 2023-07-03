@@ -105,9 +105,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.partials.modal_edit')
                 </div>
             </section>
         </div>

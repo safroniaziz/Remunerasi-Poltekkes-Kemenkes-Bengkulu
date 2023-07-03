@@ -109,9 +109,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_010_menulis_buku_ajar_berisbns.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_010_menulis_buku_ajar_berisbns.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_010_menulis_buku_ajar_berisbns.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_010_menulis_buku_ajar_berisbns.partials.modal_edit')
                 </div>
             </section>
         </div>

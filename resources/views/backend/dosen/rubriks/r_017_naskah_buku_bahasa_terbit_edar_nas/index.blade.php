@@ -105,9 +105,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.partials.modal_edit')
                 </div>
             </section>
         </div>

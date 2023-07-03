@@ -109,9 +109,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_029_memperoleh_penghargaans.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_029_memperoleh_penghargaans.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_029_memperoleh_penghargaans.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_029_memperoleh_penghargaans.partials.modal_edit')
                 </div>
             </section>
         </div>

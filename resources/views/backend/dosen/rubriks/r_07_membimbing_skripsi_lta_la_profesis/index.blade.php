@@ -111,9 +111,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_07_membimbing_skripsi_lta_la_profesis.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_07_membimbing_skripsi_lta_la_profesis.partials.modal_edit')
                 </div>
             </section>
         </div>

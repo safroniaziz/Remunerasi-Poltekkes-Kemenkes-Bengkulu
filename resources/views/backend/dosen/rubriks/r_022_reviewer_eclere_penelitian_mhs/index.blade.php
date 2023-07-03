@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.partials.modal_edit')
                 </div>
             </section>
         </div>

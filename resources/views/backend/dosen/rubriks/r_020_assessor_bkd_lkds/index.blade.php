@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_020_assessor_bkd_lkds.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_020_assessor_bkd_lkds.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_020_assessor_bkd_lkds.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_020_assessor_bkd_lkds.partials.modal_edit')
                 </div>
             </section>
         </div>

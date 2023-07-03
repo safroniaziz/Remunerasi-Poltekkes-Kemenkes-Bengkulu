@@ -105,9 +105,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.partials.modal_edit')
                 </div>
             </section>
         </div>

@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_023_auditor_mutu_assessor_akred_internals.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_023_auditor_mutu_assessor_akred_internals.partials.modal_edit')
                 </div>
             </section>
         </div>
