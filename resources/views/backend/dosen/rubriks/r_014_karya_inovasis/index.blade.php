@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 14 Karya Inovasi')
 @section('page','Data Rubrik 14 Karya Inovasi')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

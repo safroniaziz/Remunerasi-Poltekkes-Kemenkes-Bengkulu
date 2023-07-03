@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat')
 @section('page','Data Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

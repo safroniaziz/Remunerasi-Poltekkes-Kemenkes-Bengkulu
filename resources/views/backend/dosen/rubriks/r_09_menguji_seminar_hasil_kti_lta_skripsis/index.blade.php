@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 09 Menguji Seminar Hasil KTI LTA Skripsi')
 @section('page','Data Rubrik 09 Menguji Seminar Hasil KTI LTA Skripsi')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

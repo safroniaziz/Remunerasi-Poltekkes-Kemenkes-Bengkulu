@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 22 Reviewer Eclere Penelitian Mahasiswa')
 @section('page','Data Rubrik 22 Reviewer Eclere Penelitian Mahasiswa')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

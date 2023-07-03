@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 11 Mengembangkan Modul Berisbn')
 @section('page','Data Rubrik 11 Mengembangkan Modul Berisbn')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

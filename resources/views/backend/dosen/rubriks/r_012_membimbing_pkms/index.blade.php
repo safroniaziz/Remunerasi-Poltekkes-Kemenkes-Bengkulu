@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 12 Membimbing PKM')
 @section('page','Data Rubrik 12 Membimbing PKM')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection
