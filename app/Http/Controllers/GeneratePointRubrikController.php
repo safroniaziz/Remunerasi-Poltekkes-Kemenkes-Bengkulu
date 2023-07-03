@@ -71,7 +71,8 @@ class GeneratePointRubrikController extends Controller
                             ->first();
                 
                 $riwayatPoint[] = array(
-                    'nama_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
+                    'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
+                    'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
                     'periode_id'    =>  $this->periode->id,
                     'point'         =>  $total_point_per_nip->total_point,
                     'nip'           =>  $dosens[$j]['nip'],

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,5 +18,12 @@ class PointRubrikDosenController extends Controller
         return view('backend/point_rubrik_dosen.index',[
             'dosens'    =>  $dosens,
         ]);
+    }
+
+    public function pointDetail(Pegawai $dosen) {
+        $periode = Periode::select('nama_periode')->where('is_active', '1')->first();
+        $riwayatPoints = $dosen->riwayatPoints; // Mengambil relasi hasMany riwayatPoints
+        return $riwayatPoints;
+        return view('backend.point_rubrik_dosen.detail', compact('riwayatPoints'));
     }
 }

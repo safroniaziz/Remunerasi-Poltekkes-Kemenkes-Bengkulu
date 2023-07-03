@@ -210,6 +210,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::controller(PointRubrikDosenController::class)->group(function () {
         Route::get('/point_rubrik_dosen', 'index')->name('point_rubrik_dosen');
+        Route::get('/point_rubrik_dosen/{dosen}/detail', 'pointDetail')->name('point_rubrik_dosen.detail');
     });
     // End Of Data Master Route
 
