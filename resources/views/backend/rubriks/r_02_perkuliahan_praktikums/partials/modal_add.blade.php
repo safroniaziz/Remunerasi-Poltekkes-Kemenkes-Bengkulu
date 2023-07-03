@@ -17,6 +17,11 @@
                         </div>
 
                         <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Nama Matkul</label>
+                            <input type="text" class="form-control" id="nama_matkul" name="nama_matkul">
+                        </div>
+
+                        <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah SKS</label>
                             <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks">
                         </div>
