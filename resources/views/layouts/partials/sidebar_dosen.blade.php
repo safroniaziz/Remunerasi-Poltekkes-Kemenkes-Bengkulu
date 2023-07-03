@@ -127,7 +127,7 @@
 </li>
 
 <li style="padding-left:2px;">
-@if (isset($_SESSION['data']['nametitle']))
+@if (isset($_SESSION['data']['namatitle']))
     <a href="{{ route('logoutDosen') }}">
         <i class="fa fa-power-off text-danger"></i>&nbsp; {{ __('Logout') }}
     </a>

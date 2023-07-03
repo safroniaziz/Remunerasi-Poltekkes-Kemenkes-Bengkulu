@@ -21,8 +21,8 @@
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <div class="col-md-12">Selamat datang 
                             <strong style="text-transform: capitalize">
-                                @if (isset($_SESSION['data']['nametitle']))
-                                    {{ $_SESSION['data']['nametitle'] }}
+                                @if (isset($_SESSION['data']['namatitle']))
+                                    {{ $_SESSION['data']['namatitle'] }}
                                 @endif    
                             </strong> 
                             di halaman Dashboard Administrator <b> Sistem Informasi Remunerasi, Politeknik Kesehatan, Kementerian Kesehatan Bengkulu</b></div>

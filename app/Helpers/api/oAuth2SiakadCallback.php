@@ -29,8 +29,6 @@ $response = _curl_api($config['url'], json_encode($data));
 $data = json_decode($response, true); // Memparsing respons JSON menjadi array asosiatif
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
 
-
-
 session_start();
 $_SESSION['data'] = [
     'nama'      => $data['data']['name'],
