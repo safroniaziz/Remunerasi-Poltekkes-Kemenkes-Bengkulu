@@ -26,28 +26,14 @@
     transition: 300ms ease-in-out;
 }
 
-#oAuth2Siakad {
-}
 #oAuth2SiakadInput1 {
 	margin-bottom: 10px !important;
 }
-#oAuth2SiakadLabel1 {
-	
-}
-#oAuth2SiakadInput1 {
-	
-}
+
 #oAuth2SiakadLabel2 {
 	margin-bottom: 10px !important;
 }
-#oAuth2SiakadInput2 {
-	
-}
-#oAuth2SiakadLabel3 {
-	
-}
+
 #oAuth2SiakadInput3 {
 	margin-bottom: 10px !important;
-}
-#oAuth2ClientResult {
 }
