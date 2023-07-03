@@ -41,134 +41,89 @@
     </ul>
 </li>
 
-<li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN INSIDENTAL</li>
-<li class="{{ set_active('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}">
-    <a href="{{ route('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}">
-    <i class="fa fa-message"></i>
-    <span>Orasi Ilmiah Narasumber</span>
+<li class="treeview {{ set_active([
+    'dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu',
+    'dosen.r_014_karya_inovasi',
+]) }}">
+<a href="#" class="parent-sidebar-menu">
+    <i class="fa fa-file-text-o"></i> <span>RUBRIK PENDIDIKAN INSIDENTAL</span>
+    <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+    </span>
 </a>
+<ul class="treeview-menu child-sidebar-menu">
+    <li class="{{ set_active(['dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu']) }}"><a href="{{ route('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu') }}"><i class="fa fa-circle-o"></i>Orasi Ilmiah Narasumber</a></li>
+    <li class="{{ set_active(['dosen.r_014_karya_inovasi']) }}"><a href="{{ route('dosen.r_014_karya_inovasi') }}"><i class="fa fa-circle-o"></i>Karya Inovasi</a></li>
+</ul>
 </li>
 
-<li class="{{ set_active('dosen.r_014_karya_inovasi') }}">
-    <a href="{{ route('dosen.r_014_karya_inovasi') }}">
-    <i class="fa fa-envelope"></i>
-    <span>Karya Inovasi</span>
+<li class="treeview {{ set_active([
+    'dosen.r_015_menulis_karya_ilmiah_dipublikasikan',
+    'dosen.r_016_naskah_buku_bahasa_terbit_edar_inter',
+    'dosen.r_017_naskah_buku_bahasa_terbit_edar_nas',
+]) }}">
+<a href="#" class="parent-sidebar-menu">
+    <i class="fa fa-file-text-o"></i> <span>RUBRIK PELAKSANAAN PENELITIAN</span>
+    <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+    </span>
 </a>
+<ul class="treeview-menu child-sidebar-menu">
+    <li class="{{ set_active(['dosen.r_015_menulis_karya_ilmiah_dipublikasikan']) }}"><a href="{{ route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan') }}"><i class="fa fa-circle-o"></i>Karya Ilmiah Diplublikasikan</a></li>
+    <li class="{{ set_active(['dosen.r_016_naskah_buku_bahasa_terbit_edar_inter']) }}"><a href="{{ route('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter') }}"><i class="fa fa-circle-o"></i>Naskah Buku Internasional</a></li>
+    <li class="{{ set_active(['dosen.r_017_naskah_buku_bahasa_terbit_edar_nas']) }}"><a href="{{ route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas') }}"><i class="fa fa-circle-o"></i>Naskah Buku Nasional</a></li>
+</ul>
 </li>
 
-<li class="header" style="font-weight:bold">RUBRIK PELAKSANAAN PENELITIAN</li>
-<li class="{{ set_active('dosen.r_015_menulis_karya_ilmiah_dipublikasikan') }}">
-    <a href="{{ route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan') }}">
-    <i class="fa fa-solid fa-file-word"></i>
-    <span>Karya Ilmiah Diplublikasikan</span>
+<li class="treeview {{ set_active([
+    'dosen.r_018_mendapat_hibah_pkm',
+    'dosen.r_019_latih_nyuluh_natar_ceramah_warga',
+]) }}">
+<a href="#" class="parent-sidebar-menu">
+    <i class="fa fa-file-text-o"></i> <span>RUBRIK PELAKSANAAN PENGABDIAN</span>
+    <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+    </span>
 </a>
+<ul class="treeview-menu child-sidebar-menu">
+    <li class="{{ set_active(['dosen.r_018_mendapat_hibah_pkm']) }}"><a href="{{ route('dosen.r_018_mendapat_hibah_pkm') }}"><i class="fa fa-circle-o"></i>Mendapatkan Hibah PKM</a></li>
+    <li class="{{ set_active(['dosen.r_019_latih_nyuluh_natar_ceramah_warga']) }}"><a href="{{ route('dosen.r_019_latih_nyuluh_natar_ceramah_warga') }}"><i class="fa fa-circle-o"></i>Latihan Pada Masyarakat</a></li>
+</ul>
 </li>
 
-<li class="{{ set_active('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter') }}">
-    <a href="{{ route('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter') }}">
-    <i class="fa fa-folder-open"></i>
-    <span>Naskah Buku Internasional</span>
+<li class="treeview {{ set_active([
+    'dosen.r_020_assessor_bkd_lkd',
+    'dosen.r_021_reviewer_eclere_penelitian_dosen',
+    'dosen.r_022_reviewer_eclere_penelitian_mhs',
+    'dosen.r_023_auditor_mutu_assessor_akred_internal',
+    'dosen.r_024_tim_akred_prodi_dan_direktorat',
+    'dosen.r_025_kepanitiaan_kegiatan_institusi',
+    'dosen.r_026_pengelola_jurnal_buletin',
+    'dosen.r_027_keanggotaan_senat',
+    'dosen.r_028_melaksanakan_pengembangan_diri',
+    'dosen.r_029_memperoleh_penghargaan',
+    'dosen.r_030_pengelola_kepk',
+]) }}">
+<a href="#" class="parent-sidebar-menu">
+    <i class="fa fa-file-text-o"></i> <span>RUBRIK PENUNJANG AKADEMIK DOSEN</span>
+    <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+    </span>
 </a>
-</li>
+<ul class="treeview-menu child-sidebar-menu">
+    <li class="{{ set_active(['dosen.r_020_assessor_bkd_lkd']) }}"><a href="{{ route('dosen.r_020_assessor_bkd_lkd') }}"><i class="fa fa-circle-o"></i>Assesor BKD/LKD</a></li>
+    <li class="{{ set_active(['dosen.r_021_reviewer_eclere_penelitian_dosen']) }}"><a href="{{ route('dosen.r_021_reviewer_eclere_penelitian_dosen') }}"><i class="fa fa-circle-o"></i>Rev. Ethical Clearance Dosen</a></li>
+    <li class="{{ set_active(['dosen.r_022_reviewer_eclere_penelitian_mhs']) }}"><a href="{{ route('dosen.r_022_reviewer_eclere_penelitian_mhs') }}"><i class="fa fa-circle-o"></i>Rev. Ethical Clearance Mhs</a></li>
+    <li class="{{ set_active(['dosen.r_023_auditor_mutu_assessor_akred_internal']) }}"><a href="{{ route('dosen.r_023_auditor_mutu_assessor_akred_internal') }}"><i class="fa fa-circle-o"></i>Auditor Mutu/Akred. Internal</a></li>
+    <li class="{{ set_active(['dosen.r_024_tim_akred_prodi_dan_direktorat']) }}"><a href="{{ route('dosen.r_024_tim_akred_prodi_dan_direktorat') }}"><i class="fa fa-circle-o"></i>Tim Akred. Prodi & Rektorat</a></li>
+    <li class="{{ set_active(['dosen.r_025_kepanitiaan_kegiatan_institusi']) }}"><a href="{{ route('dosen.r_025_kepanitiaan_kegiatan_institusi') }}"><i class="fa fa-circle-o"></i>Panitia Kegiatan Institusi</a></li>
+    <li class="{{ set_active(['dosen.r_026_pengelola_jurnal_buletin']) }}"><a href="{{ route('dosen.r_026_pengelola_jurnal_buletin') }}"><i class="fa fa-circle-o"></i>Pengelola Jurnal/Buletin</a></li>
+    <li class="{{ set_active(['dosen.r_027_keanggotaan_senat']) }}"><a href="{{ route('dosen.r_027_keanggotaan_senat') }}"><i class="fa fa-circle-o"></i>Keanggotaan Senat</a></li>
+    <li class="{{ set_active(['dosen.r_028_melaksanakan_pengembangan_diri']) }}"><a href="{{ route('dosen.r_028_melaksanakan_pengembangan_diri') }}"><i class="fa fa-circle-o"></i>Melaks. Pengembangan Diri</a></li>
+    <li class="{{ set_active(['dosen.r_029_memperoleh_penghargaan']) }}"><a href="{{ route('dosen.r_029_memperoleh_penghargaan') }}"><i class="fa fa-circle-o"></i>Memperoleh Penghargaan</a></li>
+    <li class="{{ set_active(['dosen.r_030_pengelola_kepk']) }}"><a href="{{ route('dosen.r_030_pengelola_kepk') }}"><i class="fa fa-circle-o"></i>Pengelola KEPK</a></li>
 
-<li class="{{ set_active('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas') }}">
-    <a href="{{ route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas') }}">
-    <i class="fa fa-file-pdf"></i>
-    <span>Naskah Buku Nasional</span>
-</a>
-</li>
-
-<li class="header" style="font-weight:bold">RUBRIK PELAKSANAAN PENGABDIAN </li>
-<li class="{{ set_active('dosen.r_018_mendapat_hibah_pkm') }}">
-    <a href="{{ route('dosen.r_018_mendapat_hibah_pkm') }}">
-    <i class="fa fa-book-atlas"></i>
-    <span>Mendapatkan Hibah PKM</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_019_latih_nyuluh_natar_ceramah_warga') }}">
-    <a href="{{ route('dosen.r_019_latih_nyuluh_natar_ceramah_warga') }}">
-    <i class="fa fa-magnifying-glass"></i>
-    <span>Latihan Pada Masyarakat</span>
-</a>
-</li>
-
-<li class="header" style="font-weight:bold">RUBRIK PENUNJANG AKADEMIK DOSEN</li>
-<li class="{{ set_active('dosen.r_020_assessor_bkd_lkd') }} ">
-    <a href="{{ route('dosen.r_020_assessor_bkd_lkd') }}">
-    <i class="fa fa-user-group"></i>
-    <span>Assesor BKD/LKD</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_021_reviewer_eclere_penelitian_dosen') }}">
-    <a href="{{ route('dosen.r_021_reviewer_eclere_penelitian_dosen') }}">
-    <i class="fa fa-building-user"></i>
-    <span>Rev. Ethical Clearance Dosen</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_022_reviewer_eclere_penelitian_mhs') }}">
-    <a href="{{ route('dosen.r_022_reviewer_eclere_penelitian_mhs') }}">
-    <i class="fa fa-user-graduate"></i>
-    <span>Rev. Ethical Clearance Mhs</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_023_auditor_mutu_assessor_akred_internal') }}">
-    <a href="{{ route('dosen.r_023_auditor_mutu_assessor_akred_internal') }}">
-    <i class="fa fa-user-tie"></i>
-    <span>Auditor Mutu/Akred. Internal</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_024_tim_akred_prodi_dan_direktorat') }}">
-    <a href="{{ route('dosen.r_024_tim_akred_prodi_dan_direktorat') }}">
-    <i class="fa fa-house-signal"></i>
-    <span>Tim Akred. Prodi & Rektorat</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_025_kepanitiaan_kegiatan_institusi') }}">
-    <a href="{{ route('dosen.r_025_kepanitiaan_kegiatan_institusi') }}">
-    <i class="fa fa-building-columns"></i>
-    <span>Panitia Kegiatan Institusi</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_026_pengelola_jurnal_buletin') }}">
-    <a href="{{ route('dosen.r_026_pengelola_jurnal_buletin') }}">
-    <i class="fa fa-file-powerpoint"></i>
-    <span>Pengelola Jurnal/Buletin</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_027_keanggotaan_senat') }}">
-    <a href="{{ route('dosen.r_027_keanggotaan_senat') }}">
-    <i class="fa fa-users"></i>
-    <span>Keanggotaan Senat</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_028_melaksanakan_pengembangan_diri') }}">
-    <a href="{{ route('dosen.r_028_melaksanakan_pengembangan_diri') }}">
-    <i class="fa fa-graduation-cap"></i>
-    <span>Melaks. Pengembangan Diri</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_029_memperoleh_penghargaan') }}">
-    <a href="{{ route('dosen.r_029_memperoleh_penghargaan') }}">
-    <i class="fa fa-medal"></i>
-    <span>Memperoleh Penghargaan</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_030_pengelola_kepk') }}">
-    <a href="{{ route('dosen.r_030_pengelola_kepk') }}">
-    <i class="fa fa-shield-halved"></i>
-    <span>Pengelola KEPK</span>
-</a>
+</ul>
 </li>
 
 <li style="padding-left:2px;">
