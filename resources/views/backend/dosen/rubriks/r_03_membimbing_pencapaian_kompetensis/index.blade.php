@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 03 Membimbing Tutorial Pencapaian Kompetensi')
 @section('page','Data Rubrik 03 Membimbing Tutorial Pencapaian Kompetensi')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

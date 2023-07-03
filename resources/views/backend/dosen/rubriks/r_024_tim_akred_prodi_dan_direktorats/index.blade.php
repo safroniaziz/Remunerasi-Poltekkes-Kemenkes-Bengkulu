@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 24 Tim Akreditasi Prodi dan Direktorat')
 @section('page','Data Rubrik 24 Tim Akreditasi Prodi dan Direktorat')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

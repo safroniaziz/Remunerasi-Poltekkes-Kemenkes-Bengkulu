@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 20 Assessor BKD LKD')
 @section('page','Data Rubrik 20 Assessor BKD LKD')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

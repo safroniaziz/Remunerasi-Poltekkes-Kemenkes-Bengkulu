@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu')
 @section('page','Data Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

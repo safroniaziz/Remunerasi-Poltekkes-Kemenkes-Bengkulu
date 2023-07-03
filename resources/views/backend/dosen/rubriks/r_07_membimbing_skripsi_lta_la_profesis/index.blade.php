@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 07 Membimbing Skripsi LTA LA Profesi')
 @section('page','Data Rubrik 07 Membimbing Skripsi LTA LA Profesi')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection

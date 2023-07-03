@@ -2,6 +2,9 @@
 @section('subTitle','Data Rubrik 16 Naskah Buku Bahasa Terbit Edar Internasional')
 @section('page','Data Rubrik 16 Naskah Buku Bahasa Terbit Edar Internasional')
 @section('subPage','Semua Data')
+@section('sidebar')
+    @include('layouts.partials.sidebar_dosen')
+@endsection
 @section('login_as')
     Halaman Dosen
 @endsection
