@@ -10,7 +10,7 @@
 @endsection
 @section('user-login2')
     @if (isset($_SESSION['data']['namatitle']))
-        {{ $_SESSION['data']['namatitle'] }}
+        {{ $_SESSION['data']['nama'] }}
     @endif
 @endsection
 @section('content')
