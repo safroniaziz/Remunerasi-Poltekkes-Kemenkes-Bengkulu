@@ -113,6 +113,8 @@ class GeneratePointRubrikController extends Controller
             'total_point'   =>  $total_point->total_point,
         ]);
 
+        $dosens = Pegawai::select('nip')->get();
+
         $success = array(
             'message' => 'Berhasil, Perbarui Point Per Rubrik Berhasil Dilakukan',
             'alert-type' => 'success'

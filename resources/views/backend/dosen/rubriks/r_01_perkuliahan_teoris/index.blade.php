@@ -107,9 +107,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_01_perkuliahan_teoris.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_01_perkuliahan_teoris.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_01_perkuliahan_teoris.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_01_perkuliahan_teoris.partials.modal_edit')
                 </div>
             </section>
         </div>
