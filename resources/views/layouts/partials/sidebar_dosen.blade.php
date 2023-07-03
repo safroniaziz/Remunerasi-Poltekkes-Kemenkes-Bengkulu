@@ -46,7 +46,7 @@
     'dosen.r_014_karya_inovasi',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>RUBRIK PENDIDIKAN INSIDENTAL</span>
+    <i class="fa fa-file-text-o"></i> <span>Rubrik Pendidikan Insidental</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -63,7 +63,7 @@
     'dosen.r_017_naskah_buku_bahasa_terbit_edar_nas',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>RUBRIK PELAKSANAAN PENELITIAN</span>
+    <i class="fa fa-file-text-o"></i> <span>Rubrik Pelaksanaan Penelitian</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -80,7 +80,7 @@
     'dosen.r_019_latih_nyuluh_natar_ceramah_warga',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>RUBRIK PELAKSANAAN PENGABDIAN</span>
+    <i class="fa fa-file-text-o"></i> <span>Rubrik Pelaksanaan Pengabdian</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -105,7 +105,7 @@
     'dosen.r_030_pengelola_kepk',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>RUBRIK PENUNJANG AKADEMIK DOSEN</span>
+    <i class="fa fa-file-text-o"></i> <span>Rubrik Penunjang Akademik Dosen</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
