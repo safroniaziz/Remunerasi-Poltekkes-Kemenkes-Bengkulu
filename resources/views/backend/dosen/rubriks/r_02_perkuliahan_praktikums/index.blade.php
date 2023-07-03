@@ -50,6 +50,7 @@
                                         <th style=" vertical-align:middle">No</th>
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style=" vertical-align:middle">Nama Dosen</th>
+                                        <th style=" vertical-align:middle">Nama Matkul</th>
                                         <th style=" vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
@@ -68,6 +69,7 @@
                                             <td>{{ $index+1 }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->nip }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->pegawai->nama }}</td>
+                                            <td class="text-center">{{ $r02perkuliahanpraktikum->nama_matkul }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_sks }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_tatap_muka }}</td>
@@ -139,6 +141,7 @@
                     $('#modalEdit').modal('show');
                     $('#r02perkuliahanpraktikum_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
+                    $('#nama_matkul_edit').val(data.nama_matkul);
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);
