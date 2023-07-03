@@ -4,89 +4,41 @@
         <span>Dashboard</span>
     </a>
 </li>
-<li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN REGULER</li>
-<li class="{{ set_active('dosen.r_01_perkuliahan_teori') }}">
-    <a href="{{ route('dosen.r_01_perkuliahan_teori') }}">
-    <i class="fa fa-book"></i>
-        <span>Perkuliahan Teori</span>
+
+<li class="treeview {{ set_active([
+        'dosen.r_01_perkuliahan_teori',
+        'dosen.r_02_perkuliahan_praktikum',
+        'dosen.r_03_membimbing_pencapaian_kompetensi',
+        'dosen.r_04_membimbing_pendampingan_ukom',
+        'dosen.r_05_membimbing_praktik_pkk_pbl_klinik',
+        'dosen.r_06_menguji_ujian_osca',
+        'dosen.r_07_membimbing_skripsi_lta_la_profesi',
+        'dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi',
+        'dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi',
+        'dosen.r_010_menulis_buku_ajar_berisbn',
+        'dosen.r_011_mengembangkan_modul_berisbn',
+        'dosen.r_012_membimbing_pkm',
+    ]) }}">
+    <a href="#" class="parent-sidebar-menu">
+        <i class="fa fa-file-text-o"></i> <span>Rubrik Pendidikan Reguler</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
     </a>
-</li>
-
-<li class="{{ set_active('dosen.r_02_perkuliahan_praktikum') }}">
-    <a href="{{ route('dosen.r_02_perkuliahan_praktikum') }}">
-    <i class="fa fa-book-open-reader"></i>
-    <span>Perkuliahan Praktikum</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_03_membimbing_pencapaian_kompetensi') }}">
-    <a href="{{ route('dosen.r_03_membimbing_pencapaian_kompetensi') }}">
-    <i class="fa fa-magnifying-glass-chart"></i>
-    <span>Memb. Capaian Kompetensi</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_04_membimbing_pendampingan_ukom') }}">
-    <a href="{{ route('dosen.r_04_membimbing_pendampingan_ukom') }}">
-    <i class="fa fa-square-poll-vertical"></i>
-    <span>Memb. Pendamping UKOM</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_05_membimbing_praktik_pkk_pbl_klinik') }}">
-    <a href="{{ route('dosen.r_05_membimbing_praktik_pkk_pbl_klinik') }}">
-    <i class="fa fa-house-medical"></i>
-    <span>Memb. Praktik PKK/PBL Klinik</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_06_menguji_ujian_osca') }}">
-    <a href="{{ route('dosen.r_06_menguji_ujian_osca') }}">
-    <i class="fa fa-briefcase-medical"></i>
-    <span>Menguji Ujian OSCA</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_07_membimbing_skripsi_lta_la_profesi') }}">
-    <a href="{{ route('dosen.r_07_membimbing_skripsi_lta_la_profesi') }}">
-    <i class="fa fa-solid fa-address-book"></i>
-    <span>Memb. Skripsi/LTA/LA Profesi</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi') }}">
-    <a href="{{ route('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi') }}">
-    <i class="fa fa-book-open-reader"></i>
-    <span>Meng. Sempro. LTA/LA/Skripsi</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi') }}">
-    <a href="{{ route('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi') }}">
-    <i class="fa fa-laptop-code"></i>
-    <span>Meng. Semhas. LTA/LA/Skripsi</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_010_menulis_buku_ajar_berisbn') }}">
-    <a href="{{ route('dosen.r_010_menulis_buku_ajar_berisbn') }}">
-    <i class="fa fa-book-bookmark"></i>
-    <span>Menulis Buku Ajar Ber-ISBN</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_011_mengembangkan_modul_berisbn') }}">
-    <a href="{{ route('dosen.r_011_mengembangkan_modul_berisbn') }}">
-    <i class="fa fa-book"></i>
-    <span>Mengemb. Modul Ber-ISBN</span>
-</a>
-</li>
-
-<li class="{{ set_active('dosen.r_012_membimbing_pkm') }}">
-    <a href="{{ route('dosen.r_012_membimbing_pkm') }}">
-    <i class="fa fa-print"></i>
-    <span>Membimbing PKM</span>
-</a>
+    <ul class="treeview-menu child-sidebar-menu">
+        <li class="{{ set_active(['dosen.r_01_perkuliahan_teori']) }}"><a href="{{ route('dosen.r_01_perkuliahan_teori') }}"><i class="fa fa-circle-o"></i>Perkuliahan Teori</a></li>
+        <li class="{{ set_active(['dosen.r_02_perkuliahan_praktikum']) }}"><a href="{{ route('dosen.r_02_perkuliahan_praktikum') }}"><i class="fa fa-circle-o"></i>Perkuliahan Praktikum</a></li>
+        <li class="{{ set_active(['dosen.r_03_membimbing_pencapaian_kompetensi']) }}"><a href="{{ route('dosen.r_03_membimbing_pencapaian_kompetensi') }}"><i class="fa fa-circle-o"></i>Memb. Capaian Kompetensi</a></li>
+        <li class="{{ set_active(['dosen.r_04_membimbing_pendampingan_ukom']) }}"><a href="{{ route('dosen.r_04_membimbing_pendampingan_ukom') }}"><i class="fa fa-circle-o"></i>Memb. Pendamping UKOM</a></li>
+        <li class="{{ set_active(['dosen.r_05_membimbing_praktik_pkk_pbl_klinik']) }}"><a href="{{ route('dosen.r_05_membimbing_praktik_pkk_pbl_klinik') }}"><i class="fa fa-circle-o"></i>Memb. Praktik PKK/PBL Klinik</a></li>
+        <li class="{{ set_active(['dosen.r_06_menguji_ujian_osca']) }}"><a href="{{ route('dosen.r_06_menguji_ujian_osca') }}"><i class="fa fa-circle-o"></i>Menguji Ujian OSCA</a></li>
+        <li class="{{ set_active(['dosen.r_07_membimbing_skripsi_lta_la_profesi']) }}"><a href="{{ route('dosen.r_07_membimbing_skripsi_lta_la_profesi') }}"><i class="fa fa-circle-o"></i>Memb. Skripsi/LTA/LA Profesi</a></li>
+        <li class="{{ set_active(['dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi']) }}"><a href="{{ route('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi') }}"><i class="fa fa-circle-o"></i>Meng. Sempro. LTA/LA/Skripsi</a></li>
+        <li class="{{ set_active(['dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi']) }}"><a href="{{ route('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi') }}"><i class="fa fa-circle-o"></i>Meng. Semhas. LTA/LA/Skripsi</a></li>
+        <li class="{{ set_active(['dosen.r_010_menulis_buku_ajar_berisbn']) }}"><a href="{{ route('dosen.r_010_menulis_buku_ajar_berisbn') }}"><i class="fa fa-circle-o"></i>Menulis Buku Ajar Ber-ISBN</a></li>
+        <li class="{{ set_active(['dosen.r_011_mengembangkan_modul_berisbn']) }}"><a href="{{ route('dosen.r_011_mengembangkan_modul_berisbn') }}"><i class="fa fa-circle-o"></i>Mengemb. Modul Ber-ISBN</a></li>
+        <li class="{{ set_active(['dosen.r_012_membimbing_pkm']) }}"><a href="{{ route('dosen.r_012_membimbing_pkm') }}"><i class="fa fa-circle-o"></i>Membimbing PKM</a></li>
+    </ul>
 </li>
 
 <li class="header" style="font-weight:bold">RUBRIK PENDIDIKAN INSIDENTAL</li>
