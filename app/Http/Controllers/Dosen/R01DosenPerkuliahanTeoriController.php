@@ -42,7 +42,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'is_bkd'                =>  'required',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -63,6 +62,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
         $simpan = R01PerkuliahanTeori::create([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
+            'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -92,7 +92,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'is_bkd'                =>  'required',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -113,6 +112,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
+            'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,

@@ -42,12 +42,14 @@ class R02PerkuliahanPraktikumController extends Controller
             abort(403);
         }
         $rules = [
+            'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'is_bkd'                =>  'required',
         ];
         $text = [
+            'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -68,6 +70,7 @@ class R02PerkuliahanPraktikumController extends Controller
         $simpan = R02PerkuliahanPraktikum::create([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
+            'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -103,6 +106,7 @@ class R02PerkuliahanPraktikumController extends Controller
             'is_bkd'                =>  'required',
         ];
         $text = [
+            'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -123,6 +127,7 @@ class R02PerkuliahanPraktikumController extends Controller
         $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
+            'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,

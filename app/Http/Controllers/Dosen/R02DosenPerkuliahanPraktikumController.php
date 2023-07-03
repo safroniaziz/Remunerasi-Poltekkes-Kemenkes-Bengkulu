@@ -63,6 +63,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         $simpan = R02PerkuliahanPraktikum::create([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
+            'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -112,6 +113,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
+            'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
