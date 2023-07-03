@@ -50,7 +50,7 @@
     </li>
     <!-- Control Sidebar Toggle Button -->
     <li style="background:#dc3545;">
-      @if (isset($_SESSION['data']['namatitle']))
+      @if (isset($_SESSION['data']['nametitle']))
         <a href="{{ route('logoutDosen') }}">
             <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
         </a>

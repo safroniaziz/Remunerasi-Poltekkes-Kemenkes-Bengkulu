@@ -30,13 +30,7 @@ $data = json_decode($response, true); // Memparsing respons JSON menjadi array a
 $name = $data['data']['name']; // Mengakses nilai "name" dari array $data
 
 session_start();
-$_SESSION['data'] = [
-    'nama'      => $data['data']['name'],
-    'kode'      => $data['data']['kode'],
-    'gelar'     => $data['data']['gelar'],
-    'namatitle' => $data['data']['nametitle'],
-    'nidn'      => $data['data']['nidn'],
-];
+$_SESSION['data'] = $data;
 
 echo "<script>
     if (window.top !== window.self) {

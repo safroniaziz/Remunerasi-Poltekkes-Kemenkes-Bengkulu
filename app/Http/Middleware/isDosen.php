@@ -16,7 +16,7 @@ class isDosen
     public function handle(Request $request, Closure $next): Response
     {
         session_start();
-        if (!empty($_SESSION['data']['namatitle']))
+        if (!empty($_SESSION['data']['nametitle']))
         {
             return $next($request);
         }
