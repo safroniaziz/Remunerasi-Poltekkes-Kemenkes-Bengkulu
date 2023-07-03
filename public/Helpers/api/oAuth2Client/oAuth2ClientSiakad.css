@@ -17,6 +17,7 @@
     padding: 7px !important;
     border: none !important;
     font-size: 14px !important;
+    cursor: pointer;
 }
 
 #oAuth2SiakadSubmit:hover{
@@ -29,7 +30,6 @@
 }
 #oAuth2SiakadInput1 {
 	margin-bottom: 10px !important;
-    cursor: pointer;
 }
 #oAuth2SiakadLabel1 {
 	
@@ -39,7 +39,6 @@
 }
 #oAuth2SiakadLabel2 {
 	margin-bottom: 10px !important;
-    cursor: pointer;
 }
 #oAuth2SiakadInput2 {
 	
