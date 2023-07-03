@@ -50,11 +50,8 @@
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis Seminar</th>
                                         <th style="text-align:center; vertical-align:middle">BKD</th>
-                                        @if(Auth::user()->hasRole('verifikator'))
-                                            <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-                                            <th style="text-align:center; vertical-align:middle">Verifikasi</th>
-                                            <th style="text-align:center; vertical-align:middle">Point</th>
-                                        @endif
+                                        <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
+                                        <th style="text-align:center; vertical-align:middle">Point</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -76,7 +73,6 @@
                                                     <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
                                                 @endif
                                             </td>
-                                            @if(Auth::user()->hasRole('verifikator'))
                                                 <td class="text-center">
                                                     @if ($r09mengujiseminarhasilktiltaskripsi->is_verified == 1)
                                                         <small class="label label-success"><i class="fa fa-check-circle"></i></small>
@@ -84,21 +80,7 @@
                                                         <small class="label label-danger"><i class="fa fa-close"></i></small>
                                                     @endif
                                                 </td>
-                                                <td class="text-center">
-                                                    @if ($r09mengujiseminarhasilktiltaskripsi->is_verified == 1)
-                                                        <form action="{{ route('r_09_menguji_seminar_hasil_kti_lta_skripsi.tolak',[$r09mengujiseminarhasilktiltaskripsi->id]) }}" method="POST">
-                                                            {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                            <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-thumbs-up"></i></button>
-                                                        </form>
-                                                    @else
-                                                        <form action="{{ route('r_09_menguji_seminar_hasil_kti_lta_skripsi.verifikasi',[$r09mengujiseminarhasilktiltaskripsi->id]) }}" method="POST">
-                                                            {{ csrf_field() }} {{ method_field('PATCH') }}
-                                                            <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-thumbs-down"></i></button>
-                                                        </form>
-                                                    @endif
-                                                </td>
                                                 <td class="text-center">{{ $r09mengujiseminarhasilktiltaskripsi->point }}</td>
-                                            @endif
                                             <td>
                                                 <table>
                                                     <tr>
