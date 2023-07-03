@@ -8,7 +8,7 @@
     Halaman Dosen
 @endsection
 @section('user-login2')
-    @if (isset($_SESSION['data']['nama']))
+    @if (isset($_SESSION['data']['namatitle']))
         {{ $_SESSION['data']['nama'] }}
     @endif
 @endsection
@@ -27,7 +27,7 @@
                                     {{ $_SESSION['data']['namatitle'] }}
                                 @endif    
                             </strong> 
-                            di halaman Dashboard Administrator <b> Sistem Informasi Remunerasi, Politeknik Kesehatan, Kementerian Kesehatan Bengkulu</b></div>
+                            di halaman Dashboard Dosen <b> Sistem Informasi Remunerasi, Politeknik Kesehatan, Kementerian Kesehatan Bengkulu</b></div>
                     </div>
                 </div>
             </section>

@@ -9,7 +9,7 @@
     Halaman Dosen
 @endsection
 @section('user-login2')
-    @if (isset($_SESSION['data']['nama']))
+    @if (isset($_SESSION['data']['namatitle']))
         {{ $_SESSION['data']['nama'] }}
     @endif
 @endsection
