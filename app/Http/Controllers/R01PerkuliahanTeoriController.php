@@ -41,13 +41,14 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
         $rules = [
+            'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'is_bkd'                =>  'required',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
+            'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -68,6 +69,7 @@ class R01PerkuliahanTeoriController extends Controller
         $simpan = R01PerkuliahanTeori::create([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
+            'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -97,13 +99,14 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
         $rules = [
+            'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'is_bkd'                =>  'required',
         ];
         $text = [
-            'nip.required'              => 'NIP harus dipilih',
+                        'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
@@ -124,6 +127,7 @@ class R01PerkuliahanTeoriController extends Controller
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
+            'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,

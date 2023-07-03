@@ -15,6 +15,7 @@ class R02Seeder extends Seeder
         DB::table('r02_perkuliahan_praktikums')->insert(array([
             'periode_id'            =>  1,
             'nip'                   =>  198909032015041004,
+            'nama_matkul'           =>  'kesehatan',
             'jumlah_sks'            =>  2,
             'jumlah_mahasiswa'      =>  40,
             'jumlah_tatap_muka'     =>  16,
@@ -26,6 +27,7 @@ class R02Seeder extends Seeder
         [
             'periode_id'            =>  1,
             'nip'                   =>  198909032015041004,
+            'nama_matkul'           =>  'kesehatan',
             'jumlah_sks'            =>  3,
             'jumlah_mahasiswa'      =>  40,
             'jumlah_tatap_muka'     =>  16,
@@ -36,6 +38,7 @@ class R02Seeder extends Seeder
         [
             'periode_id'            =>  1,
             'nip'                   =>  199308192022032013,
+            'nama_matkul'           =>  'kesehatan',
             'jumlah_sks'            =>  4,
             'jumlah_mahasiswa'      =>  40,
             'jumlah_tatap_muka'     =>  16,
@@ -46,6 +49,7 @@ class R02Seeder extends Seeder
         [
             'periode_id'            =>  1,
             'nip'                   =>  199308192022032013,
+            'nama_matkul'           =>  'kesehatan',
             'jumlah_sks'            =>  2,
             'jumlah_mahasiswa'      =>  80,
             'jumlah_tatap_muka'     =>  16,
@@ -56,6 +60,7 @@ class R02Seeder extends Seeder
         [
             'periode_id'            =>  1,
             'nip'                   =>  199201312019031010,
+            'nama_matkul'           =>  'kesehatan',
             'jumlah_sks'            =>  3,
             'jumlah_mahasiswa'      =>  80,
             'jumlah_tatap_muka'     =>  16,
@@ -66,6 +71,7 @@ class R02Seeder extends Seeder
         [
             'periode_id'            =>  1,
             'nip'                   =>  199201312019031010,
+            'nama_matkul'           =>  'kesehatan',
             'jumlah_sks'            =>  4,
             'jumlah_mahasiswa'      =>  80,
             'jumlah_tatap_muka'     =>  16,
