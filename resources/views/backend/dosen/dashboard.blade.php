@@ -8,8 +8,8 @@
     Halaman Dosen
 @endsection
 @section('user-login2')
-    @if (isset($_SESSION['data']['nama']))
-        {{ $_SESSION['data']['nama'] }}
+    @if (isset($_SESSION['data']['namatitle']))
+        {{ $_SESSION['data']['namatitle'] }}
     @endif
 @endsection
 @section('content')
