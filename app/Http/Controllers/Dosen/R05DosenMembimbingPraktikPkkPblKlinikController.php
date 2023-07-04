@@ -73,7 +73,7 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 05 Membimbing Praktik PKK PBL Klinik baru berhasil ditambahkan',
-                'url'   =>  url('/r_05_membimbing_praktik_pkk_pbl_klinik/'),
+                'url'   =>  url('/dosen/r_05_membimbing_praktik_pkk_pbl_klinik/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik gagal disimpan']);
@@ -122,7 +122,7 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 05 Membimbing Praktik PKK PBL Klinik berhasil diubah',
-                'url'   =>  url('/r_05_membimbing_praktik_pkk_pbl_klinik/'),
+                'url'   =>  url('/dosen/r_05_membimbing_praktik_pkk_pbl_klinik/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik anda gagal diubah']);
@@ -135,7 +135,7 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
                 'message' => 'Yeay, Membimbing Praktik PKK PBL Klinik remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_05_membimbing_praktik_pkk_pbl_klinik')->with($notification);
+            return redirect()->route('dosen.r_05_membimbing_praktik_pkk_pbl_klinik')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, Membimbing Praktik PKK PBL Klinik remunerasi gagal dihapus',

@@ -64,7 +64,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 21 Reviewer Eclere Penelitian Dosen baru berhasil ditambahkan',
-               'url'   =>  url('/r_021_reviewer_eclere_penelitian_dosen/'),
+               'url'   =>  url('/dosen/r_021_reviewer_eclere_penelitian_dosen/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 21 Reviewer Eclere Penelitian Dosen gagal disimpan']);
@@ -104,7 +104,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 21 Reviewer Eclere Penelitian Dosen diubah',
-               'url'   =>  url('/r_021_reviewer_eclere_penelitian_dosen/'),
+               'url'   =>  url('/dosen/r_021_reviewer_eclere_penelitian_dosen/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 21 Reviewer Eclere Penelitian Dosen gagal diubah']);
@@ -117,7 +117,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
                'message' => 'Yeay, Rubrik 21 Reviewer Eclere Penelitian Dosen remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_021_reviewer_eclere_penelitian_dosen')->with($notification);
+           return redirect()->route('dosen.r_021_reviewer_eclere_penelitian_dosen')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 21 Reviewer Eclere Penelitian Dosen remunerasi gagal dihapus',

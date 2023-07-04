@@ -64,7 +64,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 07 Membimbing Skirpsi LTA LA Profesi baru berhasil ditambahkan',
-                'url'   =>  url('/r_07_membimbing_skripsi_lta_la_profesi/'),
+                'url'   =>  url('/dosen/r_07_membimbing_skripsi_lta_la_profesi/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 07 Membimbing Skirpsi LTA LA Profesi gagal disimpan']);
@@ -112,7 +112,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 07 Membimbing Skirpsi LTA LA Profesi berhasil diubah',
-                'url'   =>  url('/r_07_membimbing_skripsi_lta_la_profesi/'),
+                'url'   =>  url('/dosen/r_07_membimbing_skripsi_lta_la_profesi/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 07 Membimbing Skirpsi LTA LA Profesi anda gagal diubah']);
@@ -125,7 +125,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
                 'message' => 'Yeay, R07MembimbingSkripsiLtaLaProfesi remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
+            return redirect()->route('dosen.r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, R07MembimbingSkripsiLtaLaProfesi remunerasi gagal dihapus',

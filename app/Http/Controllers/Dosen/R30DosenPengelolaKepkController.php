@@ -61,7 +61,7 @@ class R30DosenPengelolaKepkController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 30 Pengelola KEPK baru berhasil ditambahkan',
-               'url'   =>  url('/r_030_pengelola_kepk/'),
+               'url'   =>  url('/dosen/r_030_pengelola_kepk/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 30 Pengelola KEPK gagal disimpan']);
@@ -106,7 +106,7 @@ class R30DosenPengelolaKepkController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 30 Pengelola KEPK diubah',
-               'url'   =>  url('/r_030_pengelola_kepk/'),
+               'url'   =>  url('/dosen/r_030_pengelola_kepk/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 30 Pengelola KEPK gagal diubah']);
@@ -119,7 +119,7 @@ class R30DosenPengelolaKepkController extends Controller
                'message' => 'Yeay, Rubrik 30 Pengelola KEPK remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_030_pengelola_kepk')->with($notification);
+           return redirect()->route('dosen.r_030_pengelola_kepk')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 30 Pengelola KEPK remunerasi gagal dihapus',

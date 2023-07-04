@@ -65,7 +65,7 @@ class R18DosenMendapatHibahPkmController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 18 Mendapat Hibah PKM baru berhasil ditambahkan',
-               'url'   =>  url('/r_018_mendapat_hibah_pkm/'),
+               'url'   =>  url('/dosen/r_018_mendapat_hibah_pkm/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 18 Mendapat Hibah PKM gagal disimpan']);
@@ -106,7 +106,7 @@ class R18DosenMendapatHibahPkmController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 18 Mendapat Hibah PKM berhasil diubah',
-               'url'   =>  url('/r_018_mendapat_hibah_pkm/'),
+               'url'   =>  url('/dosen/r_018_mendapat_hibah_pkm/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 18 Mendapat Hibah PKM anda gagal diubah']);
@@ -119,7 +119,7 @@ class R18DosenMendapatHibahPkmController extends Controller
             'message' => 'Yeay, Rubrik 18 Mendapat Hibah PKM berhasil dihapus',
             'alert-type' => 'success'
         );
-        return redirect()->route('r_018_mendapat_hibah_pkm')->with($notification);
+        return redirect()->route('dosen.r_018_mendapat_hibah_pkm')->with($notification);
     }else {
         $notification = array(
             'message' => 'Ooopps, Rubrik 18 Mendapat Hibah PKM gagal dihapus',

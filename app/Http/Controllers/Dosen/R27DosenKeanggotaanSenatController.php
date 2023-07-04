@@ -61,7 +61,7 @@ class R27DosenKeanggotaanSenatController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 27 Keanggotaan Senat baru berhasil ditambahkan',
-               'url'   =>  url('/r_027_keanggotaan_senat/'),
+               'url'   =>  url('/dosen/r_027_keanggotaan_senat/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 27 Keanggotaan Senat gagal disimpan']);
@@ -106,7 +106,7 @@ class R27DosenKeanggotaanSenatController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 27 Keanggotaan Senat diubah',
-               'url'   =>  url('/r_027_keanggotaan_senat/'),
+               'url'   =>  url('/dosen/r_027_keanggotaan_senat/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 27 Keanggotaan Senat gagal diubah']);
@@ -119,7 +119,7 @@ class R27DosenKeanggotaanSenatController extends Controller
                'message' => 'Yeay, Rubrik 27 Keanggotaan Senat remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_027_keanggotaan_senat')->with($notification);
+           return redirect()->route('dosen.r_027_keanggotaan_senat')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 27 Keanggotaan Senat remunerasi gagal dihapus',

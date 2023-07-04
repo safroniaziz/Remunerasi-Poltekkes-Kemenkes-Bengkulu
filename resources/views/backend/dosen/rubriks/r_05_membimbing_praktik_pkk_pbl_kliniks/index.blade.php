@@ -93,7 +93,7 @@
                                                             <a onclick="editR05membimbingpraktikpkkpblklinik({{ $r05membimbingpraktikpkkpblklinik->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_05_membimbing_praktik_pkk_pbl_klinik.delete',[$r05membimbingpraktikpkkpblklinik->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_05_membimbing_praktik_pkk_pbl_klinik.delete',[$r05membimbingpraktikpkkpblklinik->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

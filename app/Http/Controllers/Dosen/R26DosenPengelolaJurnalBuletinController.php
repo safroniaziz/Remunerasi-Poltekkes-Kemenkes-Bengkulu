@@ -65,7 +65,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 26 Pengelola Jurnal Buletin baru berhasil ditambahkan',
-               'url'   =>  url('/r_026_pengelola_jurnal_buletin/'),
+               'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal disimpan']);
@@ -114,7 +114,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 26 Pengelola Jurnal Buletin diubah',
-               'url'   =>  url('/r_026_pengelola_jurnal_buletin/'),
+               'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal diubah']);
@@ -127,7 +127,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
                'message' => 'Yeay, Rubrik 26 Pengelola Jurnal Buletin remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_026_pengelola_jurnal_buletin')->with($notification);
+           return redirect()->route('dosen.r_026_pengelola_jurnal_buletin')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 26 Pengelola Jurnal Buletin remunerasi gagal dihapus',

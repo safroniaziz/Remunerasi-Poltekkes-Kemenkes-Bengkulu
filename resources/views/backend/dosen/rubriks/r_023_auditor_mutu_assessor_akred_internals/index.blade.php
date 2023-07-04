@@ -89,7 +89,7 @@
                                                             <a onclick="editr23auditmutuasesorakredinternal({{ $r023auditormutuassessorakredinternal->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_023_auditor_mutu_assessor_akred_internal.delete',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_023_auditor_mutu_assessor_akred_internal.delete',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

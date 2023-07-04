@@ -75,7 +75,7 @@ class R12DosenMembimbingPkmController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 12 Membimbing PKM baru berhasil ditambahkan',
-               'url'   =>  url('/r_012_membimbing_pkm/'),
+               'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM gagal disimpan']);
@@ -134,7 +134,7 @@ class R12DosenMembimbingPkmController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 12 Membimbing PKM berhasil diubah',
-               'url'   =>  url('/r_012_membimbing_pkm/'),
+               'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM anda gagal diubah']);
@@ -147,7 +147,7 @@ class R12DosenMembimbingPkmController extends Controller
                'message' => 'Yeay, Rubrik 12 Membimbing PKM remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_012_membimbing_pkm')->with($notification);
+           return redirect()->route('dosen.r_012_membimbing_pkm')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 12 Membimbing PKM remunerasi gagal dihapus',

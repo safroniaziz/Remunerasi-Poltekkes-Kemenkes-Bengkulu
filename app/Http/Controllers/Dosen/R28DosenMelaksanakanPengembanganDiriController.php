@@ -61,7 +61,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 28 Melaksanakan Pengembangan Diri baru berhasil ditambahkan',
-               'url'   =>  url('/r_028_melaksanakan_pengembangan_diri/'),
+               'url'   =>  url('/dosen/r_028_melaksanakan_pengembangan_diri/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 28 Melaksanakan Pengembangan Diri gagal disimpan']);
@@ -106,7 +106,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 28 Melaksanakan Pengembangan Diri diubah',
-               'url'   =>  url('/r_028_melaksanakan_pengembangan_diri/'),
+               'url'   =>  url('/dosen/r_028_melaksanakan_pengembangan_diri/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 28 Melaksanakan Pengembangan Diri gagal diubah']);
@@ -119,7 +119,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
                'message' => 'Yeay, Rubrik 28 Melaksanakan Pengembangan Diri remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_028_melaksanakan_pengembangan_diri')->with($notification);
+           return redirect()->route('dosen.r_028_melaksanakan_pengembangan_diri')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 28 Melaksanakan Pengembangan Diri remunerasi gagal dihapus',

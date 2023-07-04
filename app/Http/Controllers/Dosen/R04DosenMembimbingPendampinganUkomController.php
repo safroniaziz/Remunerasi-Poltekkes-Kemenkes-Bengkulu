@@ -64,7 +64,7 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 04 Membimbing Pendampingan Ukom baru berhasil ditambahkan',
-                'url'   =>  url('/r_04_membimbing_pendampingan_ukom/'),
+                'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom gagal disimpan']);
@@ -106,7 +106,7 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 04 Membimbing Pendampingan Ukom berhasil diubah',
-                'url'   =>  url('/r_04_membimbing_pendampingan_ukom/'),
+                'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom anda gagal diubah']);
@@ -119,7 +119,7 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
                 'message' => 'Yeay, r04MembimbingPendampinganUkom remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_04_membimbing_pendampingan_ukom')->with($notification);
+            return redirect()->route('dosen.r_04_membimbing_pendampingan_ukom')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, r04MembimbingPendampinganUkom remunerasi gagal dihapus',

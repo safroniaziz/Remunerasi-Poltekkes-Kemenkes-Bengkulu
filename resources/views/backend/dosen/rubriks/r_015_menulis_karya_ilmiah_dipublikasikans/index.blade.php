@@ -125,7 +125,7 @@
                                                             <a onclick="editr015karyailmiahdipublikasi({{ $r015menuliskaryailmiahdipublikasikan->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_015_menulis_karya_ilmiah_dipublikasikan.delete',[$r015menuliskaryailmiahdipublikasikan->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan.delete',[$r015menuliskaryailmiahdipublikasikan->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

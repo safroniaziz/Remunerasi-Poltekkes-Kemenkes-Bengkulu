@@ -65,7 +65,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
-                'url'   =>  url('/r_03_membimbing_pencapaian_kompetensi/'),
+                'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi gagal disimpan']);
@@ -106,7 +106,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi berhasil diubah',
-                'url'   =>  url('/r_03_membimbing_pencapaian_kompetensi/'),
+                'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi anda gagal diubah']);
@@ -119,7 +119,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
                 'message' => 'Yeay, r03membimbingpencapaiankompetensi remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_03_membimbing_pencapaian_kompetensi')->with($notification);
+            return redirect()->route('dosen.r_03_membimbing_pencapaian_kompetensi')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, r03membimbingpencapaiankompetensi remunerasi gagal dihapus',

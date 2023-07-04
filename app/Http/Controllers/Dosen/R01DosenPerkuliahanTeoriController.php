@@ -74,7 +74,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
+                'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
@@ -124,7 +124,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
+                'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
@@ -137,7 +137,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'message' => 'Yeay, r01perkuliahanteori remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            return redirect()->route('dosen.r_01_perkuliahan_teori')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal dihapus',

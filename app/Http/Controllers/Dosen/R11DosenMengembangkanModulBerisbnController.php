@@ -81,7 +81,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn baru berhasil ditambahkan',
-               'url'   =>  url('/r_011_mengembangkan_modul_berisbn/'),
+               'url'   =>  url('/dosen/r_011_mengembangkan_modul_berisbn/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
@@ -137,7 +137,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn berhasil diubah',
-               'url'   =>  url('/r_011_mengembangkan_modul_berisbn/'),
+               'url'   =>  url('/dosen/r_011_mengembangkan_modul_berisbn/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn anda gagal diubah']);
@@ -150,7 +150,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
                'message' => 'Yeay, Rubrik 11 mengembangkan modul berisbn remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_011_mengembangkan_modul_berisbn')->with($notification);
+           return redirect()->route('dosen.r_011_mengembangkan_modul_berisbn')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 11 mengembangkan modul berisbn remunerasi gagal dihapus',

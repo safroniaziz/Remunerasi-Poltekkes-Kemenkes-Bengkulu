@@ -65,7 +65,7 @@ class R20DosenAssessorBkdLkdController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 20 Assessor BKD LKD baru berhasil ditambahkan',
-               'url'   =>  url('/r_020_assessor_bkd_lkd/'),
+               'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal disimpan']);
@@ -106,7 +106,7 @@ class R20DosenAssessorBkdLkdController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 20 Assessor BKD LKD diubah',
-               'url'   =>  url('/r_020_assessor_bkd_lkd/'),
+               'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal diubah']);
@@ -119,7 +119,7 @@ class R20DosenAssessorBkdLkdController extends Controller
                'message' => 'Yeay, Rubrik 20 Assessor BKD LKD remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_020_assessor_bkd_lkd')->with($notification);
+           return redirect()->route('dosen.r_020_assessor_bkd_lkd')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 20 Assessor BKD LKD remunerasi gagal dihapus',

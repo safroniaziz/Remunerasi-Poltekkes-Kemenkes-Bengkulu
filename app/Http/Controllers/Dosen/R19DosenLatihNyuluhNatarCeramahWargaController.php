@@ -63,7 +63,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat baru berhasil ditambahkan',
-               'url'   =>  url('/r_019_latih_nyuluh_natar_ceramah_warga/'),
+               'url'   =>  url('/dosen/r_019_latih_nyuluh_natar_ceramah_warga/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat gagal disimpan']);
@@ -110,7 +110,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat berhasil diubah',
-               'url'   =>  url('/r_019_latih_nyuluh_natar_ceramah_warga/'),
+               'url'   =>  url('/dosen/r_019_latih_nyuluh_natar_ceramah_warga/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat anda gagal diubah']);
@@ -123,7 +123,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
                'message' => 'Yeay, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_019_latih_nyuluh_natar_ceramah_warga')->with($notification);
+           return redirect()->route('dosen.r_019_latih_nyuluh_natar_ceramah_warga')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat remunerasi gagal dihapus',

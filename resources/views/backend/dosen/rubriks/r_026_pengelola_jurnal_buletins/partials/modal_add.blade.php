@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_026_pengelola_jurnal_buletin.store') }}" method="POST" id="form-tambah-r-26">
+            <form action="{{ route('dosen.r_026_pengelola_jurnal_buletin.store') }}" method="POST" id="form-tambah-r-26">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

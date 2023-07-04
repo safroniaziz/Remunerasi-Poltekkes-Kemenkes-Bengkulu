@@ -91,7 +91,7 @@
                                                             <a onclick="editr016naskahbukuterbitedarinter({{ $r016naskahbukubahasaterbitedarinter->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_016_naskah_buku_bahasa_terbit_edar_inter.delete',[$r016naskahbukubahasaterbitedarinter->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter.delete',[$r016naskahbukubahasaterbitedarinter->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>

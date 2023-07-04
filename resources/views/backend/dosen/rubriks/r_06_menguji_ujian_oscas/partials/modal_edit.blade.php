@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_06_menguji_ujian_osca.update') }}" method="POST" id="form-edit-R06">
+            <form action="{{ route('dosen.r_06_menguji_ujian_osca.update') }}" method="POST" id="form-edit-R06">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
