@@ -49,6 +49,7 @@ Route::controller(R01DosenPerkuliahanTeoriController::class)->group(function () 
     Route::delete('/r_01_perkuliahan_teori/{r01perkuliahanteori}/delete', 'delete')->name('dosen.r_01_perkuliahan_teori.delete');
     Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/verifikasi', 'verifikasi')->name('dosen.r_01_perkuliahan_teori.verifikasi');
     Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/tolak', 'tolak')->name('dosen.r_01_perkuliahan_teori.tolak');
+    Route::get('/r_01_perkuliahan_teori/siakad', 'siakad')->name('r_01_perkuliahan_teori.siakad');
 });
 Route::controller(R02DosenPerkuliahanPraktikumController::class)->group(function () {
     Route::get('/r_02_perkuliahan_praktikum', 'index')->name('dosen.r_02_perkuliahan_praktikum');
