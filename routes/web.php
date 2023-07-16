@@ -250,6 +250,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/r_01_perkuliahan_teori/{r01perkuliahanteori}/delete', 'delete')->name('r_01_perkuliahan_teori.delete');
         Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/verifikasi', 'verifikasi')->name('r_01_perkuliahan_teori.verifikasi');
         Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/tolak', 'tolak')->name('r_01_perkuliahan_teori.tolak');
+        Route::get('/r_01_perkuliahan_teori/siakad', 'siakad')->name('r_01_perkuliahan_teori.siakad');
     });
     Route::controller(R02PerkuliahanPraktikumController::class)->group(function () {
         Route::get('/r_02_perkuliahan_praktikum', 'index')->name('r_02_perkuliahan_praktikum');

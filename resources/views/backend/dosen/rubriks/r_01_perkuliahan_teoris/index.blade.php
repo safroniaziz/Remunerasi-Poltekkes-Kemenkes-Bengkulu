@@ -41,6 +41,7 @@
                                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
                                     <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 01
                                 </button>
+                                <a href="{{ route('r_01_perkuliahan_teori.siakad') }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Generate Dari Siakad</a>
                             </div>
                         </div>
                         <div class="col-md-12">

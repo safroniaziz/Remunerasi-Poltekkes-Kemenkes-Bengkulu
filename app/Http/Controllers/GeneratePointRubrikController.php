@@ -113,7 +113,36 @@ class GeneratePointRubrikController extends Controller
             'total_point'   =>  $total_point->total_point,
         ]);
 
+        RiwayatPoint::where('periode_id',$this->periode->id)->where('kode_rubrik',$rekapPerRubrik->kode_rubrik)->delete();
+
         $dosens = Pegawai::select('nip')->get();
+        for ($i=0; $i <count($dosens) ; $i++) { 
+            $total_point_per_nip = DB::table($rekapPerRubrik->kode_rubrik)
+                        ->select(DB::raw('IFNULL(sum(point),0) as total_point'))
+                        ->where('periode_id',$this->periode->id)
+                        ->where('is_bkd',0)
+                        ->where('is_verified',1)
+                        ->where('nip',$dosens[$i]['nip'])
+                        ->first();
+            
+            $riwayatPoint[] = array(
+                'kode_rubrik'   =>  $rekapPerRubrik->kode_rubrik,
+                'nama_rubrik'   =>  $rekapPerRubrik->nama_rubrik,
+                'periode_id'    =>  $this->periode->id,
+                'point'         =>  $total_point_per_nip->total_point,
+                'nip'           =>  $dosens[$i]['nip'],
+                'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+                'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+            );
+        }
+        $riwayat_point = RiwayatPoint::insert($riwayatPoint);
+
+        for ($k=0; $k <count($dosens) ; $k++) { 
+            $total_point_baru = RiwayatPoint::select(DB::raw('sum(point) as total_point'))->where('nip',$dosens[$k]['nip'])->first();
+            RekapPerDosen::where('nip',$dosens[$k]['nip'])->where('periode_id',$this->periode->id)->update([
+                'total_point_dosen'   =>  $total_point_baru->total_point,
+            ]);
+        }
 
         $success = array(
             'message' => 'Berhasil, Perbarui Point Per Rubrik Berhasil Dilakukan',
