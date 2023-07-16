@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_023_auditor_mutu_assessor_akred_internal.update') }}" method="POST" id="form-edit-R23">
+            <form action="{{ route('dosen.r_023_auditor_mutu_assessor_akred_internal.update') }}" method="POST" id="form-edit-R23">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

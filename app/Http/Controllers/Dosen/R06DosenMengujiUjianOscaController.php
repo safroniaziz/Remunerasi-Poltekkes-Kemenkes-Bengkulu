@@ -65,7 +65,7 @@ class R06DosenMengujiUjianOscaController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 06 Menguji Ujian Osca baru berhasil ditambahkan',
-                'url'   =>  url('/r_06_menguji_ujian_osca/'),
+                'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 06 Menguji Ujian Osca gagal disimpan']);
@@ -107,7 +107,7 @@ class R06DosenMengujiUjianOscaController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 06 Menguji Ujian Osca berhasil diubah',
-                'url'   =>  url('/r_06_menguji_ujian_osca/'),
+                'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 06 Menguji Ujian Osca anda gagal diubah']);
@@ -120,7 +120,7 @@ class R06DosenMengujiUjianOscaController extends Controller
                 'message' => 'Yeay, R06MengujiUjianOsca remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_06_menguji_ujian_osca')->with($notification);
+            return redirect()->route('dosen.r_06_menguji_ujian_osca')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, R06MengujiUjianOsca remunerasi gagal dihapus',

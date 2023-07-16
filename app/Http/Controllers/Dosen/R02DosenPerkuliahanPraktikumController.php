@@ -75,7 +75,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 02 Perkuliahan Praktikum baru berhasil ditambahkan',
-                'url'   =>  url('/r_02_perkuliahan_praktikum/'),
+                'url'   =>  url('/dosen/r_02_perkuliahan_praktikum/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 02 Perkuliahan Praktikum gagal disimpan']);
@@ -125,7 +125,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 02 Perkuliahan Praktikum berhasil diubah',
-                'url'   =>  url('/r_02_perkuliahan_praktikum/'),
+                'url'   =>  url('/dosen/r_02_perkuliahan_praktikum/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 02 Perkuliahan Praktikum anda gagal diubah']);
@@ -139,7 +139,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'message' => 'Yeay, r02perkuliahanPraktikum remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_02_perkuliahan_praktikum')->with($notification);
+            return redirect()->route('dosen.r_02_perkuliahan_praktikum')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, r02perkuliahanPraktikum remunerasi gagal dihapus',

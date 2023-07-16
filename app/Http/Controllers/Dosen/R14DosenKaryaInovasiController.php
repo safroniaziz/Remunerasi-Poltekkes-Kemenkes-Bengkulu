@@ -78,7 +78,7 @@ class R14DosenKaryaInovasiController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 14 Karya Inovasi baru berhasil ditambahkan',
-               'url'   =>  url('/r_014_karya_inovasi/'),
+               'url'   =>  url('/dosen/r_014_karya_inovasi/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi gagal disimpan']);
@@ -139,7 +139,7 @@ class R14DosenKaryaInovasiController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 14 Karya Inovasi berhasil diubah',
-               'url'   =>  url('/r_014_karya_inovasi/'),
+               'url'   =>  url('/dosen/r_014_karya_inovasi/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi anda gagal diubah']);
@@ -152,7 +152,7 @@ class R14DosenKaryaInovasiController extends Controller
                'message' => 'Yeay, Rubrik 14 Karya Inovasi remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_014_karya_inovasi')->with($notification);
+           return redirect()->route('dosen.r_014_karya_inovasi')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 14 Karya Inovasi remunerasi gagal dihapus',

@@ -89,7 +89,7 @@
                                                             <a onclick="editR04membimbingpendampinganukom({{ $r04membimbingpendampinganukom->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_04_membimbing_pendampingan_ukom.delete',[$r04membimbingpendampinganukom->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_04_membimbing_pendampingan_ukom.delete',[$r04membimbingpendampinganukom->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.partials.modal_edit')
                 </div>
             </section>
         </div>

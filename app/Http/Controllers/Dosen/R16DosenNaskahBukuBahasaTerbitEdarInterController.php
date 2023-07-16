@@ -66,7 +66,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 16 naskah buku bahasa terbit edar inter baru berhasil ditambahkan',
-               'url'   =>  url('/r_016_naskah_buku_bahasa_terbit_edar_inter/'),
+               'url'   =>  url('/dosen/r_016_naskah_buku_bahasa_terbit_edar_inter/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 16 naskah buku bahasa terbit edar inter gagal disimpan']);
@@ -110,7 +110,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 16 naskah buku bahasa terbit edar inter berhasil diubah',
-               'url'   =>  url('/r_016_naskah_buku_bahasa_terbit_edar_inter/'),
+               'url'   =>  url('/dosen/r_016_naskah_buku_bahasa_terbit_edar_inter/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 16 naskah buku bahasa terbit edar inter anda gagal diubah']);
@@ -123,7 +123,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
                'message' => 'Yeay, Rubrik 16 naskah buku bahasa terbit edar inter remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_016_naskah_buku_bahasa_terbit_edar_inter')->with($notification);
+           return redirect()->route('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 16 naskah buku bahasa terbit edar inter remunerasi gagal dihapus',

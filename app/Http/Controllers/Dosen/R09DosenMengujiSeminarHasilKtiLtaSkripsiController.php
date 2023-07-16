@@ -63,7 +63,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, R 09 Menguji Seminar hasil Kti Lta Skripsi baru berhasil ditambahkan',
-               'url'   =>  url('/r_09_menguji_seminar_hasil_kti_lta_skripsi/'),
+               'url'   =>  url('/dosen/r_09_menguji_seminar_hasil_kti_lta_skripsi/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, R 09 Menguji Seminar hasil Kti Lta Skripsi gagal disimpan']);
@@ -111,7 +111,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, R 09 Menguji Seminar hasil Kti Lta Skripsi berhasil diubah',
-               'url'   =>  url('/r_09_menguji_seminar_hasil_kti_lta_skripsi/'),
+               'url'   =>  url('/dosen/r_09_menguji_seminar_hasil_kti_lta_skripsi/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, R 09 Menguji Seminar hasil Kti Lta Skripsi anda gagal diubah']);
@@ -124,7 +124,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
                'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_09_menguji_seminar_hasil_kti_lta_skripsi')->with($notification);
+           return redirect()->route('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi gagal dihapus',

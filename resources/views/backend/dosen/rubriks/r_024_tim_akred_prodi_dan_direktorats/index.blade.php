@@ -89,7 +89,7 @@
                                                             <a onclick="editr24timakredprodirektorat({{ $r024timakredprodirektorat->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_024_tim_akred_prodi_dan_direktorat.delete',[$r024timakredprodirektorat->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_024_tim_akred_prodi_dan_direktorat.delete',[$r024timakredprodirektorat->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.partials.modal_edit')
                 </div>
             </section>
         </div>

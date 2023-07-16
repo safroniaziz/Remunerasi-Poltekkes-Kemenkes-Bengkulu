@@ -59,7 +59,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 29 Memperoleh Penghargaan baru berhasil ditambahkan',
-               'url'   =>  url('/r_029_memperoleh_penghargaan/'),
+               'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal disimpan']);
@@ -102,7 +102,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 29 Memperoleh Penghargaan diubah',
-               'url'   =>  url('/r_029_memperoleh_penghargaan/'),
+               'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal diubah']);
@@ -115,7 +115,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
                'message' => 'Yeay, Rubrik 29 Memperoleh Penghargaan remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_029_memperoleh_penghargaan')->with($notification);
+           return redirect()->route('dosen.r_029_memperoleh_penghargaan')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 29 Memperoleh Penghargaan remunerasi gagal dihapus',

@@ -89,7 +89,7 @@
                                                             <a onclick="editr21revieweclerepenelitidosen({{ $r021reviewereclerepenelitiandosen->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('r_021_reviewer_eclere_penelitian_dosen.delete',[$r021reviewereclerepenelitiandosen->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_021_reviewer_eclere_penelitian_dosen.delete',[$r021reviewereclerepenelitiandosen->id]) }}" method="POST">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -103,9 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        @include('backend/rubriks/r_021_reviewer_eclere_penelitian_dosens.partials.modal_add')
+                        @include('backend/dosen/rubriks/r_021_reviewer_eclere_penelitian_dosens.partials.modal_add')
                     </div>
-                    @include('backend/rubriks/r_021_reviewer_eclere_penelitian_dosens.partials.modal_edit')
+                    @include('backend/dosen/rubriks/r_021_reviewer_eclere_penelitian_dosens.partials.modal_edit')
                 </div>
             </section>
         </div>

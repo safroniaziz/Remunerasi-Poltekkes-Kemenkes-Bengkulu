@@ -63,7 +63,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs baru berhasil ditambahkan',
-               'url'   =>  url('/r_022_reviewer_eclere_penelitian_mhs/'),
+               'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal disimpan']);
@@ -103,7 +103,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs diubah',
-               'url'   =>  url('/r_022_reviewer_eclere_penelitian_mhs/'),
+               'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal diubah']);
@@ -116,7 +116,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
                'message' => 'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_022_reviewer_eclere_penelitian_mhs')->with($notification);
+           return redirect()->route('dosen.r_022_reviewer_eclere_penelitian_mhs')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 22 Reviewer Eclere Penelitian mhs remunerasi gagal dihapus',

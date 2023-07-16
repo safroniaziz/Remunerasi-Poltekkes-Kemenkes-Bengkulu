@@ -64,7 +64,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 25 Kepanitiaan Kegiatan Institusi baru berhasil ditambahkan',
-               'url'   =>  url('/r_025_kepanitiaan_kegiatan_institusi/'),
+               'url'   =>  url('/dosen/r_025_kepanitiaan_kegiatan_institusi/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 25 Kepanitiaan Kegiatan Institusi gagal disimpan']);
@@ -112,7 +112,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 25 Kepanitiaan Kegiatan Institusi diubah',
-               'url'   =>  url('/r_025_kepanitiaan_kegiatan_institusi/'),
+               'url'   =>  url('/dosen/r_025_kepanitiaan_kegiatan_institusi/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 25 Kepanitiaan Kegiatan Institusi gagal diubah']);
@@ -125,7 +125,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
                'message' => 'Yeay, Rubrik 25 Kepanitiaan Kegiatan Institusi remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_025_kepanitiaan_kegiatan_institusi')->with($notification);
+           return redirect()->route('dosen.r_025_kepanitiaan_kegiatan_institusi')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 25 Kepanitiaan Kegiatan Institusi remunerasi gagal dihapus',

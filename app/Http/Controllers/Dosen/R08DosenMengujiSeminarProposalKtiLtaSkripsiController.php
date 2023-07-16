@@ -64,7 +64,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, R 08 Menguji Seminar Proposal Kti Lta Skripsi baru berhasil ditambahkan',
-                'url'   =>  url('/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
+                'url'   =>  url('/dosen/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi gagal disimpan']);
@@ -112,7 +112,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, R 08 Menguji Seminar Proposal Kti Lta Skripsi berhasil diubah',
-                'url'   =>  url('/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
+                'url'   =>  url('/dosen/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi anda gagal diubah']);
@@ -125,7 +125,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
                 'message' => 'Yeay, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('r_08_menguji_seminar_proposal_kti_lta_skripsi')->with($notification);
+            return redirect()->route('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi')->with($notification);
         }else {
             $notification = array(
                 'message' => 'Ooopps, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi gagal dihapus',

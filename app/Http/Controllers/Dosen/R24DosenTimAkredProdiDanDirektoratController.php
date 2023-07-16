@@ -64,7 +64,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat baru berhasil ditambahkan',
-               'url'   =>  url('/r_024_tim_akred_prodi_dan_direktorat/'),
+               'url'   =>  url('/dosen/r_024_tim_akred_prodi_dan_direktorat/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal disimpan']);
@@ -104,7 +104,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat diubah',
-               'url'   =>  url('/r_024_tim_akred_prodi_dan_direktorat/'),
+               'url'   =>  url('/dosen/r_024_tim_akred_prodi_dan_direktorat/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal diubah']);
@@ -117,7 +117,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
                'message' => 'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_024_tim_akred_prodi_dan_direktorat')->with($notification);
+           return redirect()->route('dosen.r_024_tim_akred_prodi_dan_direktorat')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat remunerasi gagal dihapus',

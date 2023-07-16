@@ -98,7 +98,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan baru berhasil ditambahkan',
-               'url'   =>  url('/r_015_menulis_karya_ilmiah_dipublikasikan/'),
+               'url'   =>  url('/dosen/r_015_menulis_karya_ilmiah_dipublikasikan/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan gagal disimpan']);
@@ -180,7 +180,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan berhasil diubah',
-               'url'   =>  url('/r_015_menulis_karya_ilmiah_dipublikasikan/'),
+               'url'   =>  url('/dosen/r_015_menulis_karya_ilmiah_dipublikasikan/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan anda gagal diubah']);
@@ -193,7 +193,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
                'message' => 'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_015_menulis_karya_ilmiah_dipublikasikan')->with($notification);
+           return redirect()->route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi gagal dihapus',

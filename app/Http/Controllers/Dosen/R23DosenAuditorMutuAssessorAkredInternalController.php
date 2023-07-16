@@ -63,7 +63,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
        if ($simpan) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal baru berhasil ditambahkan',
-               'url'   =>  url('/r_023_auditor_mutu_assessor_akred_internal/'),
+               'url'   =>  url('/dosen/r_023_auditor_mutu_assessor_akred_internal/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal disimpan']);
@@ -103,7 +103,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
        if ($update) {
            return response()->json([
                'text'  =>  'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal diubah',
-               'url'   =>  url('/r_023_auditor_mutu_assessor_akred_internal/'),
+               'url'   =>  url('/dosen/r_023_auditor_mutu_assessor_akred_internal/'),
            ]);
        }else {
            return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal diubah']);
@@ -116,7 +116,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
                'message' => 'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi berhasil dihapus',
                'alert-type' => 'success'
            );
-           return redirect()->route('r_023_auditor_mutu_assessor_akred_internal')->with($notification);
+           return redirect()->route('dosen.r_023_auditor_mutu_assessor_akred_internal')->with($notification);
        }else {
            $notification = array(
                'message' => 'Ooopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi gagal dihapus',
