@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanDsController;
 use App\Http\Controllers\JabatanDtController;
 use App\Http\Controllers\NilaiEwmpController;
@@ -19,7 +19,6 @@ use App\Http\Controllers\PointRubrikDosenController;
 use App\Http\Controllers\R12MembimbingPkmController;
 use App\Http\Controllers\R30PengelolaKepkController;
 use App\Http\Controllers\RiwayatJabatanDtController;
-use App\Http\Controllers\JabatanFungsionalController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\GeneratePointRubrikController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
@@ -71,11 +70,7 @@ Route::get('/logoutDosen',function(){
 })->name('logoutDosen');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', function () {
-        activity()->log('Look mum, I logged something');
-
-        return view('backend.dashboard');
-    })->name('dashboard');
+    Route::get('/home',[DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::controller(SessionController::class)->group(function () {
         Route::get('/cari_dosen', 'cariDosen')->name('cari_dosen');
@@ -123,6 +118,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::patch('/manajemen_jabatan_dt/{jabatandt:slug}/update', 'update')->name('jabatan_dt.update');
         Route::delete('/manajemen_jabatan_dt/{jabatandt}/delete', 'delete')->name('jabatan_dt.delete');
     });
+
     Route::controller(JabatanDsController::class)->group(function () {
         Route::get('/manajemen_jabatan_ds', 'index')->name('jabatan_ds');
         Route::get('/manajemen_jabatan_ds/create', 'create')->name('jabatan_ds.create');

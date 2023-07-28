@@ -12,7 +12,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+class ApiEnc {
+	const TIME_DIFF_LIMIT = 480;
 
+	public static function encrypt(array $json_data, $cid, $version, $secret) {
+		return self::doubleEncrypt(strrev(time()) . '.' . json_encode($json_data), $cid, $version, $secret);
+	}
+
+	private static function tsDiff($ts) {
+		return abs($ts - time()) <= self::TIME_DIFF_LIMIT;
+	}
+
+	private static function doubleEncrypt($string, $cid, $version, $secret) {
+		$result = '';
+		$result = self::enc($string, $cid.'~'.$version);
+		$result = self::enc($result, $secret);
+		return strtr(rtrim(base64_encode($result), '='), '+/', '-_');
+	}
+
+	private static function enc($string, $key) {
+		$result = '';
+		$strls = strlen($string);
+		$strlk = strlen($key);
+		for($i = 0; $i < $strls; $i++) {
+			$char = substr($string, $i, 1);
+			$keychar = substr($key, ($i % $strlk) - 1, 1);
+			$char = chr((ord($char) + ord($keychar)) % 128);
+			$result .= $char;
+		}
+		return $result;
+	}
+}
 class R01DosenPerkuliahanTeoriController extends Controller
 {
     private $nilai_ewmp;
@@ -23,14 +53,14 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
     public function index(Request $request, Pegawai $pegawai){
          $pegawais = Pegawai::all();
-         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
-                                                    ->orderBy('created_at','desc')->get();
+        //  $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
+        //                                             ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
             'pegawais'                =>  $pegawais,
             'periode'                 =>  $periode,
-            'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
+            // 'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
         ]);
     }
 
@@ -172,16 +202,16 @@ class R01DosenPerkuliahanTeoriController extends Controller
     }
 
     public function siakad(){
-        require_once app_path('Helpers/api/ApiEnc.class.php');
         require_once app_path('Helpers/api/curl.api.php');
         require_once app_path('Helpers/api/config.php');
 
         $parameter = array(
             'action'=>'matakuliah',
-            'thsms'=>'20152',	// Tahun Akademik (5 digit angka)
+            'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
             'kdjen'=>'C',		// Kode Jenjang 
             'kdpst'=>'3.1',		// Kode Prodi
-            'kdkmk'=>'',		// Search Kode MK (Optional) | can string or array (Optional)
+            'kdkmk'=>'',
+            'nodos' =>  '4018038501',		// Search Kode MK (Optional) | can string or array (Optional)
             'id_mk'=>'',		// search ID MK Perkuliahan | can string or array (Optional)
             'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
         );
@@ -199,5 +229,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
         
         
         $response = _curl_api($config['url'], json_encode($data));
+        return $response;
     }
 }

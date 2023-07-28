@@ -22,8 +22,8 @@ class UserRolePermissionSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
             $operator = User::create(array_merge([
                 'email' =>  'operator@mail.com',
                 'nama_user'  =>  'operator',
@@ -61,12 +61,6 @@ class UserRolePermissionSeeder extends Seeder
             $role_pimpinan = Role::create(['name'  =>  'pimpinan']);
 
             $role_verifikator = Role::create(['name'  =>  'verifikator']);
-
-            $permission = Permission::create(['name'  =>  'read-user']);
-            $permission = Permission::create(['name'  =>  'store-user']);
-            $permission = Permission::create(['name'  =>  'edit-user']);
-            $permission = Permission::create(['name'  =>  'update-user']);
-            $permission = Permission::create(['name'  =>  'delete-user']);
 
             $permission = Permission::create(['name'  =>  'read-role']);
             $permission = Permission::create(['name'  =>  'store-role']);
@@ -862,8 +856,8 @@ class UserRolePermissionSeeder extends Seeder
             $pimpinan->assignRole('pimpinan');
 
             DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-        }
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        // }
     }
 }

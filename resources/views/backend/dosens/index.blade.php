@@ -37,7 +37,7 @@
                         <form method="GET">
                             <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
                                 <label for="nama" class="col-form-label">Cari Nama Dosen</label>
-                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Judul/Skema/Nama Ketua..." value="{{$nama}}">
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Dosen..." value="{{$nama}}">
                             </div>
                             <div class="col-md-12" style="margin-bottom:10px !important;">
                                 <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>

@@ -65,7 +65,7 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($r01perkuliahanteoris as $index => $r01perkuliahanteori)
+                                    {{-- @foreach ($r01perkuliahanteoris as $index => $r01perkuliahanteori)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->nip }}</td>
@@ -106,7 +106,7 @@
                                                 </table>
                                            </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>

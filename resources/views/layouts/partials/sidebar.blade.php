@@ -6,6 +6,7 @@
         </a>
     </li>
 {{-- @endcan --}}
+
 @can('read-pegawai')
     <li class="{{ set_active([
             'dosen',

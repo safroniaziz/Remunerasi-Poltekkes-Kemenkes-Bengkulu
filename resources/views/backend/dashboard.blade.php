@@ -36,13 +36,30 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row">
+                        <div class="col-md-12">
+                            @if (empty($periodeAktif))
+                                <div class="callout callout-danger">
+                                    <h4 style="text-transform: uppercase">Mohon Perhatian</h4>
+                                    <p>
+                                        Saat ini tidak ada periode remunerasi yang aktif, semua rubrik dosen dinonaktifkan dan dosen tidak dapat menginputkan rubrik kinerja ke aplikasi !
+                                        <br>
+                                        Untuk mengaktifkan periode remunerasi, silahkan <a href="" style="font-weight: bold; font-style:italic;">klik disini</a>
+                                    </p>
+                                </div>
+                            @else
+                                <div class="callout callout-success">
+                                    <h4 style="text-transform: uppercase">{{ $periodeAktif->nama_periode }}</h4>
+                                    <p>Saat Ini Adalah {{ $periodeAktif->nama_periode }}, jika anda ingin merubah periode aktif saat ini, silahkan <a href="" style="font-weight: bold; font-style:italic;">klik disini</a></p>
+                                </div>
+                            @endif
+                        </div>
                         <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
                             <!-- small box -->
                             <div class="small-box bg-aqua" style="margin-bottom:0px;">
                                 <div class="inner">
-                                <h3> 10 </h3>
+                                <h3> {{ $jumlahDosen }} </h3>
 
-                                <p>Proposal Penelitian</p>
+                                <p>Jumlah Dosen Aktif</p>
                                 </div>
                                 <div class="icon">
                                 <i class="fa fa-file-o"></i>
@@ -53,9 +70,9 @@
                             <!-- small box -->
                             <div class="small-box bg-red" style="margin-bottom:0px;">
                                 <div class="inner">
-                                <h3>20</h3>
+                                <h3>{{ $jumlahRubrik }}</h3>
 
-                                <p>Proposal Penelitian Tahun Ini</p>
+                                <p>Jumlah Rubrik Kinerja</p>
                                 </div>
                                 <div class="icon">
                                 <i class="fa fa-file-pdf-o"></i>
@@ -66,9 +83,9 @@
                             <!-- small box -->
                             <div class="small-box bg-yellow" style="margin-bottom:0px;">
                                 <div class="inner">
-                                <h3>30</h3>
+                                <h3>{{ $jumlahJurusan }}</h3>
 
-                                <p>Proposal Pengabdian</p>
+                                <p>Jumlah Jurusan</p>
                                 </div>
                                 <div class="icon">
                                 <i class="fa fa-wpforms"></i>
@@ -79,9 +96,9 @@
                             <!-- small box -->
                             <div class="small-box bg-green" style="margin-bottom:0px;">
                                 <div class="inner">
-                                <h3>40</h3>
+                                <h3>{{ $jumlahJabatanDt }}</h3>
 
-                                <p>Proposal Pengabdian Tahun Ini</p>
+                                <p>Jumlah Jabatan DT</p>
                                 </div>
                                 <div class="icon">
                                 <i class="fa fa-file-excel-o"></i>
@@ -90,40 +107,55 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-aqua"><i class="fa fa-clock-o"></i></span>
-                                
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Periode Saat Ini</span>
-                                    <span class="info-box-number">10</span>
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
+                            <!-- small box -->
+                            <div class="small-box bg-aqua" style="margin-bottom:0px;">
+                                <div class="inner">
+                                <h3> {{ $jumlahJabatanDs }} </h3>
+
+                                <p>Jumlah Jabatan DS</p>
+                                </div>
+                                <div class="icon">
+                                <i class="fa fa-file-o"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-green"><i class="fa fa-list"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Jenis Publikasi</span>
-                                    <span class="info-box-number">10</span>
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
+                            <!-- small box -->
+                            <div class="small-box bg-red" style="margin-bottom:0px;">
+                                <div class="inner">
+                                <h3>{{ $jumlahPesanBelumDibaca }}</h3>
+
+                                <p>Jumlah Pesan Belum Dibaca</p>
+                                </div>
+                                <div class="icon">
+                                <i class="fa fa-file-pdf-o"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Skim Penelitian</span>
-                                    <span class="info-box-number">10</span>
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
+                            <!-- small box -->
+                            <div class="small-box bg-yellow" style="margin-bottom:0px;">
+                                <div class="inner">
+                                <h3>{{ $jumlahVerifikator }}</h3>
+
+                                <p>Jumlah Verifikator</p>
+                                </div>
+                                <div class="icon">
+                                <i class="fa fa-wpforms"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-red"><i class="fa fa-check-circle"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Skim Pengabdian</span>
-                                    <span class="info-box-number">10</span>
+                        <div class="col-lg-3 col-xs-12 col-md-3" style="padding-bottom:10px !important;">
+                            <!-- small box -->
+                            <div class="small-box bg-green" style="margin-bottom:0px;">
+                                <div class="inner">
+                                <h3>{{ $jumlahUserRole }}</h3>
+
+                                <p>Jumlah User Role</p>
+                                </div>
+                                <div class="icon">
+                                <i class="fa fa-file-excel-o"></i>
                                 </div>
                             </div>
                         </div>

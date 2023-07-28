@@ -15,7 +15,7 @@ class NilaiEwmpController extends Controller
         if (!Gate::allows('read-nilai-ewmp')) {
             abort(403);
         }
-        $nilaiEwmps = NilaiEwmp::paginate(10);
+        $nilaiEwmps = NilaiEwmp::all();
         return view('backend/nilai_ewmps.index',[
             'nilaiEwmps'         =>  $nilaiEwmps,
         ]);
