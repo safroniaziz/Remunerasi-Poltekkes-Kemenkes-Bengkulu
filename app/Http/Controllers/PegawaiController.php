@@ -13,6 +13,38 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
+class ApiEnc {
+	const TIME_DIFF_LIMIT = 480;
+
+	public static function encrypt(array $json_data, $cid, $version, $secret) {
+		return self::doubleEncrypt(strrev(time()) . '.' . json_encode($json_data), $cid, $version, $secret);
+	}
+
+	private static function tsDiff($ts) {
+		return abs($ts - time()) <= self::TIME_DIFF_LIMIT;
+	}
+
+	private static function doubleEncrypt($string, $cid, $version, $secret) {
+		$result = '';
+		$result = self::enc($string, $cid.'~'.$version);
+		$result = self::enc($result, $secret);
+		return strtr(rtrim(base64_encode($result), '='), '+/', '-_');
+	}
+
+	private static function enc($string, $key) {
+		$result = '';
+		$strls = strlen($string);
+		$strlk = strlen($key);
+		for($i = 0; $i < $strls; $i++) {
+			$char = substr($string, $i, 1);
+			$keychar = substr($key, ($i % $strlk) - 1, 1);
+			$char = chr((ord($char) + ord($keychar)) % 128);
+			$result .= $char;
+		}
+		return $result;
+	}
+}
+
 class PegawaiController extends Controller
 {
     public function index(Request $request){
@@ -31,6 +63,35 @@ class PegawaiController extends Controller
             'dosens'    =>  $dosens,
             'nama'    =>  $nama,
         ]);
+    }
+
+    public function generateSiakad(){
+        require_once app_path('Helpers/api/curl.api.php');
+        require_once app_path('Helpers/api/config.php');
+
+
+        $parameter = array(
+            'action'=>'dosen',
+            'code'=>'',
+            'search'=>'',
+            'offset'    =>262,
+            'limit' =>  10,
+        );
+        
+        $hashed_string = ApiEnc::encrypt(
+            $parameter,
+            $config['client_id'],
+            $config['version'],
+            $config['secret_key']
+        );
+        $data = array(
+            'client_id' => $config['client_id'],
+            'data' => $hashed_string,
+        );
+        
+        
+        $response = _curl_api($config['url'], json_encode($data));
+        return $response;
     }
 
     public function create(){

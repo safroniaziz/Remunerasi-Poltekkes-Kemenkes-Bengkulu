@@ -88,6 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::patch('/manajemen_data_dosen/{dosen}/set_nonactive', 'setnonActive')->name('dosen.set_nonactive');
         Route::get('/manajemen_data_dosen/{pegawai:slug}/edit', 'edit')->name('dosen.edit');
         Route::patch('/manajemen_data_dosen/{pegawai:slug}/update', 'update')->name('dosen.update');
+        Route::get('/manajemen_data_dosen/generate_siakad', 'generateSiakad')->name('dosen.generateSiakad');
 
         Route::get('/manajemen_data_dosen/{pegawai:slug}/riwayat_jabatan_fungsional', 'riwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional');
         Route::patch('/manajemen_data_dosen/riwayat_jabatan_fungsional', 'updateRiwayatJabatanFungsional')->name('dosen.riwayat_jabatan_fungsional.update');

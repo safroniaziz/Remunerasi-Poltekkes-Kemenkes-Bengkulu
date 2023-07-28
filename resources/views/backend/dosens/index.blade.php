@@ -46,6 +46,7 @@
                         <div class="col-md-12 table-responsive">
                             <div class="pull-left" style="margin-bottom: 3px !important;">
                                 <a href="{{ route('dosen.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Dosen</a>
+                                <a href="{{ route('dosen.generateSiakad') }}" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sync Siakad</a>
                             </div>
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
