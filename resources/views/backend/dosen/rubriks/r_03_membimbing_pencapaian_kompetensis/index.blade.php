@@ -127,7 +127,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            url = "{{ url('r_03_membimbing_pencapaian_kompetensi').'/' }}"+id+'/edit';
+            url = "{{ url('dosen.r_03_membimbing_pencapaian_kompetensi').'/' }}"+id+'/edit';
             $.ajax({
                 url : url,
                 type : 'GET',
