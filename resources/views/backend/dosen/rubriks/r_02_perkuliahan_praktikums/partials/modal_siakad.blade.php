@@ -66,37 +66,37 @@
 
 @push('scripts')
     <script>
-        // $(document).on('submit','#form-siakad',function (event){
-        //     event.preventDefault();
-        //     toastr.info('Harap menunggu hingga proses selesai...');
-        //     $('#loading').show();
-        //     $('#data').hide();
-        //     $("#btnSubmit"). attr("disabled", true);
-        //     $.ajax({
-        //         url: $(this).attr('action'),
-        //         type: $(this).attr('method'),
-        //         dataType: "JSON", // Perbaiki typo di "typeData" menjadi "dataType"
-        //         data: new FormData(this),
-        //         processData:false,
-        //         contentType:false,
-        //         success : function(res) {
-        //             toastr.success(res.text, 'Yeay, Berhasil');
-        //             setTimeout(function () {
-        //                 window.location.href=res.url;
-        //             } , 500);
-        //         },
-        //         error:function(xhr){
-        //             toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
-        //         },
-        //         complete: function() {
-        //             // Sembunyikan elemen loading dan tampilkan kembali tombol submit
-        //             $('#loading').hide();
-        //             $('#data').show();
-        //             $("#btnSubmit").attr("disabled", false);
-        //             $('modal').hide();
-        //             $('#modalDetail').hide();
-        //         }
-        //     })
-        // });
+        $(document).on('submit','#form-siakad',function (event){
+            event.preventDefault();
+            toastr.info('Harap menunggu hingga proses selesai...');
+            $('#loading').show();
+            $('#data').hide();
+            $("#btnSubmit"). attr("disabled", true);
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                dataType: "JSON", // Perbaiki typo di "typeData" menjadi "dataType"
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success : function(res) {
+                    toastr.success(res.text, 'Yeay, Berhasil');
+                    setTimeout(function () {
+                        window.location.href=res.url;
+                    } , 500);
+                },
+                error:function(xhr){
+                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                },
+                complete: function() {
+                    // Sembunyikan elemen loading dan tampilkan kembali tombol submit
+                    $('#loading').hide();
+                    $('#data').show();
+                    $("#btnSubmit").attr("disabled", false);
+                    $('modal').hide();
+                    $('#modalDetail').hide();
+                }
+            })
+        });
     </script>
 @endpush
