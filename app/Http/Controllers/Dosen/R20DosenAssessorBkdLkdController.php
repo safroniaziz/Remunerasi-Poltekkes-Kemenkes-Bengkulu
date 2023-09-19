@@ -105,24 +105,23 @@ class R20DosenAssessorBkdLkdController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 20 Assessor BKD LKD diubah',
+               'text'  =>  'Yeay, Rubrik Assessor BKD LKD diubah',
                'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Assessor BKD LKD gagal diubah']);
        }
    }
    public function delete($r020assessorbkdlkd){
     $delete = R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 20 Assessor BKD LKD remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_020_assessor_bkd_lkd')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Assessor BKD LKD dihapus',
+            'url'   =>  route('dosen.r_020_assessor_bkd_lkd'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 20 Assessor BKD LKD remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Assessor BKD LKD remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

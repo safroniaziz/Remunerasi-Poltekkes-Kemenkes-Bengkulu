@@ -102,24 +102,23 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal diubah',
+               'text'  =>  'Yeay, Rubrik Auditor Mutu Assessor Akreditasi Internal diubah',
                'url'   =>  url('/dosen/r_023_auditor_mutu_assessor_akred_internal/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Auditor Mutu Assessor Akreditasi Internal gagal diubah']);
        }
    }
    public function delete($r23auditmutuasesorakredinternal){
     $delete = R023AuditorMutuAssessorAkredInternal::where('id',$r23auditmutuasesorakredinternal)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_023_auditor_mutu_assessor_akred_internal')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Auditor Mutu Assessor Akreditasi Internal dihapus',
+            'url'   =>  route('dosen.r_023_auditor_mutu_assessor_akred_internal'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Auditor Mutu Assessor Akreditasi Internal remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

@@ -105,24 +105,23 @@ class R27DosenKeanggotaanSenatController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 27 Keanggotaan Senat diubah',
+               'text'  =>  'Yeay, Rubrik Keanggotaan Senat diubah',
                'url'   =>  url('/dosen/r_027_keanggotaan_senat/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 27 Keanggotaan Senat gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Keanggotaan Senat gagal diubah']);
        }
    }
    public function delete($r27keanggotaansenat){
     $delete = R027KeanggotaanSenat::where('id',$r27keanggotaansenat)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 27 Keanggotaan Senat remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_027_keanggotaan_senat')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Keanggotaan Senat dihapus',
+            'url'   =>  route('dosen.r_027_keanggotaan_senat'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 27 Keanggotaan Senat remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Keanggotaan Senat remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

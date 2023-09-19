@@ -105,24 +105,23 @@ class R30DosenPengelolaKepkController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 30 Pengelola KEPK diubah',
+               'text'  =>  'Yeay, Rubrik Pengelola KEPK diubah',
                'url'   =>  url('/dosen/r_030_pengelola_kepk/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 30 Pengelola KEPK gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Pengelola KEPK gagal diubah']);
        }
    }
    public function delete($r030pengelolakepk){
     $delete = R030PengelolaKepk::where('id',$r030pengelolakepk)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 30 Pengelola KEPK remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_030_pengelola_kepk')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Pengelola KEPK dihapus',
+            'url'   =>  route('dosen.r_030_pengelola_kepk'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 30 Pengelola KEPK remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Pengelola KEPK remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

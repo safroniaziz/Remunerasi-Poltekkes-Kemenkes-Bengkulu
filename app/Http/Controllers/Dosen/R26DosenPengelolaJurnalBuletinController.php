@@ -113,25 +113,24 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 26 Pengelola Jurnal Buletin diubah',
+               'text'  =>  'Yeay, Rubrik Pengelola Jurnal Buletin diubah',
                'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Pengelola Jurnal Buletin gagal diubah']);
        }
    }
 
    public function delete($r26pengelolajurnalbuletin){
     $delete = R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 26 Pengelola Jurnal Buletin remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_026_pengelola_jurnal_buletin')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Pengelola Jurnal Buletin dihapus',
+            'url'   =>  route('dosen.r_026_pengelola_jurnal_buletin'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 26 Pengelola Jurnal Buletin remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Pengelola Jurnal Buletin remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

@@ -101,24 +101,23 @@ class R29DosenMemperolehPenghargaanController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 29 Memperoleh Penghargaan diubah',
+               'text'  =>  'Yeay, Rubrik Memperoleh Penghargaan diubah',
                'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Memperoleh Penghargaan gagal diubah']);
        }
    }
    public function delete($r29memperolehpenghargaan){
     $delete = R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 29 Memperoleh Penghargaan remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_029_memperoleh_penghargaan')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Memperoleh Penghargaan dihapus',
+            'url'   =>  route('dosen.r_029_memperoleh_penghargaan'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 29 Memperoleh Penghargaan remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Memperoleh Penghargaan remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

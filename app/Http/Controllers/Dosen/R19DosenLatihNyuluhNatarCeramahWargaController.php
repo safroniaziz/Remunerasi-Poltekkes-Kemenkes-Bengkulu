@@ -120,7 +120,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
     $delete = R019LatihNyuluhNatarCeramahWarga::where('id',$r019latihnyuluhnatarceramahwarga)->delete();
        if ($delete) {
         return response()->json([
-            'text'  =>  'Yeay, Rubrik Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat berhasil diubah',
+            'text'  =>  'Yeay, Rubrik Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat berhasil dihapus',
             'url'   =>  route('dosen.r_019_latih_nyuluh_natar_ceramah_warga'),
         ]);
        }else {

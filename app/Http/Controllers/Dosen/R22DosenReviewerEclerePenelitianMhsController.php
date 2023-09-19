@@ -102,24 +102,23 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs diubah',
+               'text'  =>  'Yeay, Rubrik Reviewer Eclere Penelitian mhs diubah',
                'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Reviewer Eclere Penelitian mhs gagal diubah']);
        }
    }
    public function delete($r22revieweclerepenelitimhs){
     $delete = R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_022_reviewer_eclere_penelitian_mhs')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Reviewer Eclere Penelitian mhs dihapus',
+            'url'   =>  route('dosen.r_022_reviewer_eclere_penelitian_mhs'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 22 Reviewer Eclere Penelitian mhs remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Reviewer Eclere Penelitian mhs remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
