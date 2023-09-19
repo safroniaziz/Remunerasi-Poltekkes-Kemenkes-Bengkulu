@@ -318,6 +318,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             $response_array_presensi = json_decode($responsePresensi, true);
             if (count($response_array_presensi['data'])>0) {
                 $presensi = $response_array_presensi['data'][0]['detail'];
+            }else{
                 $presensi = [];
             }
             $result = [
