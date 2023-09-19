@@ -41,12 +41,11 @@ $_SESSION['data'] = [
 // echo json_encode($_SESSION['data']);
 
 echo "<script>
-var dashboardURL = '" . env('DASHBOARD_URL') . "';
-if (window.top !== window.self) {
-    window.top.location.href = dashboardURL;
-} else {
-    window.location.href = dashboardURL;
-}
+    if (window.top !== window.self) {
+        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
+    } else {
+        window.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
+    }
 </script>";
 
 ?>
