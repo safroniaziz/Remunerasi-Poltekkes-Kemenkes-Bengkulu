@@ -71,8 +71,8 @@ class R06DosenMengujiUjianOscaController extends Controller
             return response()->json(['text' =>  'Oopps, R 06 Menguji Ujian Osca gagal disimpan']);
         }
     }
-    public function edit(R06MengujiUjianOsca $r06mengujiujianosca){
-        return $r06mengujiujianosca;
+    public function edit($r06mengujiujianosca){
+        return R06MengujiUjianOsca::where('id',$r06mengujiujianosca)->first();
     }
 
     public function update(Request $request, R06MengujiUjianOsca $r06mengujiujianosca){
@@ -113,8 +113,8 @@ class R06DosenMengujiUjianOscaController extends Controller
             return response()->json(['text' =>  'Oopps, R 06 Menguji Ujian Osca anda gagal diubah']);
         }
     }
-    public function delete(R06MengujiUjianOsca $r06mengujiujianosca){
-        $delete = $r06mengujiujianosca->delete();
+    public function delete($r06mengujiujianosca){
+        $delete = R06MengujiUjianOsca::where('id',$r06mengujiujianosca)->delete();
         if ($delete) {
             $notification = array(
                 'message' => 'Yeay, R06MengujiUjianOsca remunerasi berhasil dihapus',

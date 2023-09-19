@@ -71,8 +71,8 @@ class R18DosenMendapatHibahPkmController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 18 Mendapat Hibah PKM gagal disimpan']);
        }
    }
-   public function edit(R018MendapatHibahPkm $r018mendapathibahpkm){
-       return $r018mendapathibahpkm;
+   public function edit($r018mendapathibahpkm){
+    return R018MendapatHibahPkm::where('id',$r018mendapathibahpkm)->first();
    }
 
    public function update(Request $request, R018MendapatHibahPkm $r018mendapathibahpkm){
@@ -112,8 +112,8 @@ class R18DosenMendapatHibahPkmController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 18 Mendapat Hibah PKM anda gagal diubah']);
        }
    }
-   public function delete(R018MendapatHibahPkm $r018mendapathibahpkm){
-    $delete = $r018mendapathibahpkm->delete();
+   public function delete($r018mendapathibahpkm){
+    $delete = R018MendapatHibahPkm::where('id',$r018mendapathibahpkm)->delete();
     if ($delete) {
         $notification = array(
             'message' => 'Yeay, Rubrik 18 Mendapat Hibah PKM berhasil dihapus',

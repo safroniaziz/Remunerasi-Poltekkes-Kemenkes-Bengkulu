@@ -70,8 +70,8 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
             return response()->json(['text' =>  'Oopps, R 07 Membimbing Skirpsi LTA LA Profesi gagal disimpan']);
         }
     }
-    public function edit(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
-        return $r07membimbingskripsiltalaprofesi;
+    public function edit($r07membimbingskripsiltalaprofesi){
+        return R07MembimbingSkripsiLtaLaProfesi::where('id',$r07membimbingskripsiltalaprofesi)->first();
     }
 
     public function update(Request $request, R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
@@ -118,8 +118,8 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
             return response()->json(['text' =>  'Oopps, R 07 Membimbing Skirpsi LTA LA Profesi anda gagal diubah']);
         }
     }
-    public function delete(R07MembimbingSkripsiLtaLaProfesi $r07membimbingskripsiltalaprofesi){
-        $delete = $r07membimbingskripsiltalaprofesi->delete();
+    public function delete($r07membimbingskripsiltalaprofesi){
+        $delete = R07MembimbingSkripsiLtaLaProfesi::where('id',$r07membimbingskripsiltalaprofesi)->delete();
         if ($delete) {
             $notification = array(
                 'message' => 'Yeay, R07MembimbingSkripsiLtaLaProfesi remunerasi berhasil dihapus',

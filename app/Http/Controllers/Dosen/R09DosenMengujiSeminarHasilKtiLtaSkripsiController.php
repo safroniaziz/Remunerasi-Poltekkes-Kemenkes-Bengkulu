@@ -69,8 +69,8 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
            return response()->json(['text' =>  'Oopps, R 09 Menguji Seminar hasil Kti Lta Skripsi gagal disimpan']);
        }
    }
-   public function edit(R09MengujiSeminarhasilKtiLtaSkripsi $r09mengujiseminarhasil){
-    return $r09mengujiseminarhasil;
+   public function edit($r09mengujiseminarhasil){
+    return R09MengujiSeminarhasilKtiLtaSkripsi::where('id',$r09mengujiseminarhasil)->first();
    }
 
    public function update(Request $request, R09MengujiSeminarhasilKtiLtaSkripsi $r09mengujiseminarhasil){
@@ -117,8 +117,8 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
            return response()->json(['text' =>  'Oopps, R 09 Menguji Seminar hasil Kti Lta Skripsi anda gagal diubah']);
        }
    }
-   public function delete(R09MengujiSeminarhasilKtiLtaSkripsi $r09mengujiseminarhasil){
-    $delete = $r09mengujiseminarhasil->delete();
+   public function delete($r09mengujiseminarhasil){
+    $delete = R09MengujiSeminarhasilKtiLtaSkripsi::where('id',$r09mengujiseminarhasil)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',

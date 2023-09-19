@@ -74,8 +74,8 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas gagal disimpan']);
        }
    }
-   public function edit(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
-       return $r017naskahbukuterbitedarnas;
+   public function edit($r017naskahbukuterbitedarnas){
+    return R017NaskahBukuBahasaTerbitEdarNas::where('id',$r017naskahbukuterbitedarnas)->first();
    }
 
    public function update(Request $request, R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
@@ -118,8 +118,8 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas anda gagal diubah']);
        }
    }
-   public function delete(R017NaskahBukuBahasaTerbitEdarNas $r017naskahbukuterbitedarnas){
-    $delete = $r017naskahbukuterbitedarnas->delete();
+   public function delete($r017naskahbukuterbitedarnas){
+    $delete = R017NaskahBukuBahasaTerbitEdarNas::where('id',$r017naskahbukuterbitedarnas)->delete();
     if ($delete) {
         $notification = array(
             'message' => 'Yeay, Rubrik 17 naskah buku bahasa terbit edar nas remunerasi berhasil dihapus',

@@ -104,8 +104,8 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan gagal disimpan']);
        }
    }
-   public function edit(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
-       return $r015karyailmiahpublikasi;
+   public function edit($r015karyailmiahpublikasi){
+    return R015MenulisKaryaIlmiahDipublikasikan::where('id',$r015karyailmiahpublikasi)->first();
    }
 
    public function update(Request $request, R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
@@ -186,8 +186,8 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan anda gagal diubah']);
        }
    }
-   public function delete(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
-       $delete = $r015karyailmiahpublikasi->delete();
+   public function delete($r015karyailmiahpublikasi){
+    $delete = R015MenulisKaryaIlmiahDipublikasikan::where('id',$r015karyailmiahpublikasi)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi berhasil dihapus',

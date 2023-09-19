@@ -69,8 +69,8 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat gagal disimpan']);
        }
    }
-   public function edit(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
-       return $r019latihnyuluhnatarceramahwarga;
+   public function edit($r019latihnyuluhnatarceramahwarga){
+    return R019LatihNyuluhNatarCeramahWarga::where('id',$r019latihnyuluhnatarceramahwarga)->first();
    }
 
    public function update(Request $request, R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
@@ -116,8 +116,8 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat anda gagal diubah']);
        }
    }
-   public function delete(R019LatihNyuluhNatarCeramahWarga $r019latihnyuluhnatarceramahwarga){
-       $delete = $r019latihnyuluhnatarceramahwarga->delete();
+   public function delete($r019latihnyuluhnatarceramahwarga){
+    $delete = R019LatihNyuluhNatarCeramahWarga::where('id',$r019latihnyuluhnatarceramahwarga)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat remunerasi berhasil dihapus',

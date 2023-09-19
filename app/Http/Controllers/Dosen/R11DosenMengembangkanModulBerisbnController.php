@@ -87,8 +87,8 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
        }
    }
-   public function edit(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
-       return $r011mengembangkanmodulberisbn;
+   public function edit($r011mengembangkanmodulberisbn){
+    return R011MengembangkanModulBerisbn::where('id',$r011mengembangkanmodulberisbn)->first();
    }
 
    public function update(Request $request, R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
@@ -143,8 +143,8 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn anda gagal diubah']);
        }
    }
-   public function delete(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
-       $delete = $r011mengembangkanmodulberisbn->delete();
+   public function delete($r011mengembangkanmodulberisbn){
+    $delete = R011MengembangkanModulBerisbn::where('id',$r011mengembangkanmodulberisbn)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 11 mengembangkan modul berisbn remunerasi berhasil dihapus',

@@ -81,8 +81,8 @@ class R12DosenMembimbingPkmController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM gagal disimpan']);
        }
    }
-   public function edit(R012MembimbingPkm $r012membimbingpkm){
-       return $r012membimbingpkm;
+   public function edit($r012membimbingpkm){
+    return R012MembimbingPkm::where('id',$r012membimbingpkm)->first();
    }
 
    public function update(Request $request, R012MembimbingPkm $r012membimbingpkm){
@@ -140,8 +140,8 @@ class R12DosenMembimbingPkmController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM anda gagal diubah']);
        }
    }
-   public function delete(R012MembimbingPkm $r012membimbingpkm){
-       $delete = $r012membimbingpkm->delete();
+   public function delete($r012membimbingpkm){
+    $delete = R012MembimbingPkm::where('id',$r012membimbingpkm)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 12 Membimbing PKM remunerasi berhasil dihapus',

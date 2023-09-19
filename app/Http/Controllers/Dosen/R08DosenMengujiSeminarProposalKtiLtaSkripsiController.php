@@ -70,8 +70,8 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi gagal disimpan']);
         }
     }
-    public function edit(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
-        return $r08mengujiseminarproposal;
+    public function edit($r08mengujiseminarproposal){
+        return R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$r08mengujiseminarproposal)->first();
     }
 
     public function update(Request $request, R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
@@ -118,8 +118,8 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi anda gagal diubah']);
         }
     }
-    public function delete(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
-        $delete = $r08mengujiseminarproposal->delete();
+    public function delete($r08mengujiseminarproposal){
+        $delete = R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$r08mengujiseminarproposal)->delete();
         if ($delete) {
             $notification = array(
                 'message' => 'Yeay, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi berhasil dihapus',

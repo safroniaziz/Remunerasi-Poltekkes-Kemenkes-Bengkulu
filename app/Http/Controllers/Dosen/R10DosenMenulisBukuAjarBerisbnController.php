@@ -86,8 +86,8 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn gagal disimpan']);
        }
    }
-   public function edit(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
-       return $r010menulisbukuajarberisbn;
+   public function edit($r010menulisbukuajarberisbn){
+    return R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->first();
    }
 
    public function update(Request $request, R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
@@ -141,8 +141,8 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn anda gagal diubah']);
        }
    }
-   public function delete(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
-       $delete = $r010menulisbukuajarberisbn->delete();
+   public function delete($r010menulisbukuajarberisbn){
+    $delete = R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi berhasil dihapus',

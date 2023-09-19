@@ -71,8 +71,8 @@ class R20DosenAssessorBkdLkdController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal disimpan']);
        }
    }
-   public function edit(R020AssessorBkdLkd $r020assessorbkdlkd){
-       return $r020assessorbkdlkd;
+   public function edit($r020assessorbkdlkd){
+    return R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->first();
    }
 
    public function update(Request $request, R020AssessorBkdLkd $r020assessorbkdlkd){
@@ -112,8 +112,8 @@ class R20DosenAssessorBkdLkdController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal diubah']);
        }
    }
-   public function delete(R020AssessorBkdLkd $r020assessorbkdlkd){
-       $delete = $r020assessorbkdlkd->delete();
+   public function delete($r020assessorbkdlkd){
+    $delete = R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 20 Assessor BKD LKD remunerasi berhasil dihapus',

@@ -72,8 +72,8 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 16 naskah buku bahasa terbit edar inter gagal disimpan']);
        }
    }
-   public function edit(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
-       return $r016naskahbukuterbitedarinter;
+   public function edit($r016naskahbukuterbitedarinter){
+    return R016NaskahBukuBahasaTerbitEdarInter::where('id',$r016naskahbukuterbitedarinter)->first();
    }
 
    public function update(Request $request, R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
@@ -116,8 +116,8 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 16 naskah buku bahasa terbit edar inter anda gagal diubah']);
        }
    }
-   public function delete(R016NaskahBukuBahasaTerbitEdarInter $r016naskahbukuterbitedarinter){
-       $delete = $r016naskahbukuterbitedarinter->delete();
+   public function delete($r016naskahbukuterbitedarinter){
+    $delete = R016NaskahBukuBahasaTerbitEdarInter::where('id',$r016naskahbukuterbitedarinter)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 16 naskah buku bahasa terbit edar inter remunerasi berhasil dihapus',

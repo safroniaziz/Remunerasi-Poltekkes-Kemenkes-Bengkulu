@@ -84,8 +84,8 @@ class R14DosenKaryaInovasiController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi gagal disimpan']);
        }
    }
-   public function edit(R014KaryaInovasi $r014karyainovasi){
-       return $r014karyainovasi;
+   public function edit($r014karyainovasi){
+    return R014KaryaInovasi::where('id',$r014karyainovasi)->first();
    }
 
    public function update(Request $request, R014KaryaInovasi $r014karyainovasi){
@@ -145,8 +145,8 @@ class R14DosenKaryaInovasiController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi anda gagal diubah']);
        }
    }
-   public function delete(R014KaryaInovasi $r014karyainovasi){
-       $delete = $r014karyainovasi->delete();
+   public function delete($r014karyainovasi){
+    $delete = R014KaryaInovasi::where('id',$r014karyainovasi)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 14 Karya Inovasi remunerasi berhasil dihapus',
