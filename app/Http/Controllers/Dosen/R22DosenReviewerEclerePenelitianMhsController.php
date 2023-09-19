@@ -69,8 +69,8 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal disimpan']);
        }
    }
-   public function edit(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
-       return $r22revieweclerepenelitimhs;
+   public function edit($r22revieweclerepenelitimhs){
+    return R022ReviewerEclerePenelitianMhs::where('id',$r03bimbingcapaiankompetensi)->first();
    }
 
    public function update(Request $request, R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){

@@ -70,8 +70,8 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 21 Reviewer Eclere Penelitian Dosen gagal disimpan']);
        }
    }
-   public function edit(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
-       return $r21revieweclerepenelitidosen;
+   public function edit($r21revieweclerepenelitidosen){
+    return R021ReviewerEclerePenelitianDosen::where('id',$r21revieweclerepenelitidosen)->first();
    }
 
    public function update(Request $request, R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
@@ -110,8 +110,8 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 21 Reviewer Eclere Penelitian Dosen gagal diubah']);
        }
    }
-   public function delete(R021ReviewerEclerePenelitianDosen $r21revieweclerepenelitidosen){
-       $delete = $r21revieweclerepenelitidosen->delete();
+   public function delete($r21revieweclerepenelitidosen){
+    $delete = R021ReviewerEclerePenelitianDosen::where('id',$r21revieweclerepenelitidosen)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 21 Reviewer Eclere Penelitian Dosen remunerasi berhasil dihapus',

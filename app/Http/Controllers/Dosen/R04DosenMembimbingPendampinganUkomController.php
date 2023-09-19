@@ -105,24 +105,23 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, R 04 Membimbing Pendampingan Ukom berhasil diubah',
+                'text'  =>  'Yeay, Rrubrik Membimbing Pendampingan Ukom berhasil diubah',
                 'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom anda gagal diubah']);
+            return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pendampingan Ukom anda gagal diubah']);
         }
     }
     public function delete($r04membimbingpendampinganukom){
         $delete = R04MembimbingPendampinganUkom::where('id',$r04membimbingpendampinganukom)->delete();
         if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, R 04 Membimbing Pendampingan Ukom remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.r_04_membimbing_pendampingan_ukom')->with($notification);
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Membimbing Pendampingan Ukom berhasil dihapus',
+                'url'   =>  route('dosen.r_04_membimbing_pendampingan_ukom'),
+            ]);
         }else {
             $notification = array(
-                'message' => 'Ooopps, R 04 Membimbing Pendampingan Ukom remunerasi gagal dihapus',
+                'message' => 'Ooopps, RrubrikMembimbing Pendampingan Ukom remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
