@@ -316,6 +316,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             
             $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
             $response_array_presensi = json_decode($responsePresensi, true);
+            return response()->json($response_array_presensi);
             $result = [
                 'kelas' =>  $response_array['data'][0],
                 'presensi' =>  $response_array_presensi['data'][0]['detail'],
