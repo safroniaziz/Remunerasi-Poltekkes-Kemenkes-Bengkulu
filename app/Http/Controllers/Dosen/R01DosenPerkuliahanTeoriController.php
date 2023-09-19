@@ -27,7 +27,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
     public function index(Request $request){
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
-        return session('data');
+        return session('data.kode');
         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
                                                 ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
