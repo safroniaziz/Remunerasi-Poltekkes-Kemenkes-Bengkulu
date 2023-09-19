@@ -31,7 +31,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
     public function index(Request $request){
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
-         $r02perkuliahanpraktikum = R02PerkuliahanPraktikum::where('nip','4022026301')
+         $r02perkuliahanpraktikum = R02PerkuliahanPraktikum::where('nip',$_SESSION['data']['kode'])
                                                     ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                =>  $pegawais,
@@ -68,7 +68,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         $simpan = R02PerkuliahanPraktikum::create([
             'periode_id'        =>  $this->periode->id,
             // 'nip'               =>  $_SESSION['data']['kode'],
-            'nip'=>'4022026301',	// optional by dosen
+            'nip'=>$_SESSION['data']['kode'],	// optional by dosen
             'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -121,7 +121,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
             'periode_id'        =>  $this->periode->id,
             // 'nip'               =>  $_SESSION['data']['kode'],
-            'nip'=>'4022026301',	// optional by dosen
+            'nip'=>$_SESSION['data']['kode'],	// optional by dosen
             'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -191,7 +191,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             'kdpst'=>$kodePst,		// Kode Prodi
             'kdkmk'=>'',
             'sks_mk'    =>  'praktikum',
-            'nodos' =>  '4022026301',		// Search Kode MK (Optional) | can string or array (Optional)
+            'nodos' =>  $_SESSION['data']['kode'],		// Search Kode MK (Optional) | can string or array (Optional)
             'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
             // 'offset'    =>  30,
             // 'id_kls'    =>"20222E13451II AKL.1.3.01",
@@ -295,7 +295,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'kdjen'=>$request->kodeJenjang,
                 'kdpst'=>$request->kodeProdi,
                 'id_kls'=>$id_kelas,	
-                'nodos'=>'4022026301',	// optional by dosen
+                'nodos'=>$_SESSION['data']['kode'],	// optional by dosen
                 'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
                 'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
                 'offset'=>'',		// mulai data dari 0 / 10 (Optional)

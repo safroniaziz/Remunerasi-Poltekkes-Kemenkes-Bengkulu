@@ -27,7 +27,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
     public function index(Request $request){
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
-        $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip','4022026301')
+        $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
                                                 ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
             'pegawais'                =>  $pegawais,
@@ -67,8 +67,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $simpan = R01PerkuliahanTeori::create([
             'periode_id'        =>  $this->periode->id,
-            // 'nip'               =>  $_SESSION['data']['kode'],
-            'nip'               =>  4022026301,
+            'nip'               =>  $_SESSION['data']['kode'],
+            // 'nip'               =>  4022026301,
             'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -125,8 +125,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
             'periode_id'        =>  $this->periode->id,
-            // 'nip'               =>  $_SESSION['data']['kode'],
-            'nip'               =>  4022026301,
+            'nip'               =>  $_SESSION['data']['kode'],
+            // 'nip'               =>  4022026301,
             'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -194,7 +194,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'kdjen'=>'E',		// Kode Jenjang 
             'kdpst'=>13451,		// Kode Prodi
             'kdkmk'=>'',
-            'nodos' =>  '4022026301',		// Search Kode MK (Optional) | can string or array (Optional)
+
+            'nodos' =>  $_SESSION['data']['kode'],		// Search Kode MK (Optional) | can string or array (Optional)
             'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
             // 'offset'    =>  30,
             // 'id_kls'    =>"20222E13451II AKL.1.3.01",
@@ -215,7 +216,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $response = _curl_api($config['url'], json_encode($data));
         $response_array = json_decode($response, true);
-        $nipDosen = 4022026301;
+        // $nipDosen = 4022026301;
+        $nipDosen = $_SESSION['data']['kode'];
         $res = ' ';
         $no = 1;
         if (count($response_array['data'])>0) {
@@ -298,7 +300,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'kdjen'=>$request->kodeJenjang,
                 'kdpst'=>$request->kodeProdi,
                 'id_kls'=>$id_kelas,	
-                'nodos'=>'4022026301',	// optional by dosen
+                // 'nodos'=>'4022026301',	// optional by dosen
+                'nodos'     =>  $_SESSION['data']['kode'],
                 'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
                 'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
                 'offset'=>'',		// mulai data dari 0 / 10 (Optional)
@@ -328,7 +331,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
             $point = ((count($result['presensi'])/16)*($result['kelas']['jml_peserta']/40))* $this->nilai_ewmp->ewmp*$jumlahSks;
             $perkuliahan[]  =   array(
                 'periode_id'    =>  $this->periode->id,
-                'nip'           =>  4022026301,
+                // 'nip'           =>  4022026301,
+                'nip'   =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
                 'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
