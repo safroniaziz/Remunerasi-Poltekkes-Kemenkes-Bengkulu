@@ -40,7 +40,7 @@ class Pegawai extends Model
     }
 
     public function jabatanFungsionals(){
-        return $this->hasMany(jabatanFungsional::class,'nip');
+        return $this->hasMany(JabatanFungsional::class,'nip');
     }
     public function pangkatGolongans(){
         return $this->hasMany(PangkatGolongan::class,'nip');
