@@ -33,7 +33,7 @@ class R27DosenKeanggotaanSenatController extends Controller
        ];
        $text = [
            'jabatan.required'          => 'Jabatan harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -78,7 +78,7 @@ class R27DosenKeanggotaanSenatController extends Controller
        ];
        $text = [
            'jabatan.required'        => 'Jabatan harus diisi',
-           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'         => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

@@ -38,7 +38,7 @@ class R12DosenMembimbingPkmController extends Controller
            'juara_ke.required'            => 'Penulis harus diisi',
            'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
-           'is_bkd.required'              => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'              => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -97,7 +97,7 @@ class R12DosenMembimbingPkmController extends Controller
            'juara_ke.required'            => 'Penulis harus diisi',
            'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
-           'is_bkd.required'              => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'              => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

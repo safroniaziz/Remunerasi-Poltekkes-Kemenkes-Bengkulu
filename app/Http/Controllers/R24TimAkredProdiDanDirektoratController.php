@@ -46,7 +46,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        ];
        $text = [
            'judul_kegiatan.required'    => 'Judul Kegiatan harus diisi',
-           'is_bkd.required'            => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'            => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -92,7 +92,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        ];
        $text = [
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
-           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'         => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

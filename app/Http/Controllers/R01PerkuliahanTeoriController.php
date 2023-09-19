@@ -41,13 +41,16 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
         $rules = [
+            'kode_kelas'            =>  'required',
             'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'is_bkd'                =>  'required',
+            'id_prodi'                =>  'required',
         ];
         $text = [
+            'kode_kelas.required'           => 'Kode Kelas harus diisi',
             'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
@@ -55,7 +58,8 @@ class R01PerkuliahanTeoriController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
+            'id_prodi.required'           => 'Prodi mengajar harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -69,6 +73,7 @@ class R01PerkuliahanTeoriController extends Controller
         $simpan = R01PerkuliahanTeori::create([
             'periode_id'        =>  $periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
+            'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
@@ -99,21 +104,25 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
         $rules = [
+            'kode_kelas'            =>  'required',
             'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'is_bkd'                =>  'required',
+            'id_prodi'                =>  'required',
         ];
         $text = [
-                        'nama_matkul.required'      => 'Nama Matkul harus diisi',
+            'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus diisi',
+            'id_prodi.required'           => 'Prodi mengajar harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

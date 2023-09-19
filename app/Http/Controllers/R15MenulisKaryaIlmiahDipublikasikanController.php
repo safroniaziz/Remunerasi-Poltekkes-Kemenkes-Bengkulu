@@ -45,7 +45,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
            'jenis.required'            => 'Jumlah Penulis harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -133,7 +133,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
            'jenis.required'            => 'Jumlah Penulis harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

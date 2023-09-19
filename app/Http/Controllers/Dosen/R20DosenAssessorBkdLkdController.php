@@ -42,7 +42,7 @@ class R20DosenAssessorBkdLkdController extends Controller
        $text = [
            'jumlah_dosen.required'     => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'      => 'Jumlah Dosen harus berupa angka',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -83,7 +83,7 @@ class R20DosenAssessorBkdLkdController extends Controller
        $text = [
            'jumlah_dosen.required' => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'  => 'Jumlah Dosen harus berupa angka',
-           'is_bkd.required'       => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'       => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

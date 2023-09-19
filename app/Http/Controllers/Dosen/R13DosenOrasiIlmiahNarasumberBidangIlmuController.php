@@ -35,7 +35,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
        $text = [
            'judul_kegiatan.required'   => 'Judul_kegiatan harus diisi',
            'tingkatan_ke.required'     => 'Penulis harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -85,7 +85,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
        $text = [
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'tingkatan_ke.required'     => 'Penulis harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

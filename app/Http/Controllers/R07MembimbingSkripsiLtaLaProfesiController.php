@@ -41,7 +41,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -95,7 +95,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'pembimbing_ke.required'    => 'Pembimbing harus dipilih',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

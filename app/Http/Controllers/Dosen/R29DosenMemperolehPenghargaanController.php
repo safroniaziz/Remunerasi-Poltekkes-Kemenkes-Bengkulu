@@ -33,7 +33,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        ];
        $text = [
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
-           'is_bkd.required'            => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'            => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -76,7 +76,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        ];
        $text = [
            'judul_penghargaan.required' => 'Judul Penghargaan harus diisi',
-           'is_bkd.required'            => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'            => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

@@ -53,7 +53,7 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -108,7 +108,7 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
