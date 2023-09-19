@@ -51,9 +51,9 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jabatan</th>
-                                        <th style="text-align:center; vertical-align:middle">BKD</th>
+                                        <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-                                        <th style="text-align:center; vertical-align:middle">Point</th>
+                                        {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -79,19 +79,19 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($r027keanggotaansenat->is_bkd == 1)
-                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
+                                                    <small class="label label-danger">BKD</small>
                                                 @else
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
+                                                    <small class="label label-success">Non BKD</small>
                                                 @endif
                                             </td>
-                                                <td class="text-center">
-                                                    @if ($r027keanggotaansenat->is_verified == 1)
-                                                        <small class="label label-success"><i class="fa fa-check-circle"></i></small>
-                                                    @else
-                                                        <small class="label label-danger"><i class="fa fa-close"></i></small>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">{{ $r027keanggotaansenat->point }}</td>
+                                            <td class="text-center">
+                                                @if ($r027keanggotaansenat->is_verified == 1)
+                                                    <small class="label label-success">Terverifikasi</small>
+                                                @else
+                                                    <small class="label label-danger">Belum Verifikasi</small>
+                                                @endif
+                                            </td>
+                                                {{--  <td class="text-center">{{ $r027keanggotaansenat->point }}</td>  --}}
                                             <td>
                                                 <table>
                                                     <tr>
