@@ -10,24 +10,18 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class VerifikatorController extends Controller
+class AdministratorController extends Controller
 {
     public function index(Request $request){
-        $users = User::verifikator()->orderBy('created_at','desc')->get();
-        $fakultases = DB::table('prodis')
-                    ->select('kodefak', 'nmfak')
-                    ->groupBy('kodefak', 'nmfak') // Menambahkan kolom nmfak ke GROUP BY
-                    ->get();
-        return view('backend/manajemen_data_verifikators.index',[
-            'users'                   =>  $users,
-            'fakultases'                   =>  $fakultases,
+        $administrators = User::administrator()->orderBy('created_at','desc')->get();
+        return view('backend/manajemen_data_administrators.index',[
+            'administrators'                   =>  $administrators,
         ]);
     }
 
     public function store(Request $request){
         $rules = [
             'nama_user'      =>  'required',
-            'kodefak'  =>  'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'password_confirmation' => 'required|same:password', // Ini adalah validasi konfirmasi password
@@ -37,13 +31,12 @@ class VerifikatorController extends Controller
         $text = [
             'nama_user.required'           => 'Nama User harus diisi',
             'email.required'               => 'Email harus diisi',
-            'kodefak.required'       => 'Jurusan harus diisi',
             'password.required'            => 'Password harus diisi',
             'password.min'                 => 'Password harus memiliki setidaknya :min karakter',
             'password.regex'               => 'Password harus mengandung huruf besar, huruf kecil, angka, dan karakter khusus',
             'password_confirmation.required' => 'Konfirmasi Password harus diisi',
             'password_confirmation.same'   => 'Konfirmasi Password harus sama dengan Password',
-            'is_active.required'           => 'Status Verifikator harus diisi',
+            'is_active.required'           => 'Status administrator harus diisi',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -53,37 +46,35 @@ class VerifikatorController extends Controller
 
         $simpan = User::create([
             'nama_user'         =>  $request->nama_user,
-            'kodefak'     =>  $request->kodefak,
             'email'             =>  $request->email,
             'password'          =>  Hash::make($request->password),
             'is_active'         =>  $request->is_active,
         ]);
 
-        $verifikatorRole = Role::where('name', 'verifikator')->first();
-        $simpan->assignRole($verifikatorRole);
+        $administratorRole = Role::where('name', 'administrator')->first();
+        $simpan->assignRole($administratorRole);
 
         if ($simpan) {
             return response()->json([
-                'text'  =>  'Yeay, Verifikator remunerasi berhasil ditambahkan',
-                'url'   =>  url('/manajemen_data_verifikator/'),
+                'text'  =>  'Yeay, administrator remunerasi berhasil ditambahkan',
+                'url'   =>  url('/manajemen_data_administrator/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, Verifikator remunerasi gagal disimpan']);
+            return response()->json(['text' =>  'Oopps, administrator remunerasi gagal disimpan']);
         }
     }
-    public function edit(User $user){
-        return $user;
+    public function edit(User $administrator){
+        return $administrator;
     }
 
     public function update(Request $request){
-        $user = User::where('id',$request->verifikator_id)->first();
+        $administrator = User::where('id',$request->administrator_id)->first();
         $rules = [
             'nama_user'      =>  'required',
-            'kodefak'  =>  'required',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($user->id), // $user adalah instance dari model User yang sedang diedit
+                Rule::unique('users')->ignore($administrator->id), // $administrator adalah instance dari model User yang sedang diedit
             ],
             'is_active' => 'required|boolean',
         ];
@@ -91,8 +82,7 @@ class VerifikatorController extends Controller
         $text = [
             'nama_user.required'           => 'Nama User harus diisi',
             'email.required'               => 'Email harus diisi',
-            'kodefak.required'              => 'Jurusan harus diisi',
-            'is_active.required'           => 'Status Verifikator harus diisi',
+            'is_active.required'           => 'Status administrator harus diisi',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -100,59 +90,58 @@ class VerifikatorController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $update = $user->update([
+        $update = $administrator->update([
             'nama_user'        =>  $request->nama_user,
-            'kodefak'    =>  $request->kodefak,
             'email'            =>  $request->email,
             'is_active'        =>  $request->is_active,
         ]);
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, Verifikator remunerasi berhasil diubah',
-                'url'   =>  url('/manajemen_data_verifikator/'),
+                'text'  =>  'Yeay, administrator remunerasi berhasil diubah',
+                'url'   =>  url('/manajemen_data_administrator/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, Verifikator remunerasi gagal diubah']);
+            return response()->json(['text' =>  'Oopps, administrator remunerasi gagal diubah']);
         }
     }
 
-    public function delete(User $user){
-        $delete = $user->delete();
+    public function delete(User $administrator){
+        $delete = $administrator->delete();
         if ($delete) {
             $notification = array(
-                'message' => 'Yeay, Verifikator berhasil dihapus',
+                'message' => 'Yeay, administrator berhasil dihapus',
                 'alert-type' => 'success'
             );
-            return redirect()->route('manajemen_data_verifikator')->with($notification);
+            return redirect()->route('manajemen_data_administrator')->with($notification);
         }else {
             $notification = array(
-                'message' => 'Ooopps, Verifikator gagal dihapus',
+                'message' => 'Ooopps, administrator gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
 
-    public function active(User $user){
-        $user->update([
+    public function active(User $administrator){
+        $administrator->update([
             'is_active'   =>  1,
         ]);
 
         $notification = array(
-            'message' => 'Berhasil, verifikator berhasil diaktifkan',
+            'message' => 'Berhasil, administrator berhasil diaktifkan',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
     }
 
-    public function nonactive(User $user){
-        $user->update([
+    public function nonactive(User $administrator){
+        $administrator->update([
             'is_active'   =>  0,
         ]);
 
         $notification = array(
-            'message' => 'Berhasil, verifikator berhasil dinonaktifkan',
+            'message' => 'Berhasil, administrator berhasil dinonaktifkan',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -183,11 +172,11 @@ class VerifikatorController extends Controller
 
         if ($ubahPassword) {
             return response()->json([
-                'text'  =>  'Yeay, Password verifikator berhasil diubah',
-                'url'   =>  url('/manajemen_data_verifikator/'),
+                'text'  =>  'Yeay, Password administrator berhasil diubah',
+                'url'   =>  url('/manajemen_data_administrator/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, Password verifikator gagal diubah']);
+            return response()->json(['text' =>  'Oopps, Password administrator gagal diubah']);
         }
     }
 }

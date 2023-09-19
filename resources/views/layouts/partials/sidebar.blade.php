@@ -78,21 +78,24 @@
     </li>
 @endcan
 
+@can('view-generate-point-rubrik')
+    <li class="header" style="font-weight:bold">LAPORAN REMUNERASI</li>
+    <li class="{{ set_active(['generate_point_rubrik','detail_isian_rubrik']) }}">
+        <a href="{{ route('generate_point_rubrik') }}">
+            <i class="fa fa-sync"></i>
+            <span>Generate Point Rubrik</span>
+        </a>
+    </li>
+@endcan
 
-<li class="header" style="font-weight:bold">LAPORAN REMUNERASI</li>
-<li class="{{ set_active(['generate_point_rubrik','detail_isian_rubrik']) }}">
-    <a href="{{ route('generate_point_rubrik') }}">
-        <i class="fa fa-sync"></i>
-        <span>Generate Point Rubrik</span>
-    </a>
-</li>
-
-<li class="{{ set_active(['point_rubrik_dosen']) }}">
-    <a href="{{ route('point_rubrik_dosen') }}">
-        <i class="fa fa-exchange-alt"></i>
-        <span>Point Rubrik Dosen</span>
-    </a>
-</li>
+@can('view-point-rubrik-dosen')
+    <li class="{{ set_active(['point_rubrik_dosen']) }}">
+        <a href="{{ route('point_rubrik_dosen') }}">
+            <i class="fa fa-exchange-alt"></i>
+            <span>Point Rubrik Dosen</span>
+        </a>
+    </li>
+@endcan
 
 @can('read-periode')
     <li class="header" style="font-weight:bold">MANAJEMEN PENGATURAN</li>
@@ -114,19 +117,26 @@
 @endcan
 
 @can('read-user')
-<li class="treeview {{ set_active([
-    'manajemen_data_verifikator',
-]) }}">
-    <a href="#" class="parent-sidebar-menu">
-        <i class="fa fa-users"></i> <span>Manajemen Pengguna</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
-    </a>
-    <ul class="treeview-menu child-sidebar-menu">
-        <li class="{{ set_active(['manajemen_data_verifikator']) }}"><a href="{{ route('manajemen_data_verifikator') }}"><i class="fa fa-circle-o"></i>Verifikator</a></li>
-    </ul>
-</li>
+    <li class="treeview {{ set_active([
+        'manajemen_permission',
+        'manajemen_role',
+        'manajemen_role.detail',
+        'manajemen_data_verifikator',
+        'manajemen_data_administrator',
+    ]) }}">
+        <a href="#" class="parent-sidebar-menu">
+            <i class="fa fa-users"></i> <span>Manajemen Pengguna</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu child-sidebar-menu">
+            <li class="{{ set_active(['manajemen_permission']) }}"><a href="{{ route('manajemen_permission') }}"><i class="fa fa-circle-o"></i>Permission</a></li>
+            <li class="{{ set_active(['manajemen_role','manajemen_role.detail']) }}"><a href="{{ route('manajemen_role') }}"><i class="fa fa-circle-o"></i>Role</a></li>
+            <li class="{{ set_active(['manajemen_data_verifikator']) }}"><a href="{{ route('manajemen_data_verifikator') }}"><i class="fa fa-circle-o"></i>Verifikator</a></li>
+            <li class="{{ set_active(['manajemen_data_administrator']) }}"><a href="{{ route('manajemen_data_administrator') }}"><i class="fa fa-circle-o"></i>Administrator</a></li>
+        </ul>
+    </li>
 @endcan
 
 @can('read-r01-perkuliahan-teori')
