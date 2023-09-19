@@ -185,7 +185,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
     }
 
     public function siakad(Request $request){
-        return $request->all();
         require_once app_path('Helpers/api/curl.api.php');
         require_once app_path('Helpers/api/config.php');
 
