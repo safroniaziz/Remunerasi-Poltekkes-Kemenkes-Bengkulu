@@ -14,6 +14,7 @@ use App\Http\Controllers\NilaiEwmpController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\RiwayatPointController;
+use App\Http\Controllers\OauthCallbackController;
 use App\Http\Controllers\KelompokRubrikController;
 use App\Http\Controllers\PangkatGolonganController;
 use App\Http\Controllers\R14KaryaInovasiController;
@@ -65,6 +66,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('home');
 
+Route::get('/oauth-callback',[OauthCallbackController::class, 'oAuthCallback'])->name('oAuthCallback');
 Route::get('/logoutDosen',function(){
     session_start();
     session_destroy();
