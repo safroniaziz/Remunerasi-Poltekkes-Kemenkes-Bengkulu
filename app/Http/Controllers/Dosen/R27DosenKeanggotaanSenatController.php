@@ -67,8 +67,8 @@ class R27DosenKeanggotaanSenatController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 27 Keanggotaan Senat gagal disimpan']);
        }
    }
-   public function edit(R027KeanggotaanSenat $r27keanggotaansenat){
-       return $r27keanggotaansenat;
+   public function edit($r27keanggotaansenat){
+    return R027KeanggotaanSenat::where('id',$r27keanggotaansenat)->first();
    }
 
    public function update(Request $request, R027KeanggotaanSenat $r27keanggotaansenat){
@@ -112,8 +112,8 @@ class R27DosenKeanggotaanSenatController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 27 Keanggotaan Senat gagal diubah']);
        }
    }
-   public function delete(R027KeanggotaanSenat $r27keanggotaansenat){
-       $delete = $r27keanggotaansenat->delete();
+   public function delete($r27keanggotaansenat){
+    $delete = R027KeanggotaanSenat::where('id',$r27keanggotaansenat)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 27 Keanggotaan Senat remunerasi berhasil dihapus',

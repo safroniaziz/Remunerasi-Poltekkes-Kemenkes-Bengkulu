@@ -70,8 +70,8 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal disimpan']);
        }
    }
-   public function edit(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
-       return $r24timakredprodirektorat;
+   public function edit($r24timakredprodirektorat){
+    return R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->first();
    }
 
    public function update(Request $request, R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
@@ -110,8 +110,8 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal diubah']);
        }
    }
-   public function delete(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
-       $delete = $r24timakredprodirektorat->delete();
+   public function delete($r24timakredprodirektorat){
+    $delete = R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat remunerasi berhasil dihapus',

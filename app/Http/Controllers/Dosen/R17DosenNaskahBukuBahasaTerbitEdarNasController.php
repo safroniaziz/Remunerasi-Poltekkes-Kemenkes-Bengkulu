@@ -111,24 +111,23 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 17 naskah buku bahasa terbit edar nas berhasil diubah',
+               'text'  =>  'Yeay, Rubrik naskah buku bahasa terbit edar nas berhasil diubah',
                'url'   =>  url('/dosen/r_017_naskah_buku_bahasa_terbit_edar_nas/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik naskah buku bahasa terbit edar nas anda gagal diubah']);
        }
    }
    public function delete($r017naskahbukuterbitedarnas){
     $delete = R017NaskahBukuBahasaTerbitEdarNas::where('id',$r017naskahbukuterbitedarnas)->delete();
     if ($delete) {
-        $notification = array(
-            'message' => 'Yeay, Rubrik 17 naskah buku bahasa terbit edar nas remunerasi berhasil dihapus',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik naskah buku bahasa terbit edar nas berhasil dihapus',
+            'url'   =>  route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas'),
+        ]);
     }else {
         $notification = array(
-            'message' => 'Ooopps, Rubrik 17 naskah buku bahasa terbit edar nas remunerasi gagal dihapus',
+            'message' => 'Ooopps, Rubrik naskah buku bahasa terbit edar nas remunerasi gagal dihapus',
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notification);

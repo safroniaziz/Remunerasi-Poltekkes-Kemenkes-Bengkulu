@@ -115,24 +115,23 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu berhasil diubah',
+               'text'  =>  'Yeay, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu berhasil diubah',
                'url'   =>  url('/dosen/r_013_orasi_ilmiah_narasumber_bidang_ilmu/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu anda gagal diubah']);
        }
    }
    public function delete($r013orasiilmiahnarasumber){
     $delete = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$r013orasiilmiahnarasumber)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu berhasil dihapus',
+            'url'   =>  route('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

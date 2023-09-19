@@ -71,8 +71,8 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal disimpan']);
        }
    }
-   public function edit(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
-       return $r26pengelolajurnalbuletin;
+   public function edit($r26pengelolajurnalbuletin){
+    return R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->first();
    }
 
    public function update(Request $request, R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
@@ -120,8 +120,9 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal diubah']);
        }
    }
-   public function delete(R026PengelolaJurnalBuletin $r26pengelolajurnalbuletin){
-       $delete = $r26pengelolajurnalbuletin->delete();
+
+   public function delete($r26pengelolajurnalbuletin){
+    $delete = R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 26 Pengelola Jurnal Buletin remunerasi berhasil dihapus',

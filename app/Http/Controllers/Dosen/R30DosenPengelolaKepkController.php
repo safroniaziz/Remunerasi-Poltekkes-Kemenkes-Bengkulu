@@ -67,8 +67,8 @@ class R30DosenPengelolaKepkController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 30 Pengelola KEPK gagal disimpan']);
        }
    }
-   public function edit(R030PengelolaKepk $r030pengelolakepk){
-       return $r030pengelolakepk;
+   public function edit($r030pengelolakepk){
+    return R030PengelolaKepk::where('id',$r030pengelolakepk)->first();
    }
 
    public function update(Request $request, R030PengelolaKepk $r030pengelolakepk){
@@ -112,8 +112,8 @@ class R30DosenPengelolaKepkController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 30 Pengelola KEPK gagal diubah']);
        }
    }
-   public function delete(R030PengelolaKepk $r030pengelolakepk){
-       $delete = $r030pengelolakepk->delete();
+   public function delete($r030pengelolakepk){
+    $delete = R030PengelolaKepk::where('id',$r030pengelolakepk)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 30 Pengelola KEPK remunerasi berhasil dihapus',

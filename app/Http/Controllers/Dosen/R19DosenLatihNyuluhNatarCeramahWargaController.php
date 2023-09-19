@@ -109,24 +109,23 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat berhasil diubah',
+               'text'  =>  'Yeay, Rubrik Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat berhasil diubah',
                'url'   =>  url('/dosen/r_019_latih_nyuluh_natar_ceramah_warga/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat anda gagal diubah']);
        }
    }
    public function delete($r019latihnyuluhnatarceramahwarga){
     $delete = R019LatihNyuluhNatarCeramahWarga::where('id',$r019latihnyuluhnatarceramahwarga)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_019_latih_nyuluh_natar_ceramah_warga')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat berhasil diubah',
+            'url'   =>  route('dosen.r_019_latih_nyuluh_natar_ceramah_warga'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 19 Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Memberi Pelatihan Penyuluhan Penataran Ceramah kepada masyarakat remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

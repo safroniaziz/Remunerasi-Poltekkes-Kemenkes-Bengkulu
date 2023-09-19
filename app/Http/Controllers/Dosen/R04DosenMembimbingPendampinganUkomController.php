@@ -105,7 +105,7 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, Rrubrik Membimbing Pendampingan Ukom berhasil diubah',
+                'text'  =>  'Yeay, Rubrik Membimbing Pendampingan Ukom berhasil diubah',
                 'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
             ]);
         }else {

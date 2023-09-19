@@ -106,21 +106,20 @@ class R06DosenMengujiUjianOscaController extends Controller
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, R 06 Menguji Ujian Osca berhasil diubah',
+                'text'  =>  'Yeay, Rubrik Menguji Ujian Osca berhasil diubah',
                 'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 06 Menguji Ujian Osca anda gagal diubah']);
+            return response()->json(['text' =>  'Oopps, Rubrik Menguji Ujian Osca anda gagal diubah']);
         }
     }
     public function delete($r06mengujiujianosca){
         $delete = R06MengujiUjianOsca::where('id',$r06mengujiujianosca)->delete();
         if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, R06MengujiUjianOsca remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.r_06_menguji_ujian_osca')->with($notification);
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Menguji Ujian Osca berhasil dihapus',
+                'url'   =>  route('dosen.r_06_menguji_ujian_osca'),
+            ]);
         }else {
             $notification = array(
                 'message' => 'Ooopps, R06MengujiUjianOsca remunerasi gagal dihapus',

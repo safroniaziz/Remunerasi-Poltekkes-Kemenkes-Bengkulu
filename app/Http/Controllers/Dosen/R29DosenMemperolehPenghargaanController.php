@@ -65,8 +65,8 @@ class R29DosenMemperolehPenghargaanController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal disimpan']);
        }
    }
-   public function edit(R029MemperolehPenghargaan $r29memperolehpenghargaan){
-       return $r29memperolehpenghargaan;
+   public function edit($r29memperolehpenghargaan){
+    return R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->first();
    }
 
    public function update(Request $request, R029MemperolehPenghargaan $r29memperolehpenghargaan){
@@ -108,8 +108,8 @@ class R29DosenMemperolehPenghargaanController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal diubah']);
        }
    }
-   public function delete(R029MemperolehPenghargaan $r29memperolehpenghargaan){
-       $delete = $r29memperolehpenghargaan->delete();
+   public function delete($r29memperolehpenghargaan){
+    $delete = R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 29 Memperoleh Penghargaan remunerasi berhasil dihapus',

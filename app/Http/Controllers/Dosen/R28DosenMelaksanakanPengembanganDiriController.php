@@ -67,8 +67,8 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 28 Melaksanakan Pengembangan Diri gagal disimpan']);
        }
    }
-   public function edit(R028MelaksanakanPengembanganDiri $r28laksanakanpengembangandiri){
-       return $r28laksanakanpengembangandiri;
+   public function edit($r28laksanakanpengembangandiri){
+    return R028MelaksanakanPengembanganDiri::where('id',$r28laksanakanpengembangandiri)->first();
    }
 
    public function update(Request $request, R028MelaksanakanPengembanganDiri $r28laksanakanpengembangandiri){
@@ -112,8 +112,8 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 28 Melaksanakan Pengembangan Diri gagal diubah']);
        }
    }
-   public function delete(R028MelaksanakanPengembanganDiri $r28laksanakanpengembangandiri){
-       $delete = $r28laksanakanpengembangandiri->delete();
+   public function delete($r28laksanakanpengembangandiri){
+    $delete = R028MelaksanakanPengembanganDiri::where('id',$r28laksanakanpengembangandiri)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 28 Melaksanakan Pengembangan Diri remunerasi berhasil dihapus',

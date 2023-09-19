@@ -70,8 +70,8 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 25 Kepanitiaan Kegiatan Institusi gagal disimpan']);
        }
    }
-   public function edit(R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
-       return $r25panitiakegiataninstitusi;
+   public function edit($r25panitiakegiataninstitusi){
+    return R025KepanitiaanKegiatanInstitusi::where('id',$r25panitiakegiataninstitusi)->first();
    }
 
    public function update(Request $request, R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
@@ -118,8 +118,8 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 25 Kepanitiaan Kegiatan Institusi gagal diubah']);
        }
    }
-   public function delete(R025KepanitiaanKegiatanInstitusi $r25panitiakegiataninstitusi){
-       $delete = $r25panitiakegiataninstitusi->delete();
+   public function delete($r25panitiakegiataninstitusi){
+    $delete = R025KepanitiaanKegiatanInstitusi::where('id',$r25panitiakegiataninstitusi)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 25 Kepanitiaan Kegiatan Institusi remunerasi berhasil dihapus',

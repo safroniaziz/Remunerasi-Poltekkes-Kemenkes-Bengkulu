@@ -69,8 +69,8 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal disimpan']);
        }
    }
-   public function edit(R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
-       return $r23auditmutuasesorakredinternal;
+   public function edit($r23auditmutuasesorakredinternal){
+    return R023AuditorMutuAssessorAkredInternal::where('id',$r23auditmutuasesorakredinternal)->first();
    }
 
    public function update(Request $request, R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
@@ -109,8 +109,8 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal gagal diubah']);
        }
    }
-   public function delete(R023AuditorMutuAssessorAkredInternal $r23auditmutuasesorakredinternal){
-       $delete = $r23auditmutuasesorakredinternal->delete();
+   public function delete($r23auditmutuasesorakredinternal){
+    $delete = R023AuditorMutuAssessorAkredInternal::where('id',$r23auditmutuasesorakredinternal)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 23 Auditor Mutu Assessor Akreditasi Internal remunerasi berhasil dihapus',

@@ -109,20 +109,19 @@ class R18DosenMendapatHibahPkmController extends Controller
                'url'   =>  url('/dosen/r_018_mendapat_hibah_pkm/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 18 Mendapat Hibah PKM anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Mendapat Hibah PKM anda gagal diubah']);
        }
    }
    public function delete($r018mendapathibahpkm){
     $delete = R018MendapatHibahPkm::where('id',$r018mendapathibahpkm)->delete();
     if ($delete) {
-        $notification = array(
-            'message' => 'Yeay, Rubrik 18 Mendapat Hibah PKM berhasil dihapus',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('dosen.r_018_mendapat_hibah_pkm')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Mendapat Hibah PKM berhasil dihapus',
+            'url'   =>  route('dosen.r_018_mendapat_hibah_pkm'),
+        ]);
     }else {
         $notification = array(
-            'message' => 'Ooopps, Rubrik 18 Mendapat Hibah PKM gagal dihapus',
+            'message' => 'Ooopps, Rubrik Mendapat Hibah PKM gagal dihapus',
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notification);

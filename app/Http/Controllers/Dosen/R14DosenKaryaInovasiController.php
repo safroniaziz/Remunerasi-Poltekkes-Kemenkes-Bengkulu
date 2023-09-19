@@ -138,24 +138,23 @@ class R14DosenKaryaInovasiController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 14 Karya Inovasi berhasil diubah',
+               'text'  =>  'Yeay, Rubrik Karya Inovasi berhasil diubah',
                'url'   =>  url('/dosen/r_014_karya_inovasi/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Karya Inovasi anda gagal diubah']);
        }
    }
    public function delete($r014karyainovasi){
     $delete = R014KaryaInovasi::where('id',$r014karyainovasi)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 14 Karya Inovasi remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_014_karya_inovasi')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Karya Inovasi berhasil dihapus',
+            'url'   =>  route('dosen.r_014_karya_inovasi'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 14 Karya Inovasi remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Karya Inovasi remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

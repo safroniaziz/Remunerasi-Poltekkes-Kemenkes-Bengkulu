@@ -121,11 +121,10 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
     public function delete($r07membimbingskripsiltalaprofesi){
         $delete = R07MembimbingSkripsiLtaLaProfesi::where('id',$r07membimbingskripsiltalaprofesi)->delete();
         if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, R07MembimbingSkripsiLtaLaProfesi remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.r_07_membimbing_skripsi_lta_la_profesi')->with($notification);
+            return response()->json([
+                'text'  =>  'Yeay, R 07 Membimbing Skirpsi LTA LA Profesi berhasil dihapus',
+                'url'   =>  route('dosen.r_07_membimbing_skripsi_lta_la_profesi'),
+            ]);
         }else {
             $notification = array(
                 'message' => 'Ooopps, R07MembimbingSkripsiLtaLaProfesi remunerasi gagal dihapus',

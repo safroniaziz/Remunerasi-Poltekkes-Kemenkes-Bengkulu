@@ -70,7 +70,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
        }
    }
    public function edit($r22revieweclerepenelitimhs){
-    return R022ReviewerEclerePenelitianMhs::where('id',$r03bimbingcapaiankompetensi)->first();
+    return R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->first();
    }
 
    public function update(Request $request, R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
@@ -109,8 +109,8 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal diubah']);
        }
    }
-   public function delete(R022ReviewerEclerePenelitianMhs $r22revieweclerepenelitimhs){
-       $delete = $r22revieweclerepenelitimhs->delete();
+   public function delete($r22revieweclerepenelitimhs){
+    $delete = R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->delete();
        if ($delete) {
            $notification = array(
                'message' => 'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs remunerasi berhasil dihapus',

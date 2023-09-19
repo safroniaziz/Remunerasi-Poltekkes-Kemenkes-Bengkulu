@@ -134,7 +134,7 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn berhasil diubah',
+               'text'  =>  'Yeay, Rubrik Menulis Buku Ajar Berisbn berhasil diubah',
                'url'   =>  url('/dosen/r_010_menulis_buku_ajar_berisbn/'),
            ]);
        }else {
@@ -144,14 +144,13 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
    public function delete($r010menulisbukuajarberisbn){
     $delete = R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_010_menulis_buku_ajar_berisbn')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Menulis Buku Ajar Berisbn berhasil dihapus',
+            'url'   =>  route('dosen.r_010_menulis_buku_ajar_berisbn'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

@@ -137,20 +137,19 @@ class R12DosenMembimbingPkmController extends Controller
                'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Membimbing PKM anda gagal diubah']);
        }
    }
    public function delete($r012membimbingpkm){
     $delete = R012MembimbingPkm::where('id',$r012membimbingpkm)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, Rubrik 12 Membimbing PKM remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_012_membimbing_pkm')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Membimbing PKM berhasil dihapus',
+            'url'   =>  route('dosen.r_012_membimbing_pkm'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, Rubrik 12 Membimbing PKM remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Membimbing PKM remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

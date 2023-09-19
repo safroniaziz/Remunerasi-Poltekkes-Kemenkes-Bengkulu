@@ -62,11 +62,11 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
 
        if ($simpan) {
            return response()->json([
-               'text'  =>  'Yeay, R 09 Menguji Seminar hasil Kti Lta Skripsi baru berhasil ditambahkan',
+               'text'  =>  'Yeay, Rubrik Menguji Seminar hasil Kti Lta Skripsi baru berhasil ditambahkan',
                'url'   =>  url('/dosen/r_09_menguji_seminar_hasil_kti_lta_skripsi/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, R 09 Menguji Seminar hasil Kti Lta Skripsi gagal disimpan']);
+           return response()->json(['text' =>  'Oopps, Rubrik Menguji Seminar hasil Kti Lta Skripsi gagal disimpan']);
        }
    }
    public function edit($r09mengujiseminarhasil){
@@ -110,24 +110,23 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
 
        if ($update) {
            return response()->json([
-               'text'  =>  'Yeay, R 09 Menguji Seminar hasil Kti Lta Skripsi berhasil diubah',
+               'text'  =>  'Yeay, Rubrik Menguji Seminar hasil Kti Lta Skripsi berhasil diubah',
                'url'   =>  url('/dosen/r_09_menguji_seminar_hasil_kti_lta_skripsi/'),
            ]);
        }else {
-           return response()->json(['text' =>  'Oopps, R 09 Menguji Seminar hasil Kti Lta Skripsi anda gagal diubah']);
+           return response()->json(['text' =>  'Oopps, Rubrik Menguji Seminar hasil Kti Lta Skripsi anda gagal diubah']);
        }
    }
    public function delete($r09mengujiseminarhasil){
     $delete = R09MengujiSeminarhasilKtiLtaSkripsi::where('id',$r09mengujiseminarhasil)->delete();
        if ($delete) {
-           $notification = array(
-               'message' => 'Yeay, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi')->with($notification);
+        return response()->json([
+            'text'  =>  'Yeay, Rubrik Menguji Seminar hasil Kti Lta Skripsi berhasil dihapus',
+            'url'   =>  route('dosen.r_09_menguji_seminar_hasil_kti_lta_skripsi'),
+        ]);
        }else {
            $notification = array(
-               'message' => 'Ooopps, R09 Menguji Seminar hasil Kti Lta Skripsi remunerasi gagal dihapus',
+               'message' => 'Ooopps, Rubrik Menguji Seminar hasil Kti Lta Skripsi remunerasi gagal dihapus',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
