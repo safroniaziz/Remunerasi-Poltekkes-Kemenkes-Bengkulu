@@ -185,14 +185,20 @@ class R01DosenPerkuliahanTeoriController extends Controller
     }
 
     public function siakad(Request $request){
+        return $request->all();
         require_once app_path('Helpers/api/curl.api.php');
         require_once app_path('Helpers/api/config.php');
 
+        $kodeProdi = substr($request->kodeProdi, 1);
+        $kodeJenjang = substr($request->kodeProdi, 0, 1);
+        
         $parameter = array(
             'action'=>'kelasperkuliahan',
             'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
-            'kdjen'=>'E',		// Kode Jenjang 
-            'kdpst'=>13451,		// Kode Prodi
+            // 'kdjen'=>'E',		// Kode Jenjang 
+            // 'kdpst'=>13451,		// Kode Prodi
+            'kdjen' =>  $kodeJenjang,
+            'kdpst' =>  $kodeProdi,
             'kdkmk'=>'',
 
             'nodos' =>  $_SESSION['data']['kode'],		// Search Kode MK (Optional) | can string or array (Optional)
@@ -250,8 +256,6 @@ class R01DosenPerkuliahanTeoriController extends Controller
         else{
             $res = '<tr><td colspan="8" class="text-danger text-center">Data Kosong</td></tr>';
         }
-        $kodeProdi = substr($request->kodeProdi, 1);
-        $kodeJenjang = substr($request->kodeProdi, 0, 1);
 
         $hasil = [
             'res'   =>  $res,
