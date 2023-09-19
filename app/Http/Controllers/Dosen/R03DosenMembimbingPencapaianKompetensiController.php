@@ -116,7 +116,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         if ($delete) {
             return response()->json([
                 'text'  =>  'Yeay, Rubrik Bimbingan Capaian Kompetensi berhasil dihapus',
-                'url'   =>  route('dosen.r_02_perkuliahan_praktikum'),
+                'url'   =>  route('dosen.r_03_membimbing_pencapaian_kompetensi'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps,  Rubrik Bimbingan Capaian Kompetensi gagal dihapus']);
