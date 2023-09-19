@@ -52,9 +52,9 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul</th>
                                         <th style="text-align:center; vertical-align:middle">Tingkat</th>
-                                        <th style="text-align:center; vertical-align:middle">BKD</th>
+                                        <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-                                        <th style="text-align:center; vertical-align:middle">Point</th>
+                                        {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -71,19 +71,19 @@
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->tingkatan_ke }}</td>
                                             <td class="text-center">
                                                 @if ($r013orasiilmiahnarasumberbidangilmu->is_bkd == 1)
-                                                    <small class="label label-danger">Ya</small>
+                                                    <small class="label label-danger">BKD</small>
                                                 @else
-                                                    <small class="label label-success">Tidak</small>
+                                                    <small class="label label-success">Non BKD</small>
                                                 @endif
                                             </td>
-                                                <td class="text-center">
-                                                    @if ($r013orasiilmiahnarasumberbidangilmu->is_verified == 1)
-                                                        <small class="label label-success"><i class="fa fa-check-circle"></i></small>
-                                                    @else
-                                                        <small class="label label-danger"><i class="fa fa-close"></i></small>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->point }}</td>
+                                            <td class="text-center">
+                                                @if ($r013orasiilmiahnarasumberbidangilmu->is_verified == 1)
+                                                    <small class="label label-success">Terverifikasi</small>
+                                                @else
+                                                    <small class="label label-danger">Belum Verifikasi</small>
+                                                @endif
+                                            </td>
+                                                {{--  <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->point }}</td>  --}}
                                             <td>
                                                 <table>
                                                     <tr>

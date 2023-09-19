@@ -35,7 +35,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
     public function store(Request $request){
         $rules = [
-            'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
@@ -63,11 +63,11 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         if ($simpan) {
             return response()->json([
-                'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
+                'text'  =>  'Yeay, Rubrik Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
                 'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi gagal disimpan']);
+            return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pencapaian Kompetensi gagal disimpan']);
         }
     }
     public function edit($r03bimbingcapaiankompetensi){
@@ -76,7 +76,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
     public function update(Request $request, R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
         $rules = [
-            'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
@@ -104,11 +104,11 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         if ($update) {
             return response()->json([
-                'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi berhasil diubah',
+                'text'  =>  'Yeay, Rubrik Membimbing Pencapaian Kompetensi berhasil diubah',
                 'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi anda gagal diubah']);
+            return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pencapaian Kompetensi anda gagal diubah']);
         }
     }
     public function delete($r03bimbingcapaiankompetensi){
