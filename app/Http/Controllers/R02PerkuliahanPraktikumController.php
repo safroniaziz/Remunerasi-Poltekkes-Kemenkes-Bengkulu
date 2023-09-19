@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R02PerkuliahanPraktikum;
+use App\Models\Prodi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Models\R02PerkuliahanPraktikum;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 
 class R02PerkuliahanPraktikumController extends Controller
@@ -25,6 +26,7 @@ class R02PerkuliahanPraktikumController extends Controller
         if (!Gate::allows('read-r02-perkuliahan-praktikum')) {
             abort(403);
         }
+        $dataProdis = Prodi::all();
          $pegawais = Pegawai::all();
          $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$request->session()->get('nip_dosen'))
                                                             ->orderBy('created_at','desc')->get();
@@ -33,6 +35,7 @@ class R02PerkuliahanPraktikumController extends Controller
          return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                    =>  $pegawais,
             'periode'                     =>  $periode,
+            'dataProdis'                 =>  $dataProdis,
             'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikums,
         ]);
     }

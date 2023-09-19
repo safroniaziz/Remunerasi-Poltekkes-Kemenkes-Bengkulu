@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R01PerkuliahanTeori;
+use App\Models\Prodi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\R01PerkuliahanTeori;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class R01PerkuliahanTeoriController extends Controller
 {
@@ -25,6 +26,7 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
+        $dataProdis = Prodi::all();
          $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$request->session()->get('nip_dosen'))
                                                     ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
@@ -33,6 +35,7 @@ class R01PerkuliahanTeoriController extends Controller
             'pegawais'                =>  $pegawais,
             'periode'                 =>  $periode,
             'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
+            'dataProdis'    =>  $dataProdis,
         ]);
     }
 
