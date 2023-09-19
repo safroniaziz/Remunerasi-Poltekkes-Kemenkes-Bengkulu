@@ -70,8 +70,8 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
             return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom gagal disimpan']);
         }
     }
-    public function edit(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
-        return $r04membimbingpendampinganukom;
+    public function edit($r04membimbingpendampinganukom){
+        return R04MembimbingPendampinganUkom::where('id',$r04membimbingpendampinganukom)->first();
     }
 
     public function update(Request $request, R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
@@ -112,17 +112,17 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
             return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom anda gagal diubah']);
         }
     }
-    public function delete(R04MembimbingPendampinganUkom $r04membimbingpendampinganukom){
-        $delete = $r04membimbingpendampinganukom->delete();
+    public function delete($r04membimbingpendampinganukom){
+        $delete = R04MembimbingPendampinganUkom::where('id',$r04membimbingpendampinganukom)->delete();
         if ($delete) {
             $notification = array(
-                'message' => 'Yeay, r04MembimbingPendampinganUkom remunerasi berhasil dihapus',
+                'message' => 'Yeay, R 04 Membimbing Pendampingan Ukom remunerasi berhasil dihapus',
                 'alert-type' => 'success'
             );
             return redirect()->route('dosen.r_04_membimbing_pendampingan_ukom')->with($notification);
         }else {
             $notification = array(
-                'message' => 'Ooopps, r04MembimbingPendampinganUkom remunerasi gagal dihapus',
+                'message' => 'Ooopps, R 04 Membimbing Pendampingan Ukom remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

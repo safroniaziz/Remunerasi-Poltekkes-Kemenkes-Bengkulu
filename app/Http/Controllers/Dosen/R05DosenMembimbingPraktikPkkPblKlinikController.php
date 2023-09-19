@@ -79,8 +79,8 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
             return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik gagal disimpan']);
         }
     }
-    public function edit(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
-        return $r05membimbingpraktikpkkpblklinik;
+    public function edit($r05membimbingpraktikpkkpblklinik){
+        return R05MembimbingPraktikPkkPblKlinik::where('id',$r05membimbingpraktikpkkpblklinik)->first();
     }
 
     public function update(Request $request, R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
@@ -128,8 +128,8 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
             return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik anda gagal diubah']);
         }
     }
-    public function delete(R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
-        $delete = $r05membimbingpraktikpkkpblklinik->delete();
+    public function delete($r05membimbingpraktikpkkpblklinik){
+        $delete = R05MembimbingPraktikPkkPblKlinik::where('id',$r05membimbingpraktikpkkpblklinik)->delete();
         if ($delete) {
             $notification = array(
                 'message' => 'Yeay, Membimbing Praktik PKK PBL Klinik remunerasi berhasil dihapus',

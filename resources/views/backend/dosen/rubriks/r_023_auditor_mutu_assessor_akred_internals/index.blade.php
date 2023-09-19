@@ -89,7 +89,7 @@
                                                             <a onclick="editr23auditmutuasesorakredinternal({{ $r023auditormutuassessorakredinternal->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('dosen.r_023_auditor_mutu_assessor_akred_internal.delete',[$r023auditormutuassessorakredinternal->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_023_auditor_mutu_assessor_akred_internal.delete',[$r023auditormutuassessorakredinternal->id]) }}" method="POST" id="form-hapus">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -121,13 +121,35 @@
             });
         } );
 
+        $(document).on('submit','#form-hapus',function (event){
+            event.preventDefault();
+            $("#btnSubmit"). attr("disabled", true);
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                dataType: "JSON", // Perbaiki typo di "typeData" menjadi "dataType"
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success : function(res) {
+                    toastr.success(res.text, 'Yeay, Berhasil');
+                    setTimeout(function () {
+                        window.location.href=res.url;
+                    } , 500);
+                },
+                error:function(xhr){
+                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                },
+            })
+        });
+
         function editr23auditmutuasesorakredinternal(id){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            url = "{{ url('r_023_auditor_mutu_assessor_akred_internal').'/' }}"+id+'/edit';
+            url = "{{ url('dosen/r_023_auditor_mutu_assessor_akred_internal').'/' }}"+id+'/edit';
             $.ajax({
                 url : url,
                 type : 'GET',
