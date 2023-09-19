@@ -1,11 +1,20 @@
-{{-- @can('dashboard') --}}
+@can('dashboard')
     <li class="{{ set_active('dashboard') }}">
         <a href="{{ route('dashboard') }}">
             <i class="fa fa-dashboard"></i>
             <span>Dashboard</span>
         </a>
     </li>
-{{-- @endcan --}}
+@endcan
+
+@can('dashboard-verifikator')
+    <li class="{{ set_active('cari_dosen') }}">
+        <a href="{{ route('cari_dosen') }}">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+@endcan
 
 @can('read-jabatan-ds')
 <li class="header" style="font-weight:bold">KOMPONEN REMUNERASI</li>

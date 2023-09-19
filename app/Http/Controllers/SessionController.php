@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
@@ -25,8 +27,14 @@ class SessionController extends Controller
 
     public function getDataDosen(Request $request){
         $keyword = $request->keyword;
-        $dataDosen = Pegawai::where('nip','LIKE','%'.$keyword.'%')
-                            ->orWhere('nama','LIKE','%'.$keyword.'%')->get();
+        $prodis = Prodi::where('kodefak',Auth::user()->kodefak)->get();
+        $prodiIds = $prodis->pluck('id_prodi')->toArray();
+        $dataDosen = Pegawai::whereIn('id_prodi_homebase', $prodiIds)
+                            ->where(function($query) use ($keyword) {
+                                $query->where('nip', 'LIKE', '%' . $keyword . '%')
+                                    ->orWhere('nama', 'LIKE', '%' . $keyword . '%');
+                            })
+                            ->get();
         return $dataDosen;
     }
 
