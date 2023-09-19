@@ -319,7 +319,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             if (count($response_array_presensi['data'])>0) {
                 $presensi = $response_array_presensi['data'][0]['detail'];
             }else{
-                $presensi = [];
+                $presensi = null;
             }
             $result = [
                 'kelas' =>  $response_array['data'][0],
@@ -328,12 +328,12 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
             $perkuliahan[]  =   array(
                 'periode_id'    =>  $this->periode->id,
-                'nip'           =>  4022026301,
+                'nip'           =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
                 'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
-                'jumlah_tatap_muka' =>  count($result['presensi']),
+                'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
                 'is_bkd'        => 0,
                 'is_verified'   => 0,
