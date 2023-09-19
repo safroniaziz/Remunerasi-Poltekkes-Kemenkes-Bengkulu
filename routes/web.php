@@ -70,7 +70,7 @@ Route::get('/logoutDosen',function(){
     return redirect()->route('home');
 })->name('logoutDosen');
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/home',[DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::controller(SessionController::class)->group(function () {
@@ -565,4 +565,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::patch('/manajemen_data_user/{user}/active', 'active')->name('manajemen_data_user.active');
         Route::patch('/manajemen_data_user/{user}/nonactive', 'nonactive')->name('manajemen_data_user.nonactive');
     });
-});
+// });

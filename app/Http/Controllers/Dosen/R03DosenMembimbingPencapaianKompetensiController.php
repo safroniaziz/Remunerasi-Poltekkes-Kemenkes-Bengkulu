@@ -71,8 +71,8 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
             return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi gagal disimpan']);
         }
     }
-    public function edit(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
-        return $r03bimbingcapaiankompetensi;
+    public function edit($r03bimbingcapaiankompetensi){
+        return R03MembimbingPencapaianKompetensi::where('id',$r03bimbingcapaiankompetensi)->first();
     }
 
     public function update(Request $request, R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
@@ -112,20 +112,15 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
             return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi anda gagal diubah']);
         }
     }
-    public function delete(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
-        $delete = $r03bimbingcapaiankompetensi->delete();
+    public function delete($r03bimbingcapaiankompetensi){
+        $delete = R03MembimbingPencapaianKompetensi::where('id',$r03bimbingcapaiankompetensi)->delete();
         if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, r03membimbingpencapaiankompetensi remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.r_03_membimbing_pencapaian_kompetensi')->with($notification);
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Bimbingan Capaian Kompetensi berhasil dihapus',
+                'url'   =>  route('dosen.r_02_perkuliahan_praktikum'),
+            ]);
         }else {
-            $notification = array(
-                'message' => 'Ooopps, r03membimbingpencapaiankompetensi remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            return response()->json(['text' =>  'Oopps,  Rubrik Bimbingan Capaian Kompetensi gagal dihapus']);
         }
     }
 
