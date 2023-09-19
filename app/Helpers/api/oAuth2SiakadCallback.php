@@ -38,15 +38,15 @@ $_SESSION['data'] = [
     'nidn'      => $data['data']['nidn'],
 ];
 
-echo json_encode($_SESSION['data']);
+// echo json_encode($_SESSION['data']);
 
-// echo "<script>
-//     if (window.top !== window.self) {
-//         window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
-//     } else {
-//         window.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
-//     }
-// </script>";
+echo "<script>
+    if (window.top !== window.self) {
+        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
+    } else {
+        window.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
+    }
+</script>";
 
 ?>
 
