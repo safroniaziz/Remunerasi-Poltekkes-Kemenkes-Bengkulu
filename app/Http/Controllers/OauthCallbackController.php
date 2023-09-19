@@ -46,6 +46,13 @@ class OauthCallbackController extends Controller
 
         // echo json_encode($_SESSION['data']);
 
-        return redirect()->route('dosen.dashboard');
+        echo "<script>
+            if (window.top !== window.self) {
+                window.top.location.href = '" . route('dosen.dashboard') . "';
+            } else {
+                window.location.href = '" . route('dosen.dashboard') . "';
+            }
+        </script>";
+
     }
 }
