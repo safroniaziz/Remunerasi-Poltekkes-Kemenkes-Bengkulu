@@ -77,9 +77,9 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($r07membimbingskripsiltalaprofesi->is_bkd == 1)
-                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
+                                                    <small class="label label-danger">Ya</small>
                                                 @else
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
+                                                    <small class="label label-success">Tidak</small>
                                                 @endif
                                             </td>
                                                 <td class="text-center">

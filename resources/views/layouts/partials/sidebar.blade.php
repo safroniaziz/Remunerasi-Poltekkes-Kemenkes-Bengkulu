@@ -78,6 +78,7 @@
     </li>
 @endcan
 
+
 <li class="header" style="font-weight:bold">LAPORAN REMUNERASI</li>
 <li class="{{ set_active(['generate_point_rubrik','detail_isian_rubrik']) }}">
     <a href="{{ route('generate_point_rubrik') }}">
@@ -113,11 +114,18 @@
 @endcan
 
 @can('read-user')
-<li class="{{ set_active(['manajemen_data_user']) }}">
-    <a href="{{ route('manajemen_data_user') }}">
-        <i class="fa fa-users"></i>
-        <span>Data Pengguna</span>
+<li class="treeview {{ set_active([
+    'manajemen_data_verifikator',
+]) }}">
+    <a href="#" class="parent-sidebar-menu">
+        <i class="fa fa-users"></i> <span>Manajemen Pengguna</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
     </a>
+    <ul class="treeview-menu child-sidebar-menu">
+        <li class="{{ set_active(['manajemen_data_verifikator']) }}"><a href="{{ route('manajemen_data_verifikator') }}"><i class="fa fa-circle-o"></i>Verifikator</a></li>
+    </ul>
 </li>
 @endcan
 

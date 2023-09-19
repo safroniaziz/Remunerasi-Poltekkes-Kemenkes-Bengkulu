@@ -352,14 +352,3 @@ Route::controller(R30DosenPengelolaKepkController::class)->group(function () {
     Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/tolak', 'tolak')->name('dosen.r_030_pengelola_kepk.tolak');
 });
 // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
-//user
-Route::controller(UserController::class)->group(function () {
-    Route::get('/manajemen_data_user', 'index')->name('manajemen_data_user');
-    Route::get('/manajemen_data_user/create', 'create')->name('manajemen_data_user.create');
-    Route::post('/manajemen_data_user', 'store')->name('manajemen_data_user.store');
-    Route::get('/manajemen_data_user/{user}/edit', 'edit')->name('manajemen_data_user.edit');
-    Route::patch('/manajemen_data_user/update', 'update')->name('manajemen_data_user.update');
-    Route::delete('/manajemen_data_user/{user}/delete', 'delete')->name('manajemen_data_user.delete');
-    Route::patch('/manajemen_data_user/{user}/active', 'active')->name('manajemen_data_user.active');
-    Route::patch('/manajemen_data_user/{user}/nonactive', 'nonactive')->name('manajemen_data_user.nonactive');
-});

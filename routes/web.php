@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\SessionController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\JabatanDsController;
 use App\Http\Controllers\JabatanDtController;
 use App\Http\Controllers\NilaiEwmpController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\RiwayatPointController;
 use App\Http\Controllers\KelompokRubrikController;
 use App\Http\Controllers\PangkatGolonganController;
@@ -21,7 +23,6 @@ use App\Http\Controllers\R30PengelolaKepkController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\GeneratePointRubrikController;
-use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
 use App\Http\Controllers\R18MendapatHibahPkmController;
@@ -70,7 +71,7 @@ Route::get('/logoutDosen',function(){
     return redirect()->route('home');
 })->name('logoutDosen');
 
-// Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/home',[DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::controller(SessionController::class)->group(function () {
@@ -554,15 +555,16 @@ Route::get('/logoutDosen',function(){
         Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/tolak', 'tolak')->name('r_030_pengelola_kepk.tolak');
     });
     // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
+    
     //user
-    Route::controller(UserController::class)->group(function () {
-        Route::get('/manajemen_data_user', 'index')->name('manajemen_data_user');
-        Route::get('/manajemen_data_user/create', 'create')->name('manajemen_data_user.create');
-        Route::post('/manajemen_data_user', 'store')->name('manajemen_data_user.store');
-        Route::get('/manajemen_data_user/{user}/edit', 'edit')->name('manajemen_data_user.edit');
-        Route::patch('/manajemen_data_user/update', 'update')->name('manajemen_data_user.update');
-        Route::delete('/manajemen_data_user/{user}/delete', 'delete')->name('manajemen_data_user.delete');
-        Route::patch('/manajemen_data_user/{user}/active', 'active')->name('manajemen_data_user.active');
-        Route::patch('/manajemen_data_user/{user}/nonactive', 'nonactive')->name('manajemen_data_user.nonactive');
+    Route::controller(VerifikatorController::class)->group(function () {
+        Route::get('/manajemen_data_verifikator', 'index')->name('manajemen_data_verifikator');
+        Route::get('/manajemen_data_verifikator/create', 'create')->name('manajemen_data_verifikator.create');
+        Route::post('/manajemen_data_verifikator', 'store')->name('manajemen_data_verifikator.store');
+        Route::get('/manajemen_data_verifikator/{user}/edit', 'edit')->name('manajemen_data_verifikator.edit');
+        Route::patch('/manajemen_data_verifikator/update', 'update')->name('manajemen_data_verifikator.update');
+        Route::delete('/manajemen_data_verifikator/{user}/delete', 'delete')->name('manajemen_data_verifikator.delete');
+        Route::patch('/manajemen_data_verifikator/{user}/active', 'active')->name('manajemen_data_verifikator.active');
+        Route::patch('/manajemen_data_verifikator/{user}/nonactive', 'nonactive')->name('manajemen_data_verifikator.nonactive');
     });
-// });
+});

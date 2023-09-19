@@ -42,9 +42,9 @@ $_SESSION['data'] = [
 
 echo "<script>
     if (window.top !== window.self) {
-        window.top.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
+        window.top.location.href = 'http://103.144.79.249/';
     } else {
-        window.location.href = 'https://poltekkes.risetsetiawan.org/public/dosen/home';
+        window.location.href = 'http://103.144.79.249/';
     }
 </script>";
 
