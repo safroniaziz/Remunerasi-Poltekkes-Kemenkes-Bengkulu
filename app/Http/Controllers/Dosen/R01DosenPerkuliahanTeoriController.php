@@ -41,9 +41,9 @@ class R01DosenPerkuliahanTeoriController extends Controller
         $rules = [
             'kode_kelas'            =>  'required',
             'nama_matkul'            =>  'required',
-            'jumlah_sks'            =>  'required|numeric',
-            'jumlah_mahasiswa'      =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
+            'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_tatap_muka'     =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
@@ -98,10 +98,10 @@ class R01DosenPerkuliahanTeoriController extends Controller
     public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
         $rules = [
             'kode_kelas'            =>  'required',
-            'nama_matkul'            =>  'required',
-            'jumlah_sks'            =>  'required|numeric',
-            'jumlah_mahasiswa'      =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
+            'nama_matkul'           =>  'required',
+            'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_tatap_muka'     =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
@@ -190,11 +190,11 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $kodeProdi = substr($request->kodeProdi, 1);
         $kodeJenjang = substr($request->kodeProdi, 0, 1);
-        
+
         $parameter = array(
             'action'=>'kelasperkuliahan',
             'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
-            // 'kdjen'=>'E',		// Kode Jenjang 
+            // 'kdjen'=>'E',		// Kode Jenjang
             // 'kdpst'=>13451,		// Kode Prodi
             'kdjen' =>  $kodeJenjang,
             'kdpst' =>  $kodeProdi,
@@ -207,7 +207,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'limit'    =>  30,
             'offset'    =>  0,
         );
-        
+
         $hashed_string = ApiEncController::encrypt(
             $parameter,
             $config['client_id'],
@@ -229,7 +229,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
             foreach ($response_array['data'] as $value) {
                 $checkData = R01PerkuliahanTeori::where('periode_id',$this->periode->id)
                                                 ->where('nip',$nipDosen)
-                                                ->where('kode_kelas',$value['id_kls']) 
+                                                ->where('kode_kelas',$value['id_kls'])
                                                 ->first();
                 if (!empty($checkData)) {
                     $statusDisabled = 'disabled';
@@ -238,7 +238,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                     $statusDisabled = '';
                     $class = '';
                 }
-    
+
                 $res .=
                 '<tr ' . $class . '>
                     <td><input type="checkbox" name="id_kelas[]" value="' . $value['id_kls'] . '" ' . $statusDisabled . '></td>
@@ -273,7 +273,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
             $parameter = array(
                 'action'=>'kelasperkuliahan',
                 'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
-                'kdjen'=>$request->kodeJenjang,		// Kode Jenjang 
+                'kdjen'=>$request->kodeJenjang,		// Kode Jenjang
                 'kdpst'=>$request->kodeProdi,		// Kode Prodi
                 'kdkmk'=>'',
                 'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
@@ -282,7 +282,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'limit'    =>  30,
                 'offset'    =>  0,
             );
-            
+
             $hashed_string = ApiEncController::encrypt(
                 $parameter,
                 $config['client_id'],
@@ -293,7 +293,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'client_id' => $config['client_id'],
                 'data' => $hashed_string,
             );
-            
+
             $response = _curl_api($config['url'], json_encode($data));
             $response_array = json_decode($response, true);
 
@@ -302,7 +302,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'thsms'=>'20221',
                 'kdjen'=>$request->kodeJenjang,
                 'kdpst'=>$request->kodeProdi,
-                'id_kls'=>$id_kelas,	
+                'id_kls'=>$id_kelas,
                 // 'nodos'=>'4022026301',	// optional by dosen
                 'nodos'     =>  $_SESSION['data']['kode'],
                 'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
@@ -322,7 +322,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'client_id' => $config['client_id'],
                 'data' => $hashed_string_presensi,
             );
-            
+
             $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
             $response_array_presensi = json_decode($responsePresensi, true);
             $result = [
