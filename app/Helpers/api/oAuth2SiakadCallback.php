@@ -41,11 +41,12 @@ $_SESSION['data'] = [
 // echo json_encode($_SESSION['data']);
 
 echo "<script>
-    if (window.top !== window.self) {
-        window.top.location.href = 'http://103.144.79.249/';
-    } else {
-        window.location.href = 'http://103.144.79.249/';
-    }
+var dashboardURL = '" . env('DASHBOARD_URL') . "';
+if (window.top !== window.self) {
+    window.top.location.href = dashboardURL;
+} else {
+    window.location.href = dashboardURL;
+}
 </script>";
 
 ?>
