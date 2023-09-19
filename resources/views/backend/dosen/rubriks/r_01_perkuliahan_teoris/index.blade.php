@@ -13,6 +13,17 @@
         {{ $_SESSION['data']['nama'] }}
     @endif
 @endsection
+@push('styles')
+    <style>
+        .loader {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 15%;
+            background: url('{{ asset('assets/img/preloader.gif') }}') center no-repeat #fff;
+        }
+    </style> 
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -36,12 +47,27 @@
                                     @else
                             @endif
                         </div>
-                        <div class="col-md-12">
-                            <div style="margin-bottom: 10px !important;">
-                                <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik 01
-                                </button>
-                                <a href="{{ route('r_01_perkuliahan_teori.siakad') }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Generate Dari Siakad</a>
+                        <div class="col-md-12" style="margin-bottom: 10px !important;">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="">Pilih Program Studi</label>
+                                    <select name="kodeProdi" id="kodeProdi" class="form-control">
+                                        <option disabled selected>-- pilih program studi --</option> 
+                                        @foreach ($dataProdis as $prodi)
+                                            <option value="{{ $prodi->kdjen.$prodi->kdpst }}">{{ $prodi->nama_prodi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button class="btn btn-success btn-sm btn-flat" id="cekDataSiakad">
+                                        <i class="fa fa-refresh fa-spin"></i>&nbsp; Generate Dari Siakad
+                                    </button>
+
+                                    <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
+                                        <i class="fa fa-plus"></i>&nbsp; Tambah Rubrik Manual
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -49,15 +75,14 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
-                                        <th style="text-align:center; vertical-align:middle">NIP</th>
-                                        <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="vertical-align:middle">Nama Matkul</th>
-                                        <th style="text-align:center; vertical-align:middle">Jumlah SKS</th>
+                                        <th style="vertical-align:middle">Prodi</th>
+                                        <th style="vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
-                                        <th style="text-align:center; vertical-align:middle">BKD</th>
+                                        <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
-                                        <th style="text-align:center; vertical-align:middle">Point</th>
+                                        <th style="vertical-align:middle">Sumber Data</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -65,38 +90,49 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    {{-- @foreach ($r01perkuliahanteoris as $index => $r01perkuliahanteori)
+                                    @foreach ($perkuliahanTeoris as $index => $perkuliahanTeori)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td class="text-center">{{ $r01perkuliahanteori->nip }}</td>
-                                            <td class="text-center">{{ $r01perkuliahanteori->pegawai->nama }}</td>
-                                            <td class="text-center">{{ $r01perkuliahanteori->nama_matkul }}</td>
-                                            <td class="text-center">{{ $r01perkuliahanteori->jumlah_sks }} SKS</td>
-                                            <td class="text-center">{{ $r01perkuliahanteori->jumlah_mahasiswa }} Mahasiswa</td>
-                                            <td class="text-center">{{ $r01perkuliahanteori->jumlah_tatap_muka }}</td>
+                                            <td>{{ $perkuliahanTeori->nama_matkul }}</td>
+                                            <td>{{ $perkuliahanTeori->prodiMatkul != null ? $perkuliahanTeori->prodiMatkul->nama_lengkap_prodi: '-' }} </td>
+                                            <td>{{ $perkuliahanTeori->jumlah_sks }} SKS</td>
+                                            <td class="text-center">{{ $perkuliahanTeori->jumlah_mahasiswa }} Mahasiswa</td>
                                             <td class="text-center">
-                                                @if ($r01perkuliahanteori->is_bkd == 1)
-                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
+                                                @if ($perkuliahanTeori->jumlah_tatap_muka == null)
+                                                    -
                                                 @else
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
+                                                    {{ $perkuliahanTeori->jumlah_tatap_muka }}
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($r02perkuliahanpraktikum->is_verified == 1)
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i></small>
+                                                @if ($perkuliahanTeori->is_bkd == 1)
+                                                    <small class="label label-danger">BKD</small>
                                                 @else
-                                                    <small class="label label-danger"><i class="fa fa-close"></i></small>
+                                                    <small class="label label-success">Non BKD</small>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $r02perkuliahanpraktikum->point }}</td>
+                                            <td class="text-center">
+                                                @if ($perkuliahanTeori->is_verified == 1)
+                                                    <small class="label label-success">Terverifikasi</small>
+                                                @else
+                                                    <small class="label label-danger">Belum Verifikasi</small>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($perkuliahanTeori->sumber_data == "siakad")
+                                                    Siakad
+                                                @else
+                                                    Manual
+                                                @endif
+                                            </td>
                                             <td>
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <a onclick="editR01perkuliahanteori({{ $r01perkuliahanteori->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                            <a onclick="editperkuliahanTeori({{ $perkuliahanTeori->id }})" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form action="{{ route('dosen.r_01_perkuliahan_teori.delete',[$r01perkuliahanteori->id]) }}" method="POST">
+                                                            <form action="{{ route('dosen.r_01_perkuliahan_teori.delete',[$perkuliahanTeori->id]) }}" method="POST" id="form-hapus">
                                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
 
                                                                 <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
@@ -106,7 +142,7 @@
                                                 </table>
                                            </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -115,6 +151,7 @@
                     @include('backend/dosen/rubriks/r_01_perkuliahan_teoris.partials.modal_edit')
                 </div>
             </section>
+            @include('backend/dosen/rubriks/r_01_perkuliahan_teoris.partials.modal_siakad')
         </div>
     </div>
 @endsection
@@ -128,13 +165,91 @@
             });
         } );
 
-        function editR01perkuliahanteori(id){
+        $(document).on('submit','#form-hapus',function (event){
+            event.preventDefault();
+            $("#btnSubmit"). attr("disabled", true);
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                dataType: "JSON", // Perbaiki typo di "typeData" menjadi "dataType"
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success : function(res) {
+                    toastr.success(res.text, 'Yeay, Berhasil');
+                    setTimeout(function () {
+                        window.location.href=res.url;
+                    } , 500);
+                },
+                error:function(xhr){
+                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                },
+            })
+        });
+
+        $("#cekDataSiakad").click(function() {
+            let kodeProdi = $("#kodeProdi").val();
+            let kodeJenjang = $("#kodeJenjang").val();
+            if (kodeProdi) {
+                $('#alertDanger').hide();
+                $('#loader').addClass('loader');
+                $('#modalDetail').modal('show');
+                $('#table_siakad').empty();
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('dosen.r_01_perkuliahan_teori.siakad') }}",
+                    data: {
+                        "kodeProdi": kodeProdi,
+                    },
+                    success: function (response) {
+                        $("#kodeProdiSiakad").val(response['kodeProdi']);
+                        $("#kodeJenjangSiakad").val(response['kodeJenjang']);
+                        setTimeout(function () {
+                            let jenis_tabel =
+                                '<thead>' +
+                                '<tr>' +
+                                '<td>#</td>' +
+                                '<td>No</td>' +
+                                '<td>Nama Matkul</td>' +
+                                '<td>Jumlah Peserta</td>' +
+                                '<td>Kode Prodi</td>' +
+                                '<td>Kode Jenjang</td>' +
+                                '<td>Semester</td>' +
+                                '<td>SKS</td>' +
+                                '</tr>' +
+                                '</thead>' +
+                                '<tbody id="result_datas">' + // Hapus tanda kutip setelah </thead>
+                                '</tbody>';
+                            $('#table_siakad').html(jenis_tabel);
+                            $('#result_datas').html(response['res']);
+                            $('#alertDanger').show();
+                            $('#loader').removeClass('loader');
+                        }, 2000);
+
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    },
+                });
+
+            } else {
+                swal({
+                    title: 'Mohon Maaf',
+                    text: 'Silahkan pilih prodi terlebih dahulu',
+                    icon: 'warning',
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                });
+            }
+        });
+
+        function editperkuliahanTeori(id){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            url = "{{ url('r_01_perkuliahan_teori').'/' }}"+id+'/edit';
+            url = "{{ url('dosen/r_01_perkuliahan_teori').'/' }}"+id+'/edit';
             $.ajax({
                 url : url,
                 type : 'GET',
@@ -142,6 +257,8 @@
                     $('#modalEdit').modal('show');
                     $('#r01perkuliahanteori_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
+                    $('#kode_kelas_edit').val(data.kode_kelas);
+                    $('#id_prodi_edit').val(data.id_prodi);
                     $('#nama_matkul_edit').val(data.nama_matkul);
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);

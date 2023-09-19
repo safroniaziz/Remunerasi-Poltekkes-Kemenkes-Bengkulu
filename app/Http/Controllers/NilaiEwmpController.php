@@ -43,8 +43,8 @@ class NilaiEwmpController extends Controller
             'kelompok_rubrik_id.required'   => 'Kelompok Rubrik harus diisi',
             'nama_rubrik.required'          => 'Nama Rubrik harus diisi',
             'nama_tabel_rubrik.required'    => 'Nama Tabel rubrik harus diisi',
-            'ewmp.required'                 => 'Ewmp harus diisi',
-            'ewmp.numeric'                  => 'Ewmp harus berupa angka',
+            'ewmp.required'                 => 'Nilai Ewmp harus diisi',
+            'ewmp.numeric'                  => 'Nilai Ewmp harus berupa angka',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -94,8 +94,8 @@ class NilaiEwmpController extends Controller
             'kelompok_rubrik_id.required'   => 'Kelompok Rubrik harus diisi',
             'nama_rubrik.required'          => 'Nama Rubrik harus diisi',
             'nama_tabel_rubrik.required'    => 'Nama Tabel rubrik harus diisi',
-            'ewmp.required'                 => 'Ewmp harus diisi',
-            'ewmp.numeric'                  => 'Ewmp harus berupa angka',
+            'ewmp.required'                 => 'Nilai Ewmp harus diisi',
+            'ewmp.numeric'                  => 'Nilai Ewmp harus berupa angka',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

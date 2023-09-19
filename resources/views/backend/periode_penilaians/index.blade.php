@@ -47,10 +47,12 @@
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Periode</th>
-                                        <th style="text-align:center; vertical-align:middle">Periode Siakad</th>
                                         <th style=" vertical-align:middle">Tahun Ajaran</th>
                                         <th style="text-align:center; vertical-align:middle">Semester</th>
+                                        <th style="text-align:center; vertical-align:middle">Tahun Semester</th>
                                         <th style="text-align:center; vertical-align:middle">Bulan Pembayaran</th>
+                                        <th style="vertical-align:middle">Tanggal Awal</th>
+                                        <th style="vertical-align:middle">Tanggal Akhir</th>
                                         <th style="text-align:center; vertical-align:middle">Aktif</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
@@ -63,9 +65,9 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $periode->nama_periode }}</td>
-                                            <td class="text-center">{{ $periode->periode_siakad_id }}</td>
                                             <td class="text-center">{{ $periode->tahun_ajaran }}</td>
                                             <td class="text-center">{{ $periode->semester }}</td>
+                                            <td class="text-center">{{ $periode->tahun_semester }}</td>
                                             <td class="text-center">
                                                 @if ($periode->bulan_pembayaran == "1")
                                                     Januari
@@ -93,6 +95,8 @@
                                                     Desember
                                                 @endif
                                             </td>
+                                            <td>{{ $periode->tanggal_awal->isoFormat('DD MMMM YYYY'); }}</td>
+                                            <td>{{ $periode->tanggal_akhir->isoFormat('DD MMMM YYYY'); }}</td>
                                             <td>
                                                 @if ($periode->is_active == 1)
                                                     <form action="{{ route('periode_penilaian.set_nonactive',[$periode->id]) }}" method="POST">

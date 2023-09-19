@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama_periode');
             $table->string('slug');
-            $table->string('periode_siakad_id');
             $table->string('semester');
             $table->string('tahun_ajaran');
             $table->string('bulan');
             $table->string('bulan_pembayaran');
+            $table->date('tanggal_awal');
+            $table->date('tanggal_akhir');
             $table->boolean('is_active');
             $table->timestamps();
             $table->softDeletes();

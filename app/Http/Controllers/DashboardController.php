@@ -15,7 +15,6 @@ use App\Http\Controllers\Controller;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        activity()->log('Look mum, I logged something');
         $periodeAktif = Periode::where('is_active',1)->first();
         $jumlahDosen = Pegawai::where('is_active',1)->count();
         $jumlahRubrik = NilaiEwmp::count();

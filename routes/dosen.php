@@ -34,8 +34,6 @@ use App\Http\Controllers\Dosen\R23DosenAuditorMutuAssessorAkredInternalControlle
 use App\Http\Controllers\Dosen\R08DosenMengujiSeminarProposalKtiLtaSkripsiController;
 
 Route::get('/home', function () {
-    activity()->log('Look mum, I logged something');
-
     return view('backend.dosen.dashboard');
 })->name('dosen.dashboard');
 
@@ -44,13 +42,15 @@ Route::controller(R01DosenPerkuliahanTeoriController::class)->group(function () 
     Route::get('/r_01_perkuliahan_teori', 'index')->name('dosen.r_01_perkuliahan_teori');
     Route::get('/r_01_perkuliahan_teori/create', 'create')->name('dosen.r_01_perkuliahan_teori.create');
     Route::post('/r_01_perkuliahan_teori', 'store')->name('dosen.r_01_perkuliahan_teori.store');
-    Route::get('/r_01_perkuliahan_teori/{r01perkuliahanteori}/edit', 'edit')->name('dosen.r_01_perkuliahan_teori.edit');
+    Route::get('/r_01_perkuliahan_teori/{perkuliahanTeori}/edit', 'edit')->name('dosen.r_01_perkuliahan_teori.edit');
     Route::patch('/r_01_perkuliahan_teori/update', 'update')->name('dosen.r_01_perkuliahan_teori.update');
-    Route::delete('/r_01_perkuliahan_teori/{r01perkuliahanteori}/delete', 'delete')->name('dosen.r_01_perkuliahan_teori.delete');
+    Route::delete('/r_01_perkuliahan_teori/{perkuliahanteori}/delete', 'delete')->name('dosen.r_01_perkuliahan_teori.delete');
     Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/verifikasi', 'verifikasi')->name('dosen.r_01_perkuliahan_teori.verifikasi');
     Route::patch('/r_01_perkuliahan_teori/{r01perkuliahanteori}/tolak', 'tolak')->name('dosen.r_01_perkuliahan_teori.tolak');
-    Route::get('/r_01_perkuliahan_teori/siakad', 'siakad')->name('r_01_perkuliahan_teori.siakad');
+    Route::get('/r_01_perkuliahan_teori/siakad', 'siakad')->name('dosen.r_01_perkuliahan_teori.siakad');
+    Route::post('/r_01_perkuliahan_teori/siakad_post', 'siakadPost')->name('dosen.r_01_perkuliahan_teori.siakad_post');
 });
+
 Route::controller(R02DosenPerkuliahanPraktikumController::class)->group(function () {
     Route::get('/r_02_perkuliahan_praktikum', 'index')->name('dosen.r_02_perkuliahan_praktikum');
     Route::get('/r_02_perkuliahan_praktikum/create', 'create')->name('dosen.r_02_perkuliahan_praktikum.create');
@@ -60,6 +60,8 @@ Route::controller(R02DosenPerkuliahanPraktikumController::class)->group(function
     Route::delete('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/delete', 'delete')->name('dosen.r_02_perkuliahan_praktikum.delete');
     Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/verifikasi', 'verifikasi')->name('dosen.r_02_perkuliahan_praktikum.verifikasi');
     Route::patch('/r_02_perkuliahan_praktikum/{r02perkuliahanpraktikum}/tolak', 'tolak')->name('dosen.r_02_perkuliahan_praktikum.tolak');
+    Route::get('/r_02_perkuliahan_praktikum/siakad', 'siakad')->name('dosen.r_02_perkuliahan_praktikum.siakad');
+    Route::post('/r_02_perkuliahan_praktikum/siakad_post', 'siakadPost')->name('dosen.r_02_perkuliahan_praktikum.siakad_post');
 });
 Route::controller(R03DosenMembimbingPencapaianKompetensiController::class)->group(function () {
     Route::get('/r_03_membimbing_pencapaian_kompetensi', 'index')->name('dosen.r_03_membimbing_pencapaian_kompetensi');

@@ -7,43 +7,12 @@ use App\Models\JabatanDt;
 use App\Models\JabatanFungsional;
 use App\Models\PangkatGolongan;
 use App\Models\Pegawai;
+use App\Models\RiwayatJabatanDt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-
-class ApiEnc {
-	const TIME_DIFF_LIMIT = 480;
-
-	public static function encrypt(array $json_data, $cid, $version, $secret) {
-		return self::doubleEncrypt(strrev(time()) . '.' . json_encode($json_data), $cid, $version, $secret);
-	}
-
-	private static function tsDiff($ts) {
-		return abs($ts - time()) <= self::TIME_DIFF_LIMIT;
-	}
-
-	private static function doubleEncrypt($string, $cid, $version, $secret) {
-		$result = '';
-		$result = self::enc($string, $cid.'~'.$version);
-		$result = self::enc($result, $secret);
-		return strtr(rtrim(base64_encode($result), '='), '+/', '-_');
-	}
-
-	private static function enc($string, $key) {
-		$result = '';
-		$strls = strlen($string);
-		$strlk = strlen($key);
-		for($i = 0; $i < $strls; $i++) {
-			$char = substr($string, $i, 1);
-			$keychar = substr($key, ($i % $strlk) - 1, 1);
-			$char = chr((ord($char) + ord($keychar)) % 128);
-			$result .= $char;
-		}
-		return $result;
-	}
-}
 
 class PegawaiController extends Controller
 {
@@ -53,11 +22,13 @@ class PegawaiController extends Controller
         }
         $nama = $request->query('nama');
         if (!empty($nama)) {
-            $dosens = Pegawai::with(['jabatanFungsionals'])->where('nama','LIKE','%'.$nama.'%')
-                                ->orderBy('created_at','desc')->paginate(10);
+            $dosens = Pegawai::with(['jabatanFungsionals'])
+                                ->where('nama','LIKE','%'.$nama.'%')
+                                ->orWhere('nip','LIKE','%'.$nama.'%')
+                                ->orderBy('nama','asc')->paginate(10);
 
         }else {
-            $dosens = Pegawai::with(['jabatanFungsionals'])->orderBy('created_at','desc')->paginate(10);
+            $dosens = Pegawai::with(['jabatanFungsionals'])->orderBy('nama','asc')->paginate(10);
         }
         return view('backend/dosens.index',[
             'dosens'    =>  $dosens,
@@ -69,29 +40,116 @@ class PegawaiController extends Controller
         require_once app_path('Helpers/api/curl.api.php');
         require_once app_path('Helpers/api/config.php');
 
+        $limit = 30; // Jumlah data yang ingin Anda ambil setiap kali load
+        $offset = 0;
+        $responses = array();
 
+        $totalData = 0;
+
+        // Mendapatkan total data dari API
         $parameter = array(
-            'action'=>'dosen',
-            'code'=>'',
-            'search'=>'',
-            'offset'    =>262,
-            'limit' =>  10,
+            'action' => 'dosen',
+            'code' => '',
+            'search' => '',
+            'offset' => $offset,
+            'offset' => 0, // Gunakan limit 1 untuk mendapatkan total data saja
+            'limit' => 30, // Gunakan limit 1 untuk mendapatkan total data saja
         );
-        
-        $hashed_string = ApiEnc::encrypt(
+
+        $hashed_string = ApiEncController::encrypt(
             $parameter,
             $config['client_id'],
             $config['version'],
             $config['secret_key']
         );
+
         $data = array(
             'client_id' => $config['client_id'],
             'data' => $hashed_string,
         );
-        
-        
+
         $response = _curl_api($config['url'], json_encode($data));
-        return $response;
+
+        $response_array = json_decode($response, true);
+
+        if (!empty($response_array) && isset($response_array['params']['total'])) {
+            $totalData = $response_array['params']['total'];
+        } else {
+            return $responses; // Tidak ada data, langsung keluar
+        }
+
+        // Hitung total chunks yang dibutuhkan berdasarkan total data dan limit
+        $totalChunks = ceil($totalData / $limit);
+
+        for ($chunk = 0; $chunk < $totalChunks; $chunk++) {
+            $parameter['offset'] = $offset;
+            $parameter['limit'] = $limit;
+
+            $hashed_string = ApiEncController::encrypt(
+                $parameter,
+                $config['client_id'],
+                $config['version'],
+                $config['secret_key']
+            );
+
+            $data = array(
+                'client_id' => $config['client_id'],
+                'data' => $hashed_string,
+            );
+
+            $response = _curl_api($config['url'], json_encode($data));
+
+            // Ubah respons menjadi array
+            $response_array = json_decode($response, true);
+
+            // Cek jika ada data yang diterima dari API
+            if (!empty($response_array) && isset($response_array['data']) && count($response_array['data']) > 0) {
+                foreach ($response_array['data'] as $pegawaiData) {
+                    $homebase = strtolower($pegawaiData['homebase']);
+                    $jurusan = null;
+
+                    if (strpos($homebase, 'promosi') !== false) {
+                        $jurusan = 'promosi_kesehatan';
+                    } elseif (strpos($homebase, 'lingkungan') !== false) {
+                        $jurusan = 'kesehatan_lingkungan';
+                    } elseif (strpos($homebase, 'keperawatan') !== false) {
+                        $jurusan = 'keperawatan';
+                    } elseif (strpos($homebase, 'kebidanan') !== false) {
+                        $jurusan = 'kebidanan';
+                    } elseif (strpos($homebase, 'gizi') !== false) {
+                        $jurusan = 'gizi';
+                    } elseif (strpos($homebase, 'analis') !== false) {
+                        $jurusan = 'analis_kesehatan';
+                    } elseif (strpos($homebase, 'sanitasi') !== false) {
+                        $jurusan = 'sanitasi';
+                    } elseif (strpos($homebase, 'farmasi') !== false) {
+                        $jurusan = 'farmasi';
+                    } elseif (strpos($homebase, 'teknologi') !== false) {
+                        $jurusan = 'teknologi_laboratorium_medis';
+                    }
+                    Pegawai::updateOrCreate(['nip' => $pegawaiData['nodos']], [
+                        'nip'   =>  $pegawaiData['nodos'],
+                        'nidn' => $pegawaiData['nidn'],
+                        'nama' => $pegawaiData['nametitle'],
+                        'slug' => Str::slug($pegawaiData['nametitle']),
+                        'id_prodi_homebase'  =>  $pegawaiData['id_prodi_homebase'] ? $pegawaiData['id_prodi_homebase'] : null,
+                        'jurusan' => $jurusan,
+                    ]);
+                }
+            } else {
+                // Tidak ada data lagi, keluar dari loop
+                break;
+            }
+
+            // Update offset untuk mendapatkan data selanjutnya
+            $offset += $limit;
+        }
+
+        $notification = array(
+            'message' => 'Yeay, sinkronisasi data dosen dari siakad berhasil',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('dosen')->with($notification);
     }
 
     public function create(){
@@ -110,7 +168,7 @@ class PegawaiController extends Controller
         }
         $rules = [
             'nama'                  =>  'required',
-            'nip'                   =>  'required|numeric|unique:pegawais',
+            'nip'                   =>  'required|unique:pegawais',
             'nidn'                  =>  'required|numeric',
             'email'                 =>  'required|email|unique:pegawais',
             'jenis_kelamin'         =>  'required',
@@ -123,7 +181,6 @@ class PegawaiController extends Controller
         $text = [
             'nama.required'                     => 'Nama Lengkap harus diisi',
             'nip.required'                      => 'Nip harus dipilih',
-            'nip.numeric'                       => 'Nip harus berupa angka',
             'nip.unique'                        => 'Nip sudah digunakan',
             'nidn.required'                     => 'Jenis Kegiatan harus dipilih',
             'nidn.numeric '                     => 'NIDN harus berupa angka',
@@ -148,7 +205,6 @@ class PegawaiController extends Controller
         $simpan = Pegawai::create([
             'nama'                  =>  $request->nama,
             'slug'                  =>  Str::slug($request->nama),
-            'nip'                   =>  $request->nip,
             'nidn'                  =>  $request->nidn,
             'email'                 =>  $request->email,
             'jenis_kelamin'         =>  $request->jenis_kelamin,
@@ -191,7 +247,7 @@ class PegawaiController extends Controller
             'nama'                  =>  'required',
             'nip'                   =>  'required',
             'nidn'                  =>  'required|numeric',
-            'email'                 =>  'required|email|',
+            'email'                 =>  'email|',
             'jenis_kelamin'         =>  'required',
             'jurusan'               =>  'required',
             'nomor_rekening'        =>  'required|numeric',
@@ -202,10 +258,7 @@ class PegawaiController extends Controller
         $text = [
             'nama.required'                     => 'Nama Lengkap harus diisi',
             'nip.required'                      => 'Nip harus dipilih',
-            'nip.numeric'                       => 'Nip harus berupa angka',
-            'nip.unique'                        => 'Nip sudah digunakan',
             'nidn.required'                     => 'Jenis Kegiatan harus dipilih',
-            'nidn.numeric '                     => 'NIDN harus berupa angka',
             'email.required'                    => 'Email harus diisi',
             'email.email'                       => 'Email harus berupa email',
             'email.unique'                      => 'Email sudah digunakan',
@@ -527,11 +580,114 @@ class PegawaiController extends Controller
     }
 
     public function riwayatJabatanDt(Pegawai $pegawai){
-        if (!Gate::allows('read-riwayat-jabatan-dt')) {
+        if (!Gate::allows('read-jabatan-dt')) {
             abort(403);
         }
+        $jabatans = JabatanDt::select('nama_jabatan_dt')->whereNotIn('nama_jabatan_dt',function($query) use ($pegawai) {
+            $query->select('nama_jabatan_dt')->from('riwayat_jabatan_dts')->where('nip',$pegawai->nip);
+         })->get();
         return view('backend.dosens.riwayat_jabatan_dt',[
             'pegawai'   =>  $pegawai,
+            'jabatans'  =>  $jabatans,
         ]);
+    }
+
+    public function storeRiwayatJabatanDt(Request $request, Pegawai $pegawai){
+        if (!Gate::allows('update-jabatan-fungsional')) {
+            abort(403);
+        }
+
+        $rules = [
+            'nama_jabatan_dt'       =>  'required',
+            'tmt_jabatan_dt'        =>  'required|',
+        ];
+        $text = [
+            'nama_jabatan_dt.required'      => 'Nama Jabatan DT harus diisi',
+            'tmt_jabatan_dt.required'       => 'TMT Jabatan DT harus diisi',
+
+        ];
+
+        $validasi = Validator::make($request->all(), $rules, $text);
+        if ($validasi->fails()) {
+            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
+        }
+
+        $simpan = RiwayatJabatanDt::create([
+            'nip'                       =>  $pegawai->nip,
+            'nama_jabatan_dt'   =>  $request->nama_jabatan_dt,
+            'slug'                      =>  Str::slug($request->nama_jabatan_dt),
+            'tmt_jabatan_dt'   =>  $request->tmt_jabatan_dt,
+            'is_active'   =>  0,
+        ]);
+
+        if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, riwayat jabatan DT berhasil ditambahkan',
+                'url'   =>  route('dosen.riwayat_jabatan_dt',[$pegawai->slug]),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, riwayat jabatan DT gagal disimpan']);
+        }
+    }
+
+    public function setActiveRiwayatJabatanDt(Pegawai $pegawai, RiwayatJabatanDt $jabatanDt){
+        RiwayatJabatanDt::where('nip',$pegawai->nip)->where('id','!=',$jabatanDt->id)->update([
+            'is_active' =>  0,
+        ]);
+        $update = $jabatanDt->update([
+            'is_active' =>  1,
+        ]);
+        if ($update) {
+            $notification = array(
+                'message' => 'Yeay, data riwayat jabatan dt berhasil diaktifkan',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_jabatan_dt',[$pegawai->slug])->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, data riwayat jabatan dt gagal diaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function setNonActiveRiwayatJabatanDt(Pegawai $pegawai, RiwayatJabatanDt $jabatanDt){
+        $update = $jabatanDt->update([
+            'is_active' =>  0,
+        ]);
+        if ($update) {
+            $notification = array(
+                'message' => 'Yeay, data riwayat jabatan dt berhasil dinonaktifkan',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_jabatan_dt',[$pegawai->slug])->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, data riwayat jabatan dt gagal dinonaktifkan',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function deleteRiwayatJabatanDt(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+        if (!Gate::allows('delete-jabatan-fungsional')) {
+            abort(403);
+        }
+        if ($jabatanFungsional->is_active == 1) {
+            $notification = array(
+                'message' => 'Ooopps, riwayat jabatan fungsional aktif tidak bisa dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }else {
+            $jabatanFungsional->delete();
+            $notification = array(
+                'message' => 'Yeay, data riwayat jabatan fungsional berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
+        }
     }
 }

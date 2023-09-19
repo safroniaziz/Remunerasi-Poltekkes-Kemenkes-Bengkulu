@@ -17,11 +17,12 @@ class PeriodeSeeder extends Seeder
         DB::table('periodes')->insert([
             'nama_periode'          =>  'Periode Pembayaran Bulan Januari 2023',
             'slug'                  =>  'periode-pembayaran-bulan-januari-2023',
-            'periode_siakad_id'     =>  $faker->randomDigit(),
             'semester'              =>  2,
             'tahun_ajaran'          =>  2022,
             'bulan'                 =>  1,
             'bulan_pembayaran'      =>  1,
+            'tanggal_awal'          =>  '2022-08-01',
+            'tanggal_akhir'          =>  '2022-08-31',
             'is_active'             =>  1,
         ]);
     }

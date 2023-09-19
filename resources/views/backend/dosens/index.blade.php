@@ -36,8 +36,8 @@
                         </div>
                         <form method="GET">
                             <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
-                                <label for="nama" class="col-form-label">Cari Nama Dosen</label>
-                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Dosen..." value="{{$nama}}">
+                                <label for="nama" class="col-form-label">Cari Nama/Nomor Dosen</label>
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama atau Nomor Dosen..." value="{{$nama}}">
                             </div>
                             <div class="col-md-12" style="margin-bottom:10px !important;">
                                 <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
@@ -70,7 +70,7 @@
                                     @endphp
                                     @foreach ($dosens as $index => $dosen)
                                         <tr
-                                            @if ($dosen->total_jabatan_fungsional_aktif < 1 || $dosen->total_pangkat_golongan_aktif < 1 || $dosen->total_jabatan_fungsional_aktif > 1 || $dosen->total_pangkat_golongan_aktif > 1 || $dosen->jabatan_dt_id == null || $dosen->jabatan_dt_id == "")
+                                            @if ($dosen->jurusan == null || $dosen->jurusan == "")
                                                 style="background:#f2dede"
                                             @endif
                                         >
@@ -80,14 +80,15 @@
                                                 <br>
                                                 <hr style="margin-bottom:5px !important; margin-top:5px !important;border-top: 1px solid #ccc; !important">
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-success">{{ $dosen->nip ?? '-' }}</small>
-                                                <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-info">{{ $dosen->email ?? '-' }}</small>
                                                 <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">{{ $dosen->jurusan ?? '-' }}</small>
                                             </td>
                                             <td style="text-align: center">
                                                 @if ($dosen->jenis_kelamin == "L")
                                                     <small class="label label-primary"><i class="fa fa-male"></i>&nbsp; Laki-Laki</small>
-                                                @else
+                                                @elseif($dosen->jenis_kelamin == "P")
                                                     <small class="label label-warning"><i class="fa fa-female"></i>&nbsp; Perempuan</small>
+                                                @else
+                                                    <small class="label label-warning">-</small>
                                                 @endif
                                             </td>
                                            <td>
@@ -120,14 +121,14 @@
                                            </td>
                                             <td class="text-center">
                                                 <a href="{{ route('dosen.riwayat_jabatan_dt',[$dosen->slug]) }}" class="btn-sm btn-flat btn
-                                                    @if ($dosen->jabatan_dt_id != null || $dosen->jabatan_dt_id != "")
-                                                        btn-success
-                                                    @else
+                                                    @if ($dosen->total_jabatan_dt_aktif < 1 || $dosen->total_jabatan_dt_aktif > 1)
                                                         btn-danger
+                                                    @else
+                                                        btn-success
                                                     @endif
                                                     ">
-                                                    @if ($dosen->jabatan_dt_id != null || $dosen->jabatan_dt_id != "")
-                                                        {{ $dosen->jabatanDt->nama_jabatan_dt }}
+                                                    @if ($dosen->total_jabatan_dt_aktif > 0)
+                                                        {{ $dosen->nama_jabatan_dt_aktif }}
                                                     @else
                                                         -
                                                     @endif
@@ -140,7 +141,13 @@
                                                     @else
                                                         btn btn-success
                                                     @endif
-                                                    ">{{ $dosen->pangkatGolongans()->count() }}</a>
+                                                    ">
+                                                    @if ($dosen->total_pangkat_golongan_aktif > 0)
+                                                        {{ $dosen->nama_pangkat_golongan_aktif }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </a>
                                             </td>
                                            <td>
                                                 <a href="{{ route('dosen.edit',[$dosen->slug]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>

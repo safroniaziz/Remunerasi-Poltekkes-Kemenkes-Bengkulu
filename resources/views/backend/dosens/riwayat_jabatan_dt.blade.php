@@ -37,6 +37,9 @@
                         <div class="col-md-12">
                             <div style="margin-bottom: 10px !important;">
                                 <a href="{{ route('dosen') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                                <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-default">
+                                    <i class="fa fa-plus"></i>&nbsp; Tambah Riwayat Jabatan DT
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-12 table-responsive">
@@ -93,7 +96,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        @include('backend/dosens.partials.modal_add_riwayat_dt')
                     </div>
+                    @include('backend/dosens.partials.modal_edit_riwayat_dt')
                 </div>
             </section>
         </div>

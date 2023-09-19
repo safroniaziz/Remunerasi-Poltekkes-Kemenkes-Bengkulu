@@ -23,7 +23,6 @@ class GeneratePointRubrikController extends Controller
 
     public function index(){
         $dataRubriks = RekapPerRubrik::with(['periode'])->where('periode_id',$this->periode->id)->get();
-        activity()->log('Mengakses halaman generate point rubrik');
         return view('backend/generate_point_rubrik.index',[
             'dataRubriks'   =>  $dataRubriks,
             'periode'       =>  $this->periode,
@@ -81,8 +80,8 @@ class GeneratePointRubrikController extends Controller
                 );
             }
         }
-        
-        RekapPerRubrik::insert($totalPoint);
+        return $totalPoint;
+        // RekapPerRubrik::insert($totalPoint);
         $riwayat_point = RiwayatPoint::insert($riwayatPoint);
         $rekapPerDosen = array();
         for ($k=0; $k <count($dosens) ; $k++) { 
@@ -90,7 +89,7 @@ class GeneratePointRubrikController extends Controller
             $rekapPerDosen[] = array(
                 'nip'           =>  $dosens[$k]['nip'],
                 'periode_id'    =>  $this->periode->id,
-                'total_point_dosen'   =>  $total_point->total_point,
+                'total_point'   =>  $total_point->total_point,
                 'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                 'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
             );
@@ -140,7 +139,7 @@ class GeneratePointRubrikController extends Controller
         for ($k=0; $k <count($dosens) ; $k++) { 
             $total_point_baru = RiwayatPoint::select(DB::raw('sum(point) as total_point'))->where('nip',$dosens[$k]['nip'])->first();
             RekapPerDosen::where('nip',$dosens[$k]['nip'])->where('periode_id',$this->periode->id)->update([
-                'total_point_dosen'   =>  $total_point_baru->total_point,
+                'total_point'   =>  $total_point_baru->total_point,
             ]);
         }
 

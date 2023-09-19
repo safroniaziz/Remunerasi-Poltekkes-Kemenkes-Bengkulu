@@ -21,6 +21,7 @@ use App\Http\Controllers\R30PengelolaKepkController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\GeneratePointRubrikController;
+use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
 use App\Http\Controllers\R18MendapatHibahPkmController;
@@ -77,6 +78,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/cari_dosen', 'cari')->name('cari_dosen.post');
         Route::get('/cari_dosen/get_data_dose','getDataDosen')->name('cari_dosen.get_data_dosen');
         Route::get('/remove_session','removeSession')->name('cari_dosen.remove_session');
+    });
+
+    Route::controller(ProdiController::class)->group(function () {
+        Route::get('/data_program_studi', 'index')->name('prodi');
+        Route::get('/data_program_studi/generate', 'generate')->name('prodi.generate');
+        Route::get('/data_program_studi/{prodi:id_prodi}/data_dosen', 'dataDosen')->name('prodi.dosens');
     });
 
     // Master Data Route

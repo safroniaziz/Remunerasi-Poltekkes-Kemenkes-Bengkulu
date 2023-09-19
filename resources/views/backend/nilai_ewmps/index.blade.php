@@ -59,11 +59,11 @@
                                     @foreach ($nilaiEwmps as $index => $nilaiewmp)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td style="text-align: center;">{{ $nilaiewmp->kelompokRubrik->nama_kelompok_rubrik }}</a></td>
-                                            <td style="text-align: center;">{{ $nilaiewmp->nama_rubrik }}</a></td>
-                                            <td style="text-align: center;">{{ $nilaiewmp->nama_tabel_rubrik }}</td>
-                                            <td style="text-align: center;">{{ $nilaiewmp->ewmp }}</td>
-                                            <td>
+                                            <td>{{ $nilaiewmp->kelompokRubrik->nama_kelompok_rubrik }}</a></td>
+                                            <td>{{ $nilaiewmp->nama_rubrik }}</a></td>
+                                            <td>{{ $nilaiewmp->nama_tabel_rubrik }}</td>
+                                            <td >{{ $nilaiewmp->ewmp }}</td>
+                                            <td style="text-align: center;">
                                                 @if ($nilaiewmp->is_active == 1)
                                                     <form action="{{ route('nilai_ewmp.set_nonactive',[$nilaiewmp->id]) }}" method="POST">
                                                         {{ csrf_field() }} {{ method_field('PATCH') }}

@@ -10,7 +10,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @include('layouts.partials.assets.css')
   </head>
-  <body class="hold-transition skin-blue-light fixed sidebar-mini">
+  <body class="hold-transition skin-blue-light  sidebar-mini">
     <div class="preloader">
       <div class="do-loader"></div>
     </div>

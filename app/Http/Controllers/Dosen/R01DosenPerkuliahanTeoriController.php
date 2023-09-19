@@ -2,70 +2,45 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use App\Http\Controllers\Controller;
-use App\Models\R01PerkuliahanTeori;
+use DateTime;
+use App\Models\Prodi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\R01PerkuliahanTeori;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Gate;
-class ApiEnc {
-	const TIME_DIFF_LIMIT = 480;
+use App\Http\Controllers\ApiEncController;
 
-	public static function encrypt(array $json_data, $cid, $version, $secret) {
-		return self::doubleEncrypt(strrev(time()) . '.' . json_encode($json_data), $cid, $version, $secret);
-	}
-
-	private static function tsDiff($ts) {
-		return abs($ts - time()) <= self::TIME_DIFF_LIMIT;
-	}
-
-	private static function doubleEncrypt($string, $cid, $version, $secret) {
-		$result = '';
-		$result = self::enc($string, $cid.'~'.$version);
-		$result = self::enc($result, $secret);
-		return strtr(rtrim(base64_encode($result), '='), '+/', '-_');
-	}
-
-	private static function enc($string, $key) {
-		$result = '';
-		$strls = strlen($string);
-		$strlk = strlen($key);
-		for($i = 0; $i < $strls; $i++) {
-			$char = substr($string, $i, 1);
-			$keychar = substr($key, ($i % $strlk) - 1, 1);
-			$char = chr((ord($char) + ord($keychar)) % 128);
-			$result .= $char;
-		}
-		return $result;
-	}
-}
 class R01DosenPerkuliahanTeoriController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
+
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r01_perkuliahan_teoris')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
-         $pegawais = Pegawai::all();
-        //  $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
-        //                                             ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
-         return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
+    public function index(Request $request){
+        $dataProdis = Prodi::all();
+        $pegawais = Pegawai::all();
+        $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip','4022026301')
+                                                ->orderBy('created_at','desc')->get();
+        return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
             'pegawais'                =>  $pegawais,
-            'periode'                 =>  $periode,
-            // 'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
+            'periode'                 =>  $this->periode,
+            'dataProdis'                 =>  $dataProdis,
+            'perkuliahanTeoris'    =>  $r01perkuliahanteoris,
         ]);
     }
 
     public function store(Request $request){
         $rules = [
+            'kode_kelas'            =>  'required',
+            'nama_matkul'            =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
@@ -79,26 +54,31 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
             'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus dipilih',
+            'nama_matkul.required'           => 'Nama Mata Kuliah harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $simpan = R01PerkuliahanTeori::create([
-            'periode_id'        =>  $periode->id,
-            'nip'               =>  $_SESSION['data']['kode'],
+            'periode_id'        =>  $this->periode->id,
+            // 'nip'               =>  $_SESSION['data']['kode'],
+            'nip'               =>  4022026301,
+            'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
+            'id_prodi'            =>  $request->id_prodi,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'sumber_data'       =>  'manual',
         ]);
 
         if ($simpan) {
@@ -110,15 +90,18 @@ class R01DosenPerkuliahanTeoriController extends Controller
             return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
         }
     }
-    public function edit(R01PerkuliahanTeori $r01perkuliahanteori){
-        return $r01perkuliahanteori;
+    public function edit($perkuliahanTeori){
+        $data = R01PerkuliahanTeori::where('id',$perkuliahanTeori)->first();
+        return $data;
     }
 
     public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
         $rules = [
+            'kode_kelas'            =>  'required',
+            'nama_matkul'            =>  'required',
             'jumlah_sks'            =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_tatap_muka'     =>  'required|numeric',
             'is_bkd'                =>  'required',
         ];
         $text = [
@@ -129,24 +112,28 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
             'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus dipilih',
+            'nama_matkul.required'           => 'Nama Mata Kuliah harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
-            'periode_id'        =>  $periode->id,
-            'nip'               =>  $_SESSION['data']['kode'],
+            'periode_id'        =>  $this->periode->id,
+            // 'nip'               =>  $_SESSION['data']['kode'],
+            'nip'               =>  4022026301,
+            'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
+            'id_prodi'            =>  $request->id_prodi,
             'is_verified'       =>  0,
             'point'             =>  $point,
         ]);
@@ -160,20 +147,16 @@ class R01DosenPerkuliahanTeoriController extends Controller
             return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
         }
     }
-    public function delete(R01PerkuliahanTeori $r01perkuliahanteori){
-        $delete = $r01perkuliahanteori->delete();
+    public function delete($perkuliahanteori){
+
+        $delete = R01PerkuliahanTeori::where('id',$perkuliahanteori)->delete();
         if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, r01perkuliahanteori remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.r_01_perkuliahan_teori')->with($notification);
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Pengajahan Teori berhasil dihapus',
+                'url'   =>  route('dosen.r_01_perkuliahan_teori'),
+            ]);
         }else {
-            $notification = array(
-                'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            return response()->json(['text' =>  'Oopps, Rubrik Pengajahan Teori gagal dihapus']);
         }
     }
 
@@ -201,22 +184,25 @@ class R01DosenPerkuliahanTeoriController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function siakad(){
+    public function siakad(Request $request){
         require_once app_path('Helpers/api/curl.api.php');
         require_once app_path('Helpers/api/config.php');
 
         $parameter = array(
-            'action'=>'matakuliah',
+            'action'=>'kelasperkuliahan',
             'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
-            'kdjen'=>'C',		// Kode Jenjang 
-            'kdpst'=>'3.1',		// Kode Prodi
+            'kdjen'=>'E',		// Kode Jenjang 
+            'kdpst'=>13451,		// Kode Prodi
             'kdkmk'=>'',
-            'nodos' =>  '4018038501',		// Search Kode MK (Optional) | can string or array (Optional)
-            'id_mk'=>'',		// search ID MK Perkuliahan | can string or array (Optional)
+            'nodos' =>  '4022026301',		// Search Kode MK (Optional) | can string or array (Optional)
             'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
+            // 'offset'    =>  30,
+            // 'id_kls'    =>"20222E13451II AKL.1.3.01",
+            'limit'    =>  30,
+            'offset'    =>  0,
         );
         
-        $hashed_string = ApiEnc::encrypt(
+        $hashed_string = ApiEncController::encrypt(
             $parameter,
             $config['client_id'],
             $config['version'],
@@ -226,9 +212,143 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'client_id' => $config['client_id'],
             'data' => $hashed_string,
         );
-        
-        
+
         $response = _curl_api($config['url'], json_encode($data));
-        return $response;
+        $response_array = json_decode($response, true);
+        $nipDosen = 4022026301;
+        $res = ' ';
+        $no = 1;
+        if (count($response_array['data'])>0) {
+            foreach ($response_array['data'] as $value) {
+                $checkData = R01PerkuliahanTeori::where('periode_id',$this->periode->id)
+                                                ->where('nip',$nipDosen)
+                                                ->where('kode_kelas',$value['id_kls']) 
+                                                ->first();
+                if (!empty($checkData)) {
+                    $statusDisabled = 'disabled';
+                    $class = 'class="bg-success"';
+                } else {
+                    $statusDisabled = '';
+                    $class = '';
+                }
+    
+                $res .=
+                '<tr ' . $class . '>
+                    <td><input type="checkbox" name="id_kelas[]" value="' . $value['id_kls'] . '" ' . $statusDisabled . '></td>
+                    <td>' . $no++ . '</td>
+                    <td>' . $value['nama_mk'] . '</td>
+                    <td>' . $value['jml_peserta'] . '</td>
+                    <td>' . $value['kdpst'] . '</td>
+                    <td>' . $value['kdjen'] . '</td>
+                    <td>' . $value['semester'] . '</td>
+                    <td>' . $value['sks_mk_info']['teori'] . '</td>
+                </tr>';
+            }
+        }
+        else{
+            $res = '<tr><td colspan="8" class="text-danger text-center">Data Kosong</td></tr>';
+        }
+        $kodeProdi = substr($request->kodeProdi, 1);
+        $kodeJenjang = substr($request->kodeProdi, 0, 1);
+
+        $hasil = [
+            'res'   =>  $res,
+            'kodeProdi' =>  $kodeProdi,
+            'kodeJenjang'   =>  $kodeJenjang,
+        ];
+
+        return $hasil;
+    }
+
+    public function siakadPost(Request $request){
+        require_once app_path('Helpers/api/curl.api.php');
+        require_once app_path('Helpers/api/config.php');
+        $perkuliahan = array();
+        foreach ($request->id_kelas as $id_kelas) {
+            $parameter = array(
+                'action'=>'kelasperkuliahan',
+                'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
+                'kdjen'=>$request->kodeJenjang,		// Kode Jenjang 
+                'kdpst'=>$request->kodeProdi,		// Kode Prodi
+                'kdkmk'=>'',
+                'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
+                // 'offset'    =>  30,
+                'id_kls'    => $id_kelas,
+                'limit'    =>  30,
+                'offset'    =>  0,
+            );
+            
+            $hashed_string = ApiEncController::encrypt(
+                $parameter,
+                $config['client_id'],
+                $config['version'],
+                $config['secret_key']
+            );
+            $data = array(
+                'client_id' => $config['client_id'],
+                'data' => $hashed_string,
+            );
+            
+            $response = _curl_api($config['url'], json_encode($data));
+            $response_array = json_decode($response, true);
+
+            $parameter_presensi = array(
+                'action'=>'absensi.get',
+                'thsms'=>'20221',
+                'kdjen'=>$request->kodeJenjang,
+                'kdpst'=>$request->kodeProdi,
+                'id_kls'=>$id_kelas,	
+                'nodos'=>'4022026301',	// optional by dosen
+                'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
+                'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
+                'offset'=>'',		// mulai data dari 0 / 10 (Optional)
+                'limit'=>'',		// batas (Optional)
+            );
+
+            $hashed_string_presensi = ApiEncController::encrypt(
+                $parameter_presensi,
+                $config['client_id'],
+                $config['version'],
+                $config['secret_key']
+            );
+
+            $dataPresensi = array(
+                'client_id' => $config['client_id'],
+                'data' => $hashed_string_presensi,
+            );
+            
+            $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
+            $response_array_presensi = json_decode($responsePresensi, true);
+            $result = [
+                'kelas' =>  $response_array['data'][0],
+                'presensi' =>  $response_array_presensi['data'][0]['detail'],
+            ];
+
+            $jumlahSks = $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : 0;
+            $point = ((count($result['presensi'])/16)*($result['kelas']['jml_peserta']/40))* $this->nilai_ewmp->ewmp*$jumlahSks;
+            $perkuliahan[]  =   array(
+                'periode_id'    =>  $this->periode->id,
+                'nip'           =>  4022026301,
+                'nama_matkul'   =>  $result['kelas']['nama_mk'],
+                'kode_kelas'   =>  $result['kelas']['id_kls'],
+                'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
+                'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
+                'jumlah_tatap_muka' =>  count($result['presensi']),
+                'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
+                'is_bkd'        => 0,
+                'is_verified'   => 0,
+                'sumber_data'   =>  'siakad',
+                'point'         =>  $point,
+                'created_at'    =>  now(), // Menggunakan fungsi now() untuk waktu saat ini
+                'updated_at'    =>  now(),
+            );
+        }
+
+        R01PerkuliahanTeori::insert($perkuliahan);
+
+        return response()->json([
+            'text'  =>  'Yeay, Data Pengajaran Teori Siakad Berhasil Disimpan',
+            'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
+        ]);
     }
 }

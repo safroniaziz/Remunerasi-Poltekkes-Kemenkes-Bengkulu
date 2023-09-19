@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="ewmp" class="col-form-label">EWMP</label>
+                                <label for="ewmp" class="col-form-label">Nilai EWMP</label>
                                 <input type="text" class="form-control" id="ewmp" name="ewmp" >
                             </div>
 

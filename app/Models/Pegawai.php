@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class Pegawai extends Model
 {
     use HasFactory;
-    use LogsActivity;
     use SoftDeletes;
     
     protected $primaryKey = 'nip';
@@ -22,6 +19,7 @@ class Pegawai extends Model
     protected $fillable = [
         'nip',
         'nidn',
+        'id_prodi_homebase',
         'nama',
         'slug',
         'email',
@@ -36,6 +34,10 @@ class Pegawai extends Model
     ];
 
     protected $appends = ['total_point'];
+
+    public function prodi(){
+        return $this->belongsTo(Prodi::class, 'id_prodi_homebase','id_prodi');
+    }
 
     public function jabatanFungsionals(){
         return $this->hasMany(jabatanFungsional::class,'nip');
@@ -61,16 +63,6 @@ class Pegawai extends Model
         return $this->riwayatPoints()->sum('point');
     }
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logUnguarded();
-    }
-
-    public function jabatanDt(){
-        return $this->belongsTo(JabatanDt::class);
-    }
-
     public function getTotalJabatanFungsionalAktifAttribute(){
         return $this->jabatanFungsionals()->where('is_active',1)->count();
     }
@@ -81,5 +73,17 @@ class Pegawai extends Model
     
     public function getTotalPangkatGolonganAktifAttribute(){
         return $this->pangkatGolongans()->where('is_active',1)->count();
+    }
+
+    public function getNamaPangkatGolonganAktifAttribute(){
+        return $this->pangkatGolongans()->select('nama_pangkat')->where('is_active',1)->orderBy('created_at','desc')->pluck('nama_pangkat')->first();
+    }
+
+    public function getTotalJabatanDtAktifAttribute(){
+        return $this->riwayatJabatanDts()->where('is_active',1)->count();
+    }
+
+    public function getNamaJabatanDtAktifAttribute(){
+        return $this->riwayatJabatanDts()->select('nama_jabatan_dt')->where('is_active',1)->orderBy('created_at','desc')->pluck('nama_jabatan_dt')->first();
     }
 }

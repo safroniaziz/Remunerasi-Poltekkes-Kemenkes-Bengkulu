@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\JabatanDt;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class JabatanDtSeeder extends Seeder
 {
@@ -13,19 +15,54 @@ class JabatanDtSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = \Faker\Factory::create();
-        foreach (range(1,10) as $index) {
-            DB::table('jabatan_dts')->insert([
-                'nama_jabatan_dt'   =>  $faker->name(),
-                'slug'              =>  $faker->name(),
-                'grade'             =>  $faker->randomDigit(),
-                'harga_point_dt'    =>  $faker->randomDigit(),
-                'job_value'         =>  $faker->randomDigit(),
-                'pir'               =>  $faker->randomDigit(),
-                'harga_jabatan'     =>  $faker->randomDigit(),
-                'gaji_blu'          =>  $faker->randomDigit(),
-                'insentif_maximum'  =>  $faker->randomDigit(),
-            ]);
+        $jabatanDosen = [
+            [
+                'nama_jabatan_dt' => 'Koordinator Program Studi',
+                'grade'             =>  1,
+                'harga_point_dt'    =>  1,
+                'job_value'         =>  1,
+                'pir'               =>  1,
+                'harga_jabatan'     =>  1,
+                'gaji_blu'          =>  1,
+                'insentif_maximum'  =>  1,
+            ],
+            [
+                'nama_jabatan_dt' => 'Ketua Jurusan',
+                'grade'             =>  1,
+                'harga_point_dt'    =>  1,
+                'job_value'         =>  1,
+                'pir'               =>  1,
+                'harga_jabatan'     =>  1,
+                'gaji_blu'          =>  1,
+                'insentif_maximum'  =>  1,
+            ],
+            [
+                'nama_jabatan_dt' => 'Pembantu Rektor',
+                'grade'             =>  1,
+                'harga_point_dt'    =>  1,
+                'job_value'         =>  1,
+                'pir'               =>  1,
+                'harga_jabatan'     =>  1,
+                'gaji_blu'          =>  1,
+                'insentif_maximum'  =>  1,
+            ],
+            [
+                'nama_jabatan_dt' => 'Pembimbing Akademik',
+                'grade'             =>  1,
+                'harga_point_dt'    =>  1,
+                'job_value'         =>  1,
+                'pir'               =>  1,
+                'harga_jabatan'     =>  1,
+                'gaji_blu'          =>  1,
+                'insentif_maximum'  =>  1,
+            ],
+            // Tambahkan jabatan dosen dan tugas tambahan lainnya jika diperlukan
+        ];
+
+        foreach ($jabatanDosen as $jabatan) {
+            $slug = Str::slug($jabatan['nama_jabatan_dt']);
+            $jabatan['slug'] = $slug;
+            JabatanDt::create($jabatan);
         }
     }
 }

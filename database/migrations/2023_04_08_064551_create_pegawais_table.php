@@ -13,23 +13,21 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->string('nip',18)->unique();
-            $table->unsignedBigInteger('jabatan_dt_id')->nullable();
+            $table->string('id_prodi_homebase')->nullable();
             $table->string('nidn');
             $table->string('nama');
             $table->string('slug');
-            $table->string('email')->unique();
-            $table->enum('jenis_kelamin',['L','P']);
-            $table->enum('jurusan',['gizi','kebidanan','keperawatan','analis_kesehatan','promosi_kesehatan','kesehatan_lingkungan']);
-            $table->string('nomor_rekening');
-            $table->string('npwp');
-            $table->boolean('is_serdos');
+            $table->string('email')->unique()->nullable();
+            $table->enum('jenis_kelamin',['L','P'])->nullable();
+            $table->string('jurusan')->nullable();
+            $table->string('nomor_rekening')->nullable();
+            $table->string('npwp')->nullable();
+            $table->boolean('is_serdos')->nullable();
             $table->string('no_sertifikat_serdos')->nullable();
-            $table->string('no_whatsapp');
+            $table->string('no_whatsapp')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('jabatan_dt_id')->references('id')->on('jabatan_dts');
         });
     }
 

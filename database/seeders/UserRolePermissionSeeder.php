@@ -27,28 +27,48 @@ class UserRolePermissionSeeder extends Seeder
             $operator = User::create(array_merge([
                 'email' =>  'operator@mail.com',
                 'nama_user'  =>  'operator',
-                'level_jurusan'  =>  'gizi',
                 'is_active' =>  1,
             ], $default_user_value));
 
-            $verifikator = User::create(array_merge([
-                'email' =>  'verifikator@mail.com',
+            $verifikator1 = User::create(array_merge([
+                'email' =>  'verifikator1@mail.com',
                 'nama_user'  =>  'verifikator',
-                'level_jurusan'  =>  'gizi',
+                'is_active' =>  1,
+            ], $default_user_value));
+
+            $verifikator2 = User::create(array_merge([
+                'email' =>  'verifikator2@mail.com',
+                'nama_user'  =>  'verifikator',
+                'is_active' =>  1,
+            ], $default_user_value));
+
+            $verifikator3 = User::create(array_merge([
+                'email' =>  'verifikator3@mail.com',
+                'nama_user'  =>  'verifikator',
+                'is_active' =>  1,
+            ], $default_user_value));
+
+            $verifikator4 = User::create(array_merge([
+                'email' =>  'verifikator4@mail.com',
+                'nama_user'  =>  'verifikator',
+                'is_active' =>  1,
+            ], $default_user_value));
+
+            $verifikator5 = User::create(array_merge([
+                'email' =>  'verifikator5@mail.com',
+                'nama_user'  =>  'verifikator',
                 'is_active' =>  1,
             ], $default_user_value));
 
             $administrator = User::create(array_merge([
                 'email' =>  'administrator@mail.com',
                 'nama_user'  =>  'administrator',
-                'level_jurusan'  =>  'gizi',
                 'is_active' =>  1,
             ], $default_user_value));
 
             $pimpinan = User::create(array_merge([
                 'email' =>  'pimpinan@mail.com',
                 'nama_user'  =>  'pimpinan',
-                'level_jurusan'  =>  'gizi',
                 'is_active' =>  1,
             ], $default_user_value));
 
@@ -851,7 +871,11 @@ class UserRolePermissionSeeder extends Seeder
             $role_pimpinan->givePermissionTo('read-rekap-daftar-nominatif');
 
             $operator->assignRole('operator');
-            $verifikator->assignRole('verifikator');
+            $verifikator1->assignRole('verifikator');
+            $verifikator2->assignRole('verifikator');
+            $verifikator3->assignRole('verifikator');
+            $verifikator4->assignRole('verifikator');
+            $verifikator5->assignRole('verifikator');
             $administrator->assignRole('administrator');
             $pimpinan->assignRole('pimpinan');
 

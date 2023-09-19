@@ -22,6 +22,11 @@
                         </div>
 
                         <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Kode Kelas</label>
+                            <input type="text" class="form-control" id="kode_kelas" name="kode_kelas">
+                        </div>
+
+                        <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Jumlah SKS</label>
                             <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks">
                         </div>
@@ -37,11 +42,21 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Rubrik BKD?</label>
+                            <label for="exampleInputEmail1">Program Studi Mengajar</label>
+                            <select name="id_prodi" id="id_prodi" class="form-control">
+                                <option disabled selected>-- pilih program studi --</option> 
+                                @foreach ($dataProdis as $prodi)
+                                    <option value="{{ $prodi->kdjen.$prodi->kdpst }}">{{ $prodi->nama_prodi }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Status Rubrik</label>
                             <select name="is_bkd" class="form-control" id="is_bkd">
-                                <option disabled selected>-- pilih --</option>
-                                <option value="0">Tidak</option>
-                                <option value="1">Ya</option>
+                                <option disabled selected>-- pilih status rubrik--</option>
+                                <option value="0">Non BKD</option>
+                                <option value="1">BKD</option>
                             </select>
                         </div>
 

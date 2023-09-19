@@ -22,8 +22,7 @@ class PointRubrikDosenController extends Controller
 
     public function pointDetail(Pegawai $dosen) {
         $periode = Periode::select('nama_periode')->where('is_active', '1')->first();
-        $riwayatPoints = $dosen->riwayatPoints; // Mengambil relasi hasMany riwayatPoints
-        return $riwayatPoints;
+        $riwayatPoints = $dosen->riwayatPoints()->where('point', '>', 0)->get(); // Mengambil relasi hasMany riwayatPoints
         return view('backend.point_rubrik_dosen.detail', compact('riwayatPoints'));
     }
 }

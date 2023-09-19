@@ -10,6 +10,8 @@ class RiwayatJabatanDt extends Model
 {
     use HasFactory, SoftDeletes;
     
+    protected $casts = [ 'tmt_jabatan_dt'=>'datetime'];
+
     protected $fillable = [
         'nip','nama_jabatan_dt','slug','tmt_jabatan_dt','is_active'
     ];

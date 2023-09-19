@@ -61,6 +61,9 @@
                                     <option value="analis_kesehatan" {{ $pegawai->jurusan == "analis_kesehatan" ? 'selected' : '' }}>Analis Kesehatan</option>
                                     <option value="promosi_kesehatan" {{ $pegawai->jurusan == "promosi_kesehatan" ? 'selected' : '' }}>Promosi Kesehatan</option>
                                     <option value="kesehatan_lingkungan" {{ $pegawai->jurusan == "kesehatan_lingkungan" ? 'selected' : '' }}>Kesehatan Lingkungan</option>
+                                    <option value="farmasi" {{ $pegawai->jurusan == "farmasi" ? 'selected' : '' }}>Farmasi</option>
+                                    <option value="sanitasi" {{ $pegawai->jurusan == "sanitasi" ? 'selected' : '' }}>Sanitasi</option>
+                                    <option value="teknologi_laboratorium_medis" {{ $pegawai->jurusan == "teknologi_laboratorium_medis" ? 'selected' : '' }}>Teknologi Laboratorium Medis</option>
                                 </select>
                             </div>
 

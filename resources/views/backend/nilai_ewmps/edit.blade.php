@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Ewmp</label>
+                                <label for="nip" class="col-form-label">Nilai Ewmp</label>
                                 <input type="text" class="form-control" value="{{ $nilaiewmp->ewmp }}" id="ewmp" name="ewmp" >
                             </div>
 
