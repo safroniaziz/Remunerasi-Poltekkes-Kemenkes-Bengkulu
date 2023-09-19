@@ -70,9 +70,9 @@
                                             <td class="text-center">{{ $r03membimbingpencapaiankompetensi->jumlah_mahasiswa }}</td>
                                             <td class="text-center">
                                                 @if ($r03membimbingpencapaiankompetensi->is_bkd == 1)
-                                                    <small class="label label-danger"><i class="fa fa-check-circle"></i>&nbsp;Ya</small>
+                                                    <small class="label label-danger">Ya</small>
                                                 @else
-                                                    <small class="label label-success"><i class="fa fa-check-circle"></i>&nbsp;Tidak</small>
+                                                    <small class="label label-success">Tidak</small>
                                                 @endif
                                             </td>
                                             @if(Auth::user()->hasRole('verifikator'))
