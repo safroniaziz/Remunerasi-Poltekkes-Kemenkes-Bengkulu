@@ -223,6 +223,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::controller(PointRubrikDosenController::class)->group(function () {
         Route::get('/point_rubrik_dosen', 'index')->name('point_rubrik_dosen');
         Route::get('/point_rubrik_dosen/{dosen}/detail', 'pointDetail')->name('point_rubrik_dosen.detail');
+        Route::get('/point_rubrik_dosen/{dosen}/detail_rubrik/{riwayatPoint}', 'pointDetailRubrik')->name('point_rubrik_dosen.detail_rubrik');
     });
 
     Route::controller(RekapDaftarNominatifController::class)->group(function () {

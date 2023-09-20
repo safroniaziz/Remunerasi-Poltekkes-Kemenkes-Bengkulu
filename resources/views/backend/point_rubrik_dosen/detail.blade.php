@@ -92,6 +92,7 @@
                                         <th>No</th>
                                         <th>Nama Rubrik</th>
                                         <th>Total Point</th>
+                                        <th>Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,6 +101,9 @@
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $riwayatPoint->nama_rubrik }}</td>
                                             <td>{{ $riwayatPoint->point }}</td>
+                                            <td>
+                                                <a href="{{ route('point_rubrik_dosen.detail_rubrik',[$dosen->nip, $riwayatPoint->id]) }}"><i class="fa fa-search"></i>&nbsp; Detail Point Per Rubrik</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
