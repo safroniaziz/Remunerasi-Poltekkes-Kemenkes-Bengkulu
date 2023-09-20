@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Periode;
+use Illuminate\Support\Str;
 use App\Models\RiwayatPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,11 +34,8 @@ class PointRubrikDosenController extends Controller
     }
 
     public function pointDetailRubrik(Pegawai $dosen, RiwayatPoint $riwayatPoint){
-        $data = [
-            'dosen' =>  $dosen,
-            'riwayatPoint'  =>  $riwayatPoint
-        ];
+        $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
 
-        return $data;
+        return $className;
     }
 }
