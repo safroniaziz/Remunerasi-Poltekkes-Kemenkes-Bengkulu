@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Gate;
 class R12MembimbingPkmController extends Controller
 {
     private $periode;
-    public function index(){
+    public function index(Request $request){
         if (!Gate::allows('read-r012-membimbing-pkm')) {
             abort(403);
         }

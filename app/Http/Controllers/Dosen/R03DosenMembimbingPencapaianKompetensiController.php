@@ -25,7 +25,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
          $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$_SESSION['data']['kode'])
                                                                                 ->where('periode_id',$this->periode->id)
                                                                                 ->orderBy('created_at','desc')->get();
-
+        return $this->periode;
          return view('backend/dosen/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
             'periode'                 =>  $this->periode,
