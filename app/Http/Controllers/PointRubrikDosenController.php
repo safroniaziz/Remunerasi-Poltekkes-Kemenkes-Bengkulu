@@ -28,6 +28,7 @@ class PointRubrikDosenController extends Controller
 
     public function pointDetail(Pegawai $dosen) {
         $riwayatPoints = Pegawai::with('riwayatPoints')->where('nip',$dosen->nip)->first();
+        return $riwayatPoints;
         return view('backend.point_rubrik_dosen.detail', compact('riwayatPoints','dosen'));
     }
 }
