@@ -21,7 +21,7 @@
         'dosen.r_012_membimbing_pkm',
     ]) }}">
     <a href="#" class="parent-sidebar-menu">
-        <i class="fa fa-file-text-o"></i> <span>Pendidikan Reguler</span>
+        <i class="fa fa-chalkboard-teacher"></i> <span>Pendidikan Reguler</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
@@ -47,7 +47,7 @@
     'dosen.r_014_karya_inovasi',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>Pendidikan Insidental</span>
+    <i class="fa fa-book-open"></i> <span>Pendidikan Insidental</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -64,7 +64,7 @@
     'dosen.r_017_naskah_buku_bahasa_terbit_edar_nas',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>Pelaksanaan Penelitian</span>
+    <i class="fa fa-chart-line"></i> <span>Pelaksanaan Penelitian</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -81,7 +81,7 @@
     'dosen.r_019_latih_nyuluh_natar_ceramah_warga',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>Pelaksanaan Pengabdian</span>
+    <i class="fa fa-comments"></i> <span>Pelaksanaan Pengabdian</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
@@ -106,7 +106,7 @@
     'dosen.r_030_pengelola_kepk',
 ]) }}">
 <a href="#" class="parent-sidebar-menu">
-    <i class="fa fa-file-text-o"></i> <span>Penunjang Akademik Dosen</span>
+    <i class="fa fa-graduation-cap"></i> <span>Penunjang Akademik Dosen</span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
