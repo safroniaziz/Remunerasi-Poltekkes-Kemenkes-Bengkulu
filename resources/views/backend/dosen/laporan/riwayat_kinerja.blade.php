@@ -33,9 +33,17 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
+                        <div class="col-md-12">
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-danger alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif
+                        </div>
                         <div class="col-md-12" style="margin-bottom: 10px !important;">
                             <div class="row">
-                                <form action="{{ route('dosen.riwayatKinerjaCetak') }}" method="POST" id="form">
+                                <form action="{{ route('dosen.riwayatKinerjaCetak') }}" method="POST">
                                     {{ csrf_field() }} {{ method_field('POST') }}
                                     <div class="form-group col-md-12">
                                         <label for="">Pilih Periode Remunerasi</label>
@@ -66,28 +74,6 @@
                 responsive : true,
             });
         } );
-
-        $(document).on('submit','#form',function (event){
-            event.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                typeData: "JSON",
-                data: new FormData(this),
-                processData:false,
-                contentType:false,
-                success : function(res) {
-                    $("#btnSubmit"). attr("disabled", true);
-                    toastr.success(res.text, 'Yeay, Berhasil');
-                    setTimeout(function () {
-                        window.location.href=res.url;
-                    } , 500);
-                },
-                error:function(xhr){
-                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
-                }
-            })
-        });
 
     </script>
 @endpush

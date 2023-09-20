@@ -46,10 +46,7 @@ class LaporanDosenController extends Controller
                         }])
                         ->first();
         if ($riwayatPoints->riwayatPointAlls->count() <1) {
-            return response()->json([
-                'text'  =>  'Ooopps, riwayat remunerasi pada periode yang dipilih tidak ditemukan',
-                'url'   =>  url('/dosen/riwayat_kinerja/'),
-            ]);
+            return redirect()->back()->with(['error'    =>  'Mohon maaf, riwayat kinerja remunerasi pada periode yang dipilih tidak ditemukan']);
         }
         $judul = $periode->nama_periode;
         $data = [
