@@ -55,6 +55,8 @@
                 @include('backend/dosen/laporan._r02')
             @elseif ($riwayatPoint->kode_rubrik == "r03_membimbing_pencapaian_kompetensis")
                 @include('backend/dosen/laporan._r03')
+            @elseif ($riwayatPoint->kode_rubrik == "r04_membimbing_pendampingan_ukoms")
+                @include('backend/dosen/laporan._r04')
             @endif
         @endforeach
     </table>
