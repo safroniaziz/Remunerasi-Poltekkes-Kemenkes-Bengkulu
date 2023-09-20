@@ -17,8 +17,7 @@
     <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
     <table style="width: 100%">
-        {{ $riwayatPoints->riwayatPoints }}
-        {{-- @foreach ($riwayatPoints as $riwayatPoint)
+        @foreach ($riwayatPoints->riwayatPoints as $riwayatPoint)
             <tr>
                 <th>Rubrik {{ $riwayatPoint->nama_rubrik }}</th>
             </tr>
@@ -28,7 +27,7 @@
             <tr>
 
             </tr>
-        @endforeach --}}
+        @endforeach
     </table>
 </body>
 </html>
