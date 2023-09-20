@@ -28,6 +28,7 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
          return view('backend/dosen/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
+            'periode'                 =>  $this->periode,
             'r03membimbingpencapaiankompetensis'    =>  $r03membimbingpencapaiankompetensis,
         ]);
     }

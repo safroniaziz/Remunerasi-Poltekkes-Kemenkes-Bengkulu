@@ -32,6 +32,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 
         return view('backend/dosen/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r017naskahbukubahasaterbitedarnas'    =>  $r017naskahbukubahasaterbitedarnas,
        ]);
    }

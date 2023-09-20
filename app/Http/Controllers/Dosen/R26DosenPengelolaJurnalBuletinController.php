@@ -28,6 +28,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
 
         return view('backend/dosen/rubriks/r_026_pengelola_jurnal_buletins.index',[
            'pegawais'                        =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r026pengelolajurnalbuletins'     =>  $r026pengelolajurnalbuletins,
        ]);
    }

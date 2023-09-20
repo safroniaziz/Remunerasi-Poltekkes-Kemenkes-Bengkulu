@@ -27,6 +27,7 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
 
          return view('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
             'pegawais'                          =>  $pegawais,
+            'periode'                 =>  $this->periode,
             'r04membimbingpendampinganukoms'    =>  $r04membimbingpendampinganukoms,
         ]);
     }

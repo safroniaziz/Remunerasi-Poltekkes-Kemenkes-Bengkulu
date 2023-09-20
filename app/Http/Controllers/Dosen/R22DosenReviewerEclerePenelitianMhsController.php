@@ -32,6 +32,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
 
         return view('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r022reviewereclerepenelitianmhs'    =>  $r022reviewereclerepenelitianmhs,
        ]);
    }

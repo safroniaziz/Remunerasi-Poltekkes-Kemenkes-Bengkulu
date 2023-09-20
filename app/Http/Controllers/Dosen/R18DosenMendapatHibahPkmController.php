@@ -31,6 +31,7 @@ class R18DosenMendapatHibahPkmController extends Controller
 
         return view('backend/dosen/rubriks/r_018_mendapat_hibah_pkms.index',[
            'pegawais'             =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r018mendapathibahpkms' =>  $r018mendapathibahpkms,
        ]);
    }

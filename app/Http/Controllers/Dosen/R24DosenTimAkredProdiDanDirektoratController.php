@@ -31,6 +31,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
         
         return view('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r024timakredprodirektorats'     =>  $r024timakredprodirektorats,
        ]);
    }

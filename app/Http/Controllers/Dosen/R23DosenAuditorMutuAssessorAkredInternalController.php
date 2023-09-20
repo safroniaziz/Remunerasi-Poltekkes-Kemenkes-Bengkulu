@@ -32,6 +32,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
 
         return view('backend/dosen/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[
            'pegawais'                              =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r023auditormutuassessorakredinternals' =>  $r023auditormutuassessorakredinternals,
        ]);
    }

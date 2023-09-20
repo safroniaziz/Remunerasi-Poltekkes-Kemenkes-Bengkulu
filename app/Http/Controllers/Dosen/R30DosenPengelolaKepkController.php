@@ -27,6 +27,7 @@ class R30DosenPengelolaKepkController extends Controller
         
         return view('backend/dosen/rubriks/r_030_pengelola_kepks.index',[
            'pegawais'               =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r030pengelolakepks'     =>  $r030pengelolakepks,
        ]);
    }

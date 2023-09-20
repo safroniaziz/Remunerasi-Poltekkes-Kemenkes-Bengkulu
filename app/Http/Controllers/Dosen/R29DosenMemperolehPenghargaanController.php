@@ -27,6 +27,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
         
         return view('backend/dosen/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r029memperolehpenghargaans'     =>  $r029memperolehpenghargaans,
        ]);
    }

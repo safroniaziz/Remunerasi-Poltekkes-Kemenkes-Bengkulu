@@ -26,6 +26,7 @@ class R14DosenKaryaInovasiController extends Controller
                                              ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_014_karya_inovasis.index',[
            'pegawais'                =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r014karyainovasis'       =>  $r014karyainovasis,
        ]);
    }

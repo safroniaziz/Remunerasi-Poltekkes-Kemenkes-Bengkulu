@@ -24,6 +24,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
                                                                             ->orderBy('created_at','desc')->get();
          return view('backend/dosen/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
             'pegawais'                             =>  $pegawais,
+            'periode'                 =>  $this->periode,
             'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,
         ]);
     }

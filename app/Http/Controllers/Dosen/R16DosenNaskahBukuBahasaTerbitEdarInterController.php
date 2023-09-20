@@ -29,6 +29,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
         
         return view('backend/dosen/rubriks/r_016_naskah_buku_bahasa_terbit_edar_inters.index',[
            'pegawais'                             =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r016naskahbukubahasaterbitedarinters' =>  $r016naskahbukubahasaterbitedarinters,
        ]);
    }

@@ -26,6 +26,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
                                                                                      ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.index',[
            'pegawais'                                    =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r015menuliskaryailmiahdipublikasikans'       =>  $r015menuliskaryailmiahdipublikasikans,
        ]);
    }

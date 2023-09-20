@@ -27,6 +27,7 @@ class R27DosenKeanggotaanSenatController extends Controller
         
         return view('backend/dosen/rubriks/r_027_keanggotaan_senats.index',[
            'pegawais'                  =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r027keanggotaansenats'     =>  $r027keanggotaansenats,
        ]);
    }
