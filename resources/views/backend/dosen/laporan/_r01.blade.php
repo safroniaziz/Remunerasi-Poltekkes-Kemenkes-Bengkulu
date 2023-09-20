@@ -1,6 +1,6 @@
 <thead>
         <tr>
-            <td colspan="6" style="text-transform: uppercase">{{$index+1.'. '. $riwayatPoint->nama_rubrik }}</td>
+            <td colspan="6" style="text-transform: uppercase">{{$index+1 .' '. $riwayatPoint->nama_rubrik }}</td>
         </tr>
         <tr>
             <td colspan="6" style="text-transform: uppercase">Total Point {{ $riwayatPoint->point }}</td>
