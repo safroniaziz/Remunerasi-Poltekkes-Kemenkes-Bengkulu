@@ -129,9 +129,9 @@
 
 <li class="header" style="font-weight:bold">LAPORAN REMUNERASI</li>
 <li class="{{ set_active('dosen.cetakLaporan') }}">
-    <a href="{{ route('dosen.cetakLaporan') }}">
-        <i class="fa fa-home"></i>
-        <span>Cetak Laporan Per Periode</span>
+    <a href="{{ route('dosen.cetakLaporan') }}" target="_blank">
+        <i class="fa fa-file-pdf-o"></i>
+        <span>Cetak Borang Remun</span>
     </a>
 </li>
 
