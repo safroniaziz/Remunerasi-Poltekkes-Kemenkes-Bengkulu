@@ -39,7 +39,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            'judul'           =>  'required',
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
-           'jumlah_penulis'  =>  'required|numeric',
+           'jumlah_penulis'  =>  'required|regex:/^[0-9]+$/|min:0',
            'is_bkd'          =>  'required',
 
        ];
@@ -49,6 +49,8 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            'penulis_ke.required'       => 'Penulis harus diisi',
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'jumlah_penulis.min'        => 'Jumlah Penulis tidak boleh kurang dari 0',
+           'jumlah_penulis.regex'      => 'Format Penulis tidak valid',
            'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
@@ -94,7 +96,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            'judul'           =>  'required',
            'isbn'            =>  'required',
            'penulis_ke'      =>  'required',
-           'jumlah_penulis'  =>  'required|numeric',
+           'jumlah_penulis'  =>  'required|regex:/^[0-9]+$/|min:0',
            'is_bkd'          =>  'required',
        ];
        $text = [
@@ -103,6 +105,8 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            'penulis_ke.required'       => 'Penulis harus diisi',
            'jumlah_penulis.required'   => 'Jumlah Penulis harus diisi',
            'jumlah_penulis.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'jumlah_penulis.min'        => 'Jumlah Penulis tidak boleh kurang dari 0',
+           'jumlah_penulis.regex'      => 'Format Penulis tidak valid',
            'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
