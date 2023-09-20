@@ -20,18 +20,18 @@ class R18MendapatHibahPkmController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r018_mendapat_hibah_pkms')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r018-mendapat-hibah-pkm')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r018mendapathibahpkms = R018MendapatHibahPkm::where('nip',$request->session()->get('nip_dosen'))
                                                      ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_018_mendapat_hibah_pkms.index',[
            'pegawais'             =>  $pegawais,
-           'periode'              =>  $periode,
+           'periode'              =>  $this->periode->id,
            'r018mendapathibahpkms' =>  $r018mendapathibahpkms,
        ]);
    }
@@ -54,12 +54,12 @@ class R18MendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R018MendapatHibahPkm::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
         'is_bkd'            =>  $request->is_bkd,
@@ -101,12 +101,12 @@ class R18MendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R018MendapatHibahPkm::where('id',$request->r018mendapathibahpkm_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
         'is_bkd'            =>  $request->is_bkd,

@@ -12,18 +12,24 @@ use Illuminate\Support\Facades\Gate;
 
 class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(Request $request){
         if (!Gate::allows('read-r09-menguji-seminar-hasil-kti-lta-skripsi')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
+                                                                                    ->where('periode_id',$this->periode->id)
                                                                                    ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+        
         return view('backend/rubriks/r_09_menguji_seminar_hasil_kti_lta_skripsis.index',[
            'pegawais'                                   =>  $pegawais,
-           'periode'                                    =>  $periode,
+           'periode'                                    =>  $this->periode->id,
            'r09mengujiseminarhasilktiltaskripsis'       =>  $r09mengujiseminarhasilktiltaskripsis,
        ]);
    }
@@ -47,8 +53,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.10;
         }else{
@@ -56,7 +61,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
        $simpan = R09MengujiSeminarHasilKtiLtaSkripsi::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
            'jenis'             =>  $request->jenis,
@@ -106,11 +111,9 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
+       
        $update = R09MengujiSeminarHasilKtiLtaSkripsi::where('id',$request->r09mengujiseminarhasil_id_edit)->update([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
            'jenis'             =>  $request->jenis,

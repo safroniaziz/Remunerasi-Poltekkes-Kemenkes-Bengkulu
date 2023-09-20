@@ -7,29 +7,26 @@ use App\Models\R010MenulisBukuAjarBerisbn;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Gate;
 
 class R10DosenMenulisBukuAjarBerisbnController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r010_menulis_buku_ajar_berisbns')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         $pegawais = Pegawai::all();
         $r010menulisbukuajarberisbns = R010MenulisBukuAjarBerisbn::where('nip',$_SESSION['data']['kode'])
+                                                                ->where('periode_id',$this->periode->id)
                                                                  ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
         return view('backend/dosen/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
            'pegawais'                          =>  $pegawais,
-           'periode'                           =>  $periode,
            'r010menulisbukuajarberisbns'       =>  $r010menulisbukuajarberisbns,
        ]);
    }
@@ -56,8 +53,6 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
         if ($request->penulis_ke=='penulis_utama') {
             $point = 0.5 * $this->nilai_ewmp->ewmp;
         }
@@ -66,7 +61,7 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
         }
 
        $simpan = R010MenulisBukuAjarBerisbn::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,
@@ -112,8 +107,6 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
         if ($request->penulis_ke=='penulis_utama') {
             $point = 0.5 * $this->nilai_ewmp->ewmp;
         }
@@ -121,7 +114,7 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
             $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
         }
        $update = R010MenulisBukuAjarBerisbn::where('id',$request->r010menulisbukuajarberisbn_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,

@@ -20,18 +20,18 @@ class R20AssessorBkdLkdController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r020_assessor_bkd_lkds')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r020-assessor-bkd-lkd')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$request->session()->get('nip_dosen'))
                                                  ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_020_assessor_bkd_lkds.index',[
            'pegawais'               =>  $pegawais,
-           'periode'                =>  $periode,
+           'periode'                =>  $this->periode->id,
            'r020assessorbkdlkds'    =>  $r020assessorbkdlkds,
        ]);
    }
@@ -54,12 +54,12 @@ class R20AssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
        $simpan = R020AssessorBkdLkd::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  $request->is_bkd,
@@ -101,12 +101,12 @@ class R20AssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
        $update = R020AssessorBkdLkd::where('id',$request->r020assessorbkdlkd_id_edit)->update([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  $request->is_bkd,

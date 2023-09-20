@@ -20,18 +20,18 @@ class R24TimAkredProdiDanDirektoratController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r024_tim_akred_prodi_dan_direktorats')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r024-tim-akred-prodi-dan-direktorat')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$request->session()->get('nip_dosen'))
                                                                     ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
-           'periode'                        =>  $periode,
+           'periode'                        =>  $this->periode->id,
            'r024timakredprodirektorats'     =>  $r024timakredprodirektorats,
        ]);
    }
@@ -53,12 +53,12 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R024TimAkredProdiDanDirektorat::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
@@ -99,12 +99,12 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,

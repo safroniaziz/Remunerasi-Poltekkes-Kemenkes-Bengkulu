@@ -15,22 +15,24 @@ use Illuminate\Support\Facades\Gate;
 class R04MembimbingPendampinganUkomController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r04_membimbing_pendampingan_ukoms')->first();
     }
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(Request $request){
         if (!Gate::allows('read-r04-membimbing-pendampingan-ukom')) {
             abort(403);
         }
          $pegawais = Pegawai::all();
          $r04membimbingpendampinganukoms = R04MembimbingPendampinganUkom::where('nip',$request->session()->get('nip_dosen'))
+                                                                        ->where('periode_id',$this->periode->id)
                                                                         ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+         
          return view('backend/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
             'pegawais'                          =>  $pegawais,
-            'periode'                           =>  $periode,
+            'periode'                           =>  $this->periode->id,
             'r04membimbingpendampinganukoms'    =>  $r04membimbingpendampinganukoms,
         ]);
     }
@@ -53,12 +55,11 @@ class R04MembimbingPendampinganUkomController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
         $simpan = R04MembimbingPendampinganUkom::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
@@ -101,12 +102,10 @@ class R04MembimbingPendampinganUkomController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $periode = Periode::select('id')->where('is_active','1')->first();
-
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
         $update = R04MembimbingPendampinganUkom::where('id',$request->r04membimbingpendampinganukom_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,

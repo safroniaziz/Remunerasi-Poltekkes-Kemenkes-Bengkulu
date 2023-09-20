@@ -17,24 +17,26 @@ use Illuminate\Support\Facades\Validator;
 class R02PerkuliahanPraktikumController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r02_perkuliahan_praktikums')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(Request $request){
         if (!Gate::allows('read-r02-perkuliahan-praktikum')) {
             abort(403);
         }
-        $dataProdis = Prodi::all();
+         $dataProdis = Prodi::all();
          $pegawais = Pegawai::all();
          $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$request->session()->get('nip_dosen'))
+                                                            ->where('periode_id',$this->periode->id)
                                                             ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+         
          return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                    =>  $pegawais,
-            'periode'                     =>  $periode,
+            'periode'                     =>  $this->periode->id,
             'dataProdis'                 =>  $dataProdis,
             'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikums,
         ]);
@@ -70,12 +72,11 @@ class R02PerkuliahanPraktikumController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $simpan = R02PerkuliahanPraktikum::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -132,12 +133,11 @@ class R02PerkuliahanPraktikumController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,

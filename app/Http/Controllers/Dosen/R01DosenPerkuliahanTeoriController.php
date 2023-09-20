@@ -25,7 +25,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r01_perkuliahan_teoris')->first();
     }
 
-    public function index(Request $request){
+    public function index(){
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])

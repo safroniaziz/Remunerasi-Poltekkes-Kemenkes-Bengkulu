@@ -7,29 +7,27 @@ use App\Models\R06MengujiUjianOsca;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Gate;
 
 class R06DosenMengujiUjianOscaController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r06_menguji_ujian_oscas')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
          $pegawais = Pegawai::all();
          $r06mengujiujianoscas = R06MengujiUjianOsca::where('nip',$_SESSION['data']['kode'])
+                                                    ->where('periode_id',$this->periode->id)
                                                     ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/dosen/rubriks/r_06_menguji_ujian_oscas.index',[
             'pegawais'                =>  $pegawais,
-            'periode'                 =>  $periode,
             'r06mengujiujianoscas'    =>  $r06mengujiujianoscas,
         ]);
     }
@@ -49,12 +47,11 @@ class R06DosenMengujiUjianOscaController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = ($request->jumlah_mahasiswa/12)* $this->nilai_ewmp->ewmp;
 
         $simpan = R06MengujiUjianOsca::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
@@ -91,12 +88,10 @@ class R06DosenMengujiUjianOscaController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $periode = Periode::select('id')->where('is_active','1')->first();
-
         $point = ($request->jumlah_mahasiswa/12)* $this->nilai_ewmp->ewmp;
 
         $update = R06MengujiUjianOsca::where('id',$request->r06mengujiujianosca_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,

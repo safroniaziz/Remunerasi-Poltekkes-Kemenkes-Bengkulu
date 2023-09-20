@@ -16,20 +16,20 @@ use Illuminate\Support\Facades\Gate;
 class R11DosenMengembangkanModulBerisbnController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r011_mengembangkan_modul_berisbns')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         $pegawais = Pegawai::all();
         $r011mengembangkanmodulberisbns = R011MengembangkanModulBerisbn::where('nip',$_SESSION['data']['kode'])
+                                                                        ->where('periode_id',$this->periode->id)
                                                                        ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
         return view('backend/dosen/rubriks/r_011_mengembangkan_modul_berisbns.index',[
            'pegawais'                             =>  $pegawais,
-           'periode'                              =>  $periode,
            'r011mengembangkanmodulberisbns'       =>  $r011mengembangkanmodulberisbns,
        ]);
    }
@@ -57,8 +57,6 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
         if ($request->penulis_ke=='penulis_utama') {
             $point = 0.5 * $this->nilai_ewmp->ewmp;
         }
@@ -67,7 +65,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
         }
 
        $simpan = R011MengembangkanModulBerisbn::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,
@@ -113,8 +111,6 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
         if ($request->penulis_ke=='penulis_utama') {
             $point = 0.5 * $this->nilai_ewmp->ewmp;
         }
@@ -123,7 +119,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
         }
 
        $update = R011MengembangkanModulBerisbn::where('id',$request->r011mengembangkanmodulberisbn_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
         'isbn'              =>  $request->isbn,

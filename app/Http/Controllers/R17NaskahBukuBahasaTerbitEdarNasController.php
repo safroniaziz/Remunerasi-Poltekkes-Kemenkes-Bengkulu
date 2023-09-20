@@ -20,18 +20,18 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r017_naskah_buku_bahasa_terbit_edar_nas')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r017-naskah-buku-bahasa-terbit-edar-nas')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$request->session()->get('nip_dosen'))
                                                                               ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
-           'periode'                              =>  $periode,
+           'periode'                              =>  $this->periode->id,
            'r017naskahbukubahasaterbitedarnas'    =>  $r017naskahbukubahasaterbitedarnas,
        ]);
    }
@@ -56,12 +56,12 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R017NaskahBukuBahasaTerbitEdarNas::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,
@@ -106,12 +106,12 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R017NaskahBukuBahasaTerbitEdarNas::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul_buku'        =>  $request->judul_buku,
         'isbn'              =>  $request->isbn,

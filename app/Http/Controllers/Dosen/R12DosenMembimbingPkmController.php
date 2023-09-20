@@ -13,15 +13,19 @@ use Illuminate\Support\Facades\Gate;
 
 class R12DosenMembimbingPkmController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
         $pegawais = Pegawai::all();
         $r012membimbingpkms = R012MembimbingPkm::where('nip',$_SESSION['data']['kode'])
+                                                ->where('periode_id',$this->periode->id)
                                                ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
         return view('backend/dosen/rubriks/r_012_membimbing_pkms.index',[
            'pegawais'                 =>  $pegawais,
-           'periode'                  =>  $periode,
            'r012membimbingpkms'       =>  $r012membimbingpkms,
        ]);
    }
@@ -46,7 +50,6 @@ class R12DosenMembimbingPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
         if ($request->tingkat_pkm == "internasional") {
             if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
                 $ewmp = 2;
@@ -62,7 +65,7 @@ class R12DosenMembimbingPkmController extends Controller
         }
         $point = $ewmp/$request->jumlah_pembimbing;
        $simpan = R012MembimbingPkm::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'tingkat_pkm'       =>  $request->tingkat_pkm,
         'juara_ke'          =>  $request->juara_ke,
@@ -105,7 +108,6 @@ class R12DosenMembimbingPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
         if ($request->tingkat_pkm == "internasional") {
             if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
                 $ewmp = 2;
@@ -121,7 +123,7 @@ class R12DosenMembimbingPkmController extends Controller
         }
         $point = $ewmp/$request->jumlah_pembimbing;
         $update = R012MembimbingPkm::where('id',$request->r012membimbingpkm_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'tingkat_pkm'       =>  $request->tingkat_pkm,
             'juara_ke'          =>  $request->juara_ke,

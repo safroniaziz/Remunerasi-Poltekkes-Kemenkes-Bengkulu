@@ -15,23 +15,25 @@ use Illuminate\Support\Facades\Gate;
 class R05MembimbingPraktikPkkPblKlinikController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r05_membimbing_praktik_pkk_pbl_kliniks')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(Request $request){
         if (!Gate::allows('read-r05-membimbing-praktik-pkk-pbl-klinik')) {
             abort(403);
         }
          $pegawais = Pegawai::all();
          $r05membimbingpraktikpkkpblkliniks = R05MembimbingPraktikPkkPblKlinik::where('nip',$request->session()->get('nip_dosen'))
+                                                                             ->where('periode_id',$this->periode->id)
                                                                               ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
             'pegawais'                             =>  $pegawais,
-            'periode'                              =>  $periode,
+            'periode'                              =>  $this->periode->id,
             'r05membimbingpraktikpkkpblkliniks'    =>  $r05membimbingpraktikpkkpblkliniks,
         ]);
     }
@@ -60,12 +62,11 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = (($request->jumlah_tatap_muka/6)*($request->jumlah_mahasiswa/12))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $simpan = R05MembimbingPraktikPkkPblKlinik::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
@@ -115,12 +116,11 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
-
+        
         $point = (($request->jumlah_tatap_muka/6)*($request->jumlah_mahasiswa/12))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $update = R05MembimbingPraktikPkkPblKlinik::where('id',$request->r05membimbingpraktikpkkpblklinik_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,

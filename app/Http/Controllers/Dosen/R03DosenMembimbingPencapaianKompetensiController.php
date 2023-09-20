@@ -7,28 +7,27 @@ use App\Models\R03MembimbingPencapaianKompetensi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class R03DosenMembimbingPencapaianKompetensiController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r03_membimbing_pencapaian_kompetensis')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
          $pegawais = Pegawai::all();
          $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$_SESSION['data']['kode'])
+                                                                                ->where('periode_id',$this->periode->id)
                                                                                 ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/dosen/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
-            'periode'                               =>  $periode,
             'r03membimbingpencapaiankompetensis'    =>  $r03membimbingpencapaiankompetensis,
         ]);
     }
@@ -48,12 +47,11 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
         $simpan = R03MembimbingPencapaianKompetensi::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
@@ -89,12 +87,11 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
         $update = R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,

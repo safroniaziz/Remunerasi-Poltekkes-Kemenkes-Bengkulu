@@ -16,20 +16,21 @@ use Illuminate\Support\Facades\Gate;
 class R24DosenTimAkredProdiDanDirektoratController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r024_tim_akred_prodi_dan_direktorats')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         $pegawais = Pegawai::all();
         $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$_SESSION['data']['kode'])
+                                                                    ->where('periode_id',$this->periode->id)
                                                                     ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+        
         return view('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
-           'periode'                        =>  $periode,
            'r024timakredprodirektorats'     =>  $r024timakredprodirektorats,
        ]);
    }
@@ -48,12 +49,11 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
+       
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R024TimAkredProdiDanDirektorat::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
@@ -71,7 +71,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        }
    }
    public function edit($r24timakredprodirektorat){
-    return R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->first();
+        return R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->first();
    }
 
    public function update(Request $request, R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){
@@ -88,12 +88,11 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
+       
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,

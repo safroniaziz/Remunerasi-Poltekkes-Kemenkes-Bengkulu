@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Gate;
 
 class R29MemperolehPenghargaanController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r029-memperoleh-penghargaan')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$request->session()->get('nip_dosen'))
                                                                ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
+           'periode'                               =>  $this->periode->id,
            'r029memperolehpenghargaans'     =>  $r029memperolehpenghargaans,
        ]);
    }
@@ -45,7 +45,7 @@ class R29MemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -53,7 +53,7 @@ class R29MemperolehPenghargaanController extends Controller
         }
         $point = $ewmp;
        $simpan = R029MemperolehPenghargaan::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_penghargaan' =>  $request->judul_penghargaan,
            'is_bkd'            =>  $request->is_bkd,
@@ -94,7 +94,7 @@ class R29MemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -102,7 +102,7 @@ class R29MemperolehPenghargaanController extends Controller
         }
         $point = $ewmp;
        $update = R029MemperolehPenghargaan::where('id',$request->r29memperolehpenghargaan_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_penghargaan'          =>  $request->judul_penghargaan,
            'is_bkd'                     =>  $request->is_bkd,

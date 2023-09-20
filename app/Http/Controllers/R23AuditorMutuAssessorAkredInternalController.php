@@ -20,18 +20,18 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r023_auditor_mutu_assessor_akred_internals')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r023-auditor-mutu-assessor-akred-internal')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::where('nip',$request->session()->get('nip_dosen'))
                                                                                      ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
+           'periode'                               =>  $this->periode->id,
            'r023auditormutuassessorakredinternals' =>  $r023auditormutuassessorakredinternals,
        ]);
    }
@@ -52,12 +52,12 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R023AuditorMutuAssessorAkredInternal::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
@@ -98,12 +98,12 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R023AuditorMutuAssessorAkredInternal::where('id',$request->r23auditmutuasesorakredinternal_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,

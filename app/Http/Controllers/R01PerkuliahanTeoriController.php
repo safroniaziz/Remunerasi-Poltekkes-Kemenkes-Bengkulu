@@ -16,24 +16,26 @@ use Illuminate\Support\Facades\Validator;
 class R01PerkuliahanTeoriController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r01_perkuliahan_teoris')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(Request $request){
         if (!Gate::allows('read-r01-perkuliahan-teori')) {
             abort(403);
         }
          $pegawais = Pegawai::all();
          $dataProdis = Prodi::all();
          $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$request->session()->get('nip_dosen'))
+                                                    ->where('periode_id',$this->periode->id)
                                                     ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
          return view('backend/rubriks/r_01_perkuliahan_teoris.index',[
             'pegawais'                =>  $pegawais,
-            'periode'                 =>  $periode,
+            'periode'                 =>  $this->periode->id,
             'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
             'dataProdis'    =>  $dataProdis,
         ]);
@@ -69,12 +71,11 @@ class R01PerkuliahanTeoriController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $simpan = R01PerkuliahanTeori::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'kode_kelas'       =>  $request->kode_kelas,
             'nama_matkul'        =>  $request->nama_matkul,
@@ -132,12 +133,11 @@ class R01PerkuliahanTeoriController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        $periode = Periode::select('id')->where('is_active','1')->first();
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'nama_matkul'        =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,

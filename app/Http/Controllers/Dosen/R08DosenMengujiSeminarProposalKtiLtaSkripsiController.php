@@ -8,20 +8,22 @@ use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Gate;
 
 class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
          $pegawais = Pegawai::all();
          $r08mengujiseminarproposalktiltaskripsis = R08MengujiSeminarProposalKtiLtaSkripsi::where('nip',$_SESSION['data']['kode'])
+                                                                                            ->where('periode_id',$this->periode->id)
                                                                                           ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
          return view('backend/dosen/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
             'pegawais'                                   =>  $pegawais,
-            'periode'                                    =>  $periode,
             'r08mengujiseminarproposalktiltaskripsis'    =>  $r08mengujiseminarproposalktiltaskripsis,
         ]);
     }
@@ -44,7 +46,6 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $periode = Periode::select('id')->where('is_active','1')->first();
         if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.05;
         }else{
@@ -52,7 +53,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
         $simpan = R08MengujiSeminarProposalKtiLtaSkripsi::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'jenis'             =>  $request->jenis,
@@ -92,7 +93,6 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $periode = Periode::select('id')->where('is_active','1')->first();
         if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.05;
         }else{
@@ -100,7 +100,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
         $update = R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$request->r08mengujiseminarproposal_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'jenis'             =>  $request->jenis,

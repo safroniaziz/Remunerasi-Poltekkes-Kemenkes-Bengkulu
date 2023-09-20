@@ -16,20 +16,21 @@ use Illuminate\Support\Facades\Gate;
 class R18DosenMendapatHibahPkmController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r018_mendapat_hibah_pkms')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         $pegawais = Pegawai::all();
         $r018mendapathibahpkms = R018MendapatHibahPkm::where('nip',$_SESSION['data']['kode'])
+                                                    ->where('periode_id',$this->periode->id)
                                                      ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
 
         return view('backend/dosen/rubriks/r_018_mendapat_hibah_pkms.index',[
            'pegawais'             =>  $pegawais,
-           'periode'              =>  $periode,
            'r018mendapathibahpkms' =>  $r018mendapathibahpkms,
        ]);
    }
@@ -49,12 +50,12 @@ class R18DosenMendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R018MendapatHibahPkm::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
         'is_bkd'            =>  $request->is_bkd,
@@ -90,12 +91,12 @@ class R18DosenMendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R018MendapatHibahPkm::where('id',$request->r018mendapathibahpkm_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_hibah_pkm'   =>  $request->judul_hibah_pkm,
         'is_bkd'            =>  $request->is_bkd,

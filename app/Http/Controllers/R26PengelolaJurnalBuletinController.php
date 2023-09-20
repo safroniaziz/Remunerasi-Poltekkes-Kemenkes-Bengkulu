@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Gate;
 
 class R26PengelolaJurnalBuletinController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r026-pengelola-jurnal-buletin')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$request->session()->get('nip_dosen'))
                                                                  ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_026_pengelola_jurnal_buletins.index',[
            'pegawais'                        =>  $pegawais,
-           'periode'                         =>  $periode,
+           'periode'                         =>  $this->periode->id,
            'r026pengelolajurnalbuletins'     =>  $r026pengelolajurnalbuletins,
        ]);
    }
@@ -49,7 +49,7 @@ class R26PengelolaJurnalBuletinController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }else{
@@ -57,7 +57,7 @@ class R26PengelolaJurnalBuletinController extends Controller
         }
         $point = $ewmp;
        $simpan = R026PengelolaJurnalBuletin::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
@@ -104,7 +104,7 @@ class R26PengelolaJurnalBuletinController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }else{
@@ -112,7 +112,7 @@ class R26PengelolaJurnalBuletinController extends Controller
         }
         $point = $ewmp;
        $update = R026PengelolaJurnalBuletin::where('id',$request->r26pengelolajurnalbuletin_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,

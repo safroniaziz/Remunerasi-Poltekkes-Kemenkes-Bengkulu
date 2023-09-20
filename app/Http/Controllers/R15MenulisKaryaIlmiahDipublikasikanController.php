@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Gate;
 
 class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r015-menulis-karya-ilmiah-dipublikasikan')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r015menuliskaryailmiahdipublikasikans = R015MenulisKaryaIlmiahDipublikasikan::where('nip',$request->session()->get('nip_dosen'))
                                                                                      ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.index',[
            'pegawais'                                    =>  $pegawais,
-           'periode'                                     =>  $periode,
+           'periode'                                     =>  $this->periode->id,
            'r015menuliskaryailmiahdipublikasikans'       =>  $r015menuliskaryailmiahdipublikasikans,
        ]);
    }
@@ -53,7 +53,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis == "Q1") {
             $ewmp = 15.00;
         }elseif ($request->jenis == "Q2") {
@@ -89,7 +89,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
        $simpan = R015MenulisKaryaIlmiahDipublikasikan::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
@@ -141,7 +141,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis == "Q1") {
             $ewmp = 15.00;
         }elseif ($request->jenis == "Q2") {
@@ -177,7 +177,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
        $update = R015MenulisKaryaIlmiahDipublikasikan::where('id',$request->r015karyailmiahpublikasi_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,

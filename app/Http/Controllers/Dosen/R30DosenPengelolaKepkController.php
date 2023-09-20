@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Gate;
 
 class R30DosenPengelolaKepkController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
         $pegawais = Pegawai::all();
         $r030pengelolakepks = R030PengelolaKepk::where('nip',$_SESSION['data']['kode'])
+                                                ->where('periode_id',$this->periode->id)
                                                ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+        
         return view('backend/dosen/rubriks/r_030_pengelola_kepks.index',[
            'pegawais'               =>  $pegawais,
-           'periode'                =>  $periode,
            'r030pengelolakepks'     =>  $r030pengelolakepks,
        ]);
    }
@@ -40,7 +45,7 @@ class R30DosenPengelolaKepkController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "ketua") {
             $ewmp = 1.50;
         }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {
@@ -50,7 +55,7 @@ class R30DosenPengelolaKepkController extends Controller
         }
         $point = $ewmp;
        $simpan = R030PengelolaKepk::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'jabatan'           =>  $request->jabatan,
            'is_bkd'            =>  $request->is_bkd,
@@ -85,7 +90,7 @@ class R30DosenPengelolaKepkController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "ketua") {
             $ewmp = 1.50;
         }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {
@@ -95,7 +100,7 @@ class R30DosenPengelolaKepkController extends Controller
         }
         $point = $ewmp;
        $update = R030PengelolaKepk::where('id',$request->r030pengelolakepk_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'jabatan'                    =>  $request->jabatan,
            'is_bkd'                     =>  $request->is_bkd,

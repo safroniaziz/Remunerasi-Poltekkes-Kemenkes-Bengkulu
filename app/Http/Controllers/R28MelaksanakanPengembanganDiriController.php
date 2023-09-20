@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Gate;
 
 class R28MelaksanakanPengembanganDiriController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r028-melaksanakan-pengembangan-diri')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r028melaksanakanpengembangandiris = R028MelaksanakanPengembanganDiri::where('nip',$request->session()->get('nip_dosen'))
                                                                              ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_028_melaksanakan_pengembangan_diris.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
+           'periode'                               =>  $this->periode->id,
            'r028melaksanakanpengembangandiris'     =>  $r028melaksanakanpengembangandiris,
        ]);
    }
@@ -45,7 +45,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis_kegiatan == "pelatihan") {
             $ewmp = 1.00;
         }elseif ($request->jenis_kegiatan == "workshop") {
@@ -55,7 +55,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
         }
         $point = $ewmp;
        $simpan = R028MelaksanakanPengembanganDiri::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
            'jenis_kegiatan'    =>  $request->jenis_kegiatan,
            'is_bkd'            =>  $request->is_bkd,
@@ -96,7 +96,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis_kegiatan == "pelatihan") {
             $ewmp = 1.00;
         }elseif ($request->jenis_kegiatan == "workshop") {
@@ -106,7 +106,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
         }
         $point = $ewmp;
        $update = R028MelaksanakanPengembanganDiri::where('id',$request->r28laksanakanpengembangandiri_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $request->session()->get('nip_dosen'),
            'jenis_kegiatan'             =>  $request->jenis_kegiatan,
            'is_bkd'                     =>  $request->is_bkd,

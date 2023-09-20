@@ -13,15 +13,19 @@ use Illuminate\Support\Facades\Gate;
 
 class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
         $pegawais = Pegawai::all();
         $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::where('nip',$_SESSION['data']['kode'])
+                                                                                    ->where('periode_id',$this->periode->id)
                                                                                    ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
         return view('backend/dosen/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
            'pegawais'                               =>  $pegawais,
-           'periode'                                =>  $periode,
            'r013orasiilmiahnarasumberbidangilmus'   =>  $r013orasiilmiahnarasumberbidangilmus,
        ]);
    }
@@ -43,8 +47,6 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
         if ($request->tingkatan_ke=='internasional') {
             $point = 3;
         }elseif ($request->tingkatan_ke=='nasional') {
@@ -54,7 +56,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
         }
 
        $simpan = R013OrasiIlmiahNarasumberBidangIlmu::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,
@@ -93,8 +95,6 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
         if ($request->tingkatan_ke=='internasional') {
             $point = 3;
         }elseif ($request->tingkatan_ke=='nasional') {
@@ -104,7 +104,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
         }
 
        $update = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$request->r013Orasiilmiahnarasumber_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'tingkatan_ke'      =>  $request->tingkatan_ke,

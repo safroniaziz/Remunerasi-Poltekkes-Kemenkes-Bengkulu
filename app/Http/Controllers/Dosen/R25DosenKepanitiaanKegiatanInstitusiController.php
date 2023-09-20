@@ -13,15 +13,21 @@ use Illuminate\Support\Facades\Gate;
 
 class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
         $pegawais = Pegawai::all();
         $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::where('nip',$_SESSION['data']['kode'])
+                                                                            ->where('periode_id',$this->periode->id)
                                                                              ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/dosen/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
            'r025kepanitiaankegiataninstitusis'     =>  $r025kepanitiaankegiataninstitusis,
        ]);
    }
@@ -42,7 +48,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {
@@ -52,7 +58,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
         }
         $point = $ewmp;
        $simpan = R025KepanitiaanKegiatanInstitusi::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'judul_kegiatan'    =>  $request->judul_kegiatan,
            'jabatan'           =>  $request->jabatan,
@@ -90,7 +96,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {
@@ -100,7 +106,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
         }
         $point = $ewmp;
        $update = R025KepanitiaanKegiatanInstitusi::where('id',$request->r25panitiakegiataninstitusi_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
            'jabatan'                    =>  $request->jabatan,

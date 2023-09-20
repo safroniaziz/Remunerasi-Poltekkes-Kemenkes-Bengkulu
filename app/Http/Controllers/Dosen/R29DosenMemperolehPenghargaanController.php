@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Gate;
 
 class R29DosenMemperolehPenghargaanController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
         $pegawais = Pegawai::all();
         $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$_SESSION['data']['kode'])
+                                                                ->where('periode_id',$this->periode->id)
                                                                ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+        
         return view('backend/dosen/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $periode,
            'r029memperolehpenghargaans'     =>  $r029memperolehpenghargaans,
        ]);
    }
@@ -40,7 +45,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -48,7 +53,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
         }
         $point = $ewmp;
        $simpan = R029MemperolehPenghargaan::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'judul_penghargaan' =>  $request->judul_penghargaan,
            'is_bkd'            =>  $request->is_bkd,
@@ -83,7 +88,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -91,7 +96,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
         }
         $point = $ewmp;
        $update = R029MemperolehPenghargaan::where('id',$request->r29memperolehpenghargaan_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_penghargaan'          =>  $request->judul_penghargaan,
            'is_bkd'                     =>  $request->is_bkd,

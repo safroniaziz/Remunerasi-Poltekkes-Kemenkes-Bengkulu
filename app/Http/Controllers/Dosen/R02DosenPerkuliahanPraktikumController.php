@@ -6,12 +6,9 @@ use App\Models\Prodi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
 use App\Models\R02PerkuliahanPraktikum;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\ApiEncController;
 
@@ -28,7 +25,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r02_perkuliahan_praktikums')->first();
     }
 
-    public function index(Request $request){
+    public function index(){
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
          $r02perkuliahanpraktikum = R02PerkuliahanPraktikum::where('nip',$_SESSION['data']['kode'])

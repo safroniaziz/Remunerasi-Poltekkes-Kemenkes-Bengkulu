@@ -16,20 +16,21 @@ use Illuminate\Support\Facades\Gate;
 class R20DosenAssessorBkdLkdController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r020_assessor_bkd_lkds')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         $pegawais = Pegawai::all();
         $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$_SESSION['data']['kode'])
+                                                ->where('periode_id',$this->periode->id)
                                                  ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+        
         return view('backend/dosen/rubriks/r_020_assessor_bkd_lkds.index',[
            'pegawais'               =>  $pegawais,
-           'periode'                =>  $periode,
            'r020assessorbkdlkds'    =>  $r020assessorbkdlkds,
        ]);
    }
@@ -49,12 +50,11 @@ class R20DosenAssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
+       
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
        $simpan = R020AssessorBkdLkd::create([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  $request->is_bkd,
@@ -90,12 +90,12 @@ class R20DosenAssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
        $update = R020AssessorBkdLkd::where('id',$request->r020assessorbkdlkd_id_edit)->update([
-           'periode_id'        =>  $periode->id,
+           'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_dosen'      =>  $request->jumlah_dosen,
            'is_bkd'            =>  $request->is_bkd,

@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Gate;
 
 class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(){
         $pegawais = Pegawai::all();
         $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::where('nip',$_SESSION['data']['kode'])
+                                                                            ->where('periode_id',$this->periode->id)
                                                                              ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
-
+        
         return view('backend/dosen/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[
            'pegawais'                               =>  $pegawais,
-           'periode'                                =>  $periode,
            'r019latihnyuluhnatarceramahwargas'       =>  $r019latihnyuluhnatarceramahwargas,
        ]);
    }
@@ -42,8 +47,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis == "insidentil") {
             $ewmp = 0.50;
         }else{
@@ -51,7 +55,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         }
         $point = $ewmp;
        $simpan = R019LatihNyuluhNatarCeramahWarga::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,
@@ -89,8 +93,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
        if ($request->jenis == "insidentil") {
             $ewmp = 0.50;
         }else{
@@ -98,7 +101,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         }
         $point = $ewmp;
        $update = R019LatihNyuluhNatarCeramahWarga::where('id',$request->r019latihnyuluhnatarceramahwarga_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
         'jenis'             =>  $request->jenis,

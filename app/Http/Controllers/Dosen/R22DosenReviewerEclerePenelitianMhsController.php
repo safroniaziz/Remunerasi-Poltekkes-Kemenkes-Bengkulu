@@ -16,20 +16,22 @@ use Illuminate\Support\Facades\Gate;
 class R22DosenReviewerEclerePenelitianMhsController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r022_reviewer_eclere_penelitian_mhs')->first();
     }
 
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         $pegawais = Pegawai::all();
         $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::where('nip',$_SESSION['data']['kode'])
+                                                                            ->where('periode_id',$this->periode->id)
                                                                           ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
-           'periode'                            =>  $periode,
            'r022reviewereclerepenelitianmhs'    =>  $r022reviewereclerepenelitianmhs,
        ]);
    }
@@ -47,12 +49,11 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
-
+       
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R022ReviewerEclerePenelitianMhs::create([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
            'is_bkd'                     =>  $request->is_bkd,
@@ -87,12 +88,11 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       $periode = Periode::select('id')->where('is_active','1')->first();
 
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R022ReviewerEclerePenelitianMhs::where('id',$request->r22revieweclerepenelitimhs_id_edit)->update([
-           'periode_id'                 =>  $periode->id,
+           'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
            'is_bkd'                     =>  $request->is_bkd,

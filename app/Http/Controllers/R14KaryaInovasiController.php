@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Gate;
 
 class R14KaryaInovasiController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    public function index(){
         if (!Gate::allows('read-r014-karya-inovasi')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r014karyainovasis = R014KaryaInovasi::where('nip',$request->session()->get('nip_dosen'))
                                              ->orderBy('created_at','desc')->get();
-        $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+        
 
         return view('backend/rubriks/r_014_karya_inovasis.index',[
            'pegawais'                =>  $pegawais,
-           'periode'                 =>  $periode,
+           'periode'                 =>  $this->periode->id,
            'r014karyainovasis'       =>  $r014karyainovasis,
        ]);
    }
@@ -53,7 +53,7 @@ class R14KaryaInovasiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis == "menghasilkan_pendapatan_blu") {
             $ewmp = 5.00;
         }elseif ($request->jenis == "paten_yang_belum_dikonversi") {
@@ -69,7 +69,7 @@ class R14KaryaInovasiController extends Controller
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
        $simpan = R014KaryaInovasi::create([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,
@@ -120,7 +120,7 @@ class R14KaryaInovasiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       $periode = Periode::select('id')->where('is_active','1')->first();
+       
         if ($request->jenis == "menghasilkan_pendapatan_blu") {
             $ewmp = 5.00;
         }elseif ($request->jenis == "paten_yang_belum_dikonversi") {
@@ -136,7 +136,7 @@ class R14KaryaInovasiController extends Controller
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
        $update = R014KaryaInovasi::where('id',$request->r014karyainovasi_id_edit)->update([
-        'periode_id'        =>  $periode->id,
+        'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
         'penulis_ke'        =>  $request->penulis_ke,

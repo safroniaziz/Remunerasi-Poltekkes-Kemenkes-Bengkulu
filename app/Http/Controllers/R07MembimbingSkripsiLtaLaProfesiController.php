@@ -12,18 +12,25 @@ use Illuminate\Support\Facades\Gate;
 
 class R07MembimbingSkripsiLtaLaProfesiController extends Controller
 {
-    public function index(Request $request, Pegawai $pegawai){
+    private $periode;
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+
+    public function index(Request $request){
         if (!Gate::allows('read-r07-membimbing-skripsi-lta-la-profesi')) {
             abort(403);
         }
          $pegawais = Pegawai::all();
          $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::where('nip',$request->session()->get('nip_dosen'))
+                                                                            ->where('periode_id',$this->periode->id)
                                                                             ->orderBy('created_at','desc')->get();
-         $periode = Periode::select('nama_periode')->where('is_active','1')->first();
+         
 
          return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
             'pegawais'                             =>  $pegawais,
-            'periode'                              =>  $periode,
+            'periode'                              =>  $this->periode->id,
             'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,
         ]);
     }
@@ -49,7 +56,6 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $periode = Periode::select('id')->where('is_active','1')->first();
         if ($request->pembimbing_ke == "pembimbing_utama") {
             $ewmp = 0.25;
         }else{
@@ -57,7 +63,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
         $simpan = R07MembimbingSkripsiLtaLaProfesi::create([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
@@ -103,7 +109,6 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $periode = Periode::select('id')->where('is_active','1')->first();
         if ($request->pembimbing_ke == "pembimbing_utama") {
             $ewmp = 0.25;
         }else{
@@ -111,7 +116,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
         $update = R07MembimbingSkripsiLtaLaProfesi::where('id',$request->r07membimbingskripsiltalaprofesi_id_edit)->update([
-            'periode_id'        =>  $periode->id,
+            'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'pembimbing_ke'     =>  $request->pembimbing_ke,
