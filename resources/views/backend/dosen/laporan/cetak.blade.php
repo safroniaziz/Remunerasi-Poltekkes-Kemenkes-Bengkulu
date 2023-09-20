@@ -24,6 +24,9 @@
             <tr>
                 <th>Total Point {{ $riwayatPoint->point }}</th>
             </tr>
+            <tr>
+                
+            </tr>
         @endforeach
     </table>
 </body>
