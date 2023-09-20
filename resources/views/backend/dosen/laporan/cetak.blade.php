@@ -51,8 +51,10 @@
             @endphp
             @if ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
                 @include('backend/dosen/laporan._r01')
-            @elseif ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
+            @elseif ($riwayatPoint->kode_rubrik == "r02_perkuliahan_praktikums")
                 @include('backend/dosen/laporan._r02')
+            @elseif ($riwayatPoint->kode_rubrik == "r03_membimbing_pencapaian_kompetensis")
+                @include('backend/dosen/laporan._r03')
             @endif
         @endforeach
     </table>
