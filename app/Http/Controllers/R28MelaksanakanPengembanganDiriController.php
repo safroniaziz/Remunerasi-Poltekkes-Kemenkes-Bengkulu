@@ -28,7 +28,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
 
         return view('backend/rubriks/r_028_melaksanakan_pengembangan_diris.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $this->periode->id,
+           'periode'                               =>  $this->periode,
            'r028melaksanakanpengembangandiris'     =>  $r028melaksanakanpengembangandiris,
        ]);
    }

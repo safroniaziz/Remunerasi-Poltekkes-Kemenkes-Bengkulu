@@ -30,7 +30,7 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
 
          return view('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
             'pegawais'                                   =>  $pegawais,
-            'periode'                                    =>  $this->periode->id,
+            'periode'                                    =>  $this->periode,
             'r08mengujiseminarproposalktiltaskripsis'    =>  $r08mengujiseminarproposalktiltaskripsis,
         ]);
     }

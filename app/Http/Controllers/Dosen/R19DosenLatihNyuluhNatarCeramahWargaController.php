@@ -27,6 +27,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         
         return view('backend/dosen/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[
            'pegawais'                               =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r019latihnyuluhnatarceramahwargas'       =>  $r019latihnyuluhnatarceramahwargas,
        ]);
    }

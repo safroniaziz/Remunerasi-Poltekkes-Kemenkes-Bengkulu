@@ -31,10 +31,9 @@ class R03MembimbingPencapaianKompetensiController extends Controller
                                                                                 ->where('periode_id',$this->periode->id)
                                                                                 ->orderBy('created_at','desc')->get();
          
-
          return view('backend/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
-            'periode'                               =>  $this->periode->id,
+            'periode'                               =>  $this->periode,
             'r03membimbingpencapaiankompetensis'    =>  $r03membimbingpencapaiankompetensis,
         ]);
     }

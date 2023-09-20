@@ -18,7 +18,7 @@ class GeneratePointRubrikController extends Controller
     private $periode;
     public function __construct()
     {
-        $this->periode = Periode::select('id','nama_periode')->where('is_active','1')->first();
+        $this->periode = Periode::select('id','nama_periode')->where('is_active',1)->first();
     }
 
     public function index(){

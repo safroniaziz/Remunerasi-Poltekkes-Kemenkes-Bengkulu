@@ -26,6 +26,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
                                                                                    ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
            'pegawais'                               =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r013orasiilmiahnarasumberbidangilmus'   =>  $r013orasiilmiahnarasumberbidangilmus,
        ]);
    }

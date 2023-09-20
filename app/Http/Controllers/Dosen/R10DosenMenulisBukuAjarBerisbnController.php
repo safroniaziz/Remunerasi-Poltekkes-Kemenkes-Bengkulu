@@ -27,6 +27,7 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
                                                                  ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
            'pegawais'                          =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r010menulisbukuajarberisbns'       =>  $r010menulisbukuajarberisbns,
        ]);
    }

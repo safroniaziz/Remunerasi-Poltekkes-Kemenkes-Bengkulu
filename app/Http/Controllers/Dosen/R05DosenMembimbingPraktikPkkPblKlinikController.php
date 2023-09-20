@@ -28,6 +28,7 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 
          return view('backend/dosen/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
             'pegawais'                             =>  $pegawais,
+            'periode'                 =>  $this->periode,
             'r05membimbingpraktikpkkpblkliniks'    =>  $r05membimbingpraktikpkkpblkliniks,
         ]);
     }

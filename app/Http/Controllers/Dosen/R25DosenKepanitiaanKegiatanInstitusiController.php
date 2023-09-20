@@ -28,6 +28,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
 
         return view('backend/dosen/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
            'pegawais'                              =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r025kepanitiaankegiataninstitusis'     =>  $r025kepanitiaankegiataninstitusis,
        ]);
    }

@@ -33,7 +33,7 @@ class R11MengembangkanModulBerisbnController extends Controller
 
         return view('backend/rubriks/r_011_mengembangkan_modul_berisbns.index',[
            'pegawais'                             =>  $pegawais,
-           'periode'                              =>  $this->periode->id,
+           'periode'                              =>  $this->periode,
            'r011mengembangkanmodulberisbns'       =>  $r011mengembangkanmodulberisbns,
        ]);
    }

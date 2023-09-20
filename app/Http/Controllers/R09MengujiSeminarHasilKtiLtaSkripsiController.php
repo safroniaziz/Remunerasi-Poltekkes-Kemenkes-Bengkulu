@@ -29,7 +29,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
         
         return view('backend/rubriks/r_09_menguji_seminar_hasil_kti_lta_skripsis.index',[
            'pegawais'                                   =>  $pegawais,
-           'periode'                                    =>  $this->periode->id,
+           'periode'                                    =>  $this->periode,
            'r09mengujiseminarhasilktiltaskripsis'       =>  $r09mengujiseminarhasilktiltaskripsis,
        ]);
    }

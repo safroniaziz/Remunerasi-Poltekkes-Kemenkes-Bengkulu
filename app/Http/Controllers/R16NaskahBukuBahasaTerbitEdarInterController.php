@@ -32,7 +32,7 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
 
         return view('backend/rubriks/r_016_naskah_buku_bahasa_terbit_edar_inters.index',[
            'pegawais'                             =>  $pegawais,
-           'periode'                              =>  $this->periode->id,
+           'periode'                              =>  $this->periode,
            'r016naskahbukubahasaterbitedarinters' =>  $r016naskahbukubahasaterbitedarinters,
        ]);
    }

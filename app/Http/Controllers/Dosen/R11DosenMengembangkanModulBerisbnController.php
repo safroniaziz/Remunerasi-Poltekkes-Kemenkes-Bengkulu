@@ -30,6 +30,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
                                                                        ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_011_mengembangkan_modul_berisbns.index',[
            'pegawais'                             =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r011mengembangkanmodulberisbns'       =>  $r011mengembangkanmodulberisbns,
        ]);
    }

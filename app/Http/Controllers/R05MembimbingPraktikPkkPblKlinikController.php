@@ -33,7 +33,7 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
 
          return view('backend/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
             'pegawais'                             =>  $pegawais,
-            'periode'                              =>  $this->periode->id,
+            'periode'                              =>  $this->periode,
             'r05membimbingpraktikpkkpblkliniks'    =>  $r05membimbingpraktikpkkpblkliniks,
         ]);
     }

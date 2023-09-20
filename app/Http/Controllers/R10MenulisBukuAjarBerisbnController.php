@@ -34,7 +34,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
 
         return view('backend/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
            'pegawais'                          =>  $pegawais,
-           'periode'                           =>  $this->periode->id,
+           'periode'                           =>  $this->periode,
            'r010menulisbukuajarberisbns'       =>  $r010menulisbukuajarberisbns,
        ]);
    }

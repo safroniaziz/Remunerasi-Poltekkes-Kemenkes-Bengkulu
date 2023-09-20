@@ -24,6 +24,7 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
                                                                                           ->orderBy('created_at','desc')->get();
          return view('backend/dosen/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
             'pegawais'                                   =>  $pegawais,
+            'periode'                 =>  $this->periode,
             'r08mengujiseminarproposalktiltaskripsis'    =>  $r08mengujiseminarproposalktiltaskripsis,
         ]);
     }

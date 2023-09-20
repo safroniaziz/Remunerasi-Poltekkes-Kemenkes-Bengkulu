@@ -26,6 +26,7 @@ class R12DosenMembimbingPkmController extends Controller
                                                ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_012_membimbing_pkms.index',[
            'pegawais'                 =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r012membimbingpkms'       =>  $r012membimbingpkms,
        ]);
    }

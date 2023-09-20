@@ -32,6 +32,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
 
         return view('backend/dosen/rubriks/r_021_reviewer_eclere_penelitian_dosens.index',[
            'pegawais'                              =>  $pegawais,
+           'periode'                 =>  $this->periode,
            'r021reviewereclerepenelitiandosens'    =>  $r021reviewereclerepenelitiandosens,
        ]);
    }
