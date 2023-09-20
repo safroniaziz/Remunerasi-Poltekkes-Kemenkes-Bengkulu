@@ -45,17 +45,17 @@ class LaporanDosenController extends Controller
                             $query->where('periode_id', $periode->id);
                         }])
                         ->first();
-        if ($riwayatPoints->riwayatPointAlls->count() <1) {
-            return redirect()->back()->with(['error'    =>  'Mohon maaf, riwayat kinerja remunerasi pada periode yang dipilih tidak ditemukan']);
+        if ($riwayatPoints && $riwayatPoints->riwayatPointAlls->count() > 0) {
+            $judul = $periode->nama_periode;
+            $data = [
+                'riwayatPoints' => $riwayatPoints,
+                'judul' => $judul,
+                'periode' => $periode,
+                'nip'       =>  $_SESSION['data']['kode'],
+            ];
+            $pdf = PDF::loadView('backend/dosen/laporan.cetak', $data); // Ganti 'nama_view' dengan nama view Anda
+            return $pdf->stream('laporan_remun_periode_'.$nama_periode.'.pdf');
         }
-        $judul = $periode->nama_periode;
-        $data = [
-            'riwayatPoints' => $riwayatPoints,
-            'judul' => $judul,
-            'periode' => $periode,
-            'nip'       =>  $_SESSION['data']['kode'],
-        ];
-        $pdf = PDF::loadView('backend/dosen/laporan.cetak', $data); // Ganti 'nama_view' dengan nama view Anda
-        return $pdf->stream('laporan_remun_periode_'.$nama_periode.'.pdf');
+        return redirect()->back()->with('error', 'Mohon maaf, riwayat kinerja remunerasi pada periode yang dipilih tidak ditemukan');
     }
 }
