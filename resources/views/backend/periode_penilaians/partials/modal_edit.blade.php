@@ -32,7 +32,7 @@
 
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Bulan</label>
-                            <select name="bulan_edit" class="form-control" id="bulan">
+                            <select name="bulan_edit" class="form-control" id="bulan_edit">
                                 <option disabled selected>-- pilih bulan--</option>
                                 <option value="1">Januari</option>
                                 <option value="2">Februari</option>

@@ -165,6 +165,7 @@
                     $('#nama_periode_edit').val(data.nama_periode);
                     $('#semester_edit').val(data.semester);
                     $('#tahun_ajaran_edit').val(data.tahun_ajaran);
+                    $('#bulan_edit').val(data.bulan);
                     $('#bulan_pembayaran_edit').val(data.bulan_pembayaran);
                 },
                 error:function(){
