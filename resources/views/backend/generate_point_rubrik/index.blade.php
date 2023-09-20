@@ -60,19 +60,19 @@
                                 <a onclick="generatePointRubrik()" href="{{ route('generate_point_rubrik.generate') }}" class="btn btn-primary btn-sm btn-flat" id="btnGenerate"><i class="fa fa-refresh fa-spin"></i>&nbsp; Generate Point Rubrik</a>
                             @else
                                 <div class="row">
-                                    <form action="{{ route('generate_point_massal') }}" method="POST">
-                                        {{ csrf_field() }} {{ method_field('PATCH') }}
-                                        <div class="col-md-12" id="btnPerbaruiMassal" style="margin-bottom: 3px !important;">
+                                    {{-- <form action="{{ route('generate_point_massal') }}" method="POST">
+                                        {{ csrf_field() }} {{ method_field('PATCH') }} --}}
+                                        {{-- <div class="col-md-12" id="btnPerbaruiMassal" style="margin-bottom: 3px !important;">
                                             <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Perbarui Massal</button>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-12">
                                             <table class="table table-hover table-bordered table-striped" style="width: 100%" id="table">
                                                 <thead class="bg-primary">
                                                     <tr>
-                                                        <th style="text-align:center; vertical-align:middle" >
+                                                        {{-- <th style="text-align:center; vertical-align:middle" >
                                                             <input type="checkbox" class="selectbox selectall">
-                                                        </th>
+                                                        </th> --}}
                                                         <th style="vertical-align:middle">No</th>
                                                         <th style="vertical-align:middle">Nama Rubrik</th>
                                                         <th style="vertical-align:middle">Periode</th>
@@ -98,7 +98,7 @@
                                                             style="background:#f2dede"
                                                         @endif>
 
-                                                            @if (abs($statusPoint - $dataPoint) <= $tolerance)
+                                                            {{-- @if (abs($statusPoint - $dataPoint) <= $tolerance)
                                                                 <td style="text-align:center;">
                                                                     <input type="checkbox" disabled>
                                                                 </td>
@@ -106,7 +106,7 @@
                                                                 <td style="text-align:center;">
                                                                     <input type="checkbox" name="kode_rubriks[]" class="selectbox" value="{{ $dataRubrik->kode_rubrik }}">
                                                                 </td>
-                                                            @endif
+                                                            @endif --}}
                                                             <td>{{ $index+1 }}</td>
                                                             <td style="width: 40% !important; ">{{ $dataRubrik->nama_rubrik }}</td>
                                                             <td>{{ $dataRubrik->periode->nama_periode }}</td>
@@ -123,14 +123,14 @@
                                                                 @endif
                                                             </td>
                                                             <td style="text-align: center">
-                                                                @if (number_format($statusRubrik->total_point,2) != number_format($dataRubrik->total_point,2))
+                                                                @if (abs($statusPoint - $dataPoint) > $tolerance)
                                                                     <a href="{{ route('generate_point_per_rubrik',[$dataRubrik->kode_rubrik]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Perbarui</a>
                                                                 @else
                                                                     <a class="btn btn-primary btn-sm btn-flat" disabled style="cursor: not-allowed"><i class="fa fa-refresh"></i>&nbsp; Perbarui</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
-                                                                @if (number_format($statusRubrik->total_point,2) != number_format($dataRubrik->total_point,2))
+                                                                @if (abs($statusPoint - $dataPoint) > $tolerance)
                                                                     <a class="btn btn-info btn-flat btn-sm" disabled ><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
                                                                 @else
                                                                     <a href="{{ route('detail_isian_rubrik',[$dataRubrik->kode_rubrik]) }}" class="btn btn-info btn-flat btn-sm"><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
