@@ -98,7 +98,7 @@
 @endcan
 
 @can('view-point-rubrik-dosen')
-    <li class="{{ set_active(['point_rubrik_dosen']) }}">
+    <li class="{{ set_active(['point_rubrik_dosen','point_rubriK_dosen.detail','point_rubrik_dosen.detail_rubrik']) }}">
         <a href="{{ route('point_rubrik_dosen') }}">
             <i class="fa fa-exchange-alt"></i>
             <span>Point Rubrik Dosen</span>
