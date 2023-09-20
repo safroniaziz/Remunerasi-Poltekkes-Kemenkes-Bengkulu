@@ -39,7 +39,7 @@
                                     {{ csrf_field() }} {{ method_field('POST') }}
                                     <div class="form-group col-md-12">
                                         <label for="">Pilih Periode Remunerasi</label>
-                                        <select name="kodeProdi" id="kodeProdi" class="form-control">
+                                        <select name="periode_id" id="periode_id" class="form-control">
                                             <option disabled selected>-- pilih periode --</option> 
                                             @foreach ($periodes as $periode)
                                                 <option value="{{ $periode->id }}">{{ $periode->nama_periode }}</option>
