@@ -72,7 +72,18 @@
                                             <td class="text-center">{{ $r014karyainovasi->judul }}</td>
                                             <td class="text-center">{{ $r014karyainovasi->penulis_ke == "penulis_utama" ? 'Penulis Utama' : 'Penulis Anggota' }}</td>
                                             <td class="text-center">{{ $r014karyainovasi->jumlah_penulis }}</td>
-                                            <td class="text-center" style="text-transform:capitalize">{{ $r014karyainovasi->jenis }}</td>
+                                            {{--  <td class="text-center" style="text-transform:capitalize">{{ $r014karyainovasi->jenis }}</td>  --}}
+                                            <td class="text-center">
+                                                @if ($r014karyainovasi->jenis == 'menghasilkan_pendapatan_blu')
+                                                   <small class="label label-danger">Menghasilkan Pendapatan BLU</small>
+                                                @elseif($r014karyainovasi->jenis == 'paten_yang_belum_dikonversi')
+                                                   <small class="label label-success">Paten Yang Belum Dikonversi</small>
+                                                @elseif($r014karyainovasi->jenis == 'paten_sederhana')
+                                                   <small class="label label-success">Paten Sederhana</small>
+                                                @else
+                                                   <small class="label label-success">HKI</small>
+                                                @endif
+                                            </td>
                                             <td class="text-center">
                                                 @if ($r014karyainovasi->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>
