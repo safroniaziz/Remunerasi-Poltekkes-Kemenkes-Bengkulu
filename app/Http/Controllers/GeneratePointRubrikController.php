@@ -122,7 +122,7 @@ class GeneratePointRubrikController extends Controller
     }
 
     public function rekapPointPerRubrik(RekapPerRubrik $rekapPerRubrik){
-        $total_point = DB::table($rekapPerRubrik->kode_rubrik)->select(DB::raw('IFNULL(sum(point),0) as total_point'))
+        $total_point = DB::table($rekapPerRubrik->kode_rubrik)->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
                             ->where('periode_id',$this->periode->id)
                             ->where('is_bkd',0)
                             ->where('is_verified',1)
