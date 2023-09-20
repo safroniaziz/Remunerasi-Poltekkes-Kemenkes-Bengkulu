@@ -31,9 +31,9 @@
                             ->where('is_verified',1)
                             ->get();
             @endphp
-            <tr>
-                <td>{{ $borangs }}</td>
-            </tr>
+            @if ($kodeRubrik == "r01_perkuliahan_teoris")
+                @include('backend/dosen/laporan._r01')
+            @endif
         @endforeach
     </table>
 </body>
