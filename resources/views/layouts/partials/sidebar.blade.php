@@ -106,6 +106,15 @@
     </li>
 @endcan
 
+@can('view-laporan-keuangan')
+    <li class="{{ set_active(['laporan_keuangan']) }}">
+        <a href="{{ route('laporan_keuangan') }}">
+            <i class="fa fa-chart-bar"></i>
+            <span>Laporan Daftar Nominatif</span>
+        </a>
+    </li>
+@endcan
+
 @can('read-periode')
     <li class="header" style="font-weight:bold">MANAJEMEN PENGATURAN</li>
     <li class="{{ set_active('periode_penilaian') }}">

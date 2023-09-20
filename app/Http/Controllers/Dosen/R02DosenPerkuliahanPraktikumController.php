@@ -224,7 +224,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
         $response = _curl_api($config['url'], json_encode($data));
         $response_array = json_decode($response, true);
-        $nipDosen = 4022026301;
+        $nipDosen = $_SESSION['data']['kode'];
         $res = ' ';
         $no = 1;
         if (count($response_array['data'])>0) {
@@ -280,6 +280,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'kdjen'=>$request->kodeJenjang,		// Kode Jenjang
                 'kdpst'=>$request->kodeProdi,		// Kode Prodi
                 'kdkmk'=>'',
+                'sks_mk'    =>  'praktikum',
                 'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
                 // 'offset'    =>  30,
                 'id_kls'    => $id_kelas,
@@ -343,7 +344,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'nip'           =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
-                'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
+                'jumlah_sks'   =>  $result['kelas']['sks_mk_info']['praktikum'] != null ? $result['kelas']['sks_mk_info']['praktikum'] : null ,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
                 'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
