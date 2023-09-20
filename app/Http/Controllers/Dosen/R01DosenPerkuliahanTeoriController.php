@@ -336,7 +336,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'presensi' =>  $response_array_presensi['data'][0]['detail'],
             ];
 
-            $jumlahSks = $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : 0;
+            $jumlahSks = $result['kelas']['sks_mk_info']['teori'] != null ? $result['kelas']['sks_mk_info']['teori'] : 0;
             $point = ((count($result['presensi'])/16)*($result['kelas']['jml_peserta']/40))* $this->nilai_ewmp->ewmp*$jumlahSks;
             $perkuliahan[]  =   array(
                 'periode_id'    =>  $this->periode->id,
@@ -344,7 +344,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'nip'   =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
-                'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
+                'jumlah_sks'   =>  $jumlahSks,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
                 'jumlah_tatap_muka' =>  count($result['presensi']),
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
