@@ -56,6 +56,8 @@ class LaporanDosenController extends Controller
             $pdf = PDF::loadView('backend/dosen/laporan.cetak', $data); // Ganti 'nama_view' dengan nama view Anda
             return $pdf->stream('laporan_remun_periode_'.$nama_periode.'.pdf');
         }
-        return redirect()->route('dosen.riwayatKinerja')->with(['error', 'Mohon maaf, riwayat kinerja remunerasi pada periode yang dipilih tidak ditemukan']);
+        return "<script>
+            toastr.error('Mohon maaf, riwayat kinerja remunerasi pada periode yang dipilih tidak ditemukan');
+        </script>";
     }
 }
