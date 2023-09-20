@@ -1,7 +1,6 @@
 @extends('layouts.app')
-@section('subTitle','Dashboard')
-@section('page','Dashboard')
-
+@section('subTitle','Detail Borang Per RUbrik')
+@section('page','Detail Borang Per RUbrik')
 @section('login_as')
     Selamat Datang,
 @endsection
@@ -83,26 +82,9 @@
                         </div>
                         <div class="col-md-12">
                             <table class="table table-hover table-striped table-bordered" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Rubrik</th>
-                                        <th>Total Point</th>
-                                        <th>Detail</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($dosen->riwayatPoints as $index => $riwayatPoint)
-                                        <tr>
-                                            <td>{{ $index+1 }}</td>
-                                            <td>{{ $riwayatPoint->nama_rubrik }}</td>
-                                            <td>{{ $riwayatPoint->point }}</td>
-                                            <td>
-                                                <a href="{{ route('point_rubrik_dosen.detail_rubrik',[$dosen->nip, $riwayatPoint->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-search"></i>&nbsp; Detail Point Per Rubrik</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
+                                @if ($kodeRubrik == "r01_perkuliahan_teoris")
+                                    @include('backend/point_rubrik_dosen._r01')
+                                @endif
                             </table>
                         </div>
                     </div>

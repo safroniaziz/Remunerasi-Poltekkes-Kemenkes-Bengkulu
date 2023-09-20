@@ -38,7 +38,11 @@ class PointRubrikDosenController extends Controller
         $borangs = $className::where('periode_id',$this->periode->id)
                             ->where('nip',$dosen->nip)
                             ->where('is_verified',1)
-                            ->first();
-                            return $borangs;
+                            ->get();
+        return view('backend/point_rubrik_dosen.detail_borang',[
+            'dosen'    =>  $dosen,
+            'borangs'    =>  $borangs,
+            'kodeRubrik'    =>  $riwayatPoint->kode_rubrik,
+        ]);
     }
 }
