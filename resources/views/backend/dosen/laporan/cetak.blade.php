@@ -7,6 +7,10 @@
         body {
             font-family: sans-serif; /* Menggunakan font sans-serif default */
         }
+
+        h1 {
+            font-size: 24px; /* Atur ukuran teks h1 sesuai preferensi Anda */
+        }
     </style>
 </head>
 <body>
