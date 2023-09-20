@@ -21,7 +21,7 @@
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row">
                         <div class="col-md-12" style="margin-bottom: 5px !important;">
-                            <a href="{{ route('generate_point_rubrik') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                            <a href="{{ route('point_rubrik_dosen') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                         </div>
                         <div class="col-md-12">
                             <table class="table table-hover table-striped" style="width: 100%">
