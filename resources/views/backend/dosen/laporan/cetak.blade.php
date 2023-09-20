@@ -15,7 +15,7 @@
         table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 16px; /* Sesuaikan ukuran font sesuai kebutuhan Anda */
+        font-size: 13px; /* Sesuaikan ukuran font sesuai kebutuhan Anda */
         }
 
         table.striped tbody tr:nth-child(odd) {
