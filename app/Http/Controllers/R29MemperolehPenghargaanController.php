@@ -23,7 +23,7 @@ class R29MemperolehPenghargaanController extends Controller
 
         return view('backend/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $this->periode->id,
+           'periode'                               =>  $this->periode,
            'r029memperolehpenghargaans'     =>  $r029memperolehpenghargaans,
        ]);
    }

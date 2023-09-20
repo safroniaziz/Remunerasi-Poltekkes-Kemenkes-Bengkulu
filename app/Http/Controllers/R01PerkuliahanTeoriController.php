@@ -35,7 +35,7 @@ class R01PerkuliahanTeoriController extends Controller
 
          return view('backend/rubriks/r_01_perkuliahan_teoris.index',[
             'pegawais'                =>  $pegawais,
-            'periode'                 =>  $this->periode->id,
+            'periode'                 =>  $this->periode,
             'r01perkuliahanteoris'    =>  $r01perkuliahanteoris,
             'dataProdis'    =>  $dataProdis,
         ]);

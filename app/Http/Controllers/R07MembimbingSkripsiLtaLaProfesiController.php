@@ -30,7 +30,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
 
          return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
             'pegawais'                             =>  $pegawais,
-            'periode'                              =>  $this->periode->id,
+            'periode'                              =>  $this->periode,
             'r07membimbingskripsiltalaprofesis'    =>  $r07membimbingskripsiltalaprofesis,
         ]);
     }

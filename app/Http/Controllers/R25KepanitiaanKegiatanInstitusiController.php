@@ -23,7 +23,7 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
 
         return view('backend/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
            'pegawais'                              =>  $pegawais,
-           'periode'                               =>  $this->periode->id,
+           'periode'                               =>  $this->periode,
            'r025kepanitiaankegiataninstitusis'     =>  $r025kepanitiaankegiataninstitusis,
        ]);
    }

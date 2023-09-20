@@ -23,7 +23,7 @@ class R14KaryaInovasiController extends Controller
 
         return view('backend/rubriks/r_014_karya_inovasis.index',[
            'pegawais'                =>  $pegawais,
-           'periode'                 =>  $this->periode->id,
+           'periode'                 =>  $this->periode,
            'r014karyainovasis'       =>  $r014karyainovasis,
        ]);
    }

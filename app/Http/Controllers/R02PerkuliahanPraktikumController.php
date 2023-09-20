@@ -36,7 +36,7 @@ class R02PerkuliahanPraktikumController extends Controller
          
          return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                    =>  $pegawais,
-            'periode'                     =>  $this->periode->id,
+            'periode'                     =>  $this->periode,
             'dataProdis'                 =>  $dataProdis,
             'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikums,
         ]);

@@ -32,7 +32,7 @@ class R04MembimbingPendampinganUkomController extends Controller
          
          return view('backend/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
             'pegawais'                          =>  $pegawais,
-            'periode'                           =>  $this->periode->id,
+            'periode'                           =>  $this->periode,
             'r04membimbingpendampinganukoms'    =>  $r04membimbingpendampinganukoms,
         ]);
     }

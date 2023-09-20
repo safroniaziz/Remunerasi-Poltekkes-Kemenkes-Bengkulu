@@ -33,7 +33,7 @@ class R06MengujiUjianOscaController extends Controller
          
          return view('backend/rubriks/r_06_menguji_ujian_oscas.index',[
             'pegawais'                =>  $pegawais,
-            'periode'                 =>  $this->periode->id,
+            'periode'                 =>  $this->periode,
             'r06mengujiujianoscas'    =>  $r06mengujiujianoscas,
         ]);
     }

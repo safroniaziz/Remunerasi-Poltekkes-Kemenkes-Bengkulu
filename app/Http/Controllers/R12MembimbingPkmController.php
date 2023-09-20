@@ -23,7 +23,7 @@ class R12MembimbingPkmController extends Controller
 
         return view('backend/rubriks/r_012_membimbing_pkms.index',[
            'pegawais'                 =>  $pegawais,
-           'periode'                  =>  $this->periode->id,
+           'periode'                  =>  $this->periode,
            'r012membimbingpkms'       =>  $r012membimbingpkms,
        ]);
    }
