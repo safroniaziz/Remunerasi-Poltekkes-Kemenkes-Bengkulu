@@ -11,12 +11,33 @@
         h1 {
             font-size: 18px; /* Atur ukuran teks h1 sesuai preferensi Anda */
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.striped tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        table.bordered th,
+        table.bordered td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table.bordered th {
+            background-color: #f2f2f2;
+        }
+
     </style>
 </head>
 <body>
     <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
-    <table style="width: 100%">
+    <table style="width: 100%" class="striped bordered">
         @foreach ($riwayatPoints->riwayatPoints as $riwayatPoint)
             @php
                 $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
