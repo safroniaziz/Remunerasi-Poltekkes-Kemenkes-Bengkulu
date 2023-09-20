@@ -18,10 +18,11 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
     private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r022_reviewer_eclere_penelitian_mhs')->first();
     }
 
-    public function index(){
+    public function index(Request $request){
         if (!Gate::allows('read-r022-reviewer-eclere-penelitian-mhs')) {
             abort(403);
         }

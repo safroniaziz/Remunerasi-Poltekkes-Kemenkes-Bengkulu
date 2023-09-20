@@ -19,10 +19,11 @@ class R21ReviewerEclerePenelitianDosenController extends Controller
 
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r021_reviewer_eclere_penelitian_dosens')->first();
     }
 
-    public function index(){
+    public function index(Request $request){
         if (!Gate::allows('read-r021-reviewer-eclere-penelitian-dosen')) {
             abort(403);
         }

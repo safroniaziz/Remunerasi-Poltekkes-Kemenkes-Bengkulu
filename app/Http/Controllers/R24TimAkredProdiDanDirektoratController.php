@@ -18,10 +18,11 @@ class R24TimAkredProdiDanDirektoratController extends Controller
     private $periode;
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r024_tim_akred_prodi_dan_direktorats')->first();
     }
 
-    public function index(){
+    public function index(Request $request){
         if (!Gate::allows('read-r024-tim-akred-prodi-dan-direktorat')) {
             abort(403);
         }

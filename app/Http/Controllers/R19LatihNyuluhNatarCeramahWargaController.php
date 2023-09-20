@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Gate;
 class R19LatihNyuluhNatarCeramahWargaController extends Controller
 {
     private $periode;
-    public function index(){
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+    public function index(Request $request){
         if (!Gate::allows('read-r019-latih-nyuluh-natar-ceramah-warga')) {
             abort(403);
         }

@@ -19,10 +19,11 @@ class R20AssessorBkdLkdController extends Controller
 
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r020_assessor_bkd_lkds')->first();
     }
 
-    public function index(){
+    public function index(Request $request){
         if (!Gate::allows('read-r020-assessor-bkd-lkd')) {
             abort(403);
         }

@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Gate;
 class R29MemperolehPenghargaanController extends Controller
 {
     private $periode;
-    public function index(){
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+    public function index(Request $request){
         if (!Gate::allows('read-r029-memperoleh-penghargaan')) {
             abort(403);
         }
