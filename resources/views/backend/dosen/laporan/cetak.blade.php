@@ -37,10 +37,10 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
+    <h1 style="text-align: center; text-transform:uppercase">Borang Remununerasi <br> {{ $judul }} <br>{{  }}</h1>
     <!-- ... Isi laporan Anda ... -->
     <table style="width: 100%" class="striped bordered">
-        @foreach ($riwayatPoints->riwayatPoints as $index => $riwayatPoint)
+        @foreach ($riwayatPoints->riwayatPointAlls as $index => $riwayatPoint)
             @php
                 $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
                 $borangs = $className::where('periode_id',$periode->id)
@@ -50,6 +50,8 @@
             @endphp
             @if ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
                 @include('backend/dosen/laporan._r01')
+            @elseif ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
+                @include('backend/dosen/laporan._r02')
             @endif
         @endforeach
     </table>
