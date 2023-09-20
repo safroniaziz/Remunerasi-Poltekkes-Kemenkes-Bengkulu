@@ -31,7 +31,7 @@
                             ->where('is_verified',1)
                             ->get();
             @endphp
-            @if ($kodeRubrik == "r01_perkuliahan_teoris")
+            @if ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
                 @include('backend/dosen/laporan._r01')
             @endif
         @endforeach
