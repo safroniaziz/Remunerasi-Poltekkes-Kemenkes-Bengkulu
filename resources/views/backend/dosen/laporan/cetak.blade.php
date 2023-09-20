@@ -40,7 +40,7 @@
     <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
     <table style="width: 100%" class="striped bordered">
-        @foreach ($riwayatPoints->riwayatPoints as $riwayatPoint)
+        @foreach ($riwayatPoints->riwayatPoints as $index => $riwayatPoint)
             @php
                 $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
                 $borangs = $className::where('periode_id',$periode->id)
