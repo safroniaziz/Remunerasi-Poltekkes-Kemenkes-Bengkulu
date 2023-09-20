@@ -1,4 +1,10 @@
 <thead>
+        <tr>
+            <td colspan="6">{{ $riwayatPoint->nama_rubrik }}</td>
+        </tr>
+        <tr>
+            <td colspan="6">Total Point {{ $riwayatPoint->point }}</td>
+        </tr>
     <tr>
         <th>No</th>
         <th>Nama Mata Kuliah </th>

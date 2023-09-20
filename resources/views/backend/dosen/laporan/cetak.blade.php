@@ -17,14 +17,6 @@
     <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
     <table style="width: 100%">
-        <tr>
-            <td>{{ $riwayatPoint->nama_rubrik }}</td>
-        </tr>
-        <tr>
-            <td>Total Point {{ $riwayatPoint->point }}</td>
-        </tr>
-    </table>
-    <table style="width: 100%">
         @foreach ($riwayatPoints->riwayatPoints as $riwayatPoint)
             @php
                 $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
