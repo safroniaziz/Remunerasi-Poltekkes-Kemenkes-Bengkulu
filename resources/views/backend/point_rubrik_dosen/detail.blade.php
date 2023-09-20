@@ -85,7 +85,26 @@
                                 <i class="fa fa-info-circle"></i>&nbsp;<b>Perhatian</b> : Data yang dimunculkan hanya rubrik yang berisi point
                             </div>
                         </div>
-                 
+                        <div class="col-md-12">
+                            <table class="table table-hover table-striped table-bordered" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Rubrik</th>
+                                        <th>Total Point</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($dosen->riwayatPoints as $index => $riwayatPoint)
+                                        <tr>
+                                            <td>{{ $index+1 }}</td>
+                                            <td>{{ $riwayatPoint->nama_rubrik }}</td>
+                                            <td>{{ $riwayatPoint->point }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
