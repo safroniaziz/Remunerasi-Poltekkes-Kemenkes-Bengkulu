@@ -47,7 +47,24 @@
                                 <tr>
                                     <th>Prodi Homebase</th>
                                     <th> : </th>
-                                    <td>{{ $dosen->prodi->nama_prodi }}</td>
+                                    <td>{{ $dosen->prodi? $dosen->prodi->nama_prodi : '-' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Jurusan</th>
+                                    <th> : </th>
+                                    <td>{{ $dosen->jurusan ? $dosen->jurusan : '-' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Nomor Rekening</th>
+                                    <th> : </th>
+                                    <td>{{ $dosen->nomor_rekening ? $dosen->nomor_rekening : '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nomor NPWP</th>
+                                    <th> : </th>
+                                    <td>{{ $dosen->npwp ? $dosen->npwp : '-' }}</td>
                                 </tr>
                                 
                             </table>
