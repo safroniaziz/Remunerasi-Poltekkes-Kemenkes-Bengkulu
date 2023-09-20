@@ -20,7 +20,6 @@ class LaporanDosenController extends Controller
             'periode' => $periode,
             'nip'       =>  $_SESSION['data']['kode'],
         ];
-        return $data;
         $pdf = PDF::loadView('backend/dosen/laporan.cetak', $data); // Ganti 'nama_view' dengan nama view Anda
         return $pdf->stream('laporan_remun_periode_'.$nama_periode.'.pdf');
     }
