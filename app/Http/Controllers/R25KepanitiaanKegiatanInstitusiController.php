@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R25KepanitiaanKegiatanInstitusiController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r025-kepanitiaan-kegiatan-institusi')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::where('nip',$request->session()->get('nip_dosen'))
-                                                                             ->orderBy('created_at','desc')->get();
-        
+                                                                            ->where('periode_id',$this->periode->id)
+                                                                            ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
            'pegawais'                              =>  $pegawais,
@@ -47,7 +48,7 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {
@@ -101,7 +102,7 @@ class R25KepanitiaanKegiatanInstitusiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {

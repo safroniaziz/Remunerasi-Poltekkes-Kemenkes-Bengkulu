@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Gate;
 class R18MendapatHibahPkmController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
+
     public function __construct()
     {
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r018_mendapat_hibah_pkms')->first();
@@ -26,8 +28,8 @@ class R18MendapatHibahPkmController extends Controller
         }
         $pegawais = Pegawai::all();
         $r018mendapathibahpkms = R018MendapatHibahPkm::where('nip',$request->session()->get('nip_dosen'))
-                                                     ->orderBy('created_at','desc')->get();
-        
+                                                    ->where('periode_id',$this->periode->id)
+                                                    ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_018_mendapat_hibah_pkms.index',[
            'pegawais'             =>  $pegawais,
@@ -54,7 +56,7 @@ class R18MendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
@@ -101,7 +103,7 @@ class R18MendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 

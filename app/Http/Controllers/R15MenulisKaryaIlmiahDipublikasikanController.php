@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r015-menulis-karya-ilmiah-dipublikasikan')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r015menuliskaryailmiahdipublikasikans = R015MenulisKaryaIlmiahDipublikasikan::where('nip',$request->session()->get('nip_dosen'))
-                                                                                     ->orderBy('created_at','desc')->get();
-        
+                                                                                    ->where('periode_id',$this->periode->id)
+                                                                                    ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.index',[
            'pegawais'                                    =>  $pegawais,
@@ -53,7 +54,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->jenis == "Q1") {
             $ewmp = 15.00;
         }elseif ($request->jenis == "Q2") {
@@ -141,7 +142,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->jenis == "Q1") {
             $ewmp = 15.00;
         }elseif ($request->jenis == "Q2") {

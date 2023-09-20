@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 class R24TimAkredProdiDanDirektoratController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
     public function __construct()
     {
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r024_tim_akred_prodi_dan_direktorats')->first();
@@ -26,8 +27,8 @@ class R24TimAkredProdiDanDirektoratController extends Controller
         }
         $pegawais = Pegawai::all();
         $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$request->session()->get('nip_dosen'))
+                                                                    ->where('periode_id',$this->periode->id)
                                                                     ->orderBy('created_at','desc')->get();
-        
 
         return view('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
@@ -53,7 +54,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
@@ -99,7 +100,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 

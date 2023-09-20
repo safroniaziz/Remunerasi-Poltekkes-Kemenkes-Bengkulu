@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R19LatihNyuluhNatarCeramahWargaController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r019-latih-nyuluh-natar-ceramah-warga')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::where('nip',$request->session()->get('nip_dosen'))
-                                                                             ->orderBy('created_at','desc')->get();
-        
+                                                                            ->where('periode_id',$this->periode->id)
+                                                                            ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[
            'pegawais'                               =>  $pegawais,
@@ -48,7 +49,7 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->jenis == "insidentil") {
             $ewmp = 0.50;
         }else{
@@ -101,7 +102,7 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
        if ($request->jenis == "insidentil") {
             $ewmp = 0.50;
         }else{

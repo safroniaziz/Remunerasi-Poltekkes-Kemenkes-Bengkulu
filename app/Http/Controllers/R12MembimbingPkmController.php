@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R12MembimbingPkmController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r012-membimbing-pkm')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r012membimbingpkms = R012MembimbingPkm::where('nip',$request->session()->get('nip_dosen'))
+                                                ->where('periode_id',$this->periode->id)
                                                ->orderBy('created_at','desc')->get();
-        
 
         return view('backend/rubriks/r_012_membimbing_pkms.index',[
            'pegawais'                 =>  $pegawais,
@@ -51,7 +52,7 @@ class R12MembimbingPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->tingkat_pkm == "internasional") {
             if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
                 $ewmp = 2;
@@ -116,7 +117,7 @@ class R12MembimbingPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->tingkat_pkm == "internasional") {
             if ($request->juara_ke == "1" || $request->juara_ke == "2" || $request->juara_ke == "3") {
                 $ewmp = 2;

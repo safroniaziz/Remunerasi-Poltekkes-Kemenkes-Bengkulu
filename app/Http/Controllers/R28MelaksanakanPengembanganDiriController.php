@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R28MelaksanakanPengembanganDiriController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r028-melaksanakan-pengembangan-diri')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r028melaksanakanpengembangandiris = R028MelaksanakanPengembanganDiri::where('nip',$request->session()->get('nip_dosen'))
-                                                                             ->orderBy('created_at','desc')->get();
-        
+                                                                            ->where('periode_id',$this->periode->id)
+                                                                            ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_028_melaksanakan_pengembangan_diris.index',[
            'pegawais'                              =>  $pegawais,
@@ -45,7 +46,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis_kegiatan == "pelatihan") {
             $ewmp = 1.00;
         }elseif ($request->jenis_kegiatan == "workshop") {
@@ -96,7 +97,7 @@ class R28MelaksanakanPengembanganDiriController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis_kegiatan == "pelatihan") {
             $ewmp = 1.00;
         }elseif ($request->jenis_kegiatan == "workshop") {

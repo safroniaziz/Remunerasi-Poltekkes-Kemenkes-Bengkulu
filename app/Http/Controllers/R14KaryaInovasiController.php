@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R14KaryaInovasiController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r014-karya-inovasi')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r014karyainovasis = R014KaryaInovasi::where('nip',$request->session()->get('nip_dosen'))
+                                             ->where('periode_id',$this->periode->id)
                                              ->orderBy('created_at','desc')->get();
-        
 
         return view('backend/rubriks/r_014_karya_inovasis.index',[
            'pegawais'                =>  $pegawais,
@@ -53,7 +54,7 @@ class R14KaryaInovasiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->jenis == "menghasilkan_pendapatan_blu") {
             $ewmp = 5.00;
         }elseif ($request->jenis == "paten_yang_belum_dikonversi") {
@@ -120,7 +121,7 @@ class R14KaryaInovasiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->jenis == "menghasilkan_pendapatan_blu") {
             $ewmp = 5.00;
         }elseif ($request->jenis == "paten_yang_belum_dikonversi") {

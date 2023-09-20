@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R30PengelolaKepkController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r030-pengelola-kepk')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r030pengelolakepks = R030PengelolaKepk::where('nip',$request->session()->get('nip_dosen'))
-                                               ->orderBy('created_at','desc')->get();
-        
+                                                ->where('periode_id',$this->periode->id)
+                                                ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_030_pengelola_kepks.index',[
            'pegawais'               =>  $pegawais,
@@ -45,7 +46,7 @@ class R30PengelolaKepkController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.50;
         }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {
@@ -96,7 +97,7 @@ class R30PengelolaKepkController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.50;
         }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {

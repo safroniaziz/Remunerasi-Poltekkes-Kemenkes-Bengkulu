@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R26PengelolaJurnalBuletinController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r026-pengelola-jurnal-buletin')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$request->session()->get('nip_dosen'))
-                                                                 ->orderBy('created_at','desc')->get();
-        
+                                                                ->where('periode_id',$this->periode->id)
+                                                                ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_026_pengelola_jurnal_buletins.index',[
            'pegawais'                        =>  $pegawais,
@@ -49,7 +50,7 @@ class R26PengelolaJurnalBuletinController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }else{
@@ -104,7 +105,7 @@ class R26PengelolaJurnalBuletinController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }else{

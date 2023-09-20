@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Gate;
 class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
+
     public function __construct()
     {
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r017_naskah_buku_bahasa_terbit_edar_nas')->first();
@@ -26,8 +28,8 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
         }
         $pegawais = Pegawai::all();
         $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$request->session()->get('nip_dosen'))
-                                                                              ->orderBy('created_at','desc')->get();
-        
+                                                                                ->where('periode_id',$this->periode->id)
+                                                                                ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
@@ -56,7 +58,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
@@ -106,7 +108,7 @@ class R17NaskahBukuBahasaTerbitEdarNasController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
