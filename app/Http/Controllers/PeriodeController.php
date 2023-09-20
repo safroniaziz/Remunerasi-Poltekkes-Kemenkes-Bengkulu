@@ -27,7 +27,6 @@ class PeriodeController extends Controller
         }
         $rules = [
             'nama_periode'              =>  'required',
-            'periode_siakad_id'         =>  'required',
             'semester'                  =>  'required|numeric',
             'tahun_ajaran'              =>  'required|numeric',
             'bulan_pembayaran'          =>  'required',
@@ -36,7 +35,6 @@ class PeriodeController extends Controller
         ];
         $text = [
             'nama_periode.required'             => 'Nama Periode Penilaian harus diisi',
-            'periode_siakad_id.required'        => 'Periode Siakad harus diisi',
             'semester.numeric'                  => 'Semester harus berupa angka',
             'semester.required'                 => 'Semester harus diisi',
             'tahun_ajaran.required'             => 'Tahun Ajaran harus diisi',
@@ -61,7 +59,6 @@ class PeriodeController extends Controller
         $simpan = Periode::create([
             'nama_periode'          =>  $request->nama_periode,
             'slug'                  =>  Str::slug($request->nama_periode),
-            'periode_siakad_id'     =>  $request->periode_siakad_id,
             'semester'              =>  $request->semester,
             'tahun_ajaran'          =>  $request->tahun_ajaran,
             'bulan'                 =>  $bulan,
@@ -94,14 +91,12 @@ class PeriodeController extends Controller
         }
         $rules = [
             'nama_periode_edit'              =>  'required',
-            'periode_siakad_id_edit'         =>  'required',
             'semester_edit'                  =>  'required|numeric',
             'tahun_ajaran_edit'              =>  'required|numeric',
             'bulan_pembayaran_edit'          =>  'required',
         ];
         $text = [
             'nama_periode_edit.required'             => 'Nama Periode Penilaian harus diisi',
-            'periode_siakad_id_edit.required'        => 'Periode Siakad harus diisi',
             'semester_edit.numeric'                  => 'Semester harus berupa angka',
             'semester.required'                 => 'Semester harus diisi',
             'tahun_ajaran_edit.required'             => 'Tahun Ajaran harus diisi',
@@ -123,7 +118,6 @@ class PeriodeController extends Controller
         $update = Periode::where('id',$request->periode_id_edit)->update([
             'nama_periode'          =>  $request->nama_periode,
             'slug'                  =>  Str::slug($request->nama_periode),
-            'periode_siakad_id'     =>  $request->periode_siakad_id,
             'semester'              =>  $request->semester,
             'tahun_ajaran'          =>  $request->tahun_ajaran,
             'bulan'                 =>  $bulan,

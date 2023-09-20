@@ -163,7 +163,6 @@
                     $('#modalEdit').modal('show');
                     $('#periode_id_edit').val(data.id);
                     $('#nama_periode_edit').val(data.nama_periode);
-                    $('#periode_siakad_id_edit').val(data.periode_siakad_id);
                     $('#semester_edit').val(data.semester);
                     $('#tahun_ajaran_edit').val(data.tahun_ajaran);
                     $('#bulan_pembayaran_edit').val(data.bulan_pembayaran);
