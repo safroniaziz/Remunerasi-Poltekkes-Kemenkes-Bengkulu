@@ -32,6 +32,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
          $r02perkuliahanpraktikum = R02PerkuliahanPraktikum::where('nip',$_SESSION['data']['kode'])
+                                                    ->where('periode_id',$this->periode->id)
                                                     ->orderBy('created_at','desc')->get();
         return view('backend/dosen/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                =>  $pegawais,
