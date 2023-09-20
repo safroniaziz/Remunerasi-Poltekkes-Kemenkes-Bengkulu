@@ -39,26 +39,24 @@
 <body>
     <h1 style="text-align: center; text-transform:uppercase">Borang Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
-    <table style="width: 100%" class="striped bordered">
-        @foreach ($riwayatPoints->riwayatPointAlls as $index => $riwayatPoint)
-            @php
-                $borangs = DB::table($riwayatPoint->kode_rubrik)
-                            ->where('periode_id', $periode->id)
-                            ->where('nip', $nip)
-                            ->where('is_verified', 1)
-                            ->get();
+    @foreach ($riwayatPoints->riwayatPointAlls as $index => $riwayatPoint)
+        @php
+            $borangs = DB::table($riwayatPoint->kode_rubrik)
+                        ->where('periode_id', $periode->id)
+                        ->where('nip', $nip)
+                        ->where('is_verified', 1)
+                        ->get();
 
-            @endphp
-            @if ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
-                @include('backend/dosen/laporan._r01')
-            @elseif ($riwayatPoint->kode_rubrik == "r02_perkuliahan_praktikums")
-                @include('backend/dosen/laporan._r02')
-            @elseif ($riwayatPoint->kode_rubrik == "r03_membimbing_pencapaian_kompetensis")
-                @include('backend/dosen/laporan._r03')
-            @elseif ($riwayatPoint->kode_rubrik == "r04_membimbing_pendampingan_ukoms")
-                @include('backend/dosen/laporan._r04')
-            @endif
-        @endforeach
-    </table>
+        @endphp
+        @if ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
+            @include('backend/dosen/laporan._r01')
+        @elseif ($riwayatPoint->kode_rubrik == "r02_perkuliahan_praktikums")
+            @include('backend/dosen/laporan._r02')
+        @elseif ($riwayatPoint->kode_rubrik == "r03_membimbing_pencapaian_kompetensis")
+            @include('backend/dosen/laporan._r03')
+        @elseif ($riwayatPoint->kode_rubrik == "r04_membimbing_pendampingan_ukoms")
+            @include('backend/dosen/laporan._r04')
+        @endif
+    @endforeach
 </body>
 </html>
