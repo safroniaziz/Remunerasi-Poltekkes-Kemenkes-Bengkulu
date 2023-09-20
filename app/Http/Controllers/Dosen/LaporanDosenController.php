@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dosen;
 
+
 use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use PDF;
 
 class LaporanDosenController extends Controller

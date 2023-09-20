@@ -136,7 +136,7 @@
 </li>
 
 <li class="{{ set_active('dosen.riwayatKinerja') }}">
-    <a href="{{ route('dosen.riwayatKinerja') }}" target="_blank">
+    <a href="{{ route('dosen.riwayatKinerja') }}">
         <i class="fa fa-history"></i>
         <span>Riwayat Kinerja Remunerasi</span>
     </a>
