@@ -73,7 +73,7 @@
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->nama_matkul }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_sks }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_mahasiswa }}</td>
-                                            <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_tatap_muka }}</td>
+                                            <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_tatap_muka ? $r02perkuliahanpraktikum->jumlah_tatap_muka : '-' }}</td>
                                             <td class="text-center">
                                                 @if ($r02perkuliahanpraktikum->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>
@@ -102,7 +102,7 @@
                                                         </form>
                                                     @endif
                                                 </td>
-                                                <td class="text-center">{{ $r02perkuliahanpraktikum->point }}</td>
+                                                <td class="text-center">{{ $r02perkuliahanpraktikum->point ? $r02perkuliahanpraktikum->point : '-' }}</td>
                                             @endif
                                             <td>
                                                 <table>
