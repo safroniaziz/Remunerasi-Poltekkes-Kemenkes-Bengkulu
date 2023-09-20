@@ -5,6 +5,7 @@
     </a>
 </li>
 
+<li class="header" style="font-weight:bold">MANAJEMEN RUBRIK REMUNERASI</li>
 <li class="treeview {{ set_active([
         'dosen.r_01_perkuliahan_teori',
         'dosen.r_02_perkuliahan_praktikum',
@@ -125,6 +126,8 @@
 
 </ul>
 </li>
+
+<li class="header" style="font-weight:bold">LAPORAN REMUNERASI</li>
 
 <li style="padding-left:2px;">
 @if (isset($_SESSION['data']['namatitle']))
