@@ -56,7 +56,9 @@ class Pegawai extends Model
     }
 
     public function riwayatPoints(){
-        return $this->hasMany(RiwayatPoint::class,'nip')->where('point', '>', 0);
+        return $this->hasMany(RiwayatPoint::class, 'nip')
+            ->where('point', '>', 0)
+            ->orderByRaw("CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(deskripsi, 'Rubrik ', -1), ' ', 1) AS DECIMAL) ASC");
     }
 
     public function getTotalPointAttribute(){
