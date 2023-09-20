@@ -19,13 +19,20 @@
     <table style="width: 100%">
         @foreach ($riwayatPoints->riwayatPoints as $riwayatPoint)
             <tr>
-                <th>Rubrik {{ $riwayatPoint->nama_rubrik }}</th>
+                <td>{{ $riwayatPoint->nama_rubrik }}</td>
             </tr>
             <tr>
-                <th>Total Point {{ $riwayatPoint->point }}</th>
+                <td>Total Point {{ $riwayatPoint->point }}</td>
             </tr>
+            @php
+                $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
+                $borangs = $className::where('periode_id',$periode->id)
+                            ->where('nip',$nip)
+                            ->where('is_verified',1)
+                            ->get();
+            @endphp
             <tr>
-
+                <td>{{ $borangs }}</td>
             </tr>
         @endforeach
     </table>
