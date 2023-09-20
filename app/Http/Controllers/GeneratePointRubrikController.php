@@ -51,7 +51,6 @@ class GeneratePointRubrikController extends Controller
                                     ->orWhere('is_verified', 0);
                             })
                             ->first();
-                                        return $tidak_terhitung;
             $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])
                                         ->where('periode_id',$this->periode->id)
                                         ->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),
