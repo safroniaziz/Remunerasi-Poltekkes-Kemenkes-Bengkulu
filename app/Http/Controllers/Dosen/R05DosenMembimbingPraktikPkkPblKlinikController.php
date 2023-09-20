@@ -36,18 +36,24 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 
     public function store(Request $request){
         $rules = [
-            'jumlah_sks'            =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
-            'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_tatap_muka'     =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
+            'jumlah_sks.min'            => 'Jumlah SKS tidak boleh kurang dari 0',
+            'jumlah_sks.regex'          => 'Format SKS tidak valid',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'jumlah_mahasiswa.min'      => 'Jumlah Mahasiswa tidak boleh kurang dari 0',
+            'jumlah_mahasiswa.regex'    => 'Format Mahasiswa tidak valid',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
+            'jumlah_tatap_muka.min'     => 'Jumlah Tatap Muka tidak boleh kurang dari 0',
+            'jumlah_tatap_muka.regex'   => 'Format Tatap Muka tidak valid',
             'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
@@ -85,18 +91,24 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 
     public function update(Request $request, R05MembimbingPraktikPkkPblKlinik $r05membimbingpraktikpkkpblklinik){
         $rules = [
-            'jumlah_sks'            =>  'required|numeric',
-            'jumlah_tatap_muka'     =>  'required|numeric',
-            'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_tatap_muka'     =>  'required|regex:/^[0-9]+$/|min:0',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
+            'jumlah_sks.min'            => 'Jumlah SKS tidak boleh kurang dari 0',
+            'jumlah_sks.regex'          => 'Format SKS tidak valid',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'jumlah_mahasiswa.min'      => 'Jumlah Mahasiswa tidak boleh kurang dari 0',
+            'jumlah_mahasiswa.regex'    => 'Format Mahasiswa tidak valid',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
+            'jumlah_tatap_muka.min'     => 'Jumlah Tatap Muka tidak boleh kurang dari 0',
+            'jumlah_tatap_muka.regex'   => 'Format Tatap Muka tidak valid',
             'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 

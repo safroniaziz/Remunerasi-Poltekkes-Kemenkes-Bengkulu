@@ -36,12 +36,14 @@ class R06DosenMengujiUjianOscaController extends Controller
 
     public function store(Request $request){
         $rules = [
-            'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'jumlah_mahasiswa.min'      => 'Jumlah Mahasiswa tidak boleh kurang dari 0',
+            'jumlah_mahasiswa.regex'    => 'Format Mahasiswa tidak valid',
             'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
@@ -77,12 +79,14 @@ class R06DosenMengujiUjianOscaController extends Controller
 
     public function update(Request $request, R06MengujiUjianOsca $r06mengujiujianosca){
         $rules = [
-            'jumlah_mahasiswa'      =>  'required|numeric',
+            'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
         ];
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'jumlah_mahasiswa.min'      => 'Jumlah Mahasiswa tidak boleh kurang dari 0',
+            'jumlah_mahasiswa.regex'    => 'Format Mahasiswa tidak valid',
             'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 

@@ -30,14 +30,16 @@ class R12DosenMembimbingPkmController extends Controller
        $rules = [
            'tingkat_pkm'        =>  'required',
            'juara_ke'           =>  'required',
-           'jumlah_pembimbing'  =>  'required|numeric',
+           'jumlah_pembimbing'  =>  'required|regex:/^[0-9]+$/|min:0',
            'is_bkd'             =>  'required',
        ];
        $text = [
            'tingkat_pkm.required'         => 'tingkat_pkm harus diisi',
-           'juara_ke.required'            => 'Penulis harus diisi',
-           'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
-           'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'juara_ke.required'            => 'Tingkat Juara harus diisi',
+           'jumlah_pembimbing.required'   => 'Jumlah Pembimbing harus diisi',
+           'jumlah_pembimbing.numeric'    => 'Jumlah Pembimbing harus berupa angka',
+           'jumlah_pembimbing.min'        => 'Jumlah Pembimbing tidak boleh kurang dari 0',
+           'jumlah_pembimbing.regex'      => 'Format Pembimbing tidak valid',
            'is_bkd.required'              => 'Status rubrik harus dipilih',
        ];
 
@@ -89,14 +91,16 @@ class R12DosenMembimbingPkmController extends Controller
        $rules = [
            'tingkat_pkm'        =>  'required',
            'juara_ke'           =>  'required',
-           'jumlah_pembimbing'  =>  'required|numeric',
+           'jumlah_pembimbing'  =>  'required|regex:/^[0-9]+$/|min:0',
            'is_bkd'             =>  'required',
        ];
        $text = [
-           'tingkat_pkm.required'         => 'Tingkat Pkm harus diisi',
-           'juara_ke.required'            => 'Penulis harus diisi',
-           'jumlah_pembimbing.required'   => 'Jumlah Penulis harus diisi',
-           'jumlah_pembimbing.numeric'    => 'Jumlah Penulis harus berupa angka',
+           'tingkat_pkm.required'         => 'Tingkat PKM harus diisi',
+           'juara_ke.required'            => 'Tingkat Juara harus diisi',
+           'jumlah_pembimbing.required'   => 'Jumlah Pembimbing harus diisi',
+           'jumlah_pembimbing.numeric'    => 'Jumlah Pembimbing harus berupa angka',
+           'jumlah_pembimbing.min'        => 'Jumlah Pembimbing tidak boleh kurang dari 0',
+           'jumlah_pembimbing.regex'      => 'Format Pembimbing tidak valid',
            'is_bkd.required'              => 'Status rubrik harus dipilih',
        ];
 

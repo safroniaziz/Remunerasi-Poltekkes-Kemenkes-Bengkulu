@@ -36,12 +36,14 @@ class R20DosenAssessorBkdLkdController extends Controller
 
    public function store(Request $request){
        $rules = [
-           'jumlah_dosen'          =>  'required|numeric',
+           'jumlah_dosen'          =>  'required|regex:/^[0-9]+$/|min:0',
            'is_bkd'                =>  'required',
        ];
        $text = [
            'jumlah_dosen.required'     => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'      => 'Jumlah Dosen harus berupa angka',
+           'jumlah_dosen.min'          => 'Jumlah Dosen tidak boleh kurang dari 0',
+           'jumlah_dosen.regex'        => 'Format Dosen tidak valid',
            'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
@@ -77,12 +79,14 @@ class R20DosenAssessorBkdLkdController extends Controller
 
    public function update(Request $request, R020AssessorBkdLkd $r020assessorbkdlkd){
        $rules = [
-           'jumlah_dosen'          =>  'required|numeric',
+           'jumlah_dosen'          =>  'required|regex:/^[0-9]+$/|min:0',
            'is_bkd'                =>  'required',
        ];
        $text = [
            'jumlah_dosen.required' => 'Jumlah Dosen harus diisi',
            'jumlah_dosen.numeric'  => 'Jumlah Dosen harus berupa angka',
+           'jumlah_dosen.min'      => 'Jumlah Dosen tidak boleh kurang dari 0',
+           'jumlah_dosen.regex'    => 'Format Dosen tidak valid',
            'is_bkd.required'       => 'Status rubrik harus dipilih',
        ];
 

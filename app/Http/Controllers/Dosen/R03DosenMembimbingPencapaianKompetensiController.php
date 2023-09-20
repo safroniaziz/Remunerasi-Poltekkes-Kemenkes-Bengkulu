@@ -41,6 +41,8 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'jumlah_mahasiswa.min'      => 'Jumlah Mahasiswa tidak boleh kurang dari 0',
+            'jumlah_mahasiswa.regex'    => 'Format Mahasiswa tidak valid',
             'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
@@ -82,6 +84,8 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
+            'jumlah_mahasiswa.min'      => 'Jumlah Mahasiswa tidak boleh kurang dari 0',
+            'jumlah_mahasiswa.regex'    => 'Format Mahasiswa tidak valid',
             'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
