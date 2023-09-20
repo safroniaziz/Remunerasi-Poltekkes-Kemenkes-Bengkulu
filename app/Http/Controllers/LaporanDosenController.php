@@ -13,8 +13,9 @@ class LaporanDosenController extends Controller
         $periode = Periode::where('is_active',1)->first();
         $nama_periode = str_replace(' ', '_', $periode->nama_periode);
         $riwayatPoints = Pegawai::where('nip',$_SESSION['data']['kode'])->with(['riwayatPoints'])->first();
+        $riwayatPointsArray = $riwayatPoints->riwayatPoints->toArray();
         return $riwayatPoints;
-        $pdf = PDF::loadView('backend/dosen/laporan.cetak', $riwayatPoints); // Ganti 'nama_view' dengan nama view Anda
+        $pdf = PDF::loadView('backend/dosen/laporan.cetak', $riwayatPointsArray); // Ganti 'nama_view' dengan nama view Anda
 
         return $pdf->stream('laporan_remun_periode_'.$nama_periode.'.pdf');
     }
