@@ -9,18 +9,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Periode extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $casts = [
         'tanggal_awal' => 'datetime',
         'tanggal_akhir' => 'datetime',
     ];
-    
+
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [
-        'nama_periode','slug','semester','is_active','tahun_ajaran','bulan_pembayaran','bulan','tamggal_awal','tanggal_akhir'
+        'nama_periode','slug','semester','is_active','tahun_ajaran','bulan_pembayaran','bulan','tanggal_awal','tanggal_akhir'
     ];
     public function rekapDaftarNominatifs(){
         return $this->hasMany(RekapDaftarNominatif::class,'periode_id');

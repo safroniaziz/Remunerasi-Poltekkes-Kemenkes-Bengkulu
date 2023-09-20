@@ -167,6 +167,8 @@
                     $('#semester_edit').val(data.semester);
                     $('#tahun_ajaran_edit').val(data.tahun_ajaran);
                     $('#bulan_pembayaran_edit').val(data.bulan_pembayaran);
+                    $('#tanggal_akhir_edit').val(data.tanggal_akhir);
+                    $('#tanggal_awal_edit').val(data.tanggal_awal);
                 },
                 error:function(){
                     $('#gagal').show(100);

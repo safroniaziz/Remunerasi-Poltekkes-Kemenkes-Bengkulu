@@ -58,6 +58,8 @@ class PeriodeController extends Controller
             'tahun_ajaran'          =>  $request->tahun_ajaran,
             'bulan'                 =>  $request->bulan,
             'bulan_pembayaran'      =>  $request->bulan_pembayaran,
+            'tanggal_awal'          =>  $request->tanggal_awal,
+            'tanggal_akhir'         =>  $request->tanggal_akhir,
             'is_active'             =>  0,
         ]);
 
@@ -111,6 +113,8 @@ class PeriodeController extends Controller
             'semester'              =>  $request->semester_edit,
             'tahun_ajaran'          =>  $request->tahun_ajaran_edit,
             'bulan_pembayaran'      =>  $request->bulan_pembayaran_edit,
+            'tanggal_awal'          =>  $request->tanggal_awal_edit,
+            'tanggal_akhir'         =>  $request->tanggal_akhir_edit,
         ]);
 
         if ($update) {

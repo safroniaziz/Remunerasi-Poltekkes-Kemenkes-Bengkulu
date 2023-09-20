@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('pengumuman.store') }}" method="POST" id="form-tambah-periode-penilaian">
+            <form action="{{ route('pengumuman.store') }}" method="POST" id="form-tambah-pengumuman">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,46 +11,20 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-md-12" >
+                            <label for="nama" class="col-form-label">Judul Pengumuman</label>
+                            <input type="text" class="form-control" id="judul_pengumuman" name="judul_pengumuman" >
+                        </div>
+
+                        <div class="form-group col-md-12" >
                             <label for="nama" class="col-form-label">Isi Pengumuman</label>
+                            <input type="text" class="form-control" id="isi_pengumuman" name="isi_pengumuman" >
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Periode Siakad</label>
-                            <input type="text" class="form-control" id="periode_siakad_id" name="periode_siakad_id" >
+                            <label for="nip" class="col-form-label">Tanggal Pengumuman</label>
+                            <input type="date" class="form-control" id="tanggal_pengumuman" name="tanggal_pengumuman" >
                         </div>
 
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Semester</label>
-                            <select name="semester" class="form-control" id="semester">
-                                <option disabled selected>-- pilih semester --</option>
-                                <option value="1">Semester 1</option>
-                                <option value="2">Semester 2</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Tahun Ajaran</label>
-                            <input type="text" class="form-control" id="tahun_ajaran" name="tahun_ajaran" >
-                        </div>
-
-                        <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Bulan Pembayaran</label>
-                            <select name="bulan_pembayaran" class="form-control" id="bulan_pembayaran">
-                                <option disabled selected>-- pilih bulan pembayaran--</option>
-                                <option value="1">Januari</option>
-                                <option value="2">Februari</option>
-                                <option value="3">Maret</option>
-                                <option value="4">April</option>
-                                <option value="5">Mei</option>
-                                <option value="6">Juni</option>
-                                <option value="7">Juli</option>
-                                <option value="8">Agustus</option>
-                                <option value="9">September</option>
-                                <option value="10">Oktober</option>
-                                <option value="11">November</option>
-                                <option value="12">Desember</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -67,7 +41,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-tambah-periode-penilaian',function (event){
+        $(document).on('submit','#form-tambah-pengumuman',function (event){
             event.preventDefault();
             $.ajax({
                 url: $(this).attr('action'),

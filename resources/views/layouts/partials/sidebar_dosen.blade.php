@@ -69,7 +69,7 @@
     </span>
 </a>
 <ul class="treeview-menu child-sidebar-menu">
-    <li class="{{ set_active(['dosen.r_015_menulis_karya_ilmiah_dipublikasikan']) }}"><a href="{{ route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan') }}"><i class="fa fa-circle-o"></i>Karya Ilmiah Diplublikasikan</a></li>
+    <li class="{{ set_active(['dosen.r_015_menulis_karya_ilmiah_dipublikasikan']) }}"><a href="{{ route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan') }}"><i class="fa fa-circle-o"></i>Karya Ilmiah Dipublikasikan</a></li>
     <li class="{{ set_active(['dosen.r_016_naskah_buku_bahasa_terbit_edar_inter']) }}"><a href="{{ route('dosen.r_016_naskah_buku_bahasa_terbit_edar_inter') }}"><i class="fa fa-circle-o"></i>Naskah Buku Internasional</a></li>
     <li class="{{ set_active(['dosen.r_017_naskah_buku_bahasa_terbit_edar_nas']) }}"><a href="{{ route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas') }}"><i class="fa fa-circle-o"></i>Naskah Buku Nasional</a></li>
 </ul>

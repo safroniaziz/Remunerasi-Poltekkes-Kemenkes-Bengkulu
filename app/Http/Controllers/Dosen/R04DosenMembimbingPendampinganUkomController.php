@@ -121,7 +121,7 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
             ]);
         }else {
             $notification = array(
-                'message' => 'Ooopps, RrubrikMembimbing Pendampingan Ukom remunerasi gagal dihapus',
+                'message' => 'Ooopps, Rubrik Membimbing Pendampingan Ukom remunerasi gagal dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
