@@ -137,7 +137,7 @@
 
 <li class="{{ set_active('dosen.riwayatKinerja') }}">
     <a href="{{ route('dosen.riwayatKinerja') }}" target="_blank">
-        <i class="fa fa-file-pdf-o"></i>
+        <i class="fa fa-history"></i>
         <span>Riwayat Kinerja Remunerasi</span>
     </a>
 </li>
