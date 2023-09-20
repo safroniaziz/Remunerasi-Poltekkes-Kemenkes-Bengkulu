@@ -49,7 +49,9 @@ class R01DosenPerkuliahanTeoriController extends Controller
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
-            'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
+            'jumlah_sks.numeric'        => 'Jumlah SKS harus berupa angka',
+            'jumlah_sks.min'            => 'Jumlah SKS Tidak boleh kurang dari 0',
+            'jumlah_sks.regex'          => 'Format SKS tidak valid',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
