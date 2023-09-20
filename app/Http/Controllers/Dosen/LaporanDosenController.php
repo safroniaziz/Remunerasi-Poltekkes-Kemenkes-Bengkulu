@@ -45,6 +45,12 @@ class LaporanDosenController extends Controller
                             $query->where('periode_id', $periode->id);
                         }])
                         ->first();
+        if ($riwayatPoints->riwayatPointAlls->count() <1) {
+            return response()->json([
+                'text'  =>  'Ooopps, riwayat remunerasi pada periode yang dipilih tidak ditemukan',
+                'url'   =>  url('/dosen/riwayat_kinerja/'),
+            ]);
+        }
         $judul = $periode->nama_periode;
         $data = [
             'riwayatPoints' => $riwayatPoints,
@@ -52,7 +58,6 @@ class LaporanDosenController extends Controller
             'periode' => $periode,
             'nip'       =>  $_SESSION['data']['kode'],
         ];
-        return $riwayatPoints;
         $pdf = PDF::loadView('backend/dosen/laporan.cetak', $data); // Ganti 'nama_view' dengan nama view Anda
         return $pdf->stream('laporan_remun_periode_'.$nama_periode.'.pdf');
     }

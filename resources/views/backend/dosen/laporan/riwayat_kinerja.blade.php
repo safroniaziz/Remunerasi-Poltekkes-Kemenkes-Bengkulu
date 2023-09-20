@@ -35,7 +35,7 @@
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <div class="col-md-12" style="margin-bottom: 10px !important;">
                             <div class="row">
-                                <form action="{{ route('dosen.riwayatKinerjaCetak') }}" method="POST">
+                                <form action="{{ route('dosen.riwayatKinerjaCetak') }}" method="POST" id="form">
                                     {{ csrf_field() }} {{ method_field('POST') }}
                                     <div class="form-group col-md-12">
                                         <label for="">Pilih Periode Remunerasi</label>
@@ -66,6 +66,28 @@
                 responsive : true,
             });
         } );
+
+        $(document).on('submit','#form',function (event){
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                typeData: "JSON",
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success : function(res) {
+                    $("#btnSubmit"). attr("disabled", true);
+                    toastr.success(res.text, 'Yeay, Berhasil');
+                    setTimeout(function () {
+                        window.location.href=res.url;
+                    } , 500);
+                },
+                error:function(xhr){
+                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                }
+            })
+        });
 
     </script>
 @endpush
