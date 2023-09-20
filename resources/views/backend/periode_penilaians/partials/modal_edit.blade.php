@@ -17,11 +17,6 @@
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Periode Siakad</label>
-                            <input type="text" class="form-control" id="periode_siakad_id_edit" name="periode_siakad_id_edit" >
-                        </div>
-
-                        <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Semester</label>
                             <select name="semester_edit" class="form-control" id="semester_edit">
                                 <option disabled selected>-- pilih semester --</option>
@@ -33,6 +28,25 @@
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Tahun Ajaran</label>
                             <input type="text" class="form-control" id="tahun_ajaran_edit" name="tahun_ajaran_edit" >
+                        </div>
+
+                        <div class="form-group col-md-12" >
+                            <label for="nip" class="col-form-label">Bulan</label>
+                            <select name="bulan_edit" class="form-control" id="bulan_edit">
+                                <option disabled selected>-- pilih bulan--</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
                         </div>
 
                         <div class="form-group col-md-12" >

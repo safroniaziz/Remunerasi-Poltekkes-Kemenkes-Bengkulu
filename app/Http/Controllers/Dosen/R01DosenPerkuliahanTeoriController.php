@@ -17,10 +17,11 @@ class R01DosenPerkuliahanTeoriController extends Controller
 {
     private $nilai_ewmp;
     private $periode;
+    private $periodeAktif;
     public function __construct()
     {
         $this->periode = Periode::where('is_active',1)->first();
-
+        $this->periodeAktif = $this->periode->tahun_ajaran.''.$this->periode->semester;
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r01_perkuliahan_teoris')->first();
     }
 
@@ -199,7 +200,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $parameter = array(
             'action'=>'kelasperkuliahan',
-            'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
+            'thsms'=>$this->periodeAktif,	// Tahun Akademik (5 digit angka)
             // 'kdjen'=>'E',		// Kode Jenjang
             // 'kdpst'=>13451,		// Kode Prodi
             'kdjen' =>  $kodeJenjang,
@@ -278,7 +279,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
         foreach ($request->id_kelas as $id_kelas) {
             $parameter = array(
                 'action'=>'kelasperkuliahan',
-                'thsms'=>'20221',	// Tahun Akademik (5 digit angka)
+                'thsms'=>$this->periodeAktif,	// Tahun Akademik (5 digit angka)
                 'kdjen'=>$request->kodeJenjang,		// Kode Jenjang
                 'kdpst'=>$request->kodeProdi,		// Kode Prodi
                 'kdkmk'=>'',
@@ -305,7 +306,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
             $parameter_presensi = array(
                 'action'=>'absensi.get',
-                'thsms'=>'20221',
+                'thsms'=>$this->periodeAktif,
                 'kdjen'=>$request->kodeJenjang,
                 'kdpst'=>$request->kodeProdi,
                 'id_kls'=>$id_kelas,
@@ -336,7 +337,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'presensi' =>  $response_array_presensi['data'][0]['detail'],
             ];
 
-            $jumlahSks = $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : 0;
+            $jumlahSks = $result['kelas']['sks_mk_info']['teori'] != null ? $result['kelas']['sks_mk_info']['teori'] : 0;
             $point = ((count($result['presensi'])/16)*($result['kelas']['jml_peserta']/40))* $this->nilai_ewmp->ewmp*$jumlahSks;
             $perkuliahan[]  =   array(
                 'periode_id'    =>  $this->periode->id,
@@ -344,7 +345,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
                 'nip'   =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
-                'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
+                'jumlah_sks'   =>  $jumlahSks,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
                 'jumlah_tatap_muka' =>  count($result['presensi']),
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,

@@ -16,11 +16,6 @@
                         </div>
 
                         <div class="form-group col-md-12" >
-                            <label for="nip" class="col-form-label">Periode Siakad</label>
-                            <input type="text" class="form-control" id="periode_siakad_id" name="periode_siakad_id" >
-                        </div>
-
-                        <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Semester</label>
                             <select name="semester" class="form-control" id="semester">
                                 <option disabled selected>-- pilih semester --</option>

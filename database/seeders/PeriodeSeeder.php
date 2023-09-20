@@ -24,6 +24,8 @@ class PeriodeSeeder extends Seeder
             'tanggal_awal'          =>  '2022-08-01',
             'tanggal_akhir'          =>  '2022-08-31',
             'is_active'             =>  1,
+            'created_at'            =>  now(),
+            'updated_at'            =>  now(),
         ]);
     }
 }

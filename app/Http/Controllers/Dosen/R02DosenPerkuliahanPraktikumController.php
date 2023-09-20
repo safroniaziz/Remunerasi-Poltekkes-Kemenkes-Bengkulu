@@ -24,7 +24,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
     public function __construct()
     {
         $this->periode = Periode::where('is_active',1)->first();
-        $this->periodeAktif = $this->periode->tahun_ajaran.$this->periode->semester;
+        $this->periodeAktif = $this->periode->tahun_ajaran.''.$this->periode->semester;
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r02_perkuliahan_praktikums')->first();
     }
 
@@ -224,7 +224,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
         $response = _curl_api($config['url'], json_encode($data));
         $response_array = json_decode($response, true);
-        $nipDosen = 4022026301;
+        $nipDosen = $_SESSION['data']['kode'];
         $res = ' ';
         $no = 1;
         if (count($response_array['data'])>0) {
@@ -280,6 +280,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'kdjen'=>$request->kodeJenjang,		// Kode Jenjang
                 'kdpst'=>$request->kodeProdi,		// Kode Prodi
                 'kdkmk'=>'',
+                'sks_mk'    =>  'praktikum',
                 'search'=>'',		// Search Kode Mata Kuliah / Nama Mata Kuliah Sesuai (Optional)
                 // 'offset'    =>  30,
                 'id_kls'    => $id_kelas,
@@ -301,41 +302,41 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             $response = _curl_api($config['url'], json_encode($data));
             $response_array = json_decode($response, true);
 
-            $parameter_presensi = array(
-                'action'=>'absensi.get',
-                'thsms'=>$this->periodeAktif,
-                'kdjen'=>$request->kodeJenjang,
-                'kdpst'=>$request->kodeProdi,
-                'id_kls'=>$id_kelas,
-                'nodos'=>$_SESSION['data']['kode'],	// optional by dosen
-                'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
-                'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
-                'offset'=>'',		// mulai data dari 0 / 10 (Optional)
-                'limit'=>'',		// batas (Optional)
-            );
+            // $parameter_presensi = array(
+            //     'action'=>'absensi.get',
+            //     'thsms'=>$this->periodeAktif,
+            //     'kdjen'=>$request->kodeJenjang,
+            //     'kdpst'=>$request->kodeProdi,
+            //     'id_kls'=>$id_kelas,
+            //     'nodos'=>$_SESSION['data']['kode'],	// optional by dosen
+            //     'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
+            //     'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
+            //     'offset'=>'',		// mulai data dari 0 / 10 (Optional)
+            //     'limit'=>'',		// batas (Optional)
+            // );
 
-            $hashed_string_presensi = ApiEncController::encrypt(
-                $parameter_presensi,
-                $config['client_id'],
-                $config['version'],
-                $config['secret_key']
-            );
+            // $hashed_string_presensi = ApiEncController::encrypt(
+            //     $parameter_presensi,
+            //     $config['client_id'],
+            //     $config['version'],
+            //     $config['secret_key']
+            // );
 
-            $dataPresensi = array(
-                'client_id' => $config['client_id'],
-                'data' => $hashed_string_presensi,
-            );
+            // $dataPresensi = array(
+            //     'client_id' => $config['client_id'],
+            //     'data' => $hashed_string_presensi,
+            // );
 
-            $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
-            $response_array_presensi = json_decode($responsePresensi, true);
-            if (count($response_array_presensi['data'])>0) {
-                $presensi = $response_array_presensi['data'][0]['detail'];
-            }else{
-                $presensi = null;
-            }
+            // $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
+            // $response_array_presensi = json_decode($responsePresensi, true);
+            // if (count($response_array_presensi['data'])>0) {
+            //     $presensi = $response_array_presensi['data'][0]['detail'];
+            // }else{
+            //     $presensi = null;
+            // }
             $result = [
                 'kelas' =>  $response_array['data'][0],
-                'presensi' =>  $presensi,
+                // 'presensi' =>  $presensi,
             ];
 
             $perkuliahan[]  =   array(
@@ -343,9 +344,10 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'nip'           =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
-                'jumlah_sks'   =>  $result['kelas']['sks_mk'] != null ? $result['kelas']['sks_mk'] : null ,
+                'jumlah_sks'   =>  $result['kelas']['sks_mk_info']['praktikum'] != null ? $result['kelas']['sks_mk_info']['praktikum'] : null ,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
-                'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
+                // 'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
+                'jumlah_tatap_muka' =>  null,
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
                 'is_bkd'        => 0,
                 'is_verified'   => 0,

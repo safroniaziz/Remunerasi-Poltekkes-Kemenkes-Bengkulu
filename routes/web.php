@@ -25,6 +25,7 @@ use App\Http\Controllers\R30PengelolaKepkController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\GeneratePointRubrikController;
+use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
@@ -52,6 +53,7 @@ use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
 use App\Http\Controllers\R15MenulisKaryaIlmiahDipublikasikanController;
 use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
+use App\Http\Controllers\RekapDaftarNominatifController;
 use App\Http\Controllers\RoleController;
 
 /*
@@ -221,6 +223,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::controller(PointRubrikDosenController::class)->group(function () {
         Route::get('/point_rubrik_dosen', 'index')->name('point_rubrik_dosen');
         Route::get('/point_rubrik_dosen/{dosen}/detail', 'pointDetail')->name('point_rubrik_dosen.detail');
+    });
+
+    Route::controller(RekapDaftarNominatifController::class)->group(function () {
+        Route::get('/laporan_keuangan', 'index')->name('laporan_keuangan');
+        Route::get('/laporan_keuangan/{dosen}/detail', 'pointDetail')->name('laporan_keuangan.detail');
     });
     // End Of Data Master Route
 

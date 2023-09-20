@@ -23,8 +23,8 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">Nama Matkul</label>
-                            <input type="text" class="form-control" id="nama_matkul_edit" name="nama_matkul">
+                            <label for="exampleInputEmail1">Kode Kelas</label>
+                            <input type="text" class="form-control" id="kode_kelas_edit" name="kode_kelas">
                         </div>
 
                         <div class="form-group col-md-12">

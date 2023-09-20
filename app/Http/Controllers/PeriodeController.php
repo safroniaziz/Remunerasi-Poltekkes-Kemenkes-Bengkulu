@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Periode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class PeriodeController extends Controller
 {
@@ -26,7 +27,6 @@ class PeriodeController extends Controller
         }
         $rules = [
             'nama_periode'              =>  'required',
-            'periode_siakad_id'         =>  'required',
             'semester'                  =>  'required|numeric',
             'tahun_ajaran'              =>  'required|numeric',
             'bulan_pembayaran'          =>  'required',
@@ -35,7 +35,6 @@ class PeriodeController extends Controller
         ];
         $text = [
             'nama_periode.required'             => 'Nama Periode Penilaian harus diisi',
-            'periode_siakad_id.required'        => 'Periode Siakad harus diisi',
             'semester.numeric'                  => 'Semester harus berupa angka',
             'semester.required'                 => 'Semester harus diisi',
             'tahun_ajaran.required'             => 'Tahun Ajaran harus diisi',
@@ -50,16 +49,22 @@ class PeriodeController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
+        $bulan = $request->bulan_pembayaran;
+        $tahun = $request->tahun_ajaran;
+        $tanggal_awal = Carbon::create($tahun, $bulan, 1)->startOfMonth();
+        $tanggal_terakhir = Carbon::create($tahun, $bulan, 1)->endOfMonth();
+        $tanggal_awal_formatted = $tanggal_awal->format('Y-m-d');
+        $tanggal_terakhir_formatted = $tanggal_terakhir->format('Y-m-d');
+
         $simpan = Periode::create([
             'nama_periode'          =>  $request->nama_periode,
             'slug'                  =>  Str::slug($request->nama_periode),
-            'periode_siakad_id'     =>  $request->periode_siakad_id,
             'semester'              =>  $request->semester,
             'tahun_ajaran'          =>  $request->tahun_ajaran,
-            'bulan'                 =>  $request->bulan,
-            'bulan_pembayaran'      =>  $request->bulan_pembayaran,
-            'tanggal_awal'          =>  $request->tanggal_awal,
-            'tanggal_akhir'         =>  $request->tanggal_akhir,
+            'bulan'                 =>  $bulan,
+            'bulan_pembayaran'      =>  $tahun,
+            'tanggal_awal'          =>  $tanggal_awal_formatted,
+            'tanggal_akhir'         =>  $tanggal_terakhir_formatted,
             'is_active'             =>  0,
         ]);
 
@@ -86,14 +91,12 @@ class PeriodeController extends Controller
         }
         $rules = [
             'nama_periode_edit'              =>  'required',
-            'periode_siakad_id_edit'         =>  'required',
             'semester_edit'                  =>  'required|numeric',
             'tahun_ajaran_edit'              =>  'required|numeric',
             'bulan_pembayaran_edit'          =>  'required',
         ];
         $text = [
             'nama_periode_edit.required'             => 'Nama Periode Penilaian harus diisi',
-            'periode_siakad_id_edit.required'        => 'Periode Siakad harus diisi',
             'semester_edit.numeric'                  => 'Semester harus berupa angka',
             'semester.required'                 => 'Semester harus diisi',
             'tahun_ajaran_edit.required'             => 'Tahun Ajaran harus diisi',
@@ -106,15 +109,21 @@ class PeriodeController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
+        $bulan = $request->bulan_pembayaran_edit;
+        $tahun = $request->tahun_ajaran_edit;
+        $tanggal_awal = Carbon::create($tahun, $bulan, 1)->startOfMonth();
+        $tanggal_terakhir = Carbon::create($tahun, $bulan, 1)->endOfMonth();
+        $tanggal_awal_formatted = $tanggal_awal->format('Y-m-d');
+        $tanggal_terakhir_formatted = $tanggal_terakhir->format('Y-m-d');
         $update = Periode::where('id',$request->periode_id_edit)->update([
             'nama_periode'          =>  $request->nama_periode_edit,
             'slug'                  =>  Str::slug($request->nama_periode_edit),
-            'periode_siakad_id'     =>  $request->periode_siakad_id_edit,
             'semester'              =>  $request->semester_edit,
-            'tahun_ajaran'          =>  $request->tahun_ajaran_edit,
-            'bulan_pembayaran'      =>  $request->bulan_pembayaran_edit,
-            'tanggal_awal'          =>  $request->tanggal_awal_edit,
-            'tanggal_akhir'         =>  $request->tanggal_akhir_edit,
+            'tahun_ajaran'          =>  $tahun,
+            'bulan'                 =>  $request->bulan_edit,
+            'bulan_pembayaran'      =>  $bulan,
+            'tanggal_awal'          =>  $tanggal_awal_formatted,
+            'tanggal_akhir'         =>  $tanggal_terakhir_formatted,
         ]);
 
         if ($update) {
