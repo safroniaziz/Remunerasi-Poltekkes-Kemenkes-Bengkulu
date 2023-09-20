@@ -35,7 +35,10 @@ class PointRubrikDosenController extends Controller
 
     public function pointDetailRubrik(Pegawai $dosen, RiwayatPoint $riwayatPoint){
         $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
-
-        return $className;
+        $borangs = $className::where('periode_id',$this->periode->id)
+                            ->where('nip',$dosen->nip)
+                            ->where('is_verified',1)
+                            ->first();
+                            return $borangs;
     }
 }
