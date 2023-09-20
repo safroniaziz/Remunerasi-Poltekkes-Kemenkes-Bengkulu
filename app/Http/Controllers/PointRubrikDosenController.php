@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\RiwayatPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,5 +30,14 @@ class PointRubrikDosenController extends Controller
     public function pointDetail(Pegawai $dosen) {
         $riwayatPoints = Pegawai::with('riwayatPoints')->where('nip',$dosen->nip)->first();
         return view('backend.point_rubrik_dosen.detail', compact('riwayatPoints','dosen'));
+    }
+
+    public function pointDetailRubrik(Pegawai $dosen, RiwayatPoint $riwayatPoint){
+        $data = [
+            'dosen' =>  $dosen,
+            'riwayatPoint'  =>  $riwayatPoint
+        ];
+
+        return $data;
     }
 }

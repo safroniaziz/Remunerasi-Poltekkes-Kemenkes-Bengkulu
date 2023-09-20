@@ -102,7 +102,7 @@
                                             <td>{{ $riwayatPoint->nama_rubrik }}</td>
                                             <td>{{ $riwayatPoint->point }}</td>
                                             <td>
-                                                <a href="{{ route('point_rubrik_dosen.detail_rubrik',[$dosen->nip, $riwayatPoint->id]) }}"><i class="fa fa-search"></i>&nbsp; Detail Point Per Rubrik</a>
+                                                <a href="{{ route('point_rubrik_dosen.detail_rubrik',[$dosen->nip, $riwayatPoint->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-search"></i>&nbsp; Detail Point Per Rubrik</a>
                                             </td>
                                         </tr>
                                     @endforeach
