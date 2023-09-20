@@ -20,11 +20,6 @@
                             <label for="nama" class="col-form-label">Isi Pengumuman</label>
                             <textarea name="isi_pengumuman_edit" id="isi_pengumuman_edit" class="form-control" cols="30" rows="10"></textarea>
                         </div>
-
-                        <div class="form-group col-md-12" >
-                            <label for="nama" class="col-form-label">File Pengumuman</label>
-                            <input type="file" class="form-control" id="file_pengumuman_edit" name="file_pengumuman_edit" >
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

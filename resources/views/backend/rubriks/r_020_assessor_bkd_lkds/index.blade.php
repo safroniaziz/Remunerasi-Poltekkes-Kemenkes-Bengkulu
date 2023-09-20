@@ -49,7 +49,7 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Dosen</th>
-                                        <th style="text-align:center; vertical-align:middle">BKD</th>
+                                        <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                             <th style="text-align:center; vertical-align:middle">Verifikasi</th>
@@ -70,19 +70,20 @@
                                             <td class="text-center">{{ $r020assessorbkdlkd->jumlah_dosen }}</td>
                                             <td class="text-center">
                                                 @if ($r020assessorbkdlkd->is_bkd == 1)
-                                                    <small class="label label-danger">Ya</small>
+                                                    <small class="label label-danger">BKD</small>
                                                 @else
-                                                    <small class="label label-success">Tidak</small>
+                                                    <small class="label label-success">Non BKD</small>
                                                 @endif
                                             </td>
+
                                             @if(Auth::user()->hasRole('verifikator'))
-                                                <td class="text-center">
-                                                    @if ($r020assessorbkdlkd->is_verified == 1)
-                                                        <small class="label label-success"><i class="fa fa-check-circle"></i></small>
-                                                    @else
-                                                        <small class="label label-danger"><i class="fa fa-close"></i></small>
-                                                    @endif
-                                                </td>
+                                            <td class="text-center">
+                                                @if ($r020assessorbkdlkd->is_verified == 1)
+                                                    <small class="label label-success">Terverifikasi</small>
+                                                @else
+                                                    <small class="label label-danger">Belum Verifikasi</small>
+                                                @endif
+                                            </td>
                                                 <td class="text-center">
                                                     @if ($r020assessorbkdlkd->is_verified == 1)
                                                         <form action="{{ route('r_020_assessor_bkd_lkd.tolak',[$r020assessorbkdlkd->id]) }}" method="POST">

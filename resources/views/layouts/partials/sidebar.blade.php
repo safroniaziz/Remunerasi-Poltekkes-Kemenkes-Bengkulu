@@ -350,7 +350,7 @@
         <a class="bg-danger" style="cursor:not-allowed">
     @endif
         <i class="fa fa-solid fa-file-word"></i>
-        <span>Karya Ilmiah Diplublikasikan</span>
+        <span>Karya Ilmiah Dipublikasikan</span>
     </a>
 </li>
 @endcan
@@ -567,5 +567,5 @@
             @csrf
         </form>
     @endif
-    
+
 </li>

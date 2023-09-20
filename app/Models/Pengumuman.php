@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pengumuman extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $fillable = [
-        'judul_pengumuman','isi_pengumuman','file_pengumuman','slug','tanggal_pengumuman','is_active'
+        'judul_pengumuman','isi_pengumuman','slug','tanggal_pengumuman','is_active'
     ];
 }

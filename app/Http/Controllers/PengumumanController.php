@@ -49,6 +49,7 @@ class PengumumanController extends Controller
         }
 
         $simpan = Pengumuman::create([
+            'judul_pengumuman'            =>  $request->judul_pengumuman,
             'isi_pengumuman'            =>  $request->isi_pengumuman,
             'slug'                      =>  Str::slug($request->isi_pengumuman),
             'tanggal_pengumuman'        =>  $request->tanggal_pengumuman,

@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Periode extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $casts = [
         'tanggal_awal' => 'datetime',
         'tanggal_akhir' => 'datetime',
     ];
-    
+
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;

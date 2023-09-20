@@ -67,6 +67,16 @@
                                 <option value="12">Desember</option>
                             </select>
                         </div>
+
+                        <div class="form-group col-md-12" >
+                            <label for="nip" class="col-form-label">Tanggal Awal</label>
+                            <input type="date" class="form-control" id="tanggal_awal_edit" name="tanggal_awal_edit" >
+                        </div>
+
+                        <div class="form-group col-md-12" >
+                            <label for="nip" class="col-form-label">Tanggal Akhir</label>
+                            <input type="date" class="form-control" id="tanggal_akhir_edit" name="tanggal_akhir_edit" >
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
