@@ -14,7 +14,11 @@ class LaporanDosenController extends Controller
     public function cetakLaporan(){
         $periode = Periode::where('is_active',1)->first();
         $nama_periode = str_replace(' ', '_', $periode->nama_periode);
-        $riwayatPoints = Pegawai::where('nip',$_SESSION['data']['kode'])->with(['riwayatPointAlls'])->first();
+        $riwayatPoints = Pegawai::where('nip', $_SESSION['data']['kode'])
+                        ->with(['riwayatPointAlls' => function ($query) use ($periode) {
+                            $query->where('periode_id', $periode->id);
+                        }])
+                        ->first();
         $judul = $periode->nama_periode;
         $data = [
             'riwayatPoints' => $riwayatPoints,
@@ -36,7 +40,11 @@ class LaporanDosenController extends Controller
     public function riwayatKinerjaCetak(Request $request){
         $periode = Periode::where('id',$request->periode_id)->first();
         $nama_periode = str_replace(' ', '_', $periode->nama_periode);
-        $riwayatPoints = Pegawai::where('nip',$_SESSION['data']['kode'])->with(['riwayatPointAlls'])->first();
+        $riwayatPoints = Pegawai::where('nip', $_SESSION['data']['kode'])
+                        ->with(['riwayatPointAlls' => function ($query) use ($periode) {
+                            $query->where('periode_id', $periode->id);
+                        }])
+                        ->first();
         $judul = $periode->nama_periode;
         $data = [
             'riwayatPoints' => $riwayatPoints,
