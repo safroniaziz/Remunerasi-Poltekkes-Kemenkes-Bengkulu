@@ -9,12 +9,12 @@
         }
 
         h1 {
-            font-size: 24px; /* Atur ukuran teks h1 sesuai preferensi Anda */
+            font-size: 18px; /* Atur ukuran teks h1 sesuai preferensi Anda */
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Laporan Remununerasi <br> {{ $judul }}</h1>
+    <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
 
 </body>
