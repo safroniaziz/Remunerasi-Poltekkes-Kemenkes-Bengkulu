@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\Dosen\R14DosenKaryaInovasiController;
 use App\Http\Controllers\Dosen\R12DosenMembimbingPkmController;
 use App\Http\Controllers\Dosen\R30DosenPengelolaKepkController;
@@ -32,7 +31,7 @@ use App\Http\Controllers\Dosen\R09DosenMengujiSeminarHasilKtiLtaSkripsiControlle
 use App\Http\Controllers\Dosen\R15DosenMenulisKaryaIlmiahDipublikasikanController;
 use App\Http\Controllers\Dosen\R23DosenAuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\Dosen\R08DosenMengujiSeminarProposalKtiLtaSkripsiController;
-use App\Http\Controllers\LaporanDosenController;
+use App\Http\Controllers\Dosen\LaporanDosenController;
 use App\Models\Periode;
 
 Route::get('/home', function () {
@@ -359,5 +358,7 @@ Route::controller(R30DosenPengelolaKepkController::class)->group(function () {
 
 Route::controller(LaporanDosenController::class)->group(function () {
     Route::get('/cetak_laporan', 'cetakLaporan')->name('dosen.cetakLaporan');
+    Route::get('/riwayat_kinerja', 'riwayatKinerja')->name('dosen.riwayatKinerja');
+    Route::post('/riwayat_kinerja/', 'riwayatKinerjaCetak')->name('dosen.riwayatKinerjaCetak');
 });
 // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen
