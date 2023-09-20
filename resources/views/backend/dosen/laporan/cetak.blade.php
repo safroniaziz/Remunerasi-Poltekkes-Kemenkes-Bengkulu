@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; text-transform:uppercase">Borang Remununerasi <br> {{ $judul }} <br>{{  }}</h1>
+    <h1 style="text-align: center; text-transform:uppercase">Borang Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
     <table style="width: 100%" class="striped bordered">
         @foreach ($riwayatPoints->riwayatPointAlls as $index => $riwayatPoint)
