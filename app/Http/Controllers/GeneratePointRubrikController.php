@@ -45,7 +45,10 @@ class GeneratePointRubrikController extends Controller
                                         ->where('is_bkd',1)
                                         ->orWhere('is_verified',0)
                                         ->first();
-            $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),DB::raw('count(id) as jumlah_data'))->first();
+            $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])
+                                        ->where('periode_id',$this->periode->id)
+                                        ->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),
+                                        DB::raw('count(id) as jumlah_data'))->first();
             $totalPoint[] = array(
                 'periode_id'    =>  $this->periode->id,
                 'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
@@ -84,7 +87,10 @@ class GeneratePointRubrikController extends Controller
         $riwayat_point = RiwayatPoint::insert($riwayatPoint);
         $rekapPerDosen = array();
         for ($k=0; $k <count($dosens) ; $k++) { 
-            $total_point = RiwayatPoint::select(DB::raw('sum(point) as total_point'))->where('nip',$dosens[$k]['nip'])->first();
+            $total_point = RiwayatPoint::select(DB::raw('sum(point) as total_point'))
+                                        ->where('nip',$dosens[$k]['nip'])
+                                        ->where('periode_id',$this->periode->id)
+                                        ->first();
             $rekapPerDosen[] = array(
                 'nip'           =>  $dosens[$k]['nip'],
                 'periode_id'    =>  $this->periode->id,
