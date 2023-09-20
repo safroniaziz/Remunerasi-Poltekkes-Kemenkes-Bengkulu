@@ -17,10 +17,11 @@ class R16NaskahBukuBahasaTerbitEdarInterController extends Controller
 
     public function __construct()
     {
+        $this->periode = Periode::where('is_active',1)->first();
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r016_naskah_buku_bahasa_terbit_edar_inters')->first();
     }
 
-    public function index(){
+    public function index(Request $request){
         if (!Gate::allows('read-r016-naskah-buku-bahasa-terbit-edar-inter')) {
             abort(403);
         }

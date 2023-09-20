@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Gate;
 class R25KepanitiaanKegiatanInstitusiController extends Controller
 {
     private $periode;
-    public function index(){
+    public function __construct()
+    {
+        $this->periode = Periode::where('is_active',1)->first();
+    }
+    public function index(Request $request){
         if (!Gate::allows('read-r025-kepanitiaan-kegiatan-institusi')) {
             abort(403);
         }
