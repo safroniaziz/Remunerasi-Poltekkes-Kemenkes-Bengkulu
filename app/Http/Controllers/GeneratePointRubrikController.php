@@ -80,7 +80,6 @@ class GeneratePointRubrikController extends Controller
                 );
             }
         }
-        return $riwayatPoint;
         RekapPerRubrik::insert($totalPoint);
         $riwayat_point = RiwayatPoint::insert($riwayatPoint);
         $rekapPerDosen = array();
