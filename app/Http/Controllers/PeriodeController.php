@@ -109,19 +109,19 @@ class PeriodeController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $bulan = $request->bulan_pembayaran;
-        $tahun = $request->tahun_ajaran;
+        $bulan = $request->bulan_pembayaran_edit;
+        $tahun = $request->tahun_ajaran_edit;
         $tanggal_awal = Carbon::create($tahun, $bulan, 1)->startOfMonth();
         $tanggal_terakhir = Carbon::create($tahun, $bulan, 1)->endOfMonth();
         $tanggal_awal_formatted = $tanggal_awal->format('Y-m-d');
         $tanggal_terakhir_formatted = $tanggal_terakhir->format('Y-m-d');
         $update = Periode::where('id',$request->periode_id_edit)->update([
-            'nama_periode'          =>  $request->nama_periode,
-            'slug'                  =>  Str::slug($request->nama_periode),
-            'semester'              =>  $request->semester,
-            'tahun_ajaran'          =>  $request->tahun_ajaran,
-            'bulan'                 =>  $bulan,
-            'bulan_pembayaran'      =>  $tahun,
+            'nama_periode'          =>  $request->nama_periode_edit,
+            'slug'                  =>  Str::slug($request->nama_periode_edit),
+            'semester'              =>  $request->semester_edit,
+            'tahun_ajaran'          =>  $tahun,
+            'bulan'                 =>  $request->bulan_edit,
+            'bulan_pembayaran'      =>  $bulan,
             'tanggal_awal'          =>  $tanggal_awal_formatted,
             'tanggal_akhir'         =>  $tanggal_terakhir_formatted,
         ]);
