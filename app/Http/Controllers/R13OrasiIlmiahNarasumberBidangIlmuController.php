@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r013-orasi-ilmiah-narasumber-bidang-ilmu')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::where('nip',$request->session()->get('nip_dosen'))
+                                                                                    ->where('periode_id',$this->periode->id)
                                                                                    ->orderBy('created_at','desc')->get();
-        
 
         return view('backend/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
            'pegawais'                               =>  $pegawais,
@@ -48,7 +49,7 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
         if ($request->tingkatan_ke=='internasional') {
             $point = 3;
@@ -104,7 +105,7 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
         if ($request->tingkatan_ke=='internasional') {
             $point = 3;

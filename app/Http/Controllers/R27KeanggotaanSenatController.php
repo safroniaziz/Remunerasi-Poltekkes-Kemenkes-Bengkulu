@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R27KeanggotaanSenatController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r027-keanggotaan-senat')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r027keanggotaansenats = R027KeanggotaanSenat::where('nip',$request->session()->get('nip_dosen'))
-                                                     ->orderBy('created_at','desc')->get();
-        
+                                                    ->where('periode_id',$this->periode->id)
+                                                    ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_027_keanggotaan_senats.index',[
            'pegawais'                  =>  $pegawais,
@@ -45,7 +46,7 @@ class R27KeanggotaanSenatController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {
@@ -96,7 +97,7 @@ class R27KeanggotaanSenatController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {

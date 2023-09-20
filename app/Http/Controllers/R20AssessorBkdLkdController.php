@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Gate;
 class R20AssessorBkdLkdController extends Controller
 {
     private $nilai_ewmp;
+    private $periode;
+
     public function __construct()
     {
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r020_assessor_bkd_lkds')->first();
@@ -26,8 +28,8 @@ class R20AssessorBkdLkdController extends Controller
         }
         $pegawais = Pegawai::all();
         $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$request->session()->get('nip_dosen'))
-                                                 ->orderBy('created_at','desc')->get();
-        
+                                                ->where('periode_id',$this->periode->id)
+                                                ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_020_assessor_bkd_lkds.index',[
            'pegawais'               =>  $pegawais,
@@ -54,7 +56,7 @@ class R20AssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
@@ -101,7 +103,7 @@ class R20AssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 

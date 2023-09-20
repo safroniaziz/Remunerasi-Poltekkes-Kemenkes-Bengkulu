@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Gate;
 
 class R29MemperolehPenghargaanController extends Controller
 {
+    private $periode;
     public function index(){
         if (!Gate::allows('read-r029-memperoleh-penghargaan')) {
             abort(403);
         }
         $pegawais = Pegawai::all();
         $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$request->session()->get('nip_dosen'))
-                                                               ->orderBy('created_at','desc')->get();
-        
+                                                                ->where('periode_id',$this->periode->id)
+                                                                ->orderBy('created_at','desc')->get();
 
         return view('backend/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
@@ -45,7 +46,7 @@ class R29MemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -94,7 +95,7 @@ class R29MemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
