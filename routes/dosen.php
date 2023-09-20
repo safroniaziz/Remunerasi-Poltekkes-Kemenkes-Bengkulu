@@ -33,9 +33,13 @@ use App\Http\Controllers\Dosen\R15DosenMenulisKaryaIlmiahDipublikasikanControlle
 use App\Http\Controllers\Dosen\R23DosenAuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\Dosen\R08DosenMengujiSeminarProposalKtiLtaSkripsiController;
 use App\Http\Controllers\LaporanDosenController;
+use App\Models\Periode;
 
 Route::get('/home', function () {
-    return view('backend.dosen.dashboard');
+    $periode = Periode::where('is_active',1)->first();
+    return view('backend.dosen.dashboard',[
+        'periode'   =>  $periode,
+    ]);
 })->name('dosen.dashboard');
 
 // Pengaturan/Setting Rubrik Pendidikan
