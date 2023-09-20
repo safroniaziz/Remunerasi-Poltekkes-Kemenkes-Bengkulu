@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LaporanDosenController extends Controller
 {
     public function cetakLaporan(){
-        $riwayatPoints = Pegawai::where('id',$_SESSION['data']['kode'])->with(['riwayatPoints'])->first();
+        $riwayatPoints = Pegawai::where('nip',$_SESSION['data']['kode'])->with(['riwayatPoints'])->first();
         return $riwayatPoints;
     }
 }
