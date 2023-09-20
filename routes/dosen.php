@@ -32,6 +32,7 @@ use App\Http\Controllers\Dosen\R09DosenMengujiSeminarHasilKtiLtaSkripsiControlle
 use App\Http\Controllers\Dosen\R15DosenMenulisKaryaIlmiahDipublikasikanController;
 use App\Http\Controllers\Dosen\R23DosenAuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\Dosen\R08DosenMengujiSeminarProposalKtiLtaSkripsiController;
+use App\Http\Controllers\LaporanDosenController;
 
 Route::get('/home', function () {
     return view('backend.dosen.dashboard');
@@ -350,5 +351,9 @@ Route::controller(R30DosenPengelolaKepkController::class)->group(function () {
     Route::delete('/r_030_pengelola_kepk/{r030pengelolakepk}/delete', 'delete')->name('dosen.r_030_pengelola_kepk.delete');
     Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/verifikasi', 'verifikasi')->name('dosen.r_030_pengelola_kepk.verifikasi');
     Route::patch('/r_030_pengelola_kepk/{r030pengelolakepk}/tolak', 'tolak')->name('dosen.r_030_pengelola_kepk.tolak');
+});
+
+Route::controller(LaporanDosenController::class)->group(function () {
+    Route::get('/cetak_laporan', 'cetakLaporan')->name('dosen.cetakLaporan');
 });
 // End Of Pengaturan/Setting Rubrik Penunjang Kegiatan Akademik Dosen

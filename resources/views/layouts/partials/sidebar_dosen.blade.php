@@ -128,6 +128,12 @@
 </li>
 
 <li class="header" style="font-weight:bold">LAPORAN REMUNERASI</li>
+<li class="{{ set_active('dosen.cetakLaporan') }}">
+    <a href="{{ route('dosen.cetakLaporan') }}">
+        <i class="fa fa-home"></i>
+        <span>Cetak Laporan Per Periode</span>
+    </a>
+</li>
 
 <li style="padding-left:2px;">
 @if (isset($_SESSION['data']['namatitle']))
@@ -138,7 +144,8 @@
     <a class="dropdown-item" href="{{ route('logout') }}"
         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-        <i class="fa fa-power-off text-danger"></i>{{__('Logout') }}
+        <i class="fa fa-power-off text-danger"></i>
+        <span>{{__('Logout') }}</span>
     </a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
