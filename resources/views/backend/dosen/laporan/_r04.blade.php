@@ -1,3 +1,4 @@
+<table style="width: 100%" class="striped bordered">
     <thead>
         <tr>
             <td colspan="3" style="text-transform: uppercase">{{$index+1 .' '. $riwayatPoint->nama_rubrik }}</td>
@@ -20,3 +21,4 @@
             </tr>
         @endforeach
     </tbody>
+</table>
