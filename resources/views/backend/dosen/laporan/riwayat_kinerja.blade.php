@@ -13,17 +13,6 @@
         {{ $_SESSION['data']['nama'] }}
     @endif
 @endsection
-@push('styles')
-    <style>
-        .loader {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            height: 15%;
-            background: url('{{ asset('assets/img/preloader.gif') }}') center no-repeat #fff;
-        }
-    </style> 
-@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -66,14 +55,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable({
-                responsive : true,
-            });
-        } );
-
-    </script>
-@endpush
