@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\R02PerkuliahanPraktikum;
+use App\Models\Prodi;
 use App\Models\Pegawai;
 use App\Models\Periode;
 use App\Models\NilaiEwmp;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Models\R02PerkuliahanPraktikum;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 
 class R02PerkuliahanPraktikumController extends Controller
@@ -25,6 +26,7 @@ class R02PerkuliahanPraktikumController extends Controller
         if (!Gate::allows('read-r02-perkuliahan-praktikum')) {
             abort(403);
         }
+        $dataProdis = Prodi::all();
          $pegawais = Pegawai::all();
          $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$request->session()->get('nip_dosen'))
                                                             ->orderBy('created_at','desc')->get();
@@ -33,6 +35,7 @@ class R02PerkuliahanPraktikumController extends Controller
          return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                    =>  $pegawais,
             'periode'                     =>  $periode,
+            'dataProdis'                 =>  $dataProdis,
             'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikums,
         ]);
     }
@@ -42,21 +45,25 @@ class R02PerkuliahanPraktikumController extends Controller
             abort(403);
         }
         $rules = [
+            'kode_kelas'            =>  'required',
             'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'is_bkd'                =>  'required',
+            'id_prodi'                =>  'required',
         ];
         $text = [
-            'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus diisi',
+            'nama_matkul.required'           => 'Nama Mata Kuliah harus dipilih',
+            'id_prodi.required'           => 'Prodi mengajar harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -100,20 +107,25 @@ class R02PerkuliahanPraktikumController extends Controller
             abort(403);
         }
         $rules = [
+            'kode_kelas'            =>  'required',
+            'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|numeric',
             'jumlah_tatap_muka'     =>  'required|numeric',
             'jumlah_mahasiswa'      =>  'required|numeric',
             'is_bkd'                =>  'required',
+            'id_prodi'                =>  'required',
         ];
         $text = [
-            'nama_matkul.required'      => 'Nama Matkul harus diisi',
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
             'jumlah_sks.numeric'        => 'jumlah SKS harus berupa angka',
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus diisi',
+            'nama_matkul.required'           => 'Nama Mata Kuliah harus dipilih',
+            'id_prodi.required'           => 'Prodi mengajar harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

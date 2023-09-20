@@ -43,10 +43,13 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
     public function store(Request $request){
         $rules = [
+            'kode_kelas'            =>  'required',
+            'nama_matkul'            =>  'required',
             'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
             'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'jumlah_tatap_muka'     =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
+            'id_prodi'                =>  'required',
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
@@ -55,7 +58,10 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus diisi',
+            'nama_matkul.required'           => 'Nama Mata Kuliah harus dipilih',
+            'id_prodi.required'           => 'Prodi mengajar harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -96,10 +102,13 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
     public function update(Request $request, R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
         $rules = [
+            'kode_kelas'            =>  'required',
+            'nama_matkul'           =>  'required',
             'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
             'jumlah_tatap_muka'     =>  'required|regex:/^[0-9]+$/|min:0',
             'jumlah_mahasiswa'      =>  'required|regex:/^[0-9]+$/|min:0',
             'is_bkd'                =>  'required',
+            'id_prodi'                =>  'required',
         ];
         $text = [
             'jumlah_sks.required'       => 'Jumlah SKS harus diisi',
@@ -108,7 +117,10 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
             'jumlah_tatap_muka.required'=> 'Jumlah Tatap Muka harus diisi',
             'jumlah_tatap_muka.numeric' => 'Jumlah Tatap Muka harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
+            'kode_kelas.required'           => 'Kode Kelas harus diisi',
+            'nama_matkul.required'           => 'Nama Mata Kuliah harus dipilih',
+            'id_prodi.required'           => 'Prodi mengajar harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

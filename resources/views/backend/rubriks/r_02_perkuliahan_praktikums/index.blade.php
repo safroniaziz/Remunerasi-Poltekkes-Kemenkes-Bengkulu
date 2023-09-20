@@ -158,9 +158,11 @@
                     $('#r02perkuliahanpraktikum_id_edit').val(data.id);
                     $('#periode_id_edit').val(data.periode_id);
                     $('#nama_matkul_edit').val(data.nama_matkul);
+                    $('#kode_kelas_edit').val(data.kode_kelas);
                     $('#jumlah_sks_edit').val(data.jumlah_sks);
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);
+                    $('#id_prodi_edit').val(data.id_prodi);
                     $('#is_bkd_edit').val(data.is_bkd);
                 },
                 error:function(){

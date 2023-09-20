@@ -37,7 +37,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            'judul_kegiatan.required'   => 'Judul Kegiatan harus diisi',
            'jabatan.required'          => 'Jabatan harus diisi',
            'edisi_terbit.required'     => 'Edisi Terbit harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -86,7 +86,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
            'jabatan.required'        => 'Jabatan harus diisi',
            'edisi_terbit.required'   => 'Edisi Terbit harus diisi',
-           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'         => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

@@ -42,7 +42,7 @@ class R06DosenMengujiUjianOscaController extends Controller
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -83,7 +83,7 @@ class R06DosenMengujiUjianOscaController extends Controller
         $text = [
             'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
             'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
-            'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+            'is_bkd.required'           => 'Status rubrik harus dipilih',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

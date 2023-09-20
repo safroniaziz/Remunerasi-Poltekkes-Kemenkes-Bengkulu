@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdiController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\R30PengelolaKepkController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\GeneratePointRubrikController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
 use App\Http\Controllers\R18MendapatHibahPkmController;
@@ -50,6 +52,7 @@ use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
 use App\Http\Controllers\R15MenulisKaryaIlmiahDipublikasikanController;
 use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::controller(SessionController::class)->group(function () {
         Route::get('/cari_dosen', 'cariDosen')->name('cari_dosen');
         Route::post('/cari_dosen', 'cari')->name('cari_dosen.post');
-        Route::get('/cari_dosen/get_data_dose','getDataDosen')->name('cari_dosen.get_data_dosen');
+        Route::get('/cari_dosen/get_data_dosen','getDataDosen')->name('cari_dosen.get_data_dosen');
         Route::get('/remove_session','removeSession')->name('cari_dosen.remove_session');
     });
 
@@ -561,12 +564,42 @@ Route::group(['middleware' => 'auth'], function () {
     //user
     Route::controller(VerifikatorController::class)->group(function () {
         Route::get('/manajemen_data_verifikator', 'index')->name('manajemen_data_verifikator');
-        Route::get('/manajemen_data_verifikator/create', 'create')->name('manajemen_data_verifikator.create');
         Route::post('/manajemen_data_verifikator', 'store')->name('manajemen_data_verifikator.store');
         Route::get('/manajemen_data_verifikator/{user}/edit', 'edit')->name('manajemen_data_verifikator.edit');
         Route::patch('/manajemen_data_verifikator/update', 'update')->name('manajemen_data_verifikator.update');
         Route::delete('/manajemen_data_verifikator/{user}/delete', 'delete')->name('manajemen_data_verifikator.delete');
         Route::patch('/manajemen_data_verifikator/{user}/active', 'active')->name('manajemen_data_verifikator.active');
         Route::patch('/manajemen_data_verifikator/{user}/nonactive', 'nonactive')->name('manajemen_data_verifikator.nonactive');
+        Route::patch('/manajemen_data_verifikator/ubah_password', 'ubahPassword')->name('manajemen_data_verifikator.ubahPassword');
+    });
+
+    Route::controller(AdministratorController::class)->group(function () {
+        Route::get('/manajemen_data_administrator', 'index')->name('manajemen_data_administrator');
+        Route::post('/manajemen_data_administrator', 'store')->name('manajemen_data_administrator.store');
+        Route::get('/manajemen_data_administrator/{administrator}/edit', 'edit')->name('manajemen_data_administrator.edit');
+        Route::patch('/manajemen_data_administrator/update', 'update')->name('manajemen_data_administrator.update');
+        Route::delete('/manajemen_data_administrator/{administrator}/delete', 'delete')->name('manajemen_data_administrator.delete');
+        Route::patch('/manajemen_data_administrator/{administrator}/active', 'active')->name('manajemen_data_administrator.active');
+        Route::patch('/manajemen_data_administrator/{administrator}/nonactive', 'nonactive')->name('manajemen_data_administrator.nonactive');
+        Route::patch('/manajemen_data_administrator/ubah_password', 'ubahPassword')->name('manajemen_data_administrator.ubahPassword');
+    });
+
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/manajemen_role', 'index')->name('manajemen_role');
+        Route::post('/manajemen_role', 'store')->name('manajemen_role.store');
+        Route::get('/manajemen_role/{role}/edit', 'edit')->name('manajemen_role.edit');
+        Route::patch('/manajemen_role/update', 'update')->name('manajemen_role.update');
+        Route::get('/manajemen_role/{role}/detail', 'detail')->name('manajemen_role.detail');
+        Route::delete('/manajemen_role/{role}/delete', 'delete')->name('manajemen_role.delete');
+        Route::delete('/manajemen_role/{role}/revoke/{permission}', 'revoke')->name('manajemen_role.revoke');
+        Route::post('/manajemen_role/{role}/assign/', 'assign')->name('manajemen_role.assign');
+    });
+
+    Route::controller(PermissionController::class)->group(function () {
+        Route::get('/manajemen_permission', 'index')->name('manajemen_permission');
+        Route::post('/manajemen_permission', 'store')->name('manajemen_permission.store');
+        Route::get('/manajemen_permission/{permission}/edit', 'edit')->name('manajemen_permission.edit');
+        Route::patch('/manajemen_permission/update', 'update')->name('manajemen_permission.update');
+        Route::delete('/manajemen_permission/{permission}/delete', 'delete')->name('manajemen_permission.delete');
     });
 });

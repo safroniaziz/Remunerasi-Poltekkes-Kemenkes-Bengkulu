@@ -36,7 +36,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
            'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
            'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
            'jenis.required'            => 'Jenis Seminar harus dipilih',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
        $validasi = Validator::make($request->all(), $rules, $text);
        if ($validasi->fails()) {
@@ -83,7 +83,7 @@ class R09DosenMengujiSeminarHasilKtiLtaSkripsiController extends Controller
            'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa harus diisi',
            'jumlah_mahasiswa.numeric'  => 'Jumlah Mahasiswa harus berupa angka',
            'jenis.required'            => 'Jenis Seminar harus dipilih',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
        if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.10;

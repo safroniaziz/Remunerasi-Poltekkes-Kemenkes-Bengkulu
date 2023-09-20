@@ -80,7 +80,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
        ];
        $text = [
            'judul_kegiatan.required' => 'Judul Kegiatan harus diisi',
-           'is_bkd.required'         => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'         => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

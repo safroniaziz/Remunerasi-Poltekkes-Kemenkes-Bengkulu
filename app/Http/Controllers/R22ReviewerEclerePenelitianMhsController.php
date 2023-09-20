@@ -91,7 +91,7 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
        ];
        $text = [
            'judul_protokol_penelitian.required' => 'Judul Protokol Penelitian harus diisi',
-           'is_bkd.required'                    => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'                    => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);

@@ -43,7 +43,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
        $text = [
            'judul_buku.required'       => 'Judul_buku harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
@@ -87,7 +87,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
        $text = [
            'judul_buku.required'       => 'Judul buku harus diisi',
            'isbn.required'             => 'ISBN harus diisi',
-           'is_bkd.required'           => 'Rubrik BKD harus dipilih',
+           'is_bkd.required'           => 'Status rubrik harus dipilih',
        ];
 
        $validasi = Validator::make($request->all(), $rules, $text);
