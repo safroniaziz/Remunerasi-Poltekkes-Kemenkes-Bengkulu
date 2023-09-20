@@ -36,9 +36,9 @@ use App\Http\Controllers\LaporanDosenController;
 use App\Models\Periode;
 
 Route::get('/home', function () {
-    $periode = Periode::where('is_active',1)->first();
+    $periodeAktif = Periode::where('is_active',1)->first();
     return view('backend.dosen.dashboard',[
-        'periode'   =>  $periode,
+        'periodeAktif'   =>  $periodeAktif,
     ]);
 })->name('dosen.dashboard');
 
