@@ -29,6 +29,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
     }
 
     public function index(Request $request){
+        return $this->periode->tahun_ajaran;
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
          $r02perkuliahanpraktikum = R02PerkuliahanPraktikum::where('nip',$_SESSION['data']['kode'])
