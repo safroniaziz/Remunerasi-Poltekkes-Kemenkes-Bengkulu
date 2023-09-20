@@ -26,7 +26,7 @@ class R01PerkuliahanTeoriController extends Controller
             abort(403);
         }
          $pegawais = Pegawai::all();
-        $dataProdis = Prodi::all();
+         $dataProdis = Prodi::all();
          $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$request->session()->get('nip_dosen'))
                                                     ->orderBy('created_at','desc')->get();
          $periode = Periode::select('nama_periode')->where('is_active','1')->first();
