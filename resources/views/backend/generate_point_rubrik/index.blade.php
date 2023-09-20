@@ -90,12 +90,15 @@
                                                                         ->where('is_bkd',0)
                                                                         ->where('is_verified',1)
                                                                         ->first();
+                                                                        $tolerance = 0.01; // Toleransi yang sesuai
+                                                                        $statusPoint = floatval($statusRubrik->total_point);
+                                                                        $dataPoint = floatval($dataRubrik->total_point);
                                                         @endphp
-                                                        <tr  @if (number_format($statusRubrik->total_point,2) != number_format($dataRubrik->total_point,2))
+                                                        <tr  @if (abs($statusPoint - $dataPoint) > $tolerance)
                                                             style="background:#f2dede"
                                                         @endif>
 
-                                                            @if (number_format($statusRubrik->total_point,2) == number_format($dataRubrik->total_point,2))
+                                                            @if (abs($statusPoint - $dataPoint) <= $tolerance)
                                                                 <td style="text-align:center;">
                                                                     <input type="checkbox" disabled>
                                                                 </td>
@@ -152,12 +155,6 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#table').DataTable({
-                responsive : true,
-                ordering : false,
-            });
-        } );
 
         function generatePointRubrik(){
             $('#sync').show(300);
