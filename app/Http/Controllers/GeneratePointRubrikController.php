@@ -40,11 +40,17 @@ class GeneratePointRubrikController extends Controller
                             ->where('is_bkd',0)
                             ->where('is_verified',1)
                             ->first();
-            $tidak_terhitung = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),DB::raw('count(id) as jumlah_data'))
-                                        ->where('periode_id',$this->periode->id)
-                                        ->where('is_bkd',1)
-                                        ->orWhere('is_verified',0)
-                                        ->first();
+            $tidak_terhitung = DB::table($rubriks[$i]['nama_tabel_rubrik'])
+                            ->select(
+                                DB::raw('IFNULL(SUM(point), 0) as jumlah_point'),
+                                DB::raw('COUNT(id) as jumlah_data')
+                            )
+                            ->where('periode_id', $this->periode->id)
+                            ->where(function ($query) {
+                                $query->where('is_bkd', 1)
+                                    ->orWhere('is_verified', 0);
+                            })
+                            ->first();
                                         return $tidak_terhitung;
             $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])
                                         ->where('periode_id',$this->periode->id)
