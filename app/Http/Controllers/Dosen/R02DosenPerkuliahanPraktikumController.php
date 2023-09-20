@@ -24,7 +24,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
     public function __construct()
     {
         $this->periode = Periode::where('is_active',1)->first();
-        $this->periodeAktif = $this->periode->tahun_ajaran.$this->periode->semester;
+        // $this->periodeAktif = $this->periode->tahun_ajaran.$this->periode->semester;
         $this->nilai_ewmp = NilaiEwmp::where('nama_tabel_rubrik','r02_perkuliahan_praktikums')->first();
     }
 
