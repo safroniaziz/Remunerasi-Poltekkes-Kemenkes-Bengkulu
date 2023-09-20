@@ -13,24 +13,26 @@
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px; /* Sesuaikan ukuran font sesuai kebutuhan Anda */
         }
 
         table.striped tbody tr:nth-child(odd) {
-            background-color: #f2f2f2;
+        background-color: #f2f2f2;
         }
 
         table.bordered th,
         table.bordered td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
         }
 
         table.bordered th {
-            background-color: #f2f2f2;
+        background-color: #f2f2f2;
         }
+
 
     </style>
 </head>
