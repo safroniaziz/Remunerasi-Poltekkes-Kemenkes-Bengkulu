@@ -16,6 +16,15 @@
 <body>
     <h1 style="text-align: center; text-transform:uppercase">Laporan Remununerasi <br> {{ $judul }}</h1>
     <!-- ... Isi laporan Anda ... -->
-
+    <table style="width: 100%">
+        @foreach ($riwayatPoints as $riwayatPoint)
+            <tr>
+                <th>Rubrik {{ $riwayatPoint->nama_rubrik }}</th>
+            </tr>
+            <tr>
+                <th>Total Point {{ $riwayatPoint->point }}</th>
+            </tr>
+        @endforeach
+    </table>
 </body>
 </html>
