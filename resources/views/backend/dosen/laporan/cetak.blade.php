@@ -42,11 +42,12 @@
     <table style="width: 100%" class="striped bordered">
         @foreach ($riwayatPoints->riwayatPointAlls as $index => $riwayatPoint)
             @php
-                $className = 'App\\Models\\' . Str::studly(Str::singular($riwayatPoint->kode_rubrik));
-                $borangs = $className::where('periode_id',$periode->id)
-                            ->where('nip',$nip)
-                            ->where('is_verified',1)
+                $borangs = DB::table($riwayatPoint->kode_rubrik)
+                            ->where('periode_id', $periode->id)
+                            ->where('nip', $nip)
+                            ->where('is_verified', 1)
                             ->get();
+
             @endphp
             @if ($riwayatPoint->kode_rubrik == "r01_perkuliahan_teoris")
                 @include('backend/dosen/laporan._r01')
