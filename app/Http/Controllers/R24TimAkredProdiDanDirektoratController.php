@@ -33,7 +33,7 @@ class R24TimAkredProdiDanDirektoratController extends Controller
 
         return view('backend/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
-           'periode'                        =>  $this->periode->id,
+           'periode'                        =>  $this->periode,
            'r024timakredprodirektorats'     =>  $r024timakredprodirektorats,
        ]);
    }

@@ -28,7 +28,7 @@ class R30PengelolaKepkController extends Controller
 
         return view('backend/rubriks/r_030_pengelola_kepks.index',[
            'pegawais'               =>  $pegawais,
-           'periode'                =>  $this->periode->id,
+           'periode'                =>  $this->periode,
            'r030pengelolakepks'     =>  $r030pengelolakepks,
        ]);
    }

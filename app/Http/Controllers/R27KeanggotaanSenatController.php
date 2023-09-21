@@ -28,7 +28,7 @@ class R27KeanggotaanSenatController extends Controller
 
         return view('backend/rubriks/r_027_keanggotaan_senats.index',[
            'pegawais'                  =>  $pegawais,
-           'periode'                   =>  $this->periode->id,
+           'periode'                   =>  $this->periode,
            'r027keanggotaansenats'     =>  $r027keanggotaansenats,
        ]);
    }

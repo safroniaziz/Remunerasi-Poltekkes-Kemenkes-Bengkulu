@@ -34,7 +34,7 @@ class R20AssessorBkdLkdController extends Controller
 
         return view('backend/rubriks/r_020_assessor_bkd_lkds.index',[
            'pegawais'               =>  $pegawais,
-           'periode'                =>  $this->periode->id,
+           'periode'                =>  $this->periode,
            'r020assessorbkdlkds'    =>  $r020assessorbkdlkds,
        ]);
    }

@@ -33,7 +33,7 @@ class R22ReviewerEclerePenelitianMhsController extends Controller
 
         return view('backend/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
-           'periode'                            =>  $this->periode->id,
+           'periode'                            =>  $this->periode,
            'r022reviewereclerepenelitianmhs'    =>  $r022reviewereclerepenelitianmhs,
        ]);
    }

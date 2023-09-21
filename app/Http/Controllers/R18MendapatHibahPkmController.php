@@ -34,7 +34,7 @@ class R18MendapatHibahPkmController extends Controller
 
         return view('backend/rubriks/r_018_mendapat_hibah_pkms.index',[
            'pegawais'             =>  $pegawais,
-           'periode'              =>  $this->periode->id,
+           'periode'              =>  $this->periode,
            'r018mendapathibahpkms' =>  $r018mendapathibahpkms,
        ]);
    }

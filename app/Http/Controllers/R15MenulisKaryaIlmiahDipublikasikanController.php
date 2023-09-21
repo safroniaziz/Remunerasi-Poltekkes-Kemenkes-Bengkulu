@@ -28,7 +28,7 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
 
         return view('backend/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.index',[
            'pegawais'                                    =>  $pegawais,
-           'periode'                                     =>  $this->periode->id,
+           'periode'                                     =>  $this->periode,
            'r015menuliskaryailmiahdipublikasikans'       =>  $r015menuliskaryailmiahdipublikasikans,
        ]);
    }
