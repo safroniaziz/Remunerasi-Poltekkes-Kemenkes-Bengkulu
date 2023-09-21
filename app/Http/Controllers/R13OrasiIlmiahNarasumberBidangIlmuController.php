@@ -28,7 +28,7 @@ class R13OrasiIlmiahNarasumberBidangIlmuController extends Controller
 
         return view('backend/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
            'pegawais'                               =>  $pegawais,
-           'periode'                                =>  $this->periode->id,
+           'periode'                                =>  $this->periode,
            'r013orasiilmiahnarasumberbidangilmus'   =>  $r013orasiilmiahnarasumberbidangilmus,
        ]);
    }
