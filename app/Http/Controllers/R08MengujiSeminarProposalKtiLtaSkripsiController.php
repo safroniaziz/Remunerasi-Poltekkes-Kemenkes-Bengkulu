@@ -26,7 +26,7 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
          $r08mengujiseminarproposalktiltaskripsis = R08MengujiSeminarProposalKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
                                                                                         ->where('periode_id',$this->periode->id)
                                                                                           ->orderBy('created_at','desc')->get();
-         
+
 
          return view('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
             'pegawais'                                   =>  $pegawais,
@@ -55,7 +55,7 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        
+
         if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.05;
         }else{
@@ -70,6 +70,7 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($simpan) {
@@ -123,6 +124,7 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($update) {

@@ -74,6 +74,7 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($simpan) {
@@ -116,7 +117,7 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        
+
         $point = (($request->jumlah_tatap_muka/6)*($request->jumlah_mahasiswa/12))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $update = R05MembimbingPraktikPkkPblKlinik::where('id',$request->r05membimbingpraktikpkkpblklinik_id_edit)->update([
@@ -128,6 +129,7 @@ class R05MembimbingPraktikPkkPblKlinikController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($update) {

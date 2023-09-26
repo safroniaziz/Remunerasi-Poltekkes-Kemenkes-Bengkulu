@@ -24,7 +24,7 @@ class R30DosenPengelolaKepkController extends Controller
         $r030pengelolakepks = R030PengelolaKepk::where('nip',$_SESSION['data']['kode'])
                                                 ->where('periode_id',$this->periode->id)
                                                ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_030_pengelola_kepks.index',[
            'pegawais'               =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -46,7 +46,7 @@ class R30DosenPengelolaKepkController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.50;
         }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {
@@ -62,6 +62,8 @@ class R30DosenPengelolaKepkController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -91,7 +93,7 @@ class R30DosenPengelolaKepkController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.50;
         }elseif ($request->jabatan == "wakil" || $request->jabatan == "sekretaris") {

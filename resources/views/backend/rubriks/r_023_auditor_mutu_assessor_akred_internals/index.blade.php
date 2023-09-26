@@ -154,6 +154,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

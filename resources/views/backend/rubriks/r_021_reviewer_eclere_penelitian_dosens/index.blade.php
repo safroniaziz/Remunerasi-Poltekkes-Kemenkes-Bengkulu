@@ -154,6 +154,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#judul_protokol_penelitian_edit').val(data.judul_protokol_penelitian);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

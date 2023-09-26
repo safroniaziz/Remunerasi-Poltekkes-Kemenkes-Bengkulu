@@ -161,6 +161,7 @@
                     $('#nip_edit').val(data.nip);
                     $('#judul_penghargaan_edit').val(data.judul_penghargaan);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

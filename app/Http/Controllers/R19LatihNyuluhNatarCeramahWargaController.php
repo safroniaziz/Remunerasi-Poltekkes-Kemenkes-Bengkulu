@@ -68,6 +68,7 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($simpan) {
@@ -121,6 +122,7 @@ class R19LatihNyuluhNatarCeramahWargaController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($update) {

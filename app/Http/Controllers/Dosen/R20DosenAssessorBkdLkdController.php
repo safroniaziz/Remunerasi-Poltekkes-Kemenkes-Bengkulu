@@ -28,7 +28,7 @@ class R20DosenAssessorBkdLkdController extends Controller
         $r020assessorbkdlkds = R020AssessorBkdLkd::where('nip',$_SESSION['data']['kode'])
                                                 ->where('periode_id',$this->periode->id)
                                                  ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_020_assessor_bkd_lkds.index',[
            'pegawais'               =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -53,7 +53,7 @@ class R20DosenAssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
        $simpan = R020AssessorBkdLkd::create([
@@ -63,6 +63,8 @@ class R20DosenAssessorBkdLkdController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -95,7 +97,7 @@ class R20DosenAssessorBkdLkdController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
@@ -106,6 +108,8 @@ class R20DosenAssessorBkdLkdController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {

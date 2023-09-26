@@ -33,8 +33,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm btn-flat " data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat " id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -48,6 +48,8 @@
     <script>
         $(document).on('submit','#form-edit',function (event){
             event.preventDefault();
+            $("#btnSubmit"). attr("disabled", true);
+            $("#btnCancel"). attr("disabled", true);
             $.ajax({
                 url: $(this).attr('action'),
                 type: $(this).attr('method'),

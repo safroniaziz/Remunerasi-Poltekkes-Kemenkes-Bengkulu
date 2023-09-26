@@ -24,7 +24,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
         $r025kepanitiaankegiataninstitusis = R025KepanitiaanKegiatanInstitusi::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                              ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/dosen/rubriks/r_025_kepanitiaan_kegiatan_institusis.index',[
            'pegawais'                              =>  $pegawais,
@@ -49,7 +49,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {
@@ -66,6 +66,8 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -97,7 +99,7 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua" || $request->jabatan == "wakil") {
             $ewmp = 1.00;
         }elseif ($request->jabatan == "sekretaris") {
@@ -114,6 +116,8 @@ class R25DosenKepanitiaanKegiatanInstitusiController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

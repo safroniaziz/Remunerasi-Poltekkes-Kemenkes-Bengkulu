@@ -11,7 +11,7 @@ class R02PerkuliahanPraktikum extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'periode_id','nip','nama_matkul','kode_kelas','jumlah_tatap_muka','jumlah_sks','jumlah_mahasiswa','jumlah_tatap_muka','id_prodi','is_bkd','is_verified','sumber_data','point'
+        'periode_id','nip','nama_matkul','kode_kelas','jumlah_tatap_muka','jumlah_sks','jumlah_mahasiswa','jumlah_tatap_muka','id_prodi','is_bkd','is_verified','sumber_data','point','keterangan'
     ];
     public function periode(){
         return $this->belongsTo(Periode::class);

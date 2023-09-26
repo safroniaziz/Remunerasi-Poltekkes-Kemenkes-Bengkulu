@@ -164,6 +164,7 @@
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);
                     $('#id_prodi_edit').val(data.id_prodi);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

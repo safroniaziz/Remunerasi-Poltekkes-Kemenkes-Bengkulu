@@ -163,6 +163,7 @@
                     $('#penulis_ke_edit').val(data.penulis_ke);
                     $('#jumlah_penulis_edit').val(data.jumlah_penulis);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

@@ -16,7 +16,7 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
     {
         $this->periode = Periode::where('is_active',1)->first();
     }
-    
+
     public function index(){
          $pegawais = Pegawai::all();
          $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::where('nip',$_SESSION['data']['kode'])
@@ -63,6 +63,8 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($simpan) {
@@ -112,6 +114,8 @@ class R07DosenMembimbingSkripsiLtaLaProfesiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($update) {

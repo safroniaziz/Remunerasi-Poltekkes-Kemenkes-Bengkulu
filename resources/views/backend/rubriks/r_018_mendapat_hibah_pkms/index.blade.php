@@ -155,6 +155,7 @@
                     $('#judul_hibah_pkm_edit').val(data.judul_hibah_pkm);
                     $('#isbn_edit').val(data.isbn);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

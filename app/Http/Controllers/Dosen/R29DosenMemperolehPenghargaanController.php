@@ -24,7 +24,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
         $r029memperolehpenghargaans = R029MemperolehPenghargaan::where('nip',$_SESSION['data']['kode'])
                                                                 ->where('periode_id',$this->periode->id)
                                                                ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_029_memperoleh_penghargaans.index',[
            'pegawais'                              =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -46,7 +46,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -60,6 +60,8 @@ class R29DosenMemperolehPenghargaanController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -89,7 +91,7 @@ class R29DosenMemperolehPenghargaanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "dosen_berprestasi_nasional") {
             $ewmp = 0.5;
         }else{
@@ -103,6 +105,8 @@ class R29DosenMemperolehPenghargaanController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

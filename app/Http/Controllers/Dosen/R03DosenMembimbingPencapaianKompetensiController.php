@@ -59,6 +59,8 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($simpan) {
@@ -101,6 +103,8 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($update) {

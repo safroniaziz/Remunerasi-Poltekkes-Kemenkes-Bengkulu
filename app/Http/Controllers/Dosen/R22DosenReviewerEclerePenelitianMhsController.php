@@ -28,7 +28,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
         $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                           ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
@@ -50,7 +50,7 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R022ReviewerEclerePenelitianMhs::create([
@@ -60,6 +60,8 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -99,6 +101,8 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

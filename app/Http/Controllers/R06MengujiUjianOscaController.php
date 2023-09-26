@@ -30,7 +30,7 @@ class R06MengujiUjianOscaController extends Controller
          $r06mengujiujianoscas = R06MengujiUjianOsca::where('nip',$request->session()->get('nip_dosen'))
                                                      ->where('periode_id',$this->periode->id)
                                                     ->orderBy('created_at','desc')->get();
-         
+
          return view('backend/rubriks/r_06_menguji_ujian_oscas.index',[
             'pegawais'                =>  $pegawais,
             'periode'                 =>  $this->periode,
@@ -66,6 +66,7 @@ class R06MengujiUjianOscaController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($simpan) {
@@ -112,6 +113,7 @@ class R06MengujiUjianOscaController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($update) {

@@ -15,7 +15,7 @@
                             <label for="exampleInputEmail1">Pilih NIP Terlebih Dahulu</label>
                             <select name="nip" id="nip"  class="form-control @error('nip') is-invalid @enderror">
                                 <option  selected>-- pilih NIP --</option>
-                                
+
                             </select>
                             <div>
                                 @if ($errors->has('nip'))
@@ -36,8 +36,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm btn-flat " data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat " id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -51,6 +51,8 @@
     <script>
         $(document).on('submit','#form-edit-periode-penilaian',function (event){
             event.preventDefault();
+            $("#btnSubmit"). attr("disabled", true);
+            $("#btnCancel"). attr("disabled", true);
             $.ajax({
                 url: $(this).attr('action'),
                 type: $(this).attr('method'),

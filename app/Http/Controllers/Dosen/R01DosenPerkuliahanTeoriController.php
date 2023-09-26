@@ -75,7 +75,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             // 'nip'               =>  4022026301,
-            'kode_kelas'       =>  $request->kode_kelas,
+            'kode_kelas'        =>  $request->kode_kelas,
             'nama_matkul'       =>  $request->nama_matkul,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
@@ -84,6 +84,7 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'id_prodi'            =>  $request->id_prodi,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
             'sumber_data'       =>  'manual',
         ]);
 
@@ -144,6 +145,8 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'id_prodi'            =>  $request->id_prodi,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($update) {

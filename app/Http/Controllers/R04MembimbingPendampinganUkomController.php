@@ -29,7 +29,7 @@ class R04MembimbingPendampinganUkomController extends Controller
          $r04membimbingpendampinganukoms = R04MembimbingPendampinganUkom::where('nip',$request->session()->get('nip_dosen'))
                                                                         ->where('periode_id',$this->periode->id)
                                                                         ->orderBy('created_at','desc')->get();
-         
+
          return view('backend/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
             'pegawais'                          =>  $pegawais,
             'periode'                           =>  $this->periode,
@@ -65,6 +65,8 @@ class R04MembimbingPendampinganUkomController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($simpan) {
@@ -111,6 +113,8 @@ class R04MembimbingPendampinganUkomController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($update) {

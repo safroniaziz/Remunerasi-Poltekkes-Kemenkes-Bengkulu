@@ -65,6 +65,7 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($simpan) {
@@ -111,6 +112,7 @@ class R23AuditorMutuAssessorAkredInternalController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
        ]);
 
        if ($update) {

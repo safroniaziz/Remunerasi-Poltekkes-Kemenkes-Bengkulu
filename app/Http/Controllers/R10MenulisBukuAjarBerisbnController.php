@@ -30,7 +30,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         $r010menulisbukuajarberisbns = R010MenulisBukuAjarBerisbn::where('nip',$request->session()->get('nip_dosen'))
                                                                 ->where('periode_id',$this->periode->id)
                                                                  ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
            'pegawais'                          =>  $pegawais,
@@ -81,6 +81,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($simpan) {
@@ -140,6 +141,7 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($update) {

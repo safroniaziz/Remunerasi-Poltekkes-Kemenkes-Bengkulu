@@ -26,7 +26,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
          $r07membimbingskripsiltalaprofesis = R07MembimbingSkripsiLtaLaProfesi::where('nip',$request->session()->get('nip_dosen'))
                                                                             ->where('periode_id',$this->periode->id)
                                                                             ->orderBy('created_at','desc')->get();
-         
+
 
          return view('backend/rubriks/r_07_membimbing_skripsi_lta_la_profesis.index',[
             'pegawais'                             =>  $pegawais,
@@ -70,6 +70,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($simpan) {
@@ -123,6 +124,7 @@ class R07MembimbingSkripsiLtaLaProfesiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
         ]);
 
         if ($update) {

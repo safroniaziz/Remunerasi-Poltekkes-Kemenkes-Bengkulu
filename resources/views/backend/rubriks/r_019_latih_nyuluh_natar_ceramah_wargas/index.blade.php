@@ -157,6 +157,7 @@
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#jenis_edit').val(data.jenis);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

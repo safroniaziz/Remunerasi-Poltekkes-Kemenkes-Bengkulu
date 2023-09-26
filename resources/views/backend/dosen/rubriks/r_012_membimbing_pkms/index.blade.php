@@ -166,6 +166,7 @@
                     $('#juara_ke_edit').val(data.juara_ke);
                     $('#jumlah_pembimbing_edit').val(data.jumlah_pembimbing);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

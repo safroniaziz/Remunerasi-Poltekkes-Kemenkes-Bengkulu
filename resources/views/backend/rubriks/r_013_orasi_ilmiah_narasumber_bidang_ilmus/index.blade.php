@@ -157,6 +157,7 @@
                     $('#judul_kegiatan_edit').val(data.judul_kegiatan);
                     $('#tingkatan_ke_edit').val(data.tingkatan_ke);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

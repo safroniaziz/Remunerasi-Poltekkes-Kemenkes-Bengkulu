@@ -26,7 +26,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
         $r09mengujiseminarhasilktiltaskripsis = R09MengujiSeminarHasilKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
                                                                                     ->where('periode_id',$this->periode->id)
                                                                                    ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/rubriks/r_09_menguji_seminar_hasil_kti_lta_skripsis.index',[
            'pegawais'                                   =>  $pegawais,
            'periode'                                    =>  $this->periode,
@@ -53,7 +53,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis == "KTI" || $request->jenis == "LTA") {
             $ewmp = 0.10;
         }else{
@@ -68,6 +68,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($simpan) {
@@ -111,7 +112,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        $update = R09MengujiSeminarHasilKtiLtaSkripsi::where('id',$request->r09mengujiseminarhasil_id_edit)->update([
            'periode_id'        =>  $this->periode->id,
            'nip'               =>  $request->session()->get('nip_dosen'),
@@ -120,6 +121,7 @@ class R09MengujiSeminarHasilKtiLtaSkripsiController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
        ]);
 
        if ($update) {

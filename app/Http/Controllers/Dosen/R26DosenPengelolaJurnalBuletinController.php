@@ -24,7 +24,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
         $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$_SESSION['data']['kode'])
                                                                 ->where('periode_id',$this->periode->id)
                                                                  ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/dosen/rubriks/r_026_pengelola_jurnal_buletins.index',[
            'pegawais'                        =>  $pegawais,
@@ -51,7 +51,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }else{
@@ -67,6 +67,8 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -100,7 +102,7 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jabatan == "ketua") {
             $ewmp = 1.00;
         }else{
@@ -116,6 +118,8 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

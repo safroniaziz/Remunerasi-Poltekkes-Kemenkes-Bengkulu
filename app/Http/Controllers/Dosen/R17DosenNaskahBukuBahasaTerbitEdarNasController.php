@@ -28,7 +28,7 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
         $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                               ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/dosen/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
@@ -64,6 +64,8 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -106,6 +108,8 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {

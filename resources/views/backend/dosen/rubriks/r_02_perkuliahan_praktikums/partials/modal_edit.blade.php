@@ -45,11 +45,17 @@
                         <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">Program Studi Mengajar</label>
                             <select name="id_prodi" id="id_prodi_edit" class="form-control">
-                                <option disabled selected>-- pilih program studi --</option> 
+                                <option disabled selected>-- pilih program studi --</option>
                                 @foreach ($dataProdis as $prodi)
                                     <option value="{{ $prodi->kdjen.$prodi->kdpst }}">{{ $prodi->nama_prodi }}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Bukti Validasi Data</label>
+                            <input type="text" class="form-control" id="keterangan_edit" name="keterangan">
+                            <small class="text-danger">(Nomor SK / Tempat Terbit / Bukti Valid Lainnya Sesuai Aturan yang berlaku)</small>
                         </div>
 
                         <div class="form-group col-md-12">
@@ -64,8 +70,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm btn-flat " data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat " id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -79,6 +85,8 @@
     <script>
         $(document).on('submit','#form-edit-R02',function (event){
             event.preventDefault();
+            $("#btnSubmit"). attr("disabled", true);
+            $("#btnCancel"). attr("disabled", true);
             $.ajax({
                 url: $(this).attr('action'),
                 type: $(this).attr('method'),

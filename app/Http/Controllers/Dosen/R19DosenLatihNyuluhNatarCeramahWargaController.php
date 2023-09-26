@@ -24,7 +24,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         $r019latihnyuluhnatarceramahwargas = R019LatihNyuluhNatarCeramahWarga::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                              ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_019_latih_nyuluh_natar_ceramah_wargas.index',[
            'pegawais'                               =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -48,7 +48,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis == "insidentil") {
             $ewmp = 0.50;
         }else{
@@ -63,6 +63,8 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -94,7 +96,7 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        if ($request->jenis == "insidentil") {
             $ewmp = 0.50;
         }else{
@@ -109,6 +111,8 @@ class R19DosenLatihNyuluhNatarCeramahWargaController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {

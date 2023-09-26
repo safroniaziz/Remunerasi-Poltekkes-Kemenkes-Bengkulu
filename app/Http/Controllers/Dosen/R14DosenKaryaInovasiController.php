@@ -79,6 +79,8 @@ class R14DosenKaryaInovasiController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -117,7 +119,7 @@ class R14DosenKaryaInovasiController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
         if ($request->jenis == "menghasilkan_pendapatan_blu") {
             $ewmp = 5.00;
         }elseif ($request->jenis == "paten_yang_belum_dikonversi") {
@@ -142,6 +144,8 @@ class R14DosenKaryaInovasiController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {

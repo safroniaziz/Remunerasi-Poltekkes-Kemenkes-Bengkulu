@@ -28,7 +28,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
         $r023auditormutuassessorakredinternals = R023AuditorMutuAssessorAkredInternal::where('nip',$_SESSION['data']['kode'])
                                                                                     ->where('periode_id',$this->periode->id)
                                                                                      ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/dosen/rubriks/r_023_auditor_mutu_assessor_akred_internals.index',[
            'pegawais'                              =>  $pegawais,
@@ -50,7 +50,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
@@ -61,6 +61,8 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -90,7 +92,7 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R023AuditorMutuAssessorAkredInternal::where('id',$request->r23auditmutuasesorakredinternal_id_edit)->update([
@@ -100,6 +102,8 @@ class R23DosenAuditorMutuAssessorAkredInternalController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

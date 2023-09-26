@@ -164,6 +164,7 @@
                     $('#periode_id_edit').val(data.periode_id);
                     $('#jabatan_edit').val(data.jabatan);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

@@ -30,7 +30,7 @@ class R03MembimbingPencapaianKompetensiController extends Controller
          $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$request->session()->get('nip_dosen'))
                                                                                 ->where('periode_id',$this->periode->id)
                                                                                 ->orderBy('created_at','desc')->get();
-         
+
          return view('backend/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
             'periode'                               =>  $this->periode,
@@ -56,7 +56,7 @@ class R03MembimbingPencapaianKompetensiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        
+
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
         $simpan = R03MembimbingPencapaianKompetensi::create([
@@ -66,6 +66,8 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($simpan) {
@@ -102,7 +104,7 @@ class R03MembimbingPencapaianKompetensiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        
+
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
         $update = R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->update([
@@ -112,6 +114,8 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($update) {

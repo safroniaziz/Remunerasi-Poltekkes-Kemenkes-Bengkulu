@@ -24,7 +24,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
         $r028melaksanakanpengembangandiris = R028MelaksanakanPengembanganDiri::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                              ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_028_melaksanakan_pengembangan_diris.index',[
            'pegawais'                              =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -46,7 +46,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis_kegiatan == "pelatihan") {
             $ewmp = 1.00;
         }elseif ($request->jenis_kegiatan == "workshop") {
@@ -62,6 +62,8 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -91,7 +93,7 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis_kegiatan == "pelatihan") {
             $ewmp = 1.00;
         }elseif ($request->jenis_kegiatan == "workshop") {
@@ -107,6 +109,8 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

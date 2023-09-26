@@ -28,7 +28,7 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
         $r021reviewereclerepenelitiandosens = R021ReviewerEclerePenelitianDosen::where('nip',$_SESSION['data']['kode'])
                                                                                 ->where('periode_id',$this->periode->id)
                                                                                ->orderBy('created_at','desc')->get();
-        
+
 
         return view('backend/dosen/rubriks/r_021_reviewer_eclere_penelitian_dosens.index',[
            'pegawais'                              =>  $pegawais,
@@ -61,6 +61,8 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -100,6 +102,8 @@ class R21DosenReviewerEclerePenelitianDosenController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

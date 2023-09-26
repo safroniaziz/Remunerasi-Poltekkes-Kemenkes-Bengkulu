@@ -170,6 +170,7 @@
                     $('#nip_edit').val(data.nip);
                     $('#jabatan_edit').val(data.jabatan);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

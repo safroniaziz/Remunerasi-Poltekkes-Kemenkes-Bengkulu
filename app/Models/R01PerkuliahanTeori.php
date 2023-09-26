@@ -14,9 +14,9 @@ class R01PerkuliahanTeori extends Model
         'periode_id','nip','nama_matkul','kode_kelas',
         'jumlah_tatap_muka','jumlah_sks','jumlah_mahasiswa'
         ,'jumlah_tatap_muka','id_prodi','is_bkd','is_verified'
-        ,'sumber_data','point','created_at','deleted_at'
+        ,'sumber_data','point','created_at','deleted_at','keterangan'
     ];
-    
+
     public function periode(){
         return $this->belongsTo(Periode::class);
     }

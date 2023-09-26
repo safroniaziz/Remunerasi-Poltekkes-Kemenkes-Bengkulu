@@ -157,6 +157,7 @@
                     $('#jumlah_mahasiswa_edit').val(data.jumlah_mahasiswa);
                     $('#jenis_edit').val(data.jenis);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
                 },
                 error:function(){
                     $('#gagal').show(100);

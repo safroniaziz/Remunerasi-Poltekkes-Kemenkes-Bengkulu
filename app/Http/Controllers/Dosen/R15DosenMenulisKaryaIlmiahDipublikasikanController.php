@@ -99,6 +99,8 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -137,7 +139,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
         if ($request->jenis == "Q1") {
             $ewmp = 15.00;
         }elseif ($request->jenis == "Q2") {
@@ -182,6 +184,8 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {

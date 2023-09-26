@@ -28,7 +28,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
         $r024timakredprodirektorats = R024TimAkredProdiDanDirektorat::where('nip',$_SESSION['data']['kode'])
                                                                     ->where('periode_id',$this->periode->id)
                                                                     ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_024_tim_akred_prodi_dan_direktorats.index',[
            'pegawais'                       =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -50,7 +50,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        $point = $this->nilai_ewmp->ewmp;
 
        $simpan = R024TimAkredProdiDanDirektorat::create([
@@ -60,6 +60,8 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
            'is_bkd'            =>  $request->is_bkd,
            'is_verified'       =>  0,
            'point'             =>  $point,
+           'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -89,7 +91,7 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        if ($validasi->fails()) {
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
-       
+
        $point = $this->nilai_ewmp->ewmp;
 
        $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
@@ -99,6 +101,8 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
            'is_bkd'                     =>  $request->is_bkd,
            'is_verified'                =>  0,
            'point'                      =>  $point,
+           'keterangan'                 =>  $request->keterangan,
+
        ]);
 
        if ($update) {

@@ -33,7 +33,7 @@ class R02PerkuliahanPraktikumController extends Controller
          $r02perkuliahanpraktikums = r02perkuliahanpraktikum::where('nip',$request->session()->get('nip_dosen'))
                                                             ->where('periode_id',$this->periode->id)
                                                             ->orderBy('created_at','desc')->get();
-         
+
          return view('backend/rubriks/r_02_perkuliahan_praktikums.index',[
             'pegawais'                    =>  $pegawais,
             'periode'                     =>  $this->periode,
@@ -72,7 +72,7 @@ class R02PerkuliahanPraktikumController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        
+
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
         $simpan = R02PerkuliahanPraktikum::create([
@@ -85,6 +85,8 @@ class R02PerkuliahanPraktikumController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($simpan) {
@@ -146,6 +148,8 @@ class R02PerkuliahanPraktikumController extends Controller
             'is_bkd'            =>  $request->is_bkd,
             'is_verified'       =>  0,
             'point'             =>  $point,
+            'keterangan'        =>  $request->keterangan,
+
         ]);
 
         if ($update) {

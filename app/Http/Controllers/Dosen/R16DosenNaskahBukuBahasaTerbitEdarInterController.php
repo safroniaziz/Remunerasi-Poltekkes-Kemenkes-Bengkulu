@@ -26,7 +26,7 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
         $r016naskahbukubahasaterbitedarinters = R016NaskahBukuBahasaTerbitEdarInter::where('nip',$_SESSION['data']['kode'])
                                                                                     ->where('periode_id',$this->periode->id)
                                                                                    ->orderBy('created_at','desc')->get();
-        
+
         return view('backend/dosen/rubriks/r_016_naskah_buku_bahasa_terbit_edar_inters.index',[
            'pegawais'                             =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -103,6 +103,8 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {

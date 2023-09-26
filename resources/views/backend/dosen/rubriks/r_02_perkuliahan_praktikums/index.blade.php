@@ -22,7 +22,7 @@
             height: 15%;
             background: url('{{ asset('assets/img/preloader.gif') }}') center no-repeat #fff;
         }
-    </style> 
+    </style>
 @endpush
 @section('content')
     <div class="row">
@@ -52,7 +52,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="">Pilih Program Studi</label>
                                     <select name="kodeProdi" id="kodeProdi" class="form-control">
-                                        <option disabled selected>-- pilih program studi --</option> 
+                                        <option disabled selected>-- pilih program studi --</option>
                                         @foreach ($dataProdis as $prodi)
                                             <option value="{{ $prodi->kdjen.$prodi->kdpst }}">{{ $prodi->nama_prodi }}</option>
                                         @endforeach
@@ -264,6 +264,8 @@
                     $('#jumlah_tatap_muka_edit').val(data.jumlah_tatap_muka);
                     $('#id_prodi_edit').val(data.id_prodi);
                     $('#is_bkd_edit').val(data.is_bkd);
+                    $('#keterangan_edit').val(data.keterangan);
+
                 },
                 error:function(){
                     $('#gagal').show(100);

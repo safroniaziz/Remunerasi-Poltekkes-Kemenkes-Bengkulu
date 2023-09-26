@@ -204,6 +204,7 @@ class PegawaiController extends Controller
 
         $simpan = Pegawai::create([
             'nama'                  =>  $request->nama,
+            'nip'                   =>  $request->nip,
             'slug'                  =>  Str::slug($request->nama),
             'nidn'                  =>  $request->nidn,
             'email'                 =>  $request->email,

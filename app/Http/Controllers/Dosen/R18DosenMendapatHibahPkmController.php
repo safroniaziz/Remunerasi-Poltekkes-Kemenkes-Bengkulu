@@ -51,7 +51,7 @@ class R18DosenMendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
@@ -62,6 +62,8 @@ class R18DosenMendapatHibahPkmController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
@@ -92,7 +94,7 @@ class R18DosenMendapatHibahPkmController extends Controller
            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
        }
 
-       
+
 
        $point = $this->nilai_ewmp->ewmp;
 
@@ -103,6 +105,8 @@ class R18DosenMendapatHibahPkmController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($update) {
