@@ -79,10 +79,12 @@ class R02PerkuliahanPraktikumController extends Controller
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'nama_matkul'        =>  $request->nama_matkul,
+            'kode_kelas'        =>  $request->kode_kelas,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
+            'id_prodi'            =>  $request->id_prodi,
             'is_verified'       =>  0,
             'point'             =>  $point,
             'keterangan'        =>  $request->keterangan,
@@ -142,14 +144,15 @@ class R02PerkuliahanPraktikumController extends Controller
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'nama_matkul'        =>  $request->nama_matkul,
+            'kode_kelas'        =>  $request->kode_kelas,
             'jumlah_sks'        =>  $request->jumlah_sks,
             'jumlah_tatap_muka' =>  $request->jumlah_tatap_muka,
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
             'is_bkd'            =>  $request->is_bkd,
+            'id_prodi'            =>  $request->id_prodi,
             'is_verified'       =>  0,
             'point'             =>  $point,
             'keterangan'        =>  $request->keterangan,
-
         ]);
 
         if ($update) {

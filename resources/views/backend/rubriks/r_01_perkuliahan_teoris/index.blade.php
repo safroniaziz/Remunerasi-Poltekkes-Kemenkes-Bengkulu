@@ -49,6 +49,7 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="vertical-align:middle">Nama Matkul</th>
+                                        <th style="vertical-align:middle">Prodi Mengajar</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
@@ -71,6 +72,7 @@
                                             <td class="text-center">{{ $r01perkuliahanteori->nip }}</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->nama_matkul }}</td>
+                                            <td class="text-center">{{ $r01perkuliahanteori->prodiMatkul->nama_prodi }}</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_sks }} SKS</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_mahasiswa }} Mahasiswa</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_tatap_muka ? $r01perkuliahanteori->jumlah_tatap_muka : '-' }}</td>

@@ -49,6 +49,7 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style=" vertical-align:middle">Nama Dosen</th>
                                         <th style="vertical-align:middle">Nama Matkul</th>
+                                        <th style="vertical-align:middle">Prodi Mengajar</th>
                                         <th style=" vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
@@ -71,6 +72,7 @@
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->nip }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->nama_matkul }}</td>
+                                            <td class="text-center">{{ $r02perkuliahanpraktikum->prodiMatkul->nama_prodi }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_sks }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_tatap_muka ? $r02perkuliahanpraktikum->jumlah_tatap_muka : '-' }}</td>
