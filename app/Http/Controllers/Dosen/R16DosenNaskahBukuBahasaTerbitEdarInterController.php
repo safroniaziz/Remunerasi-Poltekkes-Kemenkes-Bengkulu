@@ -61,6 +61,8 @@ class R16DosenNaskahBukuBahasaTerbitEdarInterController extends Controller
         'is_bkd'            =>  $request->is_bkd,
         'is_verified'       =>  0,
         'point'             =>  $point,
+        'keterangan'        =>  $request->keterangan,
+
        ]);
 
        if ($simpan) {
