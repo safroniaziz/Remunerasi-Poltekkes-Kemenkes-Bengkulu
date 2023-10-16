@@ -72,7 +72,7 @@ class PegawaiController extends Controller
 
         $response_array = json_decode($response, true);
 
-        if (!empty($response_array) && isset($response_array['params']['total'])) {
+        if (!empty($response_array) && !empty($response_array['params']['total'])) {
             $totalData = $response_array['params']['total'];
         } else {
             return $responses; // Tidak ada data, langsung keluar
@@ -80,7 +80,7 @@ class PegawaiController extends Controller
 
         // Hitung total chunks yang dibutuhkan berdasarkan total data dan limit
         $totalChunks = ceil($totalData / $limit);
-
+        
         for ($chunk = 0; $chunk < $totalChunks; $chunk++) {
             $parameter['offset'] = $offset;
             $parameter['limit'] = $limit;

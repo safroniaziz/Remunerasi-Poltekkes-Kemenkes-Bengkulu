@@ -46,12 +46,8 @@
                                         <th style=" vertical-align:middle">No</th>
                                         <th style=" vertical-align:middle">Nama Jabatan DT</th>
                                         <th style="text-align:center; vertical-align:middle">Grade</th>
-                                        <th style=" vertical-align:middle">Harga Point DT</th>
-                                        <th style="text-align:center; vertical-align:middle">Job Value</th>
-                                        <th style="text-align:center; vertical-align:middle">Pir</th>
-                                        <th style="text-align:center; vertical-align:middle">Harga Jabatan</th>
+                                        <th style=" vertical-align:middle; text-align:center">Harga Point DT</th>
                                         <th style="text-align:center; vertical-align:middle">Gaji BLU</th>
-                                        <th style="text-align:center; vertical-align:middle">Insentif Maximum</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -66,11 +62,7 @@
                                             <a href="" style="font-weight:600;">{{ $jabatandt->nama_jabatan_dt }}</a></td>
                                             <td style="text-align: center;">{{ $jabatandt->grade ?? '-' }}</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatandt->harga_point_dt)) ?? '-' }},-</td>
-                                            <td style="text-align: center;">{{ $jabatandt->job_value ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatandt->pir }}</td>
-                                            <td style="text-align: center;">{{ $jabatandt->harga_jabatan }}</td>
-                                            <td style="text-align: center;">{{ $jabatandt->gaji_blu }}</td>
-                                            <td style="text-align: center;">{{ $jabatandt->insentif_maximum }}</td>
+                                            <td style="text-align: center;">Rp. {{ number_format($jabatandt->gaji_blu) }}</td>
                                             <td>
                                                 <table>
                                                     <tr>

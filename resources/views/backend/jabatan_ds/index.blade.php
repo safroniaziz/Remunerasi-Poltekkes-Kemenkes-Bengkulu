@@ -47,11 +47,7 @@
                                         <th style=" vertical-align:middle">Nama Jabatan DS</th>
                                         <th style="text-align:center; vertical-align:middle">Grade</th>
                                         <th style=" vertical-align:middle">Harga Point DS</th>
-                                        <th style="text-align:center; vertical-align:middle">Job Value</th>
-                                        <th style="text-align:center; vertical-align:middle">Pir</th>
-                                        <th style="text-align:center; vertical-align:middle">Harga Jabatan</th>
                                         <th style="text-align:center; vertical-align:middle">Gaji BLU</th>
-                                        <th style="text-align:center; vertical-align:middle">Insentif Maximum</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -66,11 +62,7 @@
                                             <a href="" style="font-weight:600;">{{ $jabatands->nama_jabatan_ds }}</a></td>
                                             <td style="text-align: center;">{{ $jabatands->grade ?? '-' }}</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatands->harga_point_ds)) ?? '-' }},-</td>
-                                            <td style="text-align: center;">{{ $jabatands->job_value ?? '-' }}</td>
-                                            <td style="text-align: center;">{{ $jabatands->pir }}</td>
-                                            <td style="text-align: center;">Rp. {{ number_format(($jabatands->harga_jabatan )) ?? '-' }},-</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatands->gaji_blu )) ?? '-' }},-</td>
-                                            <td style="text-align: center;">Rp. {{ number_format(($jabatands->insentif_maximum  )) ?? '-' }},-</td>
                                             <td>
                                             <table>
                                                 <tr>

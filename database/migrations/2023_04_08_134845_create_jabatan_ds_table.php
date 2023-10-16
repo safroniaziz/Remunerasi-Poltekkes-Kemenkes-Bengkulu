@@ -17,11 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('grade');
             $table->string('harga_point_ds');
-            $table->string('job_value');
-            $table->string('pir');
-            $table->string('harga_jabatan');
             $table->string('gaji_blu');
-            $table->string('insentif_maximum');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -38,28 +38,8 @@
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Job Value</label>
-                                <input type="text" class="form-control" value="{{ $jabatandt->job_value }}" id="job_value" name="job_value" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">PIR</label>
-                                <input type="text" class="form-control" value="{{ $jabatandt->pir }}" id="pir" name="pir" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Harga Jabatan DT</label>
-                                <input type="text" class="form-control" value="{{ $jabatandt->harga_jabatan }}" id="harga_jabatan" name="harga_jabatan" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
                                 <label for="nip" class="col-form-label">Gaji BLU</label>
                                 <input type="text" class="form-control" value="{{ $jabatandt->gaji_blu }}" id="gaji_blu" name="gaji_blu" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Insentif Maksimum</label>
-                                <input type="text" class="form-control" value="{{ $jabatandt->insentif_maximum }}" id="insentif_maximum" name="insentif_maximum" >
                             </div>
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">

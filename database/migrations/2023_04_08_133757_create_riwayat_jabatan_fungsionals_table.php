@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jabatan_fungsionals', function (Blueprint $table) {
+        Schema::create('riwayat_jabatan_fungsionals', function (Blueprint $table) {
             $table->id();
             $table->string('nip',18);
             $table->string('nama_jabatan_fungsional');

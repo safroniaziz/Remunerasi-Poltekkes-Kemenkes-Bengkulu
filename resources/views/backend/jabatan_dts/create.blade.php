@@ -38,28 +38,8 @@
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="job_value" class="col-form-label">Job Value</label>
-                                <input type="text" class="form-control" id="job_value" name="job_value" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="pir" class="col-form-label">Pir</label>
-                                <input type="text" class="form-control" id="pir" name="pir" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="harga_jabatan" class="col-form-label">Harga Jabatan</label>
-                                <input type="text" class="form-control" id="harga_jabatan" name="harga_jabatan" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
                                 <label for="gaji_blu" class="col-form-label">Gaji BLU</label>
                                 <input type="text" class="form-control" id="gaji_blu" name="gaji_blu" >
-                            </div>
-
-                            <div class="form-group col-md-6" id="insentif_maximum">
-                                <label for="insentif_maximum" class="col-form-label">Insentif Maximum</label>
-                                <input type="text" class="form-control"  name="insentif_maximum" >
                             </div>
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">

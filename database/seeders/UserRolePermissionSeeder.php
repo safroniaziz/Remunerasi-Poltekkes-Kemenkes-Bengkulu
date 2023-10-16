@@ -30,35 +30,35 @@ class UserRolePermissionSeeder extends Seeder
                 'is_active' =>  1,
             ], $default_user_value));
 
-            $verifikator1 = User::create(array_merge([
-                'email' =>  'verifikator1@mail.com',
-                'nama_user'  =>  'verifikator',
-                'is_active' =>  1,
-            ], $default_user_value));
+            // $verifikator1 = User::create(array_merge([
+            //     'email' =>  'verifikator1@mail.com',
+            //     'nama_user'  =>  'verifikator',
+            //     'is_active' =>  1,
+            // ], $default_user_value));
 
-            $verifikator2 = User::create(array_merge([
-                'email' =>  'verifikator2@mail.com',
-                'nama_user'  =>  'verifikator',
-                'is_active' =>  1,
-            ], $default_user_value));
+            // $verifikator2 = User::create(array_merge([
+            //     'email' =>  'verifikator2@mail.com',
+            //     'nama_user'  =>  'verifikator',
+            //     'is_active' =>  1,
+            // ], $default_user_value));
 
-            $verifikator3 = User::create(array_merge([
-                'email' =>  'verifikator3@mail.com',
-                'nama_user'  =>  'verifikator',
-                'is_active' =>  1,
-            ], $default_user_value));
+            // $verifikator3 = User::create(array_merge([
+            //     'email' =>  'verifikator3@mail.com',
+            //     'nama_user'  =>  'verifikator',
+            //     'is_active' =>  1,
+            // ], $default_user_value));
 
-            $verifikator4 = User::create(array_merge([
-                'email' =>  'verifikator4@mail.com',
-                'nama_user'  =>  'verifikator',
-                'is_active' =>  1,
-            ], $default_user_value));
+            // $verifikator4 = User::create(array_merge([
+            //     'email' =>  'verifikator4@mail.com',
+            //     'nama_user'  =>  'verifikator',
+            //     'is_active' =>  1,
+            // ], $default_user_value));
 
-            $verifikator5 = User::create(array_merge([
-                'email' =>  'verifikator5@mail.com',
-                'nama_user'  =>  'verifikator',
-                'is_active' =>  1,
-            ], $default_user_value));
+            // $verifikator5 = User::create(array_merge([
+            //     'email' =>  'verifikator5@mail.com',
+            //     'nama_user'  =>  'verifikator',
+            //     'is_active' =>  1,
+            // ], $default_user_value));
 
             $administrator = User::create(array_merge([
                 'email' =>  'administrator@mail.com',
@@ -81,6 +81,22 @@ class UserRolePermissionSeeder extends Seeder
             $role_pimpinan = Role::create(['name'  =>  'pimpinan']);
 
             $role_verifikator = Role::create(['name'  =>  'verifikator']);
+
+            $permission = Permission::create(['name'  =>  'dashboard']);
+            $permission = Permission::create(['name'  =>  'dashboard-verifikator']);
+            $permission = Permission::create(['name'  =>  'view-generate-point-rubrik']);
+            $permission = Permission::create(['name'  =>  'view-point-rubrik-dosen']);
+            $permission = Permission::create(['name'  =>  'view-laporan-keuangan']);
+
+            $permission = Permission::create(['name'  =>  'store-jabatan']);
+            $permission = Permission::create(['name'  =>  'edit-jabatan']);
+            $permission = Permission::create(['name'  =>  'update-jabatan']);
+            $permission = Permission::create(['name'  =>  'delete-jabatan']);
+
+            $permission = Permission::create(['name'  =>  'store-role']);
+            $permission = Permission::create(['name'  =>  'edit-role']);
+            $permission = Permission::create(['name'  =>  'update-role']);
+            $permission = Permission::create(['name'  =>  'delete-role']);
 
             $permission = Permission::create(['name'  =>  'read-role']);
             $permission = Permission::create(['name'  =>  'store-role']);
@@ -871,11 +887,11 @@ class UserRolePermissionSeeder extends Seeder
             $role_pimpinan->givePermissionTo('read-rekap-daftar-nominatif');
 
             $operator->assignRole('operator');
-            $verifikator1->assignRole('verifikator');
-            $verifikator2->assignRole('verifikator');
-            $verifikator3->assignRole('verifikator');
-            $verifikator4->assignRole('verifikator');
-            $verifikator5->assignRole('verifikator');
+            // $verifikator1->assignRole('verifikator');
+            // $verifikator2->assignRole('verifikator');
+            // $verifikator3->assignRole('verifikator');
+            // $verifikator4->assignRole('verifikator');
+            // $verifikator5->assignRole('verifikator');
             $administrator->assignRole('administrator');
             $pimpinan->assignRole('pimpinan');
 

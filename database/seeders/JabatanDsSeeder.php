@@ -15,56 +15,43 @@ class JabatanDsSeeder extends Seeder
      */
     public function run(): void
     {
-        $jabatanFungsional = [
+        $data = [
             [
-                'nama_jabatan_ds' => 'Asisten Ahli',
-                'grade' =>  1,
-                'harga_point_ds'    =>  1,
-                'job_value' =>  1,
-                'pir'   =>  1,
-                'harga_jabatan' =>  1,
-                'gaji_blu'  =>  1,
-                'insentif_maximum'  =>  1,
+                "nama_jabatan_ds" => "Lektor Kepala",
+                "grade" => "11f",
+                "harga_point_ds" => 1336652,
+                "gaji_blu" => 467828,
             ],
             [
-                'nama_jabatan_ds' => 'Dosen',
-                'grade' =>  1,
-                'harga_point_ds'    =>  1,
-                'job_value' =>  1,
-                'pir'   =>  1,
-                'harga_jabatan' =>  1,
-                'gaji_blu'  =>  1,
-                'insentif_maximum'  =>  1,
+                "nama_jabatan_ds" => "Lektor (Serdos)",
+                "grade" => "10b",
+                "harga_point_ds" => 1082595,
+                "gaji_blu" => 393908,
             ],
             [
-                'nama_jabatan_ds' => 'Lektor',
-                'grade' =>  1,
-                'harga_point_ds'    =>  1,
-                'job_value' =>  1,
-                'pir'   =>  1,
-                'harga_jabatan' =>  1,
-                'gaji_blu'  =>  1,
-                'insentif_maximum'  =>  1,
+                "nama_jabatan_ds" => "Lektor (non serdos)",
+                "grade" => "10c",
+                "harga_point_ds" => 1462569,
+                "gaji_blu" => 511899,
             ],
             [
-                'nama_jabatan_ds' => 'Guru Besar',
-                'grade' =>  1,
-                'harga_point_ds'    =>  1,
-                'job_value' =>  1,
-                'pir'   =>  1,
-                'harga_jabatan' =>  1,
-                'gaji_blu'  =>  1,
-                'insentif_maximum'  =>  1,
+                "nama_jabatan_ds" => "Asisten Ahli (serdos)",
+                "grade" => "9c",
+                "harga_point_ds" => 1052595,
+                "gaji_blu" => 368408,
             ],
-            // Tambahkan jabatan fungsional lain jika diperlukan
+            [
+                "nama_jabatan_ds" => "Asisten Ahli (non serdos)",
+                "grade" => "9e",
+                "harga_point_ds" => 1393400,
+                "gaji_blu" => 487690,
+            ],
         ];
 
-        // Tambahkan data ke tabel 'jabatan_ds'
-        foreach ($jabatanFungsional as $jabatan) {
-            $slug = Str::slug($jabatan['nama_jabatan_ds']);
-            $jabatan['slug'] = $slug;
-            JabatanDs::create($jabatan);
+        foreach ($data as $jabatanData) {
+            $slug = Str::slug($jabatanData['nama_jabatan_ds']);
+            $jabatanData['slug'] = $slug;
+            JabatanDs::create($jabatanData);
         }
-        
     }
 }

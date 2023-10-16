@@ -64,7 +64,7 @@ class R14DosenKaryaInovasiController extends Controller
         }else{
             $ewmp = 1.00;
         }
-        if ($request->penulis_ke == "penulis_ke") {
+        if ($request->penulis_ke == "penulis_utama") {
             $point = (60/100)*$ewmp;
         }else {
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;

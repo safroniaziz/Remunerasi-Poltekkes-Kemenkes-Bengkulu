@@ -17,13 +17,22 @@
 @endcan
 
 @can('read-jabatan-ds')
-<li class="header" style="font-weight:bold">KOMPONEN REMUNERASI</li>
+<li class="header" style="font-weight:bold;">KOMPONEN REMUNERASI</li>
 <li class="{{ set_active(['prodi','prodi.dosens']) }}">
     <a href="{{ route('prodi') }}">
         <i class="fa fa-clipboard "></i>
         <span>Data Program Studi</span>
     </a>
 </li>
+@endcan
+
+@can('read-jabatan')
+    <li class="{{ set_active(['jabatan','jabatan.create','jabatan.edit']) }}">
+        <a href="{{ route('jabatan') }}">
+            <i class="fa fa-briefcase"></i>
+            <span>Manajemen Jabatan</span>
+        </a>
+    </li>
 @endcan
 
 @can('read-jabatan-dt')
@@ -60,7 +69,7 @@
     </li>
 @endcan
 
-@can('read-pegawai')
+@can('read-kelompok-rubrik')
     <li class="{{ set_active('kelompok_rubrik') }}">
         <a href="{{ route('kelompok_rubrik') }}">
             <i class="fa fa-folder"></i>
