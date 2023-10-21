@@ -42,8 +42,8 @@
                             <label for="exampleInputEmail1">Status Rubrik</label>
                             <select name="is_bkd" class="form-control" id="is_bkd_edit">
                                 <option disabled selected>-- pilih --</option>
-                                <option value="0">Tidak</option>
-                                <option value="1">Ya</option>
+                                <option value="0">Non BKD</option>
+                                <option value="1">BKD</option>
                             </select>
                         </div>
 

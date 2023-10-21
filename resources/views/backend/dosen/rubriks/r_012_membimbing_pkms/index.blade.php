@@ -69,7 +69,13 @@
                                             <td class="text-center">{{ $r012membimbingpkm->nip }}</td>
                                             <td class="text-center">{{ $r012membimbingpkm->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r012membimbingpkm->tingkat_pkm }}</td>
-                                            <td class="text-center">{{ $r012membimbingpkm->juara_ke }}</td>
+                                            <td class="text-center">
+                                                @if ($r012membimbingpkm->juara_ke == 0)
+                                                <small class="label label-danger">X</small>
+                                                @else
+                                                {{ $r012membimbingpkm->juara_ke }}
+                                                @endif
+                                            </td>
                                             <td class="text-center">{{ $r012membimbingpkm->jumlah_pembimbing }}</td>
                                             <td class="text-center">
                                                 @if ($r012membimbingpkm->is_bkd == 1)

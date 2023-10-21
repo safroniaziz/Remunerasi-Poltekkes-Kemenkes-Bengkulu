@@ -6,7 +6,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 22 Reviewer Eclere Penelitian Dosen</p>
+                    <p style="font-weight: bold"><i class="fa fa-plus"></i>&nbsp;Form Tambah Rubrik 22 Reviewer Eclere Penelitian Mahasiswa</p>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -31,8 +31,8 @@
                             <label for="exampleInputEmail1">Status Rubrik</label>
                             <select name="is_bkd" class="form-control" id="is_bkd">
                                 <option disabled selected>-- pilih --</option>
-                                <option value="0">Tidak</option>
-                                <option value="1">Ya</option>
+                                <option value="0">Non BKD</option>
+                                <option value="1">BKD</option>
                             </select>
                         </div>
 
