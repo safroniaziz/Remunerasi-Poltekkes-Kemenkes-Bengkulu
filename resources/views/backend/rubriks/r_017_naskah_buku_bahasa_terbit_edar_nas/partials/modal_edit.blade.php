@@ -44,8 +44,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm btn-flat " id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat "  data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -55,30 +55,3 @@
 </div>
 <!-- /.modal -->
 
-@push('scripts')
-    <script>
-        $(document).on('submit','#form-edit-R017',function (event){
-            event.preventDefault();
-            $("#btnSubmit"). attr("disabled", true);
-            $("#btnCancel"). attr("disabled", true);
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                typeData: "JSON",
-                data: new FormData(this),
-                processData:false,
-                contentType:false,
-                success : function(res) {
-                    $("#btnSubmit"). attr("disabled", true);
-                    toastr.success(res.text, 'Yeay, Berhasil');
-                    setTimeout(function () {
-                        window.location.href=res.url;
-                    } , 500);
-                },
-                error:function(xhr){
-                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
-                }
-            })
-        });
-    </script>
-@endpush

@@ -24,8 +24,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm btn-flat" id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                    <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Perubahan Password</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-flat"  data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                    <button type="submit" class="btn btn-primary btn-sm btn-flat btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Perubahan Password</button>
                 </div>
             </div>
         </form>

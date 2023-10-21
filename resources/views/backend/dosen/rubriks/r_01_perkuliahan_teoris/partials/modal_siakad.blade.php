@@ -53,8 +53,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm btn-flat " id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data Siakad</button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat " data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data Siakad</button>
                 </div>
             </form>
         </div>
@@ -63,39 +63,4 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-@push('scripts')
-    <script>
-        $(document).on('submit','#form-siakad',function (event){
-            event.preventDefault();
-            toastr.info('Harap menunggu hingga proses selesai...');
-            $('#loading').show();
-            $('#data').hide();
-            $("#btnSubmit"). attr("disabled", true);
-            $("#btnCancel"). attr("disabled", true);
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                dataType: "JSON", // Perbaiki typo di "typeData" menjadi "dataType"
-                data: new FormData(this),
-                processData:false,
-                contentType:false,
-                success : function(res) {
-                    toastr.success(res.text, 'Yeay, Berhasil');
-                    setTimeout(function () {
-                        window.location.href=res.url;
-                    } , 500);
-                },
-                error:function(xhr){
-                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
-                },
-                complete: function() {
-                    // Sembunyikan elemen loading dan tampilkan kembali tombol submit
-                    $('#loading').hide();
-                    $('#data').show();
-                    $("#btnSubmit").attr("disabled", false);
-                    $('#modalDetail').hide();
-                }
-            })
-        });
-    </script>
-@endpush
+

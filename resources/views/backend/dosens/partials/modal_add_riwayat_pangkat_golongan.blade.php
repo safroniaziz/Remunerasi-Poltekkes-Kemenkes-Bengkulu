@@ -50,8 +50,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm btn-flat " id="btnCancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
-                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat "  data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -61,69 +61,4 @@
 </div>
 <!-- /.modal -->
 
-@push('scripts')
-    <script>
-        $(document).on('submit','#form-tambah-pangkat-golongan',function (event){
-            event.preventDefault();
-            $("#btnSubmit"). attr("disabled", true);
-            $("#btnCancel"). attr("disabled", true);
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                typeData: "JSON",
-                data: new FormData(this),
-                processData:false,
-                contentType:false,
-                success : function(res) {
-                    $("#btnSubmit"). attr("disabled", true);
-                    toastr.success(res.text, 'Yeay, Berhasil');
-                    setTimeout(function () {
-                        window.location.href=res.url;
-                    } , 500);
-                },
-                error:function(xhr){
-                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
-                }
-            })
-        });
 
-        $(document).ready(function(){
-            $(document).on('change','#golongan',function(){
-                // alert('berhasil');
-                var golongan = $(this).val();
-                var div = $(this).parent().parent();
-                var op=" ";
-                op+='<option selected disabled>-- pilih pangkat --</option>';
-
-                if (golongan == "I") {
-                    op+='<option value="IA">'+"IA Juru Muda"+'</option>';
-                    op+='<option value="IB">'+"IB Juru Muda Tingkat 1"+'</option>';
-                    op+='<option value="IC">'+"IC Juru"+'</option>';
-                    op+='<option value="ID">'+"ID Juru Tingkat 1"+'</option>';
-                }else if(golongan == "II"){
-                    op+='<option value="IIA">'+"IIA Pengatur Muda"+'</option>';
-                    op+='<option value="IIB">'+"IIB Pengatur Muda Tingkat 1"+'</option>';
-                    op+='<option value="IIC">'+"IIC Pengatur"+'</option>';
-                    op+='<option value="IID">'+"IID Pengatur Tingkat 1"+'</option>';
-                }else if(golongan == "III"){
-                    op+='<option value="IIIA">'+"IIIA Penata Muda"+'</option>';
-                    op+='<option value="IIIB">'+"IIIB Penata Muda Tingkat 1"+'</option>';
-                    op+='<option value="IIIC">'+"IIIC Penata"+'</option>';
-                    op+='<option value="IIID">'+"IIID Penata Tingkat 1"+'</option>';
-                }else{
-                    op+='<option value="IVA">'+"IVA Pembina"+'</option>';
-                    op+='<option value="IVB">'+"IVB Pembina Tingkat 1"+'</option>';
-                    op+='<option value="IVC">'+"IVC Pembina Utama Muda"+'</option>';
-                    op+='<option value="IVD">'+"IVD Pembina Utama Madya"+'</option>';
-                    op+='<option value="IVE">'+"IVE Pembina Utama"+'</option>';
-                }
-                div.find('#nama_pangkat').html(" ");
-                div.find('#nama_pangkat').append(op);
-            })
-        });
-
-        $('#tmt_jabatan_fungsional').datepicker({
-            format: 'yyyy/mm/dd', autoclose: true
-        })
-    </script>
-@endpush
