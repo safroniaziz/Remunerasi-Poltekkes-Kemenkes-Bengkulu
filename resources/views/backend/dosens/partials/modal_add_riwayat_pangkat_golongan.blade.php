@@ -44,7 +44,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" value="{{ old('tmt_pangkat_golongan') }}" name="tmt_pangkat_golongan" id="tmt_jabatan_fungsional" class="form-control pull-right">
+                                <input type="text" value="{{ old('tmt_pangkat_golongan') }}" name="tmt_pangkat_golongan" id="tmt_pangkat_golongan" class="form-control pull-right">
                             </div>
                         </div>
                     </div>
@@ -62,3 +62,45 @@
 <!-- /.modal -->
 
 
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+            $(document).on('change','#golongan',function(){
+                // alert('berhasil');
+                var golongan = $(this).val();
+                var div = $(this).parent().parent();
+                var op=" ";
+                op+='<option selected disabled>-- pilih pangkat --</option>';
+
+                if (golongan == "I") {
+                    op+='<option value="IA">'+"IA Juru Muda"+'</option>';
+                    op+='<option value="IB">'+"IB Juru Muda Tingkat 1"+'</option>';
+                    op+='<option value="IC">'+"IC Juru"+'</option>';
+                    op+='<option value="ID">'+"ID Juru Tingkat 1"+'</option>';
+                }else if(golongan == "II"){
+                    op+='<option value="IIA">'+"IIA Pengatur Muda"+'</option>';
+                    op+='<option value="IIB">'+"IIB Pengatur Muda Tingkat 1"+'</option>';
+                    op+='<option value="IIC">'+"IIC Pengatur"+'</option>';
+                    op+='<option value="IID">'+"IID Pengatur Tingkat 1"+'</option>';
+                }else if(golongan == "III"){
+                    op+='<option value="IIIA">'+"IIIA Penata Muda"+'</option>';
+                    op+='<option value="IIIB">'+"IIIB Penata Muda Tingkat 1"+'</option>';
+                    op+='<option value="IIIC">'+"IIIC Penata"+'</option>';
+                    op+='<option value="IIID">'+"IIID Penata Tingkat 1"+'</option>';
+                }else{
+                    op+='<option value="IVA">'+"IVA Pembina"+'</option>';
+                    op+='<option value="IVB">'+"IVB Pembina Tingkat 1"+'</option>';
+                    op+='<option value="IVC">'+"IVC Pembina Utama Muda"+'</option>';
+                    op+='<option value="IVD">'+"IVD Pembina Utama Madya"+'</option>';
+                    op+='<option value="IVE">'+"IVE Pembina Utama"+'</option>';
+                }
+                div.find('#nama_pangkat').html(" ");
+                div.find('#nama_pangkat').append(op);
+            })
+        });
+
+        $('#tmt_pangkat_golongan').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
+    </script>
+@endpush

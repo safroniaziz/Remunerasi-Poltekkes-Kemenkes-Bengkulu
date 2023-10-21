@@ -56,15 +56,12 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th style=" vertical-align:middle">No</th>
-                                        <th style="vertical-align:middle">ID Prodi</th>
-                                        <th style="text-align:center; vertical-align:middle">Kode Jenjang</th>
-                                        <th style="text-align:center; vertical-align:middle">Kode Prodi</th>
-                                        <th style="text-align:center; vertical-align:middle">Nama Jenjang</th>
                                         <th style="vertical-align:middle">Nama Prodi</th>
                                         <th style="vertical-align:middle">Nama Lengkap Prodi</th>
-                                        <th style="text-align:center; vertical-align:middle">Kode Fakultas</th>
-                                        <th vertical-align:middle">Nama Fakultas</th>
-                                        <th style="text-align:center; vertical-align:middle">Data Dosen</th>
+                                        <th style="vertical-align:middle">Nama Fakultas</th>
+                                        <th style="vertical-align:middle">Verifikator</th>
+                                        <th style="vertical-align:middle">Penanggung Jawab</th>
+                                        <th style="text-align:center; vertical-align:middle">Informasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,16 +71,22 @@
                                     @foreach ($prodis as $index =>  $prodi)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>{{ $prodi->id_prodi }}</td>
-                                            <td class="text-center">{{ $prodi->kdjen }}</td>
-                                            <td class="text-center">{{ $prodi->kdpst }}</td>
-                                            <td class="text-center">{{ $prodi->nama_jenjang }}</td>
                                             <td>{{ $prodi->nama_prodi }}</td>
                                             <td>{{ $prodi->nama_lengkap_prodi }}</td>
-                                            <td class="text-center">{{ $prodi->kodefak }}</td>
                                             <td>{{ $prodi->nmfak }}</td>
+                                            <td>{{ $prodi->verifikator->nama_user }}</td>
+                                            <td>{{ $prodi->penanggungJawab->nama_user }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('prodi.dosens',[$prodi->id_prodi]) }}" class="btn btn-success btn-sm btn-flat">{{ $prodi->dosens_count }}</a>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="{{ route('prodi.verifikator',[$prodi->id_prodi]) }}" class="btn btn-info btn-sm btn-flat">Verifikator</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('prodi.dosens',[$prodi->id_prodi]) }}" class="btn btn-success btn-sm btn-flat">Dosen</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
                                     @endforeach

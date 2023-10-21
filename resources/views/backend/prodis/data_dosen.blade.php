@@ -16,7 +16,7 @@
         <div class="col-md-5">
             <section class="panel" style="margin-bottom:20px;">
                 <header class="bg-primary" style="color: #ffffff;background-color: #3c8dbc;border-color: #fff000;border-image: none;border-style: solid solid none;border-width: 4px 0px 0;border-radius: 0;font-size: 14px;font-weight: 700;padding: 15px;">
-                    <i class="fa fa-clipboard"></i>&nbsp; Data Dosen Program Studi
+                    <i class="fa fa-clipboard"></i>&nbsp; Informasi Program Studi
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row">

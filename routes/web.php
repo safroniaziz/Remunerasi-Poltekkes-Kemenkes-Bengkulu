@@ -92,6 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/data_program_studi', 'index')->name('prodi');
         Route::get('/data_program_studi/generate', 'generate')->name('prodi.generate');
         Route::get('/data_program_studi/{prodi:id_prodi}/data_dosen', 'dataDosen')->name('prodi.dosens');
+        Route::get('/data_program_studi/{prodi:id_prodi}/data_verifikator', 'dataVerifikator')->name('prodi.verifikator');
     });
 
     // Master Data Route

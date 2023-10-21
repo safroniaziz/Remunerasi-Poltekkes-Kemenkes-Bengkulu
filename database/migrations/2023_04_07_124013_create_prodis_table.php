@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('prodis', function (Blueprint $table) {
             $table->string('id_prodi')->primary();
+            $table->unsignedBigInteger('verifikator_id')->nullable();
+            $table->unsignedBigInteger('penanggung_jawab_id')->nullable();
             $table->string('kdjen');
             $table->string('kdpst');
             $table->string('nama_jenjang');
@@ -21,6 +23,9 @@ return new class extends Migration
             $table->string('kodefak');
             $table->string('nmfak');
             $table->timestamps();
+
+            $table->foreign('verifikator_id')->references('id')->on('users');
+            $table->foreign('penanggung_jawab_id')->references('id')->on('users');
         });
     }
 

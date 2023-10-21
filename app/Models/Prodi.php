@@ -17,4 +17,9 @@ class Prodi extends Model
     {
         return $this->hasMany(Pegawai::class, 'id_prodi_homebase','id_prodi');
     }
+
+    public function name()
+    {
+        return $this->belongsTo(class);
+    }
 }
