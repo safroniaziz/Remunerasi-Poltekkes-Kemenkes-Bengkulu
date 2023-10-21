@@ -27,11 +27,11 @@
 @stack('styles')
 
 <style>
-    .skin-blue-light .sidebar-menu>li.active>a {
-        border-left-color: #3c8dbc !important;
+    .skin-blue .sidebar-menu>li.active>a {
+        border-left-color: #ffffff !important;
     }
     .sidebar-menu>li.active>a {
-        background: #DEDEE8 !important;
+        background: #1e282c !important;
     }
 
     .sidebar-menu>li>a{
