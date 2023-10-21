@@ -29,7 +29,7 @@
         <div class=" relative grid h-screen place-items-center  items-center p-0 overflow-hidden bg-center bg-cover ">
             <div class="container">
                 <div class="flex   ">
-                    <div class=" flex flex-col w-full mx-auto md:flex-0 shrink-0 md:w-1/3
+                    <div class=" flex flex-col w-full mx-auto md:flex-0 md:p-12 shrink-0 md:w-2/5
                         animate__fadeInLeft justify-center my-auto ">
                         <div
                             class=" flex flex-col   break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border ">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full  lg:flex-0 shrink-0 md:w-1/2  ">
+                    <div class="w-full  lg:flex-0 shrink-0 md:w-3/5  ">
                         <div class="absolute top-0 hidden w-full h-full overflow-hidden -skew-x-12 ml-5 md:block
                             bg-[#0f41e0]  " style="filter: drop-shadow(0px 0px 20px #fff307);">
                             <div
@@ -111,7 +111,7 @@
                                 <div class="bg-yellow-600 w-full h-full "></div>
                             </div>
                         </div>
-                        <lottie-player src="{{ asset('assets/img/hello.json') }}" background="transparent" speed="1" class="w-11/12 h-11/12 ml-20"
+                        <lottie-player src="{{ asset('assets/img/finance.json') }}" background="transparent" speed="1" class="w-11/12 h-11/12 ml-20"
                             loop autoplay></lottie-player>
                     </div>
                 </div>

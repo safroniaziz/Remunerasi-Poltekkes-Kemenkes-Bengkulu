@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('isi_pengumuman');
             $table->string('slug');
             $table->datetime('tanggal_pengumuman');
-            $table->boolean('is_active');
+            $table->string('file_pengumuman');
             $table->timestamps();
             $table->softDeletes();
         });
