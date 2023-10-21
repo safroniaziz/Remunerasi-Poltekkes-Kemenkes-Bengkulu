@@ -24,11 +24,6 @@ class UserRolePermissionSeeder extends Seeder
         ];
         // DB::beginTransaction();
         // try {
-            $operator = User::create(array_merge([
-                'email' =>  'operator@mail.com',
-                'nama_user'  =>  'operator',
-                'is_active' =>  1,
-            ], $default_user_value));
 
             // $verifikator1 = User::create(array_merge([
             //     'email' =>  'verifikator1@mail.com',
@@ -71,10 +66,6 @@ class UserRolePermissionSeeder extends Seeder
                 'nama_user'  =>  'pimpinan',
                 'is_active' =>  1,
             ], $default_user_value));
-
-            $role_operator = Role::create([
-                'name'  =>  'operator'
-            ]);
 
             $role_administrator = Role::create(['name'  =>  'administrator']);
 
@@ -401,186 +392,7 @@ class UserRolePermissionSeeder extends Seeder
             $permission = Permission::create(['name'  =>  'update-r030-pengelola-kepk']);
             $permission = Permission::create(['name'  =>  'delete-r030-pengelola-kepk']);
 
-            $role_operator->givePermissionTo('read-r01-perkuliahan-teori');
-            $role_operator->givePermissionTo('store-r01-perkuliahan-teori');
-            $role_operator->givePermissionTo('edit-r01-perkuliahan-teori');
-            $role_operator->givePermissionTo('update-r01-perkuliahan-teori');
-            $role_operator->givePermissionTo('delete-r01-perkuliahan-teori');
-
-            $role_operator->givePermissionTo('read-r02-perkuliahan-praktikum');
-            $role_operator->givePermissionTo('store-r02-perkuliahan-praktikum');
-            $role_operator->givePermissionTo('edit-r02-perkuliahan-praktikum');
-            $role_operator->givePermissionTo('update-r02-perkuliahan-praktikum');
-            $role_operator->givePermissionTo('delete-r02-perkuliahan-praktikum');
-
-            $role_operator->givePermissionTo('read-r03-membimbing-capaian-kompetensi');
-            $role_operator->givePermissionTo('store-r03-membimbing-capaian-kompetensi');
-            $role_operator->givePermissionTo('edit-r03-membimbing-capaian-kompetensi');
-            $role_operator->givePermissionTo('update-r03-membimbing-capaian-kompetensi');
-            $role_operator->givePermissionTo('delete-r03-membimbing-capaian-kompetensi');
-
-            $role_operator->givePermissionTo('read-r04-membimbing-pendampingan-ukom');
-            $role_operator->givePermissionTo('store-r04-membimbing-pendampingan-ukom');
-            $role_operator->givePermissionTo('edit-r04-membimbing-pendampingan-ukom');
-            $role_operator->givePermissionTo('update-r04-membimbing-pendampingan-ukom');
-            $role_operator->givePermissionTo('delete-r04-membimbing-pendampingan-ukom');
-
-            $role_operator->givePermissionTo('read-r05-membimbing-praktik-pkk-pbl-klinik');
-            $role_operator->givePermissionTo('store-r05-membimbing-praktik-pkk-pbl-klinik');
-            $role_operator->givePermissionTo('edit-r05-membimbing-praktik-pkk-pbl-klinik');
-            $role_operator->givePermissionTo('update-r05-membimbing-praktik-pkk-pbl-klinik');
-            $role_operator->givePermissionTo('delete-r05-membimbing-praktik-pkk-pbl-klinik');
-
-            $role_operator->givePermissionTo('read-r06-menguji-ujian-osca');
-            $role_operator->givePermissionTo('store-r06-menguji-ujian-osca');
-            $role_operator->givePermissionTo('edit-r06-menguji-ujian-osca');
-            $role_operator->givePermissionTo('update-r06-menguji-ujian-osca');
-            $role_operator->givePermissionTo('delete-r06-menguji-ujian-osca');
-
-            $role_operator->givePermissionTo('read-r07-membimbing-skripsi-lta-la-profesi');
-            $role_operator->givePermissionTo('store-r07-membimbing-skripsi-lta-la-profesi');
-            $role_operator->givePermissionTo('edit-r07-membimbing-skripsi-lta-la-profesi');
-            $role_operator->givePermissionTo('update-r07-membimbing-skripsi-lta-la-profesi');
-            $role_operator->givePermissionTo('delete-r07-membimbing-skripsi-lta-la-profesi');
-
-            $role_operator->givePermissionTo('read-r08-menguji-seminar-proposal-kti-lta-skripsi');
-            $role_operator->givePermissionTo('store-r08-menguji-seminar-proposal-kti-lta-skripsi');
-            $role_operator->givePermissionTo('edit-r08-menguji-seminar-proposal-kti-lta-skripsi');
-            $role_operator->givePermissionTo('update-r08-menguji-seminar-proposal-kti-lta-skripsi');
-            $role_operator->givePermissionTo('delete-r08-menguji-seminar-proposal-kti-lta-skripsi');
-
-            $role_operator->givePermissionTo('read-r09-menguji-seminar-hasil-kti-lta-skripsi');
-            $role_operator->givePermissionTo('store-r09-menguji-seminar-hasil-kti-lta-skripsi');
-            $role_operator->givePermissionTo('edit-r09-menguji-seminar-hasil-kti-lta-skripsi');
-            $role_operator->givePermissionTo('update-r09-menguji-seminar-hasil-kti-lta-skripsi');
-            $role_operator->givePermissionTo('delete-r09-menguji-seminar-hasil-kti-lta-skripsi');
-
-            $role_operator->givePermissionTo('read-r010-menulis-buku-ajar-berisbn');
-            $role_operator->givePermissionTo('store-r010-menulis-buku-ajar-berisbn');
-            $role_operator->givePermissionTo('edit-r010-menulis-buku-ajar-berisbn');
-            $role_operator->givePermissionTo('update-r010-menulis-buku-ajar-berisbn');
-            $role_operator->givePermissionTo('delete-r010-menulis-buku-ajar-berisbn');
-
-            $role_operator->givePermissionTo('read-r011-mengembangkan-modul-berisbn');
-            $role_operator->givePermissionTo('store-r011-mengembangkan-modul-berisbn');
-            $role_operator->givePermissionTo('edit-r011-mengembangkan-modul-berisbn');
-            $role_operator->givePermissionTo('update-r011-mengembangkan-modul-berisbn');
-            $role_operator->givePermissionTo('delete-r011-mengembangkan-modul-berisbn');
-
-            $role_operator->givePermissionTo('read-r012-membimbing-pkm');
-            $role_operator->givePermissionTo('store-r012-membimbing-pkm');
-            $role_operator->givePermissionTo('edit-r012-membimbing-pkm');
-            $role_operator->givePermissionTo('update-r012-membimbing-pkm');
-            $role_operator->givePermissionTo('delete-r012-membimbing-pkm');
-
-            $role_operator->givePermissionTo('read-r013-orasi-ilmiah-narasumber-bidang-ilmu');
-            $role_operator->givePermissionTo('store-r013-orasi-ilmiah-narasumber-bidang-ilmu');
-            $role_operator->givePermissionTo('edit-r013-orasi-ilmiah-narasumber-bidang-ilmu');
-            $role_operator->givePermissionTo('update-r013-orasi-ilmiah-narasumber-bidang-ilmu');
-            $role_operator->givePermissionTo('delete-r013-orasi-ilmiah-narasumber-bidang-ilmu');
-
-            $role_operator->givePermissionTo('read-r014-karya-inovasi');
-            $role_operator->givePermissionTo('store-r014-karya-inovasi');
-            $role_operator->givePermissionTo('edit-r014-karya-inovasi');
-            $role_operator->givePermissionTo('update-r014-karya-inovasi');
-            $role_operator->givePermissionTo('delete-r014-karya-inovasi');
-
-            $role_operator->givePermissionTo('read-r015-menulis-karya-ilmiah-dipublikasikan');
-            $role_operator->givePermissionTo('store-r015-menulis-karya-ilmiah-dipublikasikan');
-            $role_operator->givePermissionTo('edit-r015-menulis-karya-ilmiah-dipublikasikan');
-            $role_operator->givePermissionTo('update-r015-menulis-karya-ilmiah-dipublikasikan');
-            $role_operator->givePermissionTo('delete-r015-menulis-karya-ilmiah-dipublikasikan');
-
-            $role_operator->givePermissionTo('read-r016-naskah-buku-bahasa-terbit-edar-inter');
-            $role_operator->givePermissionTo('store-r016-naskah-buku-bahasa-terbit-edar-inter');
-            $role_operator->givePermissionTo('edit-r016-naskah-buku-bahasa-terbit-edar-inter');
-            $role_operator->givePermissionTo('update-r016-naskah-buku-bahasa-terbit-edar-inter');
-            $role_operator->givePermissionTo('delete-r016-naskah-buku-bahasa-terbit-edar-inter');
-
-            $role_operator->givePermissionTo('read-r017-naskah-buku-bahasa-terbit-edar-nas');
-            $role_operator->givePermissionTo('store-r017-naskah-buku-bahasa-terbit-edar-nas');
-            $role_operator->givePermissionTo('edit-r017-naskah-buku-bahasa-terbit-edar-nas');
-            $role_operator->givePermissionTo('update-r017-naskah-buku-bahasa-terbit-edar-nas');
-            $role_operator->givePermissionTo('delete-r017-naskah-buku-bahasa-terbit-edar-nas');
-
-            $role_operator->givePermissionTo('read-r018-mendapat-hibah-pkm');
-            $role_operator->givePermissionTo('store-r018-mendapat-hibah-pkm');
-            $role_operator->givePermissionTo('edit-r018-mendapat-hibah-pkm');
-            $role_operator->givePermissionTo('update-r018-mendapat-hibah-pkm');
-            $role_operator->givePermissionTo('delete-r018-mendapat-hibah-pkm');
-
-            $role_operator->givePermissionTo('read-r019-latih-nyuluh-natar-ceramah-warga');
-            $role_operator->givePermissionTo('store-r019-latih-nyuluh-natar-ceramah-warga');
-            $role_operator->givePermissionTo('edit-r019-latih-nyuluh-natar-ceramah-warga');
-            $role_operator->givePermissionTo('update-r019-latih-nyuluh-natar-ceramah-warga');
-            $role_operator->givePermissionTo('delete-r019-latih-nyuluh-natar-ceramah-warga');
-
-            $role_operator->givePermissionTo('read-r020-assessor-bkd-lkd');
-            $role_operator->givePermissionTo('store-r020-assessor-bkd-lkd');
-            $role_operator->givePermissionTo('edit-r020-assessor-bkd-lkd');
-            $role_operator->givePermissionTo('update-r020-assessor-bkd-lkd');
-            $role_operator->givePermissionTo('delete-r020-assessor-bkd-lkd');
-
-            $role_operator->givePermissionTo('read-r021-reviewer-eclere-penelitian-dosen');
-            $role_operator->givePermissionTo('store-r021-reviewer-eclere-penelitian-dosen');
-            $role_operator->givePermissionTo('edit-r021-reviewer-eclere-penelitian-dosen');
-            $role_operator->givePermissionTo('update-r021-reviewer-eclere-penelitian-dosen');
-            $role_operator->givePermissionTo('delete-r021-reviewer-eclere-penelitian-dosen');
-
-            $role_operator->givePermissionTo('read-r022-reviewer-eclere-penelitian-mhs');
-            $role_operator->givePermissionTo('store-r022-reviewer-eclere-penelitian-mhs');
-            $role_operator->givePermissionTo('edit-r022-reviewer-eclere-penelitian-mhs');
-            $role_operator->givePermissionTo('update-r022-reviewer-eclere-penelitian-mhs');
-            $role_operator->givePermissionTo('delete-r022-reviewer-eclere-penelitian-mhs');
-
-            $role_operator->givePermissionTo('read-r023-auditor-mutu-assessor-akred-internal');
-            $role_operator->givePermissionTo('store-r023-auditor-mutu-assessor-akred-internal');
-            $role_operator->givePermissionTo('edit-r023-auditor-mutu-assessor-akred-internal');
-            $role_operator->givePermissionTo('update-r023-auditor-mutu-assessor-akred-internal');
-            $role_operator->givePermissionTo('delete-r023-auditor-mutu-assessor-akred-internal');
-
-            $role_operator->givePermissionTo('read-r024-tim-akred-prodi-dan-direktorat');
-            $role_operator->givePermissionTo('store-r024-tim-akred-prodi-dan-direktorat');
-            $role_operator->givePermissionTo('edit-r024-tim-akred-prodi-dan-direktorat');
-            $role_operator->givePermissionTo('update-r024-tim-akred-prodi-dan-direktorat');
-            $role_operator->givePermissionTo('delete-r024-tim-akred-prodi-dan-direktorat');
-
-            $role_operator->givePermissionTo('read-r025-kepanitiaan-kegiatan-institusi');
-            $role_operator->givePermissionTo('store-r025-kepanitiaan-kegiatan-institusi');
-            $role_operator->givePermissionTo('edit-r025-kepanitiaan-kegiatan-institusi');
-            $role_operator->givePermissionTo('update-r025-kepanitiaan-kegiatan-institusi');
-            $role_operator->givePermissionTo('delete-r025-kepanitiaan-kegiatan-institusi');
-
-            $role_operator->givePermissionTo('read-r026-pengelola-jurnal-buletin');
-            $role_operator->givePermissionTo('store-r026-pengelola-jurnal-buletin');
-            $role_operator->givePermissionTo('edit-r026-pengelola-jurnal-buletin');
-            $role_operator->givePermissionTo('update-r026-pengelola-jurnal-buletin');
-            $role_operator->givePermissionTo('delete-r026-pengelola-jurnal-buletin');
-
-            $role_operator->givePermissionTo('read-r027-keanggotaan-senat');
-            $role_operator->givePermissionTo('store-r027-keanggotaan-senat');
-            $role_operator->givePermissionTo('edit-r027-keanggotaan-senat');
-            $role_operator->givePermissionTo('update-r027-keanggotaan-senat');
-            $role_operator->givePermissionTo('delete-r027-keanggotaan-senat');
-
-            $role_operator->givePermissionTo('read-r028-melaksanakan-pengembangan-diri');
-            $role_operator->givePermissionTo('store-r028-melaksanakan-pengembangan-diri');
-            $role_operator->givePermissionTo('edit-r028-melaksanakan-pengembangan-diri');
-            $role_operator->givePermissionTo('update-r028-melaksanakan-pengembangan-diri');
-            $role_operator->givePermissionTo('delete-r028-melaksanakan-pengembangan-diri');
-
-            $role_operator->givePermissionTo('read-r029-memperoleh-penghargaan');
-            $role_operator->givePermissionTo('store-r029-memperoleh-penghargaan');
-            $role_operator->givePermissionTo('edit-r029-memperoleh-penghargaan');
-            $role_operator->givePermissionTo('update-r029-memperoleh-penghargaan');
-            $role_operator->givePermissionTo('delete-r029-memperoleh-penghargaan');
-
-            $role_operator->givePermissionTo('read-r030-pengelola-kepk');
-            $role_operator->givePermissionTo('store-r030-pengelola-kepk');
-            $role_operator->givePermissionTo('edit-r030-pengelola-kepk');
-            $role_operator->givePermissionTo('update-r030-pengelola-kepk');
-            $role_operator->givePermissionTo('delete-r030-pengelola-kepk');
-
+            $role_verifikator->givePermissionTo('dashboard-verifikator');
             $role_verifikator->givePermissionTo('read-r01-perkuliahan-teori');
             $role_verifikator->givePermissionTo('store-r01-perkuliahan-teori');
             $role_verifikator->givePermissionTo('edit-r01-perkuliahan-teori');
@@ -761,6 +573,11 @@ class UserRolePermissionSeeder extends Seeder
             $role_verifikator->givePermissionTo('update-r030-pengelola-kepk');
             $role_verifikator->givePermissionTo('delete-r030-pengelola-kepk');
 
+            $role_administrator->givePermissionTo('dashboard');
+            $role_administrator->givePermissionTo('view-generate-point-rubrik');
+            $role_administrator->givePermissionTo('view-point-rubrik-dosen');
+            $role_administrator->givePermissionTo('view-laporan-keuangan');
+
             $role_administrator->givePermissionTo('read-user');
             $role_administrator->givePermissionTo('store-user');
             $role_administrator->givePermissionTo('edit-user');
@@ -886,7 +703,6 @@ class UserRolePermissionSeeder extends Seeder
 
             $role_pimpinan->givePermissionTo('read-rekap-daftar-nominatif');
 
-            $operator->assignRole('operator');
             // $verifikator1->assignRole('verifikator');
             // $verifikator2->assignRole('verifikator');
             // $verifikator3->assignRole('verifikator');
