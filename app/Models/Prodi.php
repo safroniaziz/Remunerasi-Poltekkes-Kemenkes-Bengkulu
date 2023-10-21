@@ -18,8 +18,13 @@ class Prodi extends Model
         return $this->hasMany(Pegawai::class, 'id_prodi_homebase','id_prodi');
     }
 
-    public function name()
+    public function verifikator()
     {
-        return $this->belongsTo(class);
+        return $this->belongsTo(User::class,'verifikator_id');
+    }
+
+    public function penanggungJawab()
+    {
+        return $this->belongsTo(User::class,'penanggung_jawab_id');
     }
 }
