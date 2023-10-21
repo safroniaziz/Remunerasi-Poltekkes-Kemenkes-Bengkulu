@@ -25,17 +25,17 @@ class UserRolePermissionSeeder extends Seeder
         // DB::beginTransaction();
         // try {
 
-            // $verifikator1 = User::create(array_merge([
-            //     'email' =>  'verifikator1@mail.com',
-            //     'nama_user'  =>  'verifikator',
-            //     'is_active' =>  1,
-            // ], $default_user_value));
+            $verifikator1 = User::create(array_merge([
+                'email' =>  'verifikator1@mail.com',
+                'nama_user'  =>  'verifikator',
+                'is_active' =>  1,
+            ], $default_user_value));
 
-            // $verifikator2 = User::create(array_merge([
-            //     'email' =>  'verifikator2@mail.com',
-            //     'nama_user'  =>  'verifikator',
-            //     'is_active' =>  1,
-            // ], $default_user_value));
+            $verifikator2 = User::create(array_merge([
+                'email' =>  'verifikator2@mail.com',
+                'nama_user'  =>  'verifikator',
+                'is_active' =>  1,
+            ], $default_user_value));
 
             // $verifikator3 = User::create(array_merge([
             //     'email' =>  'verifikator3@mail.com',
@@ -706,6 +706,8 @@ class UserRolePermissionSeeder extends Seeder
             // $verifikator5->assignRole('verifikator');
             $administrator->assignRole('administrator');
             $pimpinan->assignRole('pimpinan');
+            $verifikator1->assignRole('verifikator');
+            $verifikator2->assignRole('verifikator');
 
             DB::commit();
         // } catch (\Throwable $th) {
