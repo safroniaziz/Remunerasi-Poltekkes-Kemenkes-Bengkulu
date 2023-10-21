@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_018_mendapat_hibah_pkm.update') }}" method="POST" id="form-edit-R018">
+            <form action="{{ route('r_018_mendapat_hibah_pkm.update') }}" method="POST" class="form">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

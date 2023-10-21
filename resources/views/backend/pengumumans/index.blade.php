@@ -85,6 +85,7 @@
                                                         <form action="{{ route('pengumuman.delete',[$pengumuman->id]) }}" method="POST">
                                                             {{ csrf_field() }} {{ method_field('DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-sm btn-flat show_confirm"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
+
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -105,9 +106,8 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('assets/ckeditor/ckeditor.js')}}"></script>
-
-    <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script>
         $(document).ready(function() {
             $('#table').DataTable({
                 responsive : true,
@@ -138,6 +138,24 @@
             });
             return false;
         }
+
+        $('.show_confirm').click(function(event) {
+            var form =  $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: `Apakah Anda Yakin?`,
+                text: "Harap untuk memeriksa kembali sebelum menghapus data.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                form.submit();
+                }
+            });
+        });
     </script>
 @endpush
 

@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEdituser">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('manajemen_data_user.update') }}" method="POST" id="form-edit-user">
+            <form action="{{ route('manajemen_data_user.update') }}" method="POST" class="form">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

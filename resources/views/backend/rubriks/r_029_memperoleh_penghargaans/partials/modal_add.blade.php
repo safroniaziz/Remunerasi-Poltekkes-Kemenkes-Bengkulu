@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_029_memperoleh_penghargaan.store') }}" method="POST" id="form-tambah-r-29">
+            <form action="{{ route('r_029_memperoleh_penghargaan.store') }}" method="POST" class="form">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
