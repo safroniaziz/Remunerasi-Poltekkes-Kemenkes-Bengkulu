@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pegawais', function (Blueprint $table) {
             $table->string('nip',18)->unique();
             $table->string('id_prodi_homebase')->nullable();
-            $table->string('nidn');
+            $table->string('nidn')->nullable();
             $table->string('nama');
             $table->string('slug');
             $table->string('email')->unique()->nullable();

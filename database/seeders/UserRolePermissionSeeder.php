@@ -84,6 +84,12 @@ class UserRolePermissionSeeder extends Seeder
             $permission = Permission::create(['name'  =>  'update-jabatan']);
             $permission = Permission::create(['name'  =>  'delete-jabatan']);
 
+            $permission = Permission::create(['name'  =>  'view-prodi']);
+            $permission = Permission::create(['name'  =>  'view-dosen-prodi']);
+            $permission = Permission::create(['name'  =>  'store-prodi']);
+            $permission = Permission::create(['name'  =>  'update-prodi']);
+            $permission = Permission::create(['name'  =>  'generate-prodi']);
+
 
             $permission = Permission::create(['name'  =>  'read-role']);
             $permission = Permission::create(['name'  =>  'store-role']);
@@ -569,6 +575,10 @@ class UserRolePermissionSeeder extends Seeder
             $role_verifikator->givePermissionTo('update-r030-pengelola-kepk');
             $role_verifikator->givePermissionTo('delete-r030-pengelola-kepk');
 
+            $role_administrator->givePermissionTo('view-prodi');
+            $role_administrator->givePermissionTo('view-dosen-prodi');
+            $role_administrator->givePermissionTo('generate-prodi');
+            
             $role_administrator->givePermissionTo('dashboard');
             $role_administrator->givePermissionTo('view-generate-point-rubrik');
             $role_administrator->givePermissionTo('view-point-rubrik-dosen');

@@ -38,20 +38,6 @@
                             </div>
 
                             <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Jenis Kelamin</label>
-                                <select name="jenis_kelamin" class="form-control" id="jenis_kelamin">
-                                    <option disabled selected>-- pilih jenis kelamin --</option>
-                                    <option value="L" {{ $pegawai->jenis_kelamin == "L" ? 'selected' : '' }}>Laki-Laki</option>
-                                    <option value="P" {{ $pegawai->jenis_kelamin == "P" ? 'selected' : '' }}>Perempuan</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">E-mail</label>
-                                <input type="text" class="form-control" value="{{ $pegawai->email }}" id="email" name="email" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
                                 <label for="nip" class="col-form-label">Jurusan</label>
                                 <select name="jurusan" class="form-control" id="jurusan">
                                     <option disabled selected>-- pilih jurusan --</option>
@@ -65,6 +51,30 @@
                                     <option value="sanitasi" {{ $pegawai->jurusan == "sanitasi" ? 'selected' : '' }}>Sanitasi</option>
                                     <option value="teknologi_laboratorium_medis" {{ $pegawai->jurusan == "teknologi_laboratorium_medis" ? 'selected' : '' }}>Teknologi Laboratorium Medis</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Prodi Homebase</label>
+                                <select name="id_prodi_homebase" class="form-control" id="id_prodi_homebase">
+                                    <option disabled selected>-- pilih prodi homebase --</option>
+                                    @foreach ($prodis as $prodi)
+                                        <option value="{{ $prodi->id_prodi }}" {{ $prodi->id_prodi == $pegawai->id_prodi_homebase ? 'selected' : ''}}>{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Jenis Kelamin</label>
+                                <select name="jenis_kelamin" class="form-control" id="jenis_kelamin">
+                                    <option disabled selected>-- pilih jenis kelamin --</option>
+                                    <option value="L" {{ $pegawai->jenis_kelamin == "L" ? 'selected' : '' }}>Laki-Laki</option>
+                                    <option value="P" {{ $pegawai->jenis_kelamin == "P" ? 'selected' : '' }}>Perempuan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">E-mail</label>
+                                <input type="text" class="form-control" value="{{ $pegawai->email }}" id="email" name="email" >
                             </div>
 
                             <div class="form-group col-md-6" >

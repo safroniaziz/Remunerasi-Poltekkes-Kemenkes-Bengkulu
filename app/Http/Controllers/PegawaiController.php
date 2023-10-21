@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
+use App\Models\Pegawai;
 use App\Models\JabatanDs;
 use App\Models\JabatanDt;
-use App\Models\JabatanFungsional;
-use App\Models\PangkatGolongan;
-use App\Models\Pegawai;
-use App\Models\RiwayatJabatanDt;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\PangkatGolongan;
 use Illuminate\Validation\Rule;
+use App\Models\RiwayatJabatanDt;
+use App\Models\JabatanFungsional;
+use Illuminate\Support\Facades\Gate;
+use App\Models\RiwayatJabatanFungsional;
+use Illuminate\Support\Facades\Validator;
 
 class PegawaiController extends Controller
 {
@@ -71,11 +73,14 @@ class PegawaiController extends Controller
         $response = _curl_api($config['url'], json_encode($data));
 
         $response_array = json_decode($response, true);
-
         if (!empty($response_array) && !empty($response_array['params']['total'])) {
             $totalData = $response_array['params']['total'];
         } else {
-            return $responses; // Tidak ada data, langsung keluar
+            $notification = array(
+                'message' => 'Ooooppss, Sinkronisasi gagal, coba beberapa saat lagi',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('dosen')->with($notification);
         }
 
         // Hitung total chunks yang dibutuhkan berdasarkan total data dan limit
@@ -157,8 +162,10 @@ class PegawaiController extends Controller
             abort(403);
         }
         $jabatanDts = JabatanDt::all();
+        $prodis = Prodi::all();
         return view('backend/dosens.create',[
-            'jabatanDts'   =>   $jabatanDts,
+            'jabatanDts'    =>   $jabatanDts,
+            'prodis'        =>   $prodis,
         ]);
     }
 
@@ -216,6 +223,7 @@ class PegawaiController extends Controller
             'no_whatsapp'           =>  $request->no_whatsapp,
             'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
             'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
+            'id_prodi_homebase'      =>  $request->id_prodi_homebase, 
             'is_active'             =>  1,
         ]);
 
@@ -233,10 +241,12 @@ class PegawaiController extends Controller
         if (!Gate::allows('edit-pegawai')) {
             abort(403);
         }
+        $prodis = Prodi::all();
         $jabatanDts = JabatanDt::all();
         return view('backend.dosens.edit',[
             'pegawai'   =>  $pegawai,
             'jabatanDts'   =>  $jabatanDts,
+            'prodis'   =>  $prodis,
         ]);
     }
 
@@ -258,8 +268,8 @@ class PegawaiController extends Controller
         ];
         $text = [
             'nama.required'                     => 'Nama Lengkap harus diisi',
-            'nip.required'                      => 'Nip harus dipilih',
-            'nidn.required'                     => 'Jenis Kegiatan harus dipilih',
+            'nip.required'                      => 'Nip harus diisi',
+            'nidn.required'                     => 'NIDN harus diisi',
             'email.required'                    => 'Email harus diisi',
             'email.email'                       => 'Email harus berupa email',
             'email.unique'                      => 'Email sudah digunakan',
@@ -277,7 +287,6 @@ class PegawaiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-
         $update = $pegawai->update([
             'nama'                  =>  $request->nama,
             'slug'                  =>  Str::slug($request->nama),
@@ -291,6 +300,7 @@ class PegawaiController extends Controller
             'no_whatsapp'           =>  $request->no_whatsapp,
             'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
             'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
+            'id_prodi_homebase'      =>  $request->id_prodi_homebase, 
             'is_active'             =>  1,
         ]);
 
@@ -347,7 +357,7 @@ class PegawaiController extends Controller
             abort(403);
         }
         $jabatans = JabatanDs::select('nama_jabatan_ds')->whereNotIn('nama_jabatan_ds',function($query) use ($pegawai) {
-            $query->select('nama_jabatan_fungsional')->from('jabatan_fungsionals')->where('nip',$pegawai->nip);
+            $query->select('nama_jabatan_fungsional')->from('riwayat_jabatan_fungsionals')->where('nip',$pegawai->nip);
          })->get();
         return view('backend.dosens.riwayat_jabatan_fungsional',[
             'pegawai'   =>  $pegawai,
@@ -374,7 +384,7 @@ class PegawaiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $simpan = JabatanFungsional::create([
+        $simpan = RiwayatJabatanFungsional::create([
             'nip'                       =>  $pegawai->nip,
             'nama_jabatan_fungsional'   =>  $request->nama_jabatan_fungsional,
             'slug'                      =>  Str::slug($request->nama_jabatan_fungsional),
@@ -392,8 +402,8 @@ class PegawaiController extends Controller
         }
     }
 
-    public function setActiveRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
-        JabatanFungsional::where('nip',$pegawai->nip)->where('id','!=',$jabatanFungsional->id)->update([
+    public function setActiveRiwayatJabatanFungsional(Pegawai $pegawai, RiwayatJabatanFungsional $jabatanFungsional){
+        RiwayatJabatanFungsional::where('nip',$pegawai->nip)->where('id','!=',$jabatanFungsional->id)->update([
             'is_active' =>  0,
         ]);
         $update = $jabatanFungsional->update([
@@ -414,7 +424,7 @@ class PegawaiController extends Controller
         }
     }
 
-    public function setNonActiveRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+    public function setNonActiveRiwayatJabatanFungsional(Pegawai $pegawai, RiwayatJabatanFungsional $jabatanFungsional){
         $update = $jabatanFungsional->update([
             'is_active' =>  0,
         ]);
@@ -433,7 +443,7 @@ class PegawaiController extends Controller
         }
     }
 
-    public function deleteRiwayatJabatanFungsional(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+    public function deleteRiwayatJabatanFungsional(Pegawai $pegawai, RiwayatJabatanFungsional $jabatanFungsional){
         if (!Gate::allows('delete-jabatan-fungsional')) {
             abort(403);
         }
@@ -672,18 +682,18 @@ class PegawaiController extends Controller
         }
     }
 
-    public function deleteRiwayatJabatanDt(Pegawai $pegawai, JabatanFungsional $jabatanFungsional){
+    public function deleteRiwayatJabatanDt(Pegawai $pegawai, RiwayatJabatanDt $jabatanDt){
         if (!Gate::allows('delete-jabatan-fungsional')) {
             abort(403);
         }
-        if ($jabatanFungsional->is_active == 1) {
+        if ($jabatanDt->is_active == 1) {
             $notification = array(
                 'message' => 'Ooopps, riwayat jabatan fungsional aktif tidak bisa dihapus',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }else {
-            $jabatanFungsional->delete();
+            $jabatanDt->delete();
             $notification = array(
                 'message' => 'Yeay, data riwayat jabatan fungsional berhasil dihapus',
                 'alert-type' => 'success'

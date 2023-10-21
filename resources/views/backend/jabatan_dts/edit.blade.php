@@ -20,7 +20,7 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <form action="{{ route('jabatan_dt.update',[$jabatandt->slug]) }}" method="POST" id="form-edit">
+                        <form action="{{ route('jabatan_dt.update',[$jabatandt->slug]) }}" method="POST" class="form">
                             {{ csrf_field() }} {{ method_field('PATCH') }}
                             <div class="form-group col-md-6" >
                                 <label for="nama" class="col-form-label">Nama Jabatan DT</label>
@@ -56,8 +56,10 @@
 
 @push('scripts')
     <script>
-        $(document).on('submit','#form-edit',function (event){
+        $(document).on('submit','.form',function (event){
             event.preventDefault();
+            $(".btnSubmit"). attr("disabled", true);
+            $('.btnSubmit').html('<i class="fa fa-check-circle"></i>&nbsp; Menyimpan');  // Mengembalikan teks tombol
             $.ajax({
                 url: $(this).attr('action'),
                 type: $(this).attr('method'),
@@ -66,7 +68,7 @@
                 processData:false,
                 contentType:false,
                 success : function(res) {
-                    $("#btnSubmit"). attr("disabled", true);
+                    $(".btnSubmit"). attr("disabled", true);
                     toastr.success(res.text, 'Yeay, Berhasil');
                     setTimeout(function () {
                         window.location.href=res.url;
@@ -74,6 +76,10 @@
                 },
                 error:function(xhr){
                     toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                    setTimeout(function() {
+                        $(".btnSubmit").prop('disabled', false);  // Mengaktifkan tombol kembali
+                        $(".btnSubmit").html('<i class="fa fa-check-circle"></i>&nbsp; Simpan Data');  // Mengembalikan teks tombol
+                    }, 500); // Waktu dalam milidetik (2000 ms = 2 detik)
                 }
             })
         });

@@ -31,7 +31,6 @@ class PeriodeController extends Controller
             'tahun_ajaran'              =>  'required|numeric',
             'bulan_pembayaran'          =>  'required',
             'bulan'                     =>  'required',
-
         ];
         $text = [
             'nama_periode.required'             => 'Nama Periode Penilaian harus diisi',
@@ -41,7 +40,6 @@ class PeriodeController extends Controller
             'tahun_ajaran.numeric '             => 'Tahun ajaran harus berupa angka',
             'bulan_pembayaran.required'         => 'Bulan Pembayaran harus dipilih',
             'bulan.required'                    => 'Bulan harus diisi',
-
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);

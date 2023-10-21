@@ -59,7 +59,7 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>
-                                            <a href="" style="font-weight:600;">{{ $jabatands->nama_jabatan_ds }}</a></td>
+                                            {{ $jabatands->nama_jabatan_ds }}</td>
                                             <td style="text-align: center;">{{ $jabatands->grade ?? '-' }}</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatands->harga_point_ds)) ?? '-' }},-</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatands->gaji_blu )) ?? '-' }},-</td>

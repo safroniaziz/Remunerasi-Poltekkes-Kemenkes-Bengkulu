@@ -11,6 +11,9 @@
 @section('sidebar')
     @include('layouts.partials.sidebar')
 @endsection
+@push('styles')
+    @include('backend/prodis._loader')
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -21,7 +24,32 @@
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
                         <div class="col-md-12" style="margin-bottom: 10px !important;">
-                            <a href="{{ route('prodi.generate') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Generate Data Siakad</a>
+                            <a onclick="generateProdi()" href="{{ route('prodi.generate') }}" class="btn btn-primary btn-sm btn-flat" id="generateProdi"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sinkronisasi Data Siakad</a>
+                        </div>
+                        <div class="col-md-12" id="sync" style="display: none">
+                            <div class="alert alert-warning">
+                                <!-- Loading Spinner Wrapper-->
+                                <div class="loader text-center">
+                                    <div class="loader-inner">
+    
+                                        <!-- Animated Spinner -->
+                                        <div class="lds-roller mb-3">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        
+                                        <!-- Spinner Description Text [For Demo Purpose]-->
+                                        <h4 class="font-weight-bold">Proses Sinkronisasi Ke SIAKAD sedang berjalan</h4>
+                                        <p class="font-italic text-white">Harap untuk menunggu hingga proses selesai</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered" id="table" style="width:100%;">
@@ -76,5 +104,11 @@
                 responsive : true,
             });
         } );
+
+        function generateProdi(){
+            $('#generateProdi').hide();
+            $('#sync').show(300);
+            $('.loader').show(300);
+        }
     </script>
 @endpush

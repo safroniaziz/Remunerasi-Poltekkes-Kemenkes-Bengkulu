@@ -20,7 +20,7 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <form action="{{ route('jabatan_dt.store') }}" method="POST" id="form-tambah">
+                        <form action="{{ route('jabatan_dt.store') }}" method="POST" class="form">
                             {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-6" >
                                 <label for="nama_jabatan_dt" class="col-form-label">Nama Jabatan DT</label>
@@ -44,7 +44,7 @@
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">
                                 <a href="{{ route('jabatan_dt') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
-                                <button type="submit" class="btn btn-primary btn-sm btn-flat mb-2"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                                <button type="submit" class="btn btn-primary btn-sm btn-flat mb-2 btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                             </div>
                         </form>
                     </div>
@@ -56,6 +56,34 @@
 
 @push('scripts')
     <script>
+        $(document).on('submit','.form',function (event){
+            event.preventDefault();
+            $(".btnSubmit"). attr("disabled", true);
+            $('.btnSubmit').html('<i class="fa fa-check-circle"></i>&nbsp; Menyimpan');  // Mengembalikan teks tombol
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                typeData: "JSON",
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success : function(res) {
+                    $(".btnSubmit"). attr("disabled", true);
+                    toastr.success(res.text, 'Yeay, Berhasil');
+                    setTimeout(function () {
+                        window.location.href=res.url;
+                    } , 500);
+                },
+                error:function(xhr){
+                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                    setTimeout(function() {
+                        $(".btnSubmit").prop('disabled', false);  // Mengaktifkan tombol kembali
+                        $(".btnSubmit").html('<i class="fa fa-check-circle"></i>&nbsp; Simpan Data');  // Mengembalikan teks tombol
+                    }, 500); // Waktu dalam milidetik (2000 ms = 2 detik)
+                }
+            })
+        });
+
         $(document).ready(function(){
             $(document).on('change','#is_serdos',function(){
                 var is_serdos = $(this).val();

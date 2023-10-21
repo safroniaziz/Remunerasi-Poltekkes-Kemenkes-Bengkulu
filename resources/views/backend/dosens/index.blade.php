@@ -11,6 +11,9 @@
 @section('sidebar')
     @include('layouts.partials.sidebar')
 @endsection
+@push('styles')
+    @include('backend/prodis._loader')
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -34,7 +37,7 @@
                                     @else
                             @endif
                         </div>
-                        <form method="GET">
+                        <form method="GET" id="pencarian">
                             <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
                                 <label for="nama" class="col-form-label">Cari Nama/Nomor Dosen</label>
                                 <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama atau Nomor Dosen..." value="{{$nama}}">
@@ -43,11 +46,37 @@
                                 <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
                             </div>
                         </form>
+                        <div class="col-md-12" id="sync" style="display: none">
+                            <div class="alert alert-warning">
+                                <!-- Loading Spinner Wrapper-->
+                                <div class="loader text-center">
+                                    <div class="loader-inner">
+    
+                                        <!-- Animated Spinner -->
+                                        <div class="lds-roller mb-3">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        
+                                        <!-- Spinner Description Text [For Demo Purpose]-->
+                                        <h4 class="font-weight-bold">Proses Sinkronisasi Ke SIAKAD sedang berjalan</h4>
+                                        <p class="font-italic text-white">Harap untuk menunggu hingga proses selesai</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12 table-responsive">
                             <div class="pull-left" style="margin-bottom: 3px !important;">
-                                <a href="{{ route('dosen.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Dosen</a>
-                                <a href="{{ route('dosen.generateSiakad') }}" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sync Siakad</a>
+                                <a href="{{ route('dosen.create') }}" class="btn btn-success btn-sm btn-flat" id="create"><i class="fa fa-plus"></i>&nbsp; Tambah Data</a>
+                                <a onclick="generateDosen()" href="{{ route('dosen.generateSiakad') }}" class="btn btn-primary btn-sm btn-flat" id="generate"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sinkronisasi Data Siakad</a>
                             </div>
+
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
                                 <thead class="bg-primary">
                                     <tr>
@@ -68,27 +97,28 @@
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($dosens as $index => $dosen)
+                                    @foreach ($dosens as $key => $dosen)
                                         <tr
                                             @if ($dosen->jurusan == null || $dosen->jurusan == "")
                                                 style="background:#f2dede"
                                             @endif
                                         >
-                                            <td>{{ $index+1 }}</td>
+                                            <td>{{ $dosens->firstItem() + $key }}</td>
                                             <td>
-                                                <a href="" style="font-weight:600;">{{ $dosen->nama }}</a>
+                                               {{ $dosen->nama }}
                                                 <br>
                                                 <hr style="margin-bottom:5px !important; margin-top:5px !important;border-top: 1px solid #ccc; !important">
-                                                <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-success">{{ $dosen->nip ?? '-' }}</small>
-                                                <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">{{ $dosen->jurusan ?? '-' }}</small>
+                                                <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-success">Nip: {{ $dosen->nip ?? '-' }}</small>
+                                                <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">Jurusan: {{ $dosen->jurusan ?? '-' }}</small>
+                                                <small style="font-size:10px !important;  text-transform:capitalize;" class="label label-primary">Homebase: {{ $dosen->prodi->nama_prodi ?? '-' }}</small>
                                             </td>
                                             <td style="text-align: center">
                                                 @if ($dosen->jenis_kelamin == "L")
-                                                    <small class="label label-primary"><i class="fa fa-male"></i>&nbsp; Laki-Laki</small>
+                                                    <small class="text-primary"><i class="fa fa-male"></i>&nbsp; Laki-Laki</small>
                                                 @elseif($dosen->jenis_kelamin == "P")
-                                                    <small class="label label-warning"><i class="fa fa-female"></i>&nbsp; Perempuan</small>
+                                                    <small class="text-warning"><i class="fa fa-female"></i>&nbsp; Perempuan</small>
                                                 @else
-                                                    <small class="label label-warning">-</small>
+                                                    <small class="text-danger">-</small>
                                                 @endif
                                             </td>
                                            <td>
@@ -105,13 +135,13 @@
                                                 @endif
                                            </td>
                                            <td class="text-center">
-                                                <a href="{{ route('dosen.riwayat_jabatan_fungsional',[$dosen->slug]) }}" class="btn-sm btn-flat
+                                                <a href="{{ route('dosen.riwayat_jabatan_fungsional',[$dosen->slug]) }}"
                                                     @if ($dosen->total_jabatan_fungsional_aktif < 1 || $dosen->total_jabatan_fungsional_aktif > 1)
-                                                        btn btn-danger
+                                                        text-danger
                                                     @else
-                                                        btn btn-success
+                                                        text-success
                                                     @endif
-                                                    ">
+                                                    >
                                                     @if ($dosen->total_jabatan_fungsional_aktif > 0)
                                                         {{ $dosen->nama_jabatan_fungsional_aktif }}
                                                     @else
@@ -120,13 +150,13 @@
                                                 </a>
                                            </td>
                                             <td class="text-center">
-                                                <a href="{{ route('dosen.riwayat_jabatan_dt',[$dosen->slug]) }}" class="btn-sm btn-flat btn
+                                                <a href="{{ route('dosen.riwayat_jabatan_dt',[$dosen->slug]) }}"
                                                     @if ($dosen->total_jabatan_dt_aktif < 1 || $dosen->total_jabatan_dt_aktif > 1)
-                                                        btn-danger
+                                                        text-danger
                                                     @else
-                                                        btn-success
+                                                        text-success
                                                     @endif
-                                                    ">
+                                                    >
                                                     @if ($dosen->total_jabatan_dt_aktif > 0)
                                                         {{ $dosen->nama_jabatan_dt_aktif }}
                                                     @else
@@ -135,13 +165,13 @@
                                                 </a>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('dosen.riwayat_pangkat_golongan',[$dosen->slug]) }}" class="btn-sm btn-flat
+                                                <a href="{{ route('dosen.riwayat_pangkat_golongan',[$dosen->slug]) }}"
                                                     @if ($dosen->total_pangkat_golongan_aktif < 1 || $dosen->total_pangkat_golongan_aktif > 1)
-                                                        btn btn-danger
+                                                        text-danger
                                                     @else
-                                                        btn btn-success
+                                                        text-success
                                                     @endif
-                                                    ">
+                                                    >
                                                     @if ($dosen->total_pangkat_golongan_aktif > 0)
                                                         {{ $dosen->nama_pangkat_golongan_aktif }}
                                                     @else
@@ -156,7 +186,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{$dosens->links("pagination::bootstrap-4") }}
+                            {{ $dosens->appends(request()->has('nama') ? ['nama' => $nama] : [])->links("pagination::bootstrap-4") }}
                         </div>
                     </div>
                 </div>
@@ -164,3 +194,14 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        function generateDosen(){
+            $('#pencarian').hide();
+            $('#create').hide();
+            $('#generate').hide();
+            $('#sync').show(300);
+            $('.loader').show(300);
+        }
+    </script>
+@endpush

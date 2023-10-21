@@ -38,6 +38,29 @@
                             </div>
 
                             <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Jurusan</label>
+                                <select name="jurusan" class="form-control" id="jurusan">
+                                    <option disabled selected>-- pilih jurusan --</option>
+                                    <option value="gizi">Gizi</option>
+                                    <option value="kebidanan">Kebidanan</option>
+                                    <option value="keperawatan">Keperawatan</option>
+                                    <option value="analis_kesehatan">Analis Kesehatan</option>
+                                    <option value="promosi_kesehatan">Promosi Kesehatan</option>
+                                    <option value="kesehatan_lingkungan">Kesehatan Lingkungan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6" >
+                                <label for="nip" class="col-form-label">Prodi Homebase</label>
+                                <select name="id_prodi_homebase" class="form-control" id="id_prodi_homebase">
+                                    <option disabled selected>-- pilih prodi homebase --</option>
+                                    @foreach ($prodis as $prodi)
+                                        <option value="{{ $prodi->id_prodi }}" >{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6" >
                                 <label for="nip" class="col-form-label">Jenis Kelamin</label>
                                 <select name="jenis_kelamin" class="form-control" id="jenis_kelamin">
                                     <option disabled selected>-- pilih jenis kelamin --</option>
@@ -49,19 +72,6 @@
                             <div class="form-group col-md-6" >
                                 <label for="nip" class="col-form-label">E-mail</label>
                                 <input type="text" class="form-control" id="email" name="email" >
-                            </div>
-
-                            <div class="form-group col-md-6" >
-                                <label for="nip" class="col-form-label">Jurusan</label>
-                                <select name="jurusan" class="form-control" id="jurusan">
-                                    <option disabled selected>-- pilih jurusan --</option>
-                                    <option value="gizi">Gizi</option>
-                                    <option value="kebidanan">Kebidanan</option>
-                                    <option value="keperawatan">Keperawatan</option>
-                                    <option value="analis_kesehatan">Analis Kesehatan</option>
-                                    <option value="promosi_kesehatan">Promosi Kesehatan</option>
-                                    <option value="kesehatan_lingkungan">Kesehatan Lingkungan</option>
-                                </select>
                             </div>
 
                             <div class="form-group col-md-6" >
