@@ -56,6 +56,17 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function(){
+            $(document).on('change','#is_serdos',function(){
+                var is_serdos = $(this).val();
+                if (is_serdos == "ya") {
+                    $('#no_sertifikat_serdos').show(300);
+                }else{
+                    $('#no_sertifikat_serdos').hide(300);
+                }
+            })
+        });
+
         $(document).on('submit','.form',function (event){
             event.preventDefault();
             $(".btnSubmit"). attr("disabled", true);

@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi.update') }}" method="POST" id="form-edit-R08">
+            <form action="{{ route('r_08_menguji_seminar_proposal_kti_lta_skripsi.update') }}" method="POST" class="form">
                 {{ csrf_field() }} {{ method_field('PATCH') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
