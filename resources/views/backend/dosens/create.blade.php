@@ -114,7 +114,7 @@
 
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">
                                 <a href="{{ route('dosen') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
-                                <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm btn-flat mb-2"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
+                                <button type="submit"  class="btn btn-primary btn-sm btn-flat mb-2 btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>
                             </div>
                         </form>
                     </div>
