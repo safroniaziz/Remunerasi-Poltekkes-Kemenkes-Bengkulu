@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('pengumuman.store') }}" method="POST" class="form">
+            <form action="{{ route('pengumuman.store') }}" method="POST" class="form" enctype="multipart/form-data">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,12 +17,17 @@
 
                         <div class="form-group col-md-12" >
                             <label for="nama" class="col-form-label">Isi Pengumuman</label>
-                            <input type="text" class="form-control" id="isi_pengumuman" name="isi_pengumuman" >
+                            <textarea name="isi_pengumuman" class="form-control editor"></textarea>
                         </div>
 
                         <div class="form-group col-md-12" >
                             <label for="nip" class="col-form-label">Tanggal Pengumuman</label>
                             <input type="date" class="form-control" id="tanggal_pengumuman" name="tanggal_pengumuman" >
+                        </div>
+
+                        <div class="form-group col-md-12" >
+                            <label for="file" class="col-form-label">Tanggal Pengumuman</label>
+                            <input type="file" class="form-control" id="file_pengumuman" name="file_pengumuman" >
                         </div>
 
                     </div>
@@ -38,5 +43,3 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('judul_pengumuman');
             $table->text('isi_pengumuman');
             $table->string('slug');
-            $table->datetime('tanggal_pengumuman');
-            $table->string('file_pengumuman');
+            $table->date('tanggal_pengumuman');
+            $table->string('file_pengumuman')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

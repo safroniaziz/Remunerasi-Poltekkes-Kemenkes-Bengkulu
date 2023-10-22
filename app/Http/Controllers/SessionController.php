@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pegawai;
 use App\Models\Prodi;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
 {
     public function cariDosen(Request $request){
+        if (!Gate::allows('dashboard-verifikator')) {
+            abort(403);
+        }
         $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
         return view('backend.cari_dosen',[
             'dosen' =>  $dosen,
@@ -27,7 +31,7 @@ class SessionController extends Controller
 
     public function getDataDosen(Request $request){
         $keyword = $request->keyword;
-        $prodis = Prodi::where('kodefak',Auth::user()->kodefak)->get();
+        $prodis = Prodi::where('verifikator_nip',Auth::user()->pegawai_nip)->get();
         $prodiIds = $prodis->pluck('id_prodi')->toArray();
         $dataDosen = Pegawai::whereIn('id_prodi_homebase', $prodiIds)
                             ->where(function($query) use ($keyword) {

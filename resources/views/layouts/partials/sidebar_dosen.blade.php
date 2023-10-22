@@ -144,6 +144,6 @@
 
 <li style="padding-left:2px;">
     <a href="{{ route('logoutDosen') }}">
-        <i class="fa fa-power-off text-danger"></i>&nbsp; {{ __('Logout') }}
+        <i class="fa fa-sign-out text-danger"></i>&nbsp; {{ __('Logout') }}
     </a>
 </li>

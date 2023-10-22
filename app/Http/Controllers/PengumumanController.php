@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengumuman;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Pengumuman;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PengumumanController extends Controller
 {
@@ -34,13 +35,18 @@ class PengumumanController extends Controller
             abort(403);
         }
         $rules = [
-            'isi_pengumuman'       =>  'required',
-            'tanggal_pengumuman'   =>  'required|',
+            'judul_pengumuman'     => 'required',
+            'isi_pengumuman'       => 'required',
+            'tanggal_pengumuman'   => 'required',
+            'file_pengumuman'      => 'nullable|mimes:pdf|max:1024', // PDF dengan ukuran maksimal 1MB (1024 KB)
         ];
+        
         $text = [
-            'isi_pengumuman.required'       => 'nama Pengumuman harus diisi',
-            'tanggal_pengumuman.required'   => 'tanggal Pengumuman harus diisi',
-
+            'judul_pengumuman.required'     => 'Judul Pengumuman harus diisi',
+            'isi_pengumuman.required'       => 'Isi Pengumuman harus diisi',
+            'tanggal_pengumuman.required'   => 'Tanggal Pengumuman harus diisi',
+            'file_pengumuman.mimes'         => 'File Pengumuman harus berupa file PDF',
+            'file_pengumuman.max'           => 'File Pengumuman tidak boleh lebih dari 1MB',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -48,15 +54,22 @@ class PengumumanController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $simpan = Pengumuman::create([
+        $pengumumanAttributes = [
             'judul_pengumuman'            =>  $request->judul_pengumuman,
             'isi_pengumuman'            =>  $request->isi_pengumuman,
-            'slug'                      =>  Str::slug($request->isi_pengumuman),
+            'slug'                      =>  Str::slug($request->judul_pengumuman),
             'tanggal_pengumuman'        =>  $request->tanggal_pengumuman,
-            'is_active'                 =>  1,
-        ]);
+        ];
 
-        if ($simpan) {
+        if ($request->hasFile('file_pengumuman')) {
+            $file = $request->file('file_pengumuman');
+            $fileName = $file->store('file_pengumumans', 'public');
+            $pengumumanAttributes['file_pengumuman'] = $fileName;
+        }
+
+        $create = Pengumuman::create($pengumumanAttributes);
+
+        if ($create) {
             return response()->json([
                 'text'  =>  'Yeay, Pengumuman baru berhasil ditambahkan',
                 'url'   =>  url('/manajemen_pengumuman/'),
@@ -72,20 +85,23 @@ class PengumumanController extends Controller
         return $pengumuman;
     }
 
-    public function update(Request $request, Pengumuman $pengumuman){
+    public function update(Request $request){
         if (!Gate::allows('update-pengumumen')) {
             abort(403);
         }
         $rules = [
-            'judul_pengumuman_edit'         =>  'required',
-            'isi_pengumuman_edit'           =>  'required',
-            'file_pengumuman_edit'          =>  'nullable|mimes:pdf|max:1024'
+            'judul_pengumuman'     => 'required',
+            'isi_pengumuman'       => 'required',
+            'tanggal_pengumuman'   => 'required',
+            'file_pengumuman'      => 'nullable|mimes:pdf|max:1024', // PDF dengan ukuran maksimal 1MB (1024 KB)
         ];
+        
         $text = [
-            'judul_pengumuman_edit.required'        => 'Judul Pengumuman harus diisi',
-            'isi_pengumuman_edit.required'          => 'Isi pengumuman harus diisi',
-            'file_pengumuman_edit.mimes'             => 'File Pengumuman harus berupa pdf',
-            'file_pengumuman_edit.max'               => 'File Pengumuman tidak boleh lebih dari 1 MB',
+            'judul_pengumuman.required'     => 'Judul Pengumuman harus diisi',
+            'isi_pengumuman.required'       => 'Isi Pengumuman harus diisi',
+            'tanggal_pengumuman.required'   => 'Tanggal Pengumuman harus diisi',
+            'file_pengumuman.mimes'         => 'File Pengumuman harus berupa file PDF',
+            'file_pengumuman.max'           => 'File Pengumuman tidak boleh lebih dari 1MB',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -93,13 +109,20 @@ class PengumumanController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $update = $pengumuman->update([
-            'judul_pengumuman'          =>  $request->judul_pengumuman_edit,
-            'isi_pengumuman'            =>  $request->isi_pengumuman_edit,
-            'slug'                      =>  Str::slug($request->judul_pengumuman_edit),
-            'tanggal_penumuman'         =>  Carbon::now(),
-            'is_active'                 =>  1,
-        ]);
+        $pengumumanAttributes = [
+            'judul_pengumuman'            =>  $request->judul_pengumuman,
+            'isi_pengumuman'            =>  $request->isi_pengumuman,
+            'slug'                      =>  Str::slug($request->judul_pengumuman),
+            'tanggal_pengumuman'        =>  $request->tanggal_pengumuman,
+        ];
+
+        if ($request->hasFile('file_pengumuman')) {
+            $file = $request->file('file_pengumuman');
+            $fileName = $file->store('file_pengumumans', 'public');
+            $pengumumanAttributes['file_pengumuman'] = $fileName;
+        }
+
+        $update = Pengumuman::where('id',$request->pengumuman_id)->update($pengumumanAttributes);
 
         if ($update) {
             return response()->json([
@@ -107,46 +130,10 @@ class PengumumanController extends Controller
                 'url'   =>  url('/manajemen_pengumuman/'),
             ]);
         }else {
-            return response()->json(['text' =>  'Oopps, Pengumuman anda gagal diubah']);
-        }
-    }
-    public function setNonActive(Pengumuman $pengumuman){
-        $update = $pengumuman->update([
-            'is_active' =>  0,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data Pengumuman berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('pengumuman')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data Pengumuman gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            return response()->json(['error'  =>  0, 'text'   =>  'Oopps, Pengumuman anda gagal diubah'],422);
         }
     }
 
-    public function setActive(Pengumuman $pengumuman){
-        $update = $pengumuman->update([
-            'is_active' =>  1,
-        ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data Pengumuman berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('pengumuman')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data Pengumuman gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
     public function delete(Pengumuman $pengumuman){
         if (!Gate::allows('delete-pengumumen')) {
             abort(403);
@@ -166,5 +153,26 @@ class PengumumanController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function download(Pengumuman $pengumuman){
+        if ($pengumuman) {
+            $filePath = storage_path("app/public/{$pengumuman->file_pengumuman}");
+            if (Storage::disk('public')->exists("{$pengumuman->file_pengumuman}")) {
+                return response()->download($filePath);
+            } else {
+                // Handle file not found in storage
+                abort(404);
+            }
+        } else {
+            // Handle file record not found in the database
+            abort(404);
+        }
+    }
+    
+    public function detail(Pengumuman $pengumuman){
+        return view('backend.pengumumans.detail',[
+            'pengumuman'    =>  $pengumuman,
+        ]);
     }
 }

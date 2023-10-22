@@ -18,7 +18,7 @@
 
 @can('read-jabatan-ds')
 <li class="header" style="font-weight:bold;">KOMPONEN REMUNERASI</li>
-<li class="{{ set_active(['prodi','prodi.dosens']) }}">
+<li class="{{ set_active(['prodi','prodi.dosens','prodi.verifikator']) }}">
     <a href="{{ route('prodi') }}">
         <i class="fa fa-clipboard "></i>
         <span>Data Program Studi</span>
@@ -136,7 +136,7 @@
 
 
 @can('read-pengumumen')
-    <li class="{{ set_active('pengumuman') }}">
+    <li class="{{ set_active(['pengumuman','pengumuman.detail']) }}">
         <a href="{{ route('pengumuman') }}">
             <i class="fa fa-bell"></i>
             <span>Manajemen Pengumuman</span>
@@ -587,20 +587,11 @@
     </li>
 @endif
 
-@can('read-pengumumen')
-    <li class="{{ set_active('pengumuman') }}">
-        <a href="{{ route('pengumuman') }}">
-            <i class="fa fa-bell"></i>
-            <span>Manajemen Pengumuman</span>
-        </a>
-    </li>
-@endcan
-
 <li>
     <a class="dropdown-item" href="{{ route('logout') }}"
         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-        <i class="fa fa-power-off text-danger"></i>{{__('Logout') }}
+        <i class="fa fa-sign-out text-danger"></i>{{__('Logout') }}
     </a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf

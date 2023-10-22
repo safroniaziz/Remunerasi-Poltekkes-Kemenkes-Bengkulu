@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use App\Models\Prodi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ProdiController extends Controller
@@ -84,10 +87,66 @@ class ProdiController extends Controller
         if (!Gate::allows('view-dosen-prodi')) {
             abort(403);
         }
-        $dosens = $prodi->dosens;
+        $prodi = Prodi::with(['dosens'])->where('id_prodi',$prodi->id_prodi)->first();
         return view('backend.prodis.data_dosen',[
             'prodi' =>  $prodi,
-            'dosens'    =>  $dosens,
         ]);
+    }
+
+    public function dataVerifikator(Prodi $prodi){
+        if (!Gate::allows('view-verifikator-prodi')) {
+            abort(403);
+        }
+        $verifikators = Pegawai::all();
+        return view('backend.prodis.data_verifikator',[
+            'prodi' =>  $prodi,
+            'verifikators' =>  $verifikators,
+        ]);
+    }
+
+    public function verifikatorStore(Prodi $prodi, Request $request){
+        // if (!Gate::allows('store-verifikator-prodi')) {
+        //     abort(403);
+        // }
+
+        $rules = [
+            'verifikator_nip'      =>  'required',
+            'penanggung_jawab_nip'      =>  'required',
+        ];
+        
+        $text = [
+            'verifikator_nip.required'           => 'Verifikator harus dipilih',
+            'penanggung_jawab_nip.required'           => 'Penanggung Jawab harus dipilih',
+        ];
+
+        $validasi = Validator::make($request->all(), $rules, $text);
+        if ($validasi->fails()) {
+            return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
+        }
+        
+        $update = $prodi->update([
+            'verifikator_nip'    =>  $request->verifikator_nip,
+            'penanggung_jawab_nip'    =>  $request->penanggung_jawab_nip,
+        ]);
+
+        $verifikator = Pegawai::where('nip',$request->verifikator_nip)->first();
+
+        $userVerifikator = User::create([
+            'nama_user' =>  $verifikator->nama,
+            'pegawai_nip'       =>  $verifikator->nip,
+            'email'       =>  $verifikator->email,
+            'password'  =>  Hash::make('Remunerasi@2023'),
+            'is_active' =>  1,
+        ]);
+        $userVerifikator->assignRole('verifikator');
+
+        if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Verifikator berhasil ditambahkan',
+                'url'   =>  route('prodi.verifikator',[$prodi->id_prodi]),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Permission gagal ditambahkan']);
+        }
     }
 }

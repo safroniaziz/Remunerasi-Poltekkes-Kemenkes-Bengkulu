@@ -60,10 +60,10 @@
   @endif
 
   // Load Animation Logo Setting
-  $(window).on('load', function(){
-      // will fade out the whole DIV that covers the website.
-      jQuery(".preloader").delay(0).fadeOut("slow");
-  });
+  // $(window).on('load', function(){
+  //     // will fade out the whole DIV that covers the website.
+  //     jQuery(".preloader").delay(0).fadeOut("slow");
+  // });
   
 </script>
 

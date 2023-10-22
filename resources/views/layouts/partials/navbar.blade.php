@@ -52,13 +52,13 @@
     <li style="background:#dc3545;">
       @if (isset($_SESSION['data']['namatitle']))
         <a href="{{ route('logoutDosen') }}">
-            <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
+            <i class="fa fa-sign-out"></i>&nbsp; {{ __('Logout') }}
         </a>
       @else
         <a data-toggle="control-sidebar" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-            <i class="fa fa-power-off"></i>&nbsp; {{ __('Logout') }}
+            <i class="fa fa-sign-out"></i>&nbsp; {{ __('Logout') }}
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf

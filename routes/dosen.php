@@ -41,6 +41,14 @@ Route::get('/home', function () {
     ]);
 })->name('dosen.dashboard');
 
+Route::get('/logoutDosen',function(){
+    session_start();
+    session_destroy();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect()->route('home');
+})->name('logoutDosen');
+
 // Pengaturan/Setting Rubrik Pendidikan
 Route::controller(R01DosenPerkuliahanTeoriController::class)->group(function () {
     Route::get('/r_01_perkuliahan_teori', 'index')->name('dosen.r_01_perkuliahan_teori');

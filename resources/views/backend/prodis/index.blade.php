@@ -59,8 +59,8 @@
                                         <th style="vertical-align:middle">Nama Prodi</th>
                                         <th style="vertical-align:middle">Nama Lengkap Prodi</th>
                                         <th style="vertical-align:middle">Nama Fakultas</th>
-                                        <th style="vertical-align:middle">Verifikator</th>
-                                        <th style="vertical-align:middle">Penanggung Jawab</th>
+                                        <th style="vertical-align:middle; text-align:center">Verifikator</th>
+                                        <th style="vertical-align:middle; text-align:center">Penanggung Jawab</th>
                                         <th style="text-align:center; vertical-align:middle">Informasi</th>
                                     </tr>
                                 </thead>
@@ -74,8 +74,8 @@
                                             <td>{{ $prodi->nama_prodi }}</td>
                                             <td>{{ $prodi->nama_lengkap_prodi }}</td>
                                             <td>{{ $prodi->nmfak }}</td>
-                                            <td>{{ $prodi->verifikator->nama_user }}</td>
-                                            <td>{{ $prodi->penanggungJawab->nama_user }}</td>
+                                            <td style="text-align: center">{{ $prodi->verifikator ? $prodi->verifikator->nama : '-' }}</td>
+                                            <td style="text-align: center">{{ $prodi->penanggungJawab ? $prodi->penanggungJawab->nama : '-' }}</td>
                                             <td class="text-center">
                                                 <table>
                                                     <tr>
