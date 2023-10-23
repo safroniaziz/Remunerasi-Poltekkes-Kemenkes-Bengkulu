@@ -8,10 +8,18 @@ use Illuminate\Support\Facades\Storage;
 
 class WelcomeController extends Controller
 {
-    public function home(){
-        $pengumumans = Pengumuman::all();
+    public function home(Request $request){
+        $judulPencarian = $request->query('judulPencarian');
+        if (!empty($judulPencarian)) {
+            $pengumumans = Pengumuman::where('judul_pengumuman','LIKE','%'.$judulPencarian.'%')
+                                    ->orderBy('created_at','desc')
+                                    ->paginate(5);
+        }else{
+            $pengumumans = Pengumuman::orderBy('created_at','desc')->paginate(5);
+        }
         return view('welcome',[
             'pengumumans'   =>  $pengumumans,
+            'judulPencarian'         =>  $judulPencarian,
         ]);
     }
 
