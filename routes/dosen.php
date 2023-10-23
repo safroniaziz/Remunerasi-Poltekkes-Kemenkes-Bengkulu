@@ -42,7 +42,6 @@ Route::get('/home', function () {
 })->name('dosen.dashboard');
 
 Route::get('/logoutDosen',function(){
-    session_start();
     session_destroy();
     session()->invalidate();
     session()->regenerateToken();

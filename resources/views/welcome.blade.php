@@ -297,7 +297,7 @@
 
                         <input type="text" class="w-full py-3 pl-10 pr-4 mb-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 text-[14px]" placeholder="Cari Judul Pengumuman">
                     </div>
-                        <button href="login.html"
+                        <button type="submit"
                             class="  py-2   my-3 w-full text-white text-[14px] transition-colors duration-300 transform   lg:mt-0     bg-gradient-to-r  from-[#0d276e] to-[#18a6ede3] border border-white rounded-lg  hover:from-[#09072ce3] hover:to-[#18a6ede7]  px-5  ">Cari</button>
                 </div>
             </div>
@@ -338,7 +338,6 @@
                                         </path>
                                     </svg>
                                     <p class="line-clamp-1  ">Surat Pemberitahuan Jadwal Program Insentif</p>
-                                    
                                 </a>
                             @else
                                 -
