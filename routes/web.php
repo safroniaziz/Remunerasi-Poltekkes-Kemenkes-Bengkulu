@@ -1,22 +1,27 @@
 <?php
 
-use App\Http\Controllers\AdministratorController;
+use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanDsController;
 use App\Http\Controllers\JabatanDtController;
 use App\Http\Controllers\NilaiEwmpController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\RiwayatPointController;
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\OauthCallbackController;
 use App\Http\Controllers\KelompokRubrikController;
+use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\PangkatGolonganController;
 use App\Http\Controllers\R14KaryaInovasiController;
 use App\Http\Controllers\PointRubrikDosenController;
@@ -25,12 +30,11 @@ use App\Http\Controllers\R30PengelolaKepkController;
 use App\Http\Controllers\RiwayatJabatanDtController;
 use App\Http\Controllers\R20AssessorBkdLkdController;
 use App\Http\Controllers\GeneratePointRubrikController;
-use App\Http\Controllers\LaporanKeuanganController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
 use App\Http\Controllers\R18MendapatHibahPkmController;
 use App\Http\Controllers\R27KeanggotaanSenatController;
+use App\Http\Controllers\RekapDaftarNominatifController;
 use App\Http\Controllers\R02PerkuliahanPraktikumController;
 use App\Http\Controllers\R29MemperolehPenghargaanController;
 use App\Http\Controllers\R10MenulisBukuAjarBerisbnController;
@@ -53,8 +57,6 @@ use App\Http\Controllers\R09MengujiSeminarHasilKtiLtaSkripsiController;
 use App\Http\Controllers\R15MenulisKaryaIlmiahDipublikasikanController;
 use App\Http\Controllers\R23AuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
-use App\Http\Controllers\RekapDaftarNominatifController;
-use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,19 +69,21 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('home');
+Route::get('/', [WelcomeController::class, 'home'])->name('home');
+Route::get('/pengumuman/{pengumuman}/detail', [WelcomeController::class, 'pengumumanDetail'])->name('home.detail');
+Route::get('/pengumuman/{pengumuman}/download', [WelcomeController::class, 'downloadPengumuman'])->name('home.download_pengumuman');
+
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 Route::get('/oauth-callback',[OauthCallbackController::class, 'oAuthCallback'])->name('oAuthCallback');
-Route::get('/logoutDosen',function(){
-    session_start();
-    session_destroy();
-    return redirect()->route('home');
-})->name('logoutDosen');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home',[DashboardController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::controller(SessionController::class)->group(function () {
         Route::get('/cari_dosen', 'cariDosen')->name('cari_dosen');
@@ -93,6 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/data_program_studi/generate', 'generate')->name('prodi.generate');
         Route::get('/data_program_studi/{prodi:id_prodi}/data_dosen', 'dataDosen')->name('prodi.dosens');
         Route::get('/data_program_studi/{prodi:id_prodi}/data_verifikator', 'dataVerifikator')->name('prodi.verifikator');
+        Route::patch('/data_program_studi/{prodi:id_prodi}/verifikator_store', 'verifikatorStore')->name('prodi.verifikator_store');
     });
 
     // Master Data Route
@@ -179,11 +184,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/manajemen_pengumuman', 'index')->name('pengumuman');
         Route::get('/manajemen_pengumuman/create', 'create')->name('pengumuman.create');
         Route::post('/manajemen_pengumuman', 'store')->name('pengumuman.store');
-        Route::patch('/manajemen_pengumuman/{pengumuman}/set_active', 'setActive')->name('pengumuman.set_active');
-        Route::patch('/manajemen_pengumuman/{pengumuman}/set_nonactive', 'setnonActive')->name('pengumuman.set_nonactive');
         Route::get('/manajemen_pengumuman/{pengumuman}/edit', 'edit')->name('pengumuman.edit');
         Route::patch('/manajemen_pengumuman/update', 'update')->name('pengumuman.update');
         Route::delete('/manajemen_pengumuman/{pengumuman}/delete', 'delete')->name('pengumuman.delete');
+        Route::get('/manajemen_pengumuman/{pengumuman}/download', 'download')->name('pengumuman.download');
+        Route::get('/manajemen_pengumuman/{pengumuman}/detail', 'detail')->name('pengumuman.detail');
     });
     Route::controller(PresensiController::class)->group(function () {
         Route::get('/manajemen_presensi', 'index')->name('presensi');
@@ -612,3 +617,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/manajemen_permission/{permission}/delete', 'delete')->name('manajemen_permission.delete');
     });
 });
+
+require __DIR__.'/auth.php';

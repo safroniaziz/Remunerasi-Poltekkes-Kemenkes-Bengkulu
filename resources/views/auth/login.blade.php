@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +25,7 @@
 <body
     class="m-0 font-sans antialiased font-normal  bg-white text-start text-base leading-default text-slate-500 bg-pat">
     <main class="transition-all  duration-200 ease-soft-in-out h-full">
-        <div class=" relative grid h-screen place-items-center  items-center p-0 overflow-hidden bg-center bg-cover ">
+        <div class=" relative grid h-screen  items-center p-0 overflow-hidden bg-center bg-cover ">
             <div class="container">
                 <div class="flex   ">
                     <div class=" flex flex-col w-full mx-auto md:flex-0 md:p-12 shrink-0 md:w-2/5
@@ -36,8 +35,8 @@
                             <div class=" pb-0 mb-0 bg-transparent border-b-0 rounded-t-2xl w-full text-center ">
                                 <img src="{{ asset('assets/img/logo.svg') }}" class="h-28 w-28 mx-auto mb-5" alt="logo">
                                 <h3
-                                    class="md:text-3xl text-2xl  z-10  text-transparent bg-gradient-to-tl from-black to-yellow-500 font-bold  bg-clip-text">
-                                    REMUNERASI <br> POLTEKKES KEMENKES BENGKULU</h3>
+                                    class="md:text-2xl text-2xl  z-10  text-transparent bg-gradient-to-tl from-black to-yellow-500 font-bold  bg-clip-text">
+                                    SISTEM REMUNERASI <br> POLTEKKES KEMENKES BENGKULU</h3>
                             </div>
                             
                             <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -65,17 +64,14 @@
                                         <p>Something happened that you should know about.</p>
                                       </div>
                                     @endif
-                                    <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
+                                    <label class="mb-2 ml-1 font-bold text-xs text-slate-700">NIP/Email</label>
                                     <div class="mb-4">
-                                        <input type="text" name="email"
+                                        <input type="text" name="id_user" value="{{ old('id_user') }}"
                                             class="focus:shadow-md focus:shadow-blue-500 text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-500 focus:outline-none focus:transition-shadow"
-                                            placeholder="Email" aria-label="Email" aria-describedby="email-addon"
-                                            required />
-                                            @error('email')
-                                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-1 mt-2 rounded relative" role="alert">
-                                                    <span class="block sm:inline">{{ $message }}</span>
-                                                </div> 
-                                            @enderror
+                                            placeholder="nip/email" aria-label="id_user" aria-describedby="id_user-addon"
+                                            required autofocus autocomplete="id_user"/>
+                                            <x-input-error :messages="$errors->get('id_user')" class="mt-2" />
+
                                     </div>
                                     <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Password</label>
                                     <div class="mb-4">
@@ -83,11 +79,7 @@
                                             class="focus:shadow-md focus:shadow-blue-500 text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all  focus:border-blue-500 focus:outline-none focus:transition-shadow"
                                             placeholder="Password" aria-label="Password"
                                             aria-describedby="password-addon" required />
-                                            @error('password')
-                                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-1 mt-2 rounded relative" role="alert">
-                                                    <span class="block sm:inline">{{ $message }}</span>
-                                                </div> 
-                                            @enderror
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
                                     <div class="text-center">
@@ -102,13 +94,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full  lg:flex-0 shrink-0 md:w-3/5  ">
-                        <div class="absolute top-0 hidden w-full h-full overflow-hidden -skew-x-12 ml-5 md:block
-                            bg-[#0f41e0]  " style="filter: drop-shadow(0px 0px 20px #fff307);">
+                    <div class="w-full   lg:flex-0 shrink-0 md:w-3/5  ">
+                        <div class="absolute top-0 hidden w-full h-full overflow-hidden -skew-x-12 ml-20 md:block
+                            bg-[#152042]  " style="filter: drop-shadow(0px 0px 20px #666);">
                             <div
                                 class="absolute inset-x-0 top-0 z-0 h-full -ml-16 bg-cover skew-x-10  animate__fadeInRight ">
 
                                 <div class="bg-yellow-600 w-full h-full "></div>
+
+                                <div class="bg-gray-900 w-full h-full opacity-50"></div>
                             </div>
                         </div>
                         <lottie-player src="{{ asset('assets/img/finance.json') }}" background="transparent" speed="1" class="w-11/12 h-11/12 ml-20"

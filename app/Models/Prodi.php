@@ -12,6 +12,19 @@ class Prodi extends Model
     protected $primaryKey = 'id_prodi'; // Primary key adalah 'id_prodi'
     public $incrementing = false; // Primary key tidak auto-increment
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'id_prodi',
+        'verifikator_nip',
+        'penanggung_jawab_nip',
+        'kdjen',
+        'kdpst',
+        'nama_jenjang',
+        'nama_prodi',
+        'nama_lengkap_prodi',
+        'kodefak',
+        'nmfak',
+    ];
     
     public function dosens()
     {
@@ -20,11 +33,11 @@ class Prodi extends Model
 
     public function verifikator()
     {
-        return $this->belongsTo(User::class,'verifikator_id');
+        return $this->belongsTo(Pegawai::class,'verifikator_nip');
     }
 
     public function penanggungJawab()
     {
-        return $this->belongsTo(User::class,'penanggung_jawab_id');
+        return $this->belongsTo(Pegawai::class,'penanggung_jawab_nip');
     }
 }

@@ -86,8 +86,9 @@ class UserRolePermissionSeeder extends Seeder
 
             $permission = Permission::create(['name'  =>  'view-prodi']);
             $permission = Permission::create(['name'  =>  'view-dosen-prodi']);
-            $permission = Permission::create(['name'  =>  'store-prodi']);
-            $permission = Permission::create(['name'  =>  'update-prodi']);
+            $permission = Permission::create(['name'  =>  'view-verifikator-prodi']);
+            $permission = Permission::create(['name'  =>  'store-verifikator-prodi']);
+            $permission = Permission::create(['name'  =>  'reset-verifikator-prodi']);
             $permission = Permission::create(['name'  =>  'generate-prodi']);
 
 
@@ -577,6 +578,9 @@ class UserRolePermissionSeeder extends Seeder
 
             $role_administrator->givePermissionTo('view-prodi');
             $role_administrator->givePermissionTo('view-dosen-prodi');
+            $role_administrator->givePermissionTo('view-verifikator-prodi');
+            $role_administrator->givePermissionTo('store-verifikator-prodi');
+            $role_administrator->givePermissionTo('reset-verifikator-prodi');
             $role_administrator->givePermissionTo('generate-prodi');
             
             $role_administrator->givePermissionTo('dashboard');
