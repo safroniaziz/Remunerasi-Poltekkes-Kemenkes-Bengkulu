@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('riwayat_jabatan_fungsionals', function (Blueprint $table) {
             $table->id();
             $table->string('nip',18);
+            $table->unsignedBigInteger('jabatan_ds_id');
             $table->string('nama_jabatan_fungsional');
             $table->string('slug');
             $table->date('tmt_jabatan_fungsional');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->softDeletes();
             
             $table->foreign('nip')->references('nip')->on('pegawais');
+            $table->foreign('jabatan_ds_id')->references('id')->on('jabatan_ds');
         });
     }
 

@@ -14,4 +14,14 @@ class RekapPerDosen extends Model
         'periode_id',
         'total_point',
     ];
+    
+    public function dosen()
+    {
+        return $this->belongsTo(Pegawai::class,'nip','nip');
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class,'periode_id');
+    }
 }

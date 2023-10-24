@@ -356,7 +356,7 @@ class PegawaiController extends Controller
         if (!Gate::allows('read-jabatan-fungsional')) {
             abort(403);
         }
-        $jabatans = JabatanDs::select('nama_jabatan_ds')->whereNotIn('nama_jabatan_ds',function($query) use ($pegawai) {
+        $jabatans = JabatanDs::select('id','nama_jabatan_ds')->whereNotIn('nama_jabatan_ds',function($query) use ($pegawai) {
             $query->select('nama_jabatan_fungsional')->from('riwayat_jabatan_fungsionals')->where('nip',$pegawai->nip);
          })->get();
         return view('backend.dosens.riwayat_jabatan_fungsional',[
@@ -371,12 +371,11 @@ class PegawaiController extends Controller
         }
         $rules = [
             'nama_jabatan_fungsional'       =>  'required',
-            'tmt_jabatan_fungsional'        =>  'required|',
+            'tmt_jabatan_fungsional'        =>  'required',
         ];
         $text = [
             'nama_jabatan_fungsional.required'      => 'Nama Jabatan Fungsional harus diisi',
             'tmt_jabatan_fungsional.required'       => 'TMT Jabatan Fungsional harus diisi',
-
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -384,9 +383,11 @@ class PegawaiController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
+        $jabatanFungsional = JabatanDs::where('id',$request->nama_jabatan_fungsional)->first();
         $simpan = RiwayatJabatanFungsional::create([
             'nip'                       =>  $pegawai->nip,
-            'nama_jabatan_fungsional'   =>  $request->nama_jabatan_fungsional,
+            'jabatan_ds_id'   =>  $request->nama_jabatan_fungsional,
+            'nama_jabatan_fungsional'   =>  $jabatanFungsional->nama_jabatan_ds,
             'slug'                      =>  Str::slug($request->nama_jabatan_fungsional),
             'tmt_jabatan_fungsional'   =>  $request->tmt_jabatan_fungsional,
             'is_active'   =>  0,
@@ -594,7 +595,7 @@ class PegawaiController extends Controller
         if (!Gate::allows('read-jabatan-dt')) {
             abort(403);
         }
-        $jabatans = JabatanDt::select('nama_jabatan_dt')->whereNotIn('nama_jabatan_dt',function($query) use ($pegawai) {
+        $jabatans = JabatanDt::select('id','nama_jabatan_dt')->whereNotIn('nama_jabatan_dt',function($query) use ($pegawai) {
             $query->select('nama_jabatan_dt')->from('riwayat_jabatan_dts')->where('nip',$pegawai->nip);
          })->get();
         return view('backend.dosens.riwayat_jabatan_dt',[
@@ -622,10 +623,11 @@ class PegawaiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-
+        $jabatanDt = JabatanDt::where('id',$request->nama_jabatan_dt)->first();
         $simpan = RiwayatJabatanDt::create([
             'nip'                       =>  $pegawai->nip,
-            'nama_jabatan_dt'   =>  $request->nama_jabatan_dt,
+            'jabatan_dt_id'   =>  $request->nama_jabatan_dt,
+            'nama_jabatan_dt'   =>  $jabatanDt->nama_jabatan_dt,
             'slug'                      =>  Str::slug($request->nama_jabatan_dt),
             'tmt_jabatan_dt'   =>  $request->tmt_jabatan_dt,
             'is_active'   =>  0,

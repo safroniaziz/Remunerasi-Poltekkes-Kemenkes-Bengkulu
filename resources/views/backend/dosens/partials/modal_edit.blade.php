@@ -47,4 +47,10 @@
 </div>
 <!-- /.modal -->
 
-
+@push('scripts')
+    <script>
+        $('#tmt_jabatan_fungsional').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
+    </script>
+@endpush

@@ -109,6 +109,7 @@ class GeneratePointRubrikController extends Controller
                 );
             }
             RekapPerDosen::insert($rekapPerDosen);
+            
             DB::commit();
             $success = array(
                 'message' => 'Berhasil, Generate Point Rubrik Berhasil Dilakukan',
@@ -192,6 +193,11 @@ class GeneratePointRubrikController extends Controller
 
     public function detailIsianRubrik(RekapPerRubrik $rekapPerRubrik){
         $className = 'App\\Models\\' . Str::studly(Str::singular($rekapPerRubrik->kode_rubrik));
+        if ($className === 'App\\Models\\R017NaskahBukuBahasaTerbitEdarNa') {
+            $className = str_replace('R017NaskahBukuBahasaTerbitEdarNa', 'R017NaskahBukuBahasaTerbitEdarNas', $className);
+        }elseif ($className === 'App\\Models\\R022ReviewerEclerePenelitianMh') {
+            $className = str_replace('R022ReviewerEclerePenelitianMh', 'R022ReviewerEclerePenelitianMhs', $className);
+        }
         $detailIsianRubriks = $className::with(['pegawai'])
                                 ->where('periode_id',$this->periode->id)
                                 ->where('is_bkd',0)

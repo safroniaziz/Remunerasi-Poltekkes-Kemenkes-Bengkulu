@@ -78,6 +78,31 @@ class Pegawai extends Model
     public function getNamaJabatanFungsionalAktifAttribute(){
         return $this->jabatanFungsionals()->select('nama_jabatan_fungsional')->where('is_active',1)->orderBy('created_at','desc')->pluck('nama_jabatan_fungsional')->first();
     }
+
+    public function getGradeJabatanFungsionalAktifAttribute(){
+        return $this->jabatanFungsionals()->where('is_active', 1)
+        ->orderBy('created_at', 'desc')
+        ->first()
+        ->jabatanFungsional
+        ->grade;
+    }
+
+    public function getGajiBluJabatanFungsionalAktifAttribute(){
+        return $this->jabatanFungsionals()->where('is_active', 1)
+        ->orderBy('created_at', 'desc')
+        ->first()
+        ->jabatanFungsional
+        ->gaji_blu;
+    }
+
+    public function getHargaPointJabatanFungsionalAktifAttribute(){
+        return $this->jabatanFungsionals()->where('is_active', 1)
+        ->orderBy('created_at', 'desc')
+        ->first()
+        ->jabatanFungsional
+        ->harga_point_ds;
+    }
+
     
     public function getTotalPangkatGolonganAktifAttribute(){
         return $this->pangkatGolongans()->where('is_active',1)->count();
@@ -93,5 +118,34 @@ class Pegawai extends Model
 
     public function getNamaJabatanDtAktifAttribute(){
         return $this->riwayatJabatanDts()->select('nama_jabatan_dt')->where('is_active',1)->orderBy('created_at','desc')->pluck('nama_jabatan_dt')->first();
+    }
+
+    public function getGradeJabatanDtAktifAttribute(){
+        return $this->riwayatJabatanDts()->where('is_active', 1)
+        ->orderBy('created_at', 'desc')
+        ->first()
+        ->jabatanDt
+        ->grade;
+    }
+
+    public function getGajiBluJabatanDtAktifAttribute(){
+        return $this->riwayatJabatanDts()->where('is_active', 1)
+        ->orderBy('created_at', 'desc')
+        ->first()
+        ->jabatanDt
+        ->gaji_blu;
+    }
+
+    public function getHargaPointJabatanDtAktifAttribute(){
+        return $this->riwayatJabatanDts()->where('is_active', 1)
+        ->orderBy('created_at', 'desc')
+        ->first()
+        ->jabatanDt
+        ->harga_point_dt;
+    }
+
+    public function jumlahPoint()
+    {
+        return $this->hasOne(RekapPerDosen::class,'nip','nip');
     }
 }

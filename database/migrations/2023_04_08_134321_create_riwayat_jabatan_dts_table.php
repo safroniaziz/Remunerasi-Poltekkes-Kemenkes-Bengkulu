@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('riwayat_jabatan_dts', function (Blueprint $table) {
             $table->id();
             $table->string('nip',18);
+            $table->unsignedBigInteger('jabatan_dt_id');
             $table->string('nama_jabatan_dt');
             $table->string('slug');
             $table->string('tmt_jabatan_dt');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('nip')->references('nip')->on('pegawais');
+            $table->foreign('jabatan_dt_id')->references('id')->on('jabatan_dts');
         });
     }
 

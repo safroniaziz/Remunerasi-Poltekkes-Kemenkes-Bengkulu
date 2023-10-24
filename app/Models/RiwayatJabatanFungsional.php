@@ -12,9 +12,14 @@ class RiwayatJabatanFungsional extends Model
     
     protected $casts = [ 'tmt_jabatan_fungsional'=>'datetime'];
     protected $fillable = [
-        'nip','nama_jabatan_fungsional','tmt_jabatan_fungsional','is_active','slug'
+        'nip','jabatan_ds_id','nama_jabatan_fungsional','tmt_jabatan_fungsional','is_active','slug'
     ];
     public function pegawais(){
         return $this->belongsTo(Pegawai::class);
+    }
+
+    public function jabatanFungsional()
+    {
+        return $this->belongsTo(JabatanDs::class,'jabatan_ds_id');
     }
 }

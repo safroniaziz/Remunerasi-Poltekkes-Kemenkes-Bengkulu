@@ -113,27 +113,6 @@
             });
         } );
 
-        $('.show_confirm').click(function(event) {
-            var form =  $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                title: `Apakah Anda Yakin?`,
-                text: "Harap untuk memeriksa kembali sebelum menghapus data.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                form.submit();
-                }
-            });
-        });
-    </script>
-@endpush
-@push('scripts')
-    <script>
         $(document).ready(function(){
             $(document).on('change','#is_serdos',function(){
                 var is_serdos = $(this).val();

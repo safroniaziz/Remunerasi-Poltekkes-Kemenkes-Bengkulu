@@ -25,7 +25,7 @@
                             <select name="nama_jabatan_dt" id="nama_jabatan_dt" class="form-control @error('nama_jabatan_dt') is-invalid @enderror">
                                 <option disabled selected>-- Pilih Jabatan --</option>
                                 @foreach ($jabatans as $jabatan)
-                                    <option value="{{ $jabatan->nama_jabatan_dt }}">{{ $jabatan->nama_jabatan_dt }}</option>
+                                    <option value="{{ $jabatan->id }}">{{ $jabatan->nama_jabatan_dt }}</option>
                                 @endforeach
                             </select>
                             <div>
@@ -41,7 +41,7 @@
                                 <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" value="{{ old('tmt_jabatan_dt') }}" name="tmt_jabatan_dt" id="tmt_jabatan_fungsional" class="form-control pull-right">
+                                <input type="text" value="{{ old('tmt_jabatan_dt') }}" name="tmt_jabatan_dt" id="tmt_jabatan_dt" class="form-control pull-right">
                             </div>
                         </div>
                     </div>
@@ -58,4 +58,10 @@
 </div>
 <!-- /.modal -->
 
-
+@push('scripts')
+    <script>
+        $('#tmt_jabatan_dt').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
+    </script>
+@endpush

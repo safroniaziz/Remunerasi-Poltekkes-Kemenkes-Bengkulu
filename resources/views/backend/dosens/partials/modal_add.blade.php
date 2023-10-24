@@ -25,7 +25,7 @@
                             <select name="nama_jabatan_fungsional" id="nama_jabatan_fungsional" class="form-control @error('nama_jabatan_fungsional') is-invalid @enderror">
                                 <option disabled selected>-- Pilih Jabatan --</option>
                                 @foreach ($jabatans as $jabatan)
-                                    <option value="{{ $jabatan->nama_jabatan_ds }}">{{ $jabatan->nama_jabatan_ds }}</option>
+                                    <option value="{{ $jabatan->id }}">{{ $jabatan->nama_jabatan_ds }}</option>
                                 @endforeach
                             </select>
                             <div>
@@ -58,4 +58,10 @@
 </div>
 <!-- /.modal -->
 
-
+@push('scripts')
+    <script>
+        $('#tmt_jabatan_fungsional').datepicker({
+            format: 'yyyy/mm/dd', autoclose: true
+        })
+    </script>
+@endpush
