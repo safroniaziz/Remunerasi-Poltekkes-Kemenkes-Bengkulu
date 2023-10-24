@@ -105,9 +105,9 @@ class ProdiController extends Controller
     }
 
     public function verifikatorStore(Prodi $prodi, Request $request){
-        // if (!Gate::allows('store-verifikator-prodi')) {
-        //     abort(403);
-        // }
+        if (!Gate::allows('store-verifikator-prodi')) {
+            abort(403);
+        }
 
         $rules = [
             'verifikator_nip'      =>  'required',
@@ -130,15 +130,17 @@ class ProdiController extends Controller
         ]);
 
         $verifikator = Pegawai::where('nip',$request->verifikator_nip)->first();
-
-        $userVerifikator = User::create([
-            'nama_user' =>  $verifikator->nama,
-            'pegawai_nip'       =>  $verifikator->nip,
-            'email'       =>  $verifikator->email,
-            'password'  =>  Hash::make('Remunerasi@2023'),
-            'is_active' =>  1,
-        ]);
-        $userVerifikator->assignRole('verifikator');
+        $isCreated = User::where('pegawai_nip',$request->verifikator_nip)->first();
+        if (empty($isCreated)) {
+            $userVerifikator = User::create([
+                'nama_user' =>  $verifikator->nama,
+                'pegawai_nip'       =>  $verifikator->nip,
+                'email'       =>  $verifikator->email,
+                'password'  =>  Hash::make('Remunerasi@2023'),
+                'is_active' =>  1,
+            ]);
+            $userVerifikator->assignRole('verifikator');
+        }
 
         if ($update) {
             return response()->json([

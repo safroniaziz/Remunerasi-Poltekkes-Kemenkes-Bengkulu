@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Periode;
-use App\Models\RekapDaftarNominatif;
-use App\Models\RekapPerDosen;
 use Illuminate\Http\Request;
+use App\Models\RekapPerDosen;
+use App\Models\RekapDaftarNominatif;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RekapLaporanNominatifExport;
 
 class RekapDaftarNominatifController extends Controller
 {
@@ -29,5 +31,17 @@ class RekapDaftarNominatifController extends Controller
         return view('backend.laporan_nominatif.index',[
             'nominatifs'    =>  $nominatifs
         ]);
+    }
+
+    public function exportData(Request $request){
+        $isRekap = RekapDaftarNominatif::where('periode_id',$this->periode->if)->get();
+        if ($isRekap->count() > 0) {
+
+        }
+        else{
+            $nominatifs = RekapPerDosen::with(['dosen'])->where('periode_id',$this->periode->id)->get();
+        }
+
+        return Excel::download(new RekapLaporanNominatifExport($nominatifs), 'data.xlsx');
     }
 }

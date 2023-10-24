@@ -1,7 +1,7 @@
 @can('dashboard')
     <li class="{{ set_active('dashboard') }}">
         <a href="{{ route('dashboard') }}">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-desktop"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -10,7 +10,7 @@
 @can('dashboard-verifikator')
     <li class="{{ set_active('cari_dosen') }}">
         <a href="{{ route('cari_dosen') }}">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-desktop"></i>
             <span>Dashboard</span>
         </a>
     </li>
