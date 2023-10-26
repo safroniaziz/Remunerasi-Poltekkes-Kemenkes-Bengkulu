@@ -20,19 +20,8 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
-                        <div class="col-md-12">
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-block">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <strong>Berhasil :</strong>{{ $message }}
-                                </div>
-                                @elseif ($message = Session::get('error'))
-                                    <div class="alert alert-danger alert-block">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <strong>Gagal :</strong>{{ $message }}
-                                    </div>
-                                    @else
-                            @endif
+                        <div class="col-md-12" style="margin-bottom: 5px !important;">
+                            <a href="{{ route('laporan_keuangan.exportData') }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-file-excel-o"></i>&nbsp;Export Data</a>
                         </div>
                         <div class="col-md-12 table-responsive">
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
@@ -56,9 +45,9 @@
                                         $harga_point = 0; // Inisialisasi harga_point
                                         $gaji_blu = 0; // Inisialisasi harga_point
                                     @endphp     
-                                    @foreach ($nominatifs as $index => $nominatif)
+                                    @foreach ($nominatifs as $key => $nominatif)
                                         <tr>
-                                            <td>{{ $index+1 }}</td>
+                                            <td>{{ $nominatifs->firstItem() + $key }}</td>
                                             <td>{{ $nominatif->dosen->nama }}</td>
                                             <td class="text-center">{{ $nominatif->dosen->nama_jabatan_fungsional_aktif ? $nominatif->dosen->nama_jabatan_fungsional_aktif : '-' }}</td>
                                             <td class="text-center">{{ $nominatif->dosen->nama_jabatan_dt_aktif ? $nominatif->dosen->nama_jabatan_dt_aktif : '-' }}</td>
@@ -168,7 +157,7 @@
                                                     @endphp
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 @php
                                                     $totalRemun = ($gaji_blu + ($nominatif->total_point * $harga_point));
                                                     $pajak = ($pajak/100)*$totalRemun;

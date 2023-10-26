@@ -235,6 +235,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(RekapDaftarNominatifController::class)->group(function () {
         Route::get('/laporan_keuangan', 'index')->name('laporan_keuangan');
         Route::get('/laporan_keuangan/{dosen}/detail', 'pointDetail')->name('laporan_keuangan.detail');
+        Route::get('/laporan_keuangan/export_data', 'exportData')->name('laporan_keuangan.exportData');
     });
     // End Of Data Master Route
 

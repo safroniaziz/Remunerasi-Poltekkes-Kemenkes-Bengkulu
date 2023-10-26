@@ -113,9 +113,9 @@ class ProdiController extends Controller
     }
 
     public function verifikatorStore(Prodi $prodi, Request $request){
-        // if (!Gate::allows('store-verifikator-prodi')) {
-        //     abort(403);
-        // }
+        if (!Gate::allows('store-verifikator-prodi')) {
+            abort(403);
+        }
 
         $rules = [
             'verifikator_nip'      =>  'required',
@@ -138,23 +138,18 @@ class ProdiController extends Controller
         ]);
 
         $verifikator = Pegawai::where('nip',$request->verifikator_nip)->first();
+        $isCreated = User::where('pegawai_nip',$request->verifikator_nip)->first();
+        if (empty($isCreated)) {
+            $userVerifikator = User::create([
+                'nama_user' =>  $verifikator->nama,
+                'pegawai_nip'       =>  $verifikator->nip,
+                'email'       =>  $verifikator->email,
+                'password'  =>  Hash::make('Remunerasi@2023'),
+                'is_active' =>  1,
+            ]);
+            $userVerifikator->assignRole('verifikator');
+        }
 
-        $userVerifikator = User::create([
-            'nama_user' =>  $verifikator->nama,
-            'pegawai_nip'       =>  $verifikator->nip,
-            'email'       =>  $verifikator->email,
-            'password'  =>  Hash::make('Remunerasi@2023'),
-            'is_active' =>  1,
-        ]);
-        $userVerifikator->assignRole('verifikator');
-        activity()
-        ->causedBy(auth()->user()->id)
-        ->performedOn($update)
-        ->event('created')
-        ->withProperties([
-            'created_fields' => $update, // Contoh informasi tambahan
-        ])
-        ->log(auth()->user()->nama_user . ' has created a new User Verifikator.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, Verifikator berhasil ditambahkan',
