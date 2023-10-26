@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R20DosenAssessorBkdLkdController extends Controller
 {
@@ -66,15 +67,35 @@ class R20DosenAssessorBkdLkdController extends Controller
            'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 20 Assessor BKD LKD baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R20 Assessor BKD LKD.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 20 Assessor BKD LKD baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 20 Assessor BKD LKD gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r020assessorbkdlkd){
     return R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->first();
@@ -101,7 +122,9 @@ class R20DosenAssessorBkdLkdController extends Controller
 
        $point = ($request->jumlah_dosen / 8) * $this->nilai_ewmp->ewmp;
 
-       $update = R020AssessorBkdLkd::where('id',$request->r020assessorbkdlkd_id_edit)->update([
+       $data =  R020AssessorBkdLkd::where('id',$request->r020assessorbkdlkd_id_edit)->first();
+       $oldData = $data->toArray();
+       $update = $data->update([
            'periode_id'        =>  $this->periode->id,
            'nip'               =>  $_SESSION['data']['kode'],
            'jumlah_dosen'      =>  $request->jumlah_dosen,
@@ -111,26 +134,70 @@ class R20DosenAssessorBkdLkdController extends Controller
            'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Assessor BKD LKD diubah',
-               'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Assessor BKD LKD gagal diubah']);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R20 Assessor BKD LKD data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Assessor BKD LKD diubah',
+                'url'   =>  url('/dosen/r_020_assessor_bkd_lkd/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Rubrik Assessor BKD LKD gagal diubah']);
+        }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
+
    }
    public function delete($r020assessorbkdlkd){
-    $delete = R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Assessor BKD LKD dihapus',
-            'url'   =>  route('dosen.r_020_assessor_bkd_lkd'),
-        ]);
-       }else {
+
+       $data =  R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->first();
+       $oldData = $data->toArray();
+       $delete = R020AssessorBkdLkd::where('id',$r020assessorbkdlkd)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R20 Assessor BKD LKD data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Assessor BKD LKD dihapus',
+                'url'   =>  route('dosen.r_020_assessor_bkd_lkd'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Assessor BKD LKD remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Assessor BKD LKD remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

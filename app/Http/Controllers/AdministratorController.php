@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class AdministratorController extends Controller
 {
@@ -27,7 +29,7 @@ class AdministratorController extends Controller
             'password_confirmation' => 'required|same:password', // Ini adalah validasi konfirmasi password
             'is_active' => 'required|boolean',
         ];
-        
+
         $text = [
             'nama_user.required'           => 'Nama User harus diisi',
             'email.required'               => 'Email harus diisi',
@@ -53,7 +55,14 @@ class AdministratorController extends Controller
 
         $administratorRole = Role::where('name', 'administrator')->first();
         $simpan->assignRole($administratorRole);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->name . ' has created a new Administrator.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, administrator remunerasi berhasil ditambahkan',
@@ -78,7 +87,7 @@ class AdministratorController extends Controller
             ],
             'is_active' => 'required|boolean',
         ];
-        
+
         $text = [
             'nama_user.required'           => 'Nama User harus diisi',
             'email.required'               => 'Email harus diisi',
@@ -152,7 +161,7 @@ class AdministratorController extends Controller
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'password_confirmation' => 'required|same:password', // Ini adalah validasi konfirmasi password
         ];
-        
+
         $text = [
             'password.required'            => 'Password harus diisi',
             'password.min'                 => 'Password harus memiliki setidaknya :min karakter',

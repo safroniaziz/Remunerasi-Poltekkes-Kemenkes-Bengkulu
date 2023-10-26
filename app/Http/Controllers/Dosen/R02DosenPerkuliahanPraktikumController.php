@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\R02PerkuliahanPraktikum;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\ApiEncController;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class R02DosenPerkuliahanPraktikumController extends Controller
@@ -31,13 +32,14 @@ class R02DosenPerkuliahanPraktikumController extends Controller
          $r02perkuliahanpraktikum = R02PerkuliahanPraktikum::where('nip',$_SESSION['data']['kode'])
                                                     ->where('periode_id',$this->periode->id)
                                                     ->orderBy('created_at','desc')->get();
-        return view('backend/dosen/rubriks/r_02_perkuliahan_praktikums.index',[
-            'pegawais'                =>  $pegawais,
-            'periode'                 =>  $this->periode,
-            'dataProdis'                 =>  $dataProdis,
-            'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikum,
-        ]);
-    }
+
+                return view('backend/dosen/rubriks/r_02_perkuliahan_praktikums.index',[
+                    'pegawais'                =>  $pegawais,
+                    'periode'                 =>  $this->periode,
+                    'dataProdis'                 =>  $dataProdis,
+                    'r02perkuliahanpraktikums'    =>  $r02perkuliahanpraktikum,
+                ]);
+        }
 
     public function store(Request $request){
         $rules = [
@@ -86,13 +88,33 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
         ]);
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Perkuliahan Praktikum baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_02_perkuliahan_praktikum/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Perkuliahan Praktikum gagal disimpan']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R2 Perkuliahan Praktikum.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Perkuliahan Praktikum baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_02_perkuliahan_praktikum/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Perkuliahan Praktikum gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
     public function edit($r02perkuliahanpraktikum){
@@ -130,7 +152,10 @@ class R02DosenPerkuliahanPraktikumController extends Controller
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
-        $update = R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->update([
+        $data =  R02PerkuliahanPraktikum::where('id',$request->r02perkuliahanpraktikum_id_edit)->first();
+        $oldData = $data->toArray();
+
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             // 'nip'               =>  $_SESSION['data']['kode'],
             'nip'=>$_SESSION['data']['kode'],	// optional by dosen
@@ -144,30 +169,71 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             'is_verified'       =>  0,
             'point'             =>  $point,
             'keterangan'        =>  $request->keterangan,
-
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Perkuliahan Praktikum berhasil diubah',
-                'url'   =>  url('/dosen/r_02_perkuliahan_praktikum/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Perkuliahan Praktikum anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R2 Perkuliahan Praktikum data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Perkuliahan Praktikum berhasil diubah',
+                    'url'   =>  url('/dosen/r_02_perkuliahan_praktikum/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Perkuliahan Praktikum anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
     public function delete($r02perkuliahanpraktikum){
+        $data =  R02PerkuliahanPraktikum::where('id',$r02perkuliahanpraktikum)->first();
+        $oldData = $data->toArray();
         $delete = R02PerkuliahanPraktikum::where('id',$r02perkuliahanpraktikum)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Perkuliahan Praktikum berhasil dihapus',
-                'url'   =>  route('dosen.r_02_perkuliahan_praktikum'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Perkuliahan Praktikum gagal dihapus']);
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R01 Perkuliahan Teori data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Perkuliahan Praktikum berhasil dihapus',
+                    'url'   =>  route('dosen.r_02_perkuliahan_praktikum'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Perkuliahan Praktikum gagal dihapus']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
-
     public function verifikasi(R02PerkuliahanPraktikum $r02perkuliahanpraktikum){
         $r02perkuliahanpraktikum->update([
             'is_verified'   =>  1,

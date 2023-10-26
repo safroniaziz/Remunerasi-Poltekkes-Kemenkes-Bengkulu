@@ -9,6 +9,7 @@ use App\Models\Periode;
 use App\Models\NilaiEwmp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R10DosenMenulisBukuAjarBerisbnController extends Controller
 {
@@ -76,15 +77,35 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_010_menulis_buku_ajar_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn gagal disimpan']);
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($simpan)
+           ->event('dosen_created')
+           ->withProperties([
+               'created_fields' => $simpan, // Contoh informasi tambahan
+           ])
+           ->log($_SESSION['data']['nama'] . ' has created a new R10 Menguji Seminar hasil Kti Lta Skripsi.');
+
+           if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn baru berhasil ditambahkan',
+                'url'   =>  url('/dosen/r_010_menulis_buku_ajar_berisbn/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn gagal disimpan']);
+            }
        }
+       else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
+       }
+
    }
    public function edit($r010menulisbukuajarberisbn){
     return R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->first();
@@ -120,7 +141,10 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
         else{
             $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
         }
-       $update = R010MenulisBukuAjarBerisbn::where('id',$request->r010menulisbukuajarberisbn_id_edit)->update([
+
+        $data =  R010MenulisBukuAjarBerisbn::where('id',$request->r010menulisbukuajarberisbn_id_edit)->first();
+        $oldData = $data->toArray();
+    $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
@@ -133,26 +157,69 @@ class R10DosenMenulisBukuAjarBerisbnController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Menulis Buku Ajar Berisbn berhasil diubah',
-               'url'   =>  url('/dosen/r_010_menulis_buku_ajar_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn anda gagal diubah']);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R10 Menguji Seminar hasil Kti Lta Skripsi data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Menulis Buku Ajar Berisbn berhasil diubah',
+                'url'   =>  url('/dosen/r_010_menulis_buku_ajar_berisbn/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn anda gagal diubah']);
+        }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
+
    }
    public function delete($r010menulisbukuajarberisbn){
-    $delete = R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Menulis Buku Ajar Berisbn berhasil dihapus',
-            'url'   =>  route('dosen.r_010_menulis_buku_ajar_berisbn'),
-        ]);
-       }else {
+       $data =  R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->first();
+       $oldData = $data->toArray();
+       $delete = R010MenulisBukuAjarBerisbn::where('id',$r010menulisbukuajarberisbn)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R10 Menguji Seminar hasil Kti Lta Skripsi data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Menulis Buku Ajar Berisbn berhasil dihapus',
+                'url'   =>  route('dosen.r_010_menulis_buku_ajar_berisbn'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

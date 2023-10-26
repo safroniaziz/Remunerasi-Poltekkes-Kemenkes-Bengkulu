@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class ProdiController extends Controller
 {
@@ -18,6 +20,7 @@ class ProdiController extends Controller
             abort(403);
         }
         $prodis = Prodi::withCount('dosens')->get();
+
         return view('backend/prodis.index',[
             'prodis'    =>  $prodis,
         ]);
@@ -33,7 +36,7 @@ class ProdiController extends Controller
         $parameter = array(
             'action'=>'prodi',
         );
-        
+
         $hashed_string = ApiEncController::encrypt(
             $parameter,
             $config['client_id'],
@@ -60,7 +63,7 @@ class ProdiController extends Controller
                     'kodefak'               =>  $prodi['kodefak'],
                     'nmfak'               =>  $prodi['nmfak'],
                 );
-            }   
+            }
             foreach ($prodis as $id_prodi => $data) {
                 DB::table('prodis')
                     ->updateOrInsert(
@@ -68,7 +71,10 @@ class ProdiController extends Controller
                         $data
                     );
             }
-
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->event('created')
+            ->log(auth()->user()->nama_user . ' has Click the Generate Program Studi value page.');
             $notification = array(
                 'message' => 'Yeayy, Sinkronisasi Program Studi Dari Siakad Berhasil',
                 'alert-type' => 'success'
@@ -88,6 +94,7 @@ class ProdiController extends Controller
             abort(403);
         }
         $prodi = Prodi::with(['dosens'])->where('id_prodi',$prodi->id_prodi)->first();
+
         return view('backend.prodis.data_dosen',[
             'prodi' =>  $prodi,
         ]);
@@ -98,6 +105,7 @@ class ProdiController extends Controller
             abort(403);
         }
         $verifikators = Pegawai::all();
+
         return view('backend.prodis.data_verifikator',[
             'prodi' =>  $prodi,
             'verifikators' =>  $verifikators,
@@ -113,7 +121,7 @@ class ProdiController extends Controller
             'verifikator_nip'      =>  'required',
             'penanggung_jawab_nip'      =>  'required',
         ];
-        
+
         $text = [
             'verifikator_nip.required'           => 'Verifikator harus dipilih',
             'penanggung_jawab_nip.required'           => 'Penanggung Jawab harus dipilih',
@@ -123,7 +131,7 @@ class ProdiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-        
+
         $update = $prodi->update([
             'verifikator_nip'    =>  $request->verifikator_nip,
             'penanggung_jawab_nip'    =>  $request->penanggung_jawab_nip,
@@ -139,7 +147,14 @@ class ProdiController extends Controller
             'is_active' =>  1,
         ]);
         $userVerifikator->assignRole('verifikator');
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($update)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $update, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new User Verifikator.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, Verifikator berhasil ditambahkan',

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R24DosenTimAkredProdiDanDirektoratController extends Controller
 {
@@ -63,15 +64,35 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
            'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_024_tim_akred_prodi_dan_direktorat/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R24 Tim Akred Prodi dan Direktorat.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 24 Tim Akreditasi Prodi dan Direktorat baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_024_tim_akred_prodi_dan_direktorat/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 24 Tim Akreditasi Prodi dan Direktorat gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r24timakredprodirektorat){
         return R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->first();
@@ -93,8 +114,9 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
        }
 
        $point = $this->nilai_ewmp->ewmp;
-
-       $update = R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->update([
+       $data =  R024TimAkredProdiDanDirektorat::where('id',$request->r24timakredprodirektorat_id_edit)->first();
+       $oldData = $data->toArray();
+       $update = $data->update([
            'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
@@ -104,30 +126,74 @@ class R24DosenTimAkredProdiDanDirektoratController extends Controller
            'keterangan'                 =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Tim Akreditasi Prodi dan Direktorat diubah',
-               'url'   =>  url('/dosen/r_024_tim_akred_prodi_dan_direktorat/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Tim Akreditasi Prodi dan Direktorat gagal diubah']);
-       }
-   }
-   public function delete($r24timakredprodirektorat){
-    $delete = R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Tim Akreditasi Prodi dan Direktorat dihapus',
-            'url'   =>  route('dosen.r_024_tim_akred_prodi_dan_direktorat'),
-        ]);
-       }else {
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R24 Tim Akred Prodi dan Direktorat data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Tim Akreditasi Prodi dan Direktorat diubah',
+                'url'   =>  url('/dosen/r_024_tim_akred_prodi_dan_direktorat/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Tim Akreditasi Prodi dan Direktorat gagal diubah']);
+            }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Tim Akreditasi Prodi dan Direktorat remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
        }
+
+   }
+   public function delete($r24timakredprodirektorat){
+
+       $data =  R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->first();
+        $oldData = $data->toArray();
+        $delete = R024TimAkredProdiDanDirektorat::where('id',$r24timakredprodirektorat)->delete();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R24 Tim Akred Prodi dan Direktorat data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Tim Akreditasi Prodi dan Direktorat dihapus',
+                    'url'   =>  route('dosen.r_024_tim_akred_prodi_dan_direktorat'),
+                ]);
+               }else {
+                   $notification = array(
+                       'message' => 'Ooopps, Rubrik Tim Akreditasi Prodi dan Direktorat remunerasi gagal dihapus',
+                       'alert-type' => 'error'
+                   );
+                   return redirect()->back()->with($notification);
+               }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
    }
 
     public function verifikasi(R024TimAkredProdiDanDirektorat $r24timakredprodirektorat){

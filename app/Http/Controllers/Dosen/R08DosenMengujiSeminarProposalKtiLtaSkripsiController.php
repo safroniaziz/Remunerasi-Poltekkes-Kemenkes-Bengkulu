@@ -8,6 +8,7 @@ use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
 {
@@ -66,15 +67,35 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             'keterangan'        =>  $request->keterangan,
 
         ]);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Menguji Seminar Proposal Kti Lta Skripsi baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Menguji Seminar Proposal Kti Lta Skripsi gagal disimpan']);
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R08 Menguji Seminar Proposal Kti Lta Skripsi.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Menguji Seminar Proposal Kti Lta Skripsi baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Menguji Seminar Proposal Kti Lta Skripsi gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit($r08mengujiseminarproposal){
         return R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$r08mengujiseminarproposal)->first();
@@ -106,7 +127,11 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             $ewmp = 0.06;
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
-        $update = R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$request->r08mengujiseminarproposal_id_edit)->update([
+
+        $data =  R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$request->r08mengujiseminarproposal_id_edit)->first();
+        $oldData = $data->toArray();
+
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -117,26 +142,68 @@ class R08DosenMengujiSeminarProposalKtiLtaSkripsiController extends Controller
             'keterangan'        =>  $request->keterangan,
 
         ]);
+        $newData = $data->toArray();
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Menguji Seminar Proposal Kti Lta Skripsi berhasil diubah',
-                'url'   =>  url('/dosen/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Menguji Seminar Proposal Kti Lta Skripsi anda gagal diubah']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R08 Menguji Seminar Proposal Kti Lta Skripsi data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Menguji Seminar Proposal Kti Lta Skripsi berhasil diubah',
+                    'url'   =>  url('/dosen/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Menguji Seminar Proposal Kti Lta Skripsi anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
+
     }
     public function delete($r08mengujiseminarproposal){
+        $data =  R01PerkuliahanTeori::where('id',$r01perkuliahanteori)->first();
+        $oldData = $data->toArray();
         $delete = R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$r08mengujiseminarproposal)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Menguji Seminar Proposal Kti Lta Skripsi berhasil dihapus',
-                'url'   =>  route('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi'),
-            ]);
-        }else {
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R08 Menguji Seminar Proposal Kti Lta Skripsi data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Menguji Seminar Proposal Kti Lta Skripsi berhasil dihapus',
+                    'url'   =>  route('dosen.r_08_menguji_seminar_proposal_kti_lta_skripsi'),
+                ]);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, Rubrik Menguji Seminar Proposal Kti Lta Skripsi remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Ooopps, Rubrik Menguji Seminar Proposal Kti Lta Skripsi remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

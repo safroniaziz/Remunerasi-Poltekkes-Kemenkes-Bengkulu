@@ -9,6 +9,7 @@ use App\Models\Periode;
 use App\Models\NilaiEwmp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R04DosenMembimbingPendampinganUkomController extends Controller
 {
@@ -24,13 +25,12 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
          $r04membimbingpendampinganukoms = R04MembimbingPendampinganUkom::where('nip',$_SESSION['data']['kode'])
                                                                         ->where('periode_id',$this->periode->id)
                                                                         ->orderBy('created_at','desc')->get();
-
-         return view('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
-            'pegawais'                          =>  $pegawais,
-            'periode'                 =>  $this->periode,
-            'r04membimbingpendampinganukoms'    =>  $r04membimbingpendampinganukoms,
-        ]);
-    }
+            return view('backend/dosen/rubriks/r_04_membimbing_pendampingan_ukoms.index',[
+                'pegawais'                          =>  $pegawais,
+                'periode'                 =>  $this->periode,
+                'r04membimbingpendampinganukoms'    =>  $r04membimbingpendampinganukoms,
+            ]);
+        }
 
     public function store(Request $request){
         $rules = [
@@ -63,15 +63,35 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
             'keterangan'        =>  $request->keterangan,
 
         ]);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 04 Membimbing Pendampingan Ukom baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom gagal disimpan']);
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R4 Membimbing Pendampingan Ukom.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 04 Membimbing Pendampingan Ukom baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 04 Membimbing Pendampingan Ukom gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit($r04membimbingpendampinganukom){
         return R04MembimbingPendampinganUkom::where('id',$r04membimbingpendampinganukom)->first();
@@ -97,7 +117,10 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
 
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
-        $update = R04MembimbingPendampinganUkom::where('id',$request->r04membimbingpendampinganukom_id_edit)->update([
+        $data =  R04MembimbingPendampinganUkom::where('id',$request->r04membimbingpendampinganukom_id_edit)->first();
+        $oldData = $data->toArray();
+
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -108,25 +131,69 @@ class R04DosenMembimbingPendampinganUkomController extends Controller
 
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Membimbing Pendampingan Ukom berhasil diubah',
-                'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pendampingan Ukom anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R4 Membimbing Pendampingan Ukom data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Membimbing Pendampingan Ukom berhasil diubah',
+                    'url'   =>  url('/dosen/r_04_membimbing_pendampingan_ukom/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pendampingan Ukom anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
+
     }
     public function delete($r04membimbingpendampinganukom){
+        $data =  R04MembimbingPendampinganUkom::where('id',$r04membimbingpendampinganukom)->first();
+        $oldData = $data->toArray();
         $delete = R04MembimbingPendampinganUkom::where('id',$r04membimbingpendampinganukom)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Membimbing Pendampingan Ukom berhasil dihapus',
-                'url'   =>  route('dosen.r_04_membimbing_pendampingan_ukom'),
-            ]);
-        }else {
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R4 Membimbing Pendampingan Ukom data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Membimbing Pendampingan Ukom berhasil dihapus',
+                    'url'   =>  route('dosen.r_04_membimbing_pendampingan_ukom'),
+                ]);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, Rubrik Membimbing Pendampingan Ukom remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Ooopps, Rubrik Membimbing Pendampingan Ukom remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

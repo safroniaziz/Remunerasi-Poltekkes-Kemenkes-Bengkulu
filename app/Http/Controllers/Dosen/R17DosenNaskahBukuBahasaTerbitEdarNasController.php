@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 {
@@ -28,7 +29,6 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
         $r017naskahbukubahasaterbitedarnas = R017NaskahBukuBahasaTerbitEdarNas::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                               ->orderBy('created_at','desc')->get();
-
 
         return view('backend/dosen/rubriks/r_017_naskah_buku_bahasa_terbit_edar_nas.index',[
            'pegawais'                             =>  $pegawais,
@@ -67,15 +67,35 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 17 naskah buku bahasa terbit edar nas baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_017_naskah_buku_bahasa_terbit_edar_nas/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas gagal disimpan']);
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($simpan)
+           ->event('dosen_created')
+           ->withProperties([
+               'created_fields' => $simpan, // Contoh informasi tambahan
+           ])
+           ->log($_SESSION['data']['nama'] . ' has created a new R17 Naskah Buku Bahasa Terbit Edar Nasional.');
+
+           if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 17 naskah buku bahasa terbit edar nas baru berhasil ditambahkan',
+                'url'   =>  url('/dosen/r_017_naskah_buku_bahasa_terbit_edar_nas/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 17 naskah buku bahasa terbit edar nas gagal disimpan']);
+            }
        }
+       else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
+       }
+
    }
    public function edit($r017naskahbukuterbitedarnas){
     return R017NaskahBukuBahasaTerbitEdarNas::where('id',$r017naskahbukuterbitedarnas)->first();
@@ -100,7 +120,10 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
 
        $point = $this->nilai_ewmp->ewmp;
 
-       $update = R017NaskahBukuBahasaTerbitEdarNas::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->update([
+       $data =  R017NaskahBukuBahasaTerbitEdarNas::where('id',$request->r017naskahbukuterbitedarnas_id_edit)->first();
+       $oldData = $data->toArray();
+
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_buku'        =>  $request->judul_buku,
@@ -111,26 +134,70 @@ class R17DosenNaskahBukuBahasaTerbitEdarNasController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik naskah buku bahasa terbit edar nas berhasil diubah',
-               'url'   =>  url('/dosen/r_017_naskah_buku_bahasa_terbit_edar_nas/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik naskah buku bahasa terbit edar nas anda gagal diubah']);
-       }
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R17 Naskah Buku Bahasa Terbit Edar Nasional.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik naskah buku bahasa terbit edar nas berhasil diubah',
+                    'url'   =>  url('/dosen/r_017_naskah_buku_bahasa_terbit_edar_nas/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik naskah buku bahasa terbit edar nas anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function delete($r017naskahbukuterbitedarnas){
+
+    $data =  R017NaskahBukuBahasaTerbitEdarNas::where('id',$r017naskahbukuterbitedarnas)->first();
+    $oldData = $data->toArray();
     $delete = R017NaskahBukuBahasaTerbitEdarNas::where('id',$r017naskahbukuterbitedarnas)->delete();
-    if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik naskah buku bahasa terbit edar nas berhasil dihapus',
-            'url'   =>  route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas'),
-        ]);
-    }else {
+
+    $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+    if (!empty($dosen)) {
+        activity()
+        ->causedBy($dosen)
+        ->performedOn($data)
+        ->event('dosen_deleted')
+        ->withProperties([
+            'old_data' => $oldData, // Data lama
+        ])
+        ->log($_SESSION['data']['nama'] . ' has deleted the R17 Naskah Buku Bahasa Terbit Edar Nasional.');
+
+        if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik naskah buku bahasa terbit edar nas berhasil dihapus',
+                'url'   =>  route('dosen.r_017_naskah_buku_bahasa_terbit_edar_nas'),
+            ]);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, Rubrik naskah buku bahasa terbit edar nas remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }else{
         $notification = array(
-            'message' => 'Ooopps, Rubrik naskah buku bahasa terbit edar nas remunerasi gagal dihapus',
+            'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notification);

@@ -52,6 +52,8 @@
                                         <th style="text-align:center; vertical-align:middle">Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -104,6 +106,7 @@
                                                     Seminar Poster Nasional
                                                 @endif
                                             </td>
+                                            <td>{{ $r015menuliskaryailmiahdipublikasikan->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r015menuliskaryailmiahdipublikasikan->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

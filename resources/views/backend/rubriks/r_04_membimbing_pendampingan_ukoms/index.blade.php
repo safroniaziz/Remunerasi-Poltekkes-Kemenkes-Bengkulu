@@ -49,6 +49,8 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -68,6 +70,8 @@
                                             <td class="text-center">{{ $r04membimbingpendampinganukom->nip }}</td>
                                             <td class="text-center">{{ $r04membimbingpendampinganukom->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r04membimbingpendampinganukom->jumlah_mahasiswa }}</td>
+                                            <td>{{ $r04membimbingpendampinganukom->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r04membimbingpendampinganukom->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

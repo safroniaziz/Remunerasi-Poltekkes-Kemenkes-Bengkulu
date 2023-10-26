@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class JabatanDtController extends Controller
 {
@@ -15,6 +17,7 @@ class JabatanDtController extends Controller
             abort(403);
         }
         $jabatandts = JabatanDt::orderBy('created_at','desc')->get();
+
         return view('backend/jabatan_dts.index',[
             'jabatandts'         =>  $jabatandts,
         ]);
@@ -58,7 +61,14 @@ class JabatanDtController extends Controller
             'harga_point_dt'        =>  $request->harga_point_dt,
             'gaji_blu'              =>  $request->gaji_blu,
         ]);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new Jabatan DT.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, Jabatan DT baru berhasil ditambahkan',
@@ -101,6 +111,8 @@ class JabatanDtController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
+        $oldData = $jabatandt->toArray();
+
         $update = $jabatandt->update([
             'nama_jabatan_dt'       =>  $request->nama_jabatan_dt,
             'slug'                  =>  Str::slug($request->nama_jabatan_dt),
@@ -109,6 +121,17 @@ class JabatanDtController extends Controller
             'gaji_blu'              =>  $request->gaji_blu,
         ]);
 
+        $newData = $jabatandt->toArray();
+
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($jabatandt)
+        ->event('updated')
+        ->withProperties([
+            'old_data' => $oldData, // Data lama
+            'new_data' => $newData, // Data baru
+        ])
+        ->log(auth()->user()->nama_user . ' has updated the jabatan dt data.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, jabatan dt berhasil diubah',
@@ -122,20 +145,30 @@ class JabatanDtController extends Controller
         if (!Gate::allows('delete-jabatan-dt')) {
             abort(403);
         }
-        $delete = $jabatandt->delete();
 
-        if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, jabatan dt remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('jabatan_dt')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, jabatan dt remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $oldData = $jabatandt->toArray();
+        $delete = $jabatandt->delete();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($jabatandt)
+            ->event('deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user . ' has deleted the jabatan dt data.');
+            if ($delete) {
+                $notification = array(
+                    'message' => 'Yeay, jabatan dt remunerasi berhasil dihapus',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('jabatan_dt')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, jabatan dt remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 }
+

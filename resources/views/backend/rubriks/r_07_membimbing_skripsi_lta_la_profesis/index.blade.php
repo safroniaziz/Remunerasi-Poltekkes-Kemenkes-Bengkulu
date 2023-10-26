@@ -50,6 +50,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Pembimbing Ke</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -69,6 +71,8 @@
                                             <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->nip }}</td>
                                             <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r07membimbingskripsiltalaprofesi->jumlah_mahasiswa }}</td>
+                                            <td>{{ $r07membimbingskripsiltalaprofesi->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r07membimbingskripsiltalaprofesi->pembimbing_ke == "pembimbing_utama")
                                                     Pembimbing Utama

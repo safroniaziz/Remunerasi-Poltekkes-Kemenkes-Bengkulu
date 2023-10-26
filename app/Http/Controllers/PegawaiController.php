@@ -15,6 +15,8 @@ use App\Models\JabatanFungsional;
 use Illuminate\Support\Facades\Gate;
 use App\Models\RiwayatJabatanFungsional;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class PegawaiController extends Controller
 {
@@ -32,6 +34,7 @@ class PegawaiController extends Controller
         }else {
             $dosens = Pegawai::with(['jabatanFungsionals'])->orderBy('nama','asc')->paginate(10);
         }
+
         return view('backend/dosens.index',[
             'dosens'    =>  $dosens,
             'nama'    =>  $nama,
@@ -85,7 +88,7 @@ class PegawaiController extends Controller
 
         // Hitung total chunks yang dibutuhkan berdasarkan total data dan limit
         $totalChunks = ceil($totalData / $limit);
-        
+
         for ($chunk = 0; $chunk < $totalChunks; $chunk++) {
             $parameter['offset'] = $offset;
             $parameter['limit'] = $limit;
@@ -149,7 +152,10 @@ class PegawaiController extends Controller
             // Update offset untuk mendapatkan data selanjutnya
             $offset += $limit;
         }
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('create')
+        ->log(auth()->user()->nama_user . ' has click the Generate Siakad value page.');
         $notification = array(
             'message' => 'Yeay, sinkronisasi data dosen dari siakad berhasil',
             'alert-type' => 'success'
@@ -223,10 +229,18 @@ class PegawaiController extends Controller
             'no_whatsapp'           =>  $request->no_whatsapp,
             'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
             'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
-            'id_prodi_homebase'      =>  $request->id_prodi_homebase, 
+            'id_prodi_homebase'      =>  $request->id_prodi_homebase,
             'is_active'             =>  1,
         ]);
 
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new dosen.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, dosen baru berhasil ditambahkan',
@@ -287,6 +301,8 @@ class PegawaiController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+        $oldData = $pegawai->toArray();
+
         $update = $pegawai->update([
             'nama'                  =>  $request->nama,
             'slug'                  =>  Str::slug($request->nama),
@@ -300,56 +316,90 @@ class PegawaiController extends Controller
             'no_whatsapp'           =>  $request->no_whatsapp,
             'is_serdos'             =>  $request->is_serdos == 'ya' ? 1 : 0,
             'no_sertifikat_serdos'  =>  $request->no_sertifikat_serdos,
-            'id_prodi_homebase'      =>  $request->id_prodi_homebase, 
+            'id_prodi_homebase'      =>  $request->id_prodi_homebase,
             'is_active'             =>  1,
         ]);
+        $newData = $pegawai->toArray();
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, dosen baru berhasil diubah',
-                'url'   =>  url('/manajemen_data_dosen/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, usulan anda gagal diubah']);
-        }
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($pegawai)
+            ->event('updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has updated the dosen data.');
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, dosen baru berhasil diubah',
+                    'url'   =>  url('/manajemen_data_dosen/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, usulan anda gagal diubah']);
+            }
     }
 
     public function setNonActive(Pegawai $dosen){
+
+        $oldData = $dosen->toArray();
         $update = $dosen->update([
             'is_active' =>  0,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data dosen berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data dosen gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $dosen->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($dosen)
+            ->event('deactivated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has deactivated the dosen data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data dosen berhasil dinonaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data dosen gagal dinonaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
-
     public function setActive(Pegawai $dosen){
+
+        $oldData = $dosen->toArray();
         $update = $dosen->update([
             'is_active' =>  1,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data dosen berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data dosen gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $dosen->toArray();
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($dosen)
+            ->event('activated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has activated the dosen data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data dosen berhasil diaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data dosen gagal diaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function riwayatJabatanFungsional(Pegawai $pegawai){
@@ -392,7 +442,14 @@ class PegawaiController extends Controller
             'tmt_jabatan_fungsional'   =>  $request->tmt_jabatan_fungsional,
             'is_active'   =>  0,
         ]);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new riwayat jabatan fungsional.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, riwayat jabatan fungsional berhasil ditambahkan',
@@ -407,47 +464,75 @@ class PegawaiController extends Controller
         RiwayatJabatanFungsional::where('nip',$pegawai->nip)->where('id','!=',$jabatanFungsional->id)->update([
             'is_active' =>  0,
         ]);
+
+        $oldData = $jabatanFungsional->toArray();
+
         $update = $jabatanFungsional->update([
             'is_active' =>  1,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data riwayat jabatan fungsional berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data riwayat jabatan fungsional gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $jabatanFungsional->toArray();
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($jabatanFungsional)
+            ->event('activated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has activated the riwayat jabatan fungsional data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data riwayat jabatan fungsional berhasil diaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data riwayat jabatan fungsional gagal diaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function setNonActiveRiwayatJabatanFungsional(Pegawai $pegawai, RiwayatJabatanFungsional $jabatanFungsional){
+
+        $oldData = $jabatanFungsional->toArray();
         $update = $jabatanFungsional->update([
             'is_active' =>  0,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data riwayat jabatan fungsional berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data riwayat jabatan fungsional gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $jabatanFungsional->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($jabatanFungsional)
+            ->event('deactivated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has deactivated the riwayat jabatan fungsional data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data riwayat jabatan fungsional berhasil dinonaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data riwayat jabatan fungsional gagal dinonaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function deleteRiwayatJabatanFungsional(Pegawai $pegawai, RiwayatJabatanFungsional $jabatanFungsional){
         if (!Gate::allows('delete-jabatan-fungsional')) {
             abort(403);
         }
+
+
         if ($jabatanFungsional->is_active == 1) {
             $notification = array(
                 'message' => 'Ooopps, riwayat jabatan fungsional aktif tidak bisa dihapus',
@@ -455,7 +540,16 @@ class PegawaiController extends Controller
             );
             return redirect()->back()->with($notification);
         }else {
+            $oldData = $jabatanFungsional->toArray();
             $jabatanFungsional->delete();
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($jabatanFungsional)
+            ->event('deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user . ' has deleted the riwayat jabatan fungsional data.');
             $notification = array(
                 'message' => 'Yeay, data riwayat jabatan fungsional berhasil dihapus',
                 'alert-type' => 'success'
@@ -539,6 +633,15 @@ class PegawaiController extends Controller
             'is_active'   =>  0,
         ]);
 
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new riwayat pangkat & golongan.');
+
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, riwayat pangkat & golongan berhasil ditambahkan',
@@ -553,28 +656,42 @@ class PegawaiController extends Controller
         PangkatGolongan::where('nip',$pegawai->nip)->where('id','!=',$pangkatGolongan->id)->update([
             'is_active' =>  0,
         ]);
+
+        $oldData = $pangkatGolongan->toArray();
         $update = $pangkatGolongan->update([
             'is_active' =>  1,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data riwayat pangkat & golongan berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.riwayat_pangkat_golongan',[$pegawai->slug])->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data riwayat pangkat & golongan gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $pangkatGolongan->toArray();
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($pangkatGolongan)
+            ->event('activated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has activated the riwayat pangkat & golongan data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data riwayat pangkat & golongan berhasil diaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen.riwayat_pangkat_golongan',[$pegawai->slug])->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data riwayat pangkat & golongan gagal diaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function deleteRiwayatPangkatGolongan(Pegawai $pegawai, PangkatGolongan $pangkatGolongan){
         if (!Gate::allows('delete-pangkat-golongan')) {
             abort(403);
         }
+
         if ($pangkatGolongan->is_active == 1) {
             $notification = array(
                 'message' => 'Ooopps, riwayat pangkat & golongan aktif tidak bisa dihapus',
@@ -582,7 +699,16 @@ class PegawaiController extends Controller
             );
             return redirect()->back()->with($notification);
         }else {
+            $oldData = $pangkatGolongan->toArray();
             $pangkatGolongan->delete();
+            activity()
+                ->causedBy(auth()->user()->id)
+                ->performedOn($pangkatGolongan)
+                ->event('deleted')
+                ->withProperties([
+                    'old_data' => $oldData, // Data lama
+                ])
+                ->log(auth()->user()->nama_user . ' has deleted the riwayat pangkat & golongan data.');
             $notification = array(
                 'message' => 'Yeay, data riwayat pangkat & golongan berhasil dihapus',
                 'alert-type' => 'success'
@@ -632,6 +758,14 @@ class PegawaiController extends Controller
             'tmt_jabatan_dt'   =>  $request->tmt_jabatan_dt,
             'is_active'   =>  0,
         ]);
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new riwayat jabatan DT.');
 
         if ($simpan) {
             return response()->json([
@@ -647,41 +781,66 @@ class PegawaiController extends Controller
         RiwayatJabatanDt::where('nip',$pegawai->nip)->where('id','!=',$jabatanDt->id)->update([
             'is_active' =>  0,
         ]);
+
+
+        $oldData = $jabatanDt->toArray();
         $update = $jabatanDt->update([
             'is_active' =>  1,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data riwayat jabatan dt berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.riwayat_jabatan_dt',[$pegawai->slug])->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data riwayat jabatan dt gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $jabatanDt->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($jabatanDt)
+            ->event('activated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has activated the riwayat jabatan fungsional  data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data riwayat jabatan dt berhasil diaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen.riwayat_jabatan_dt',[$pegawai->slug])->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data riwayat jabatan dt gagal diaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function setNonActiveRiwayatJabatanDt(Pegawai $pegawai, RiwayatJabatanDt $jabatanDt){
+
+        $oldData = $jabatanDt->toArray();
         $update = $jabatanDt->update([
             'is_active' =>  0,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, data riwayat jabatan dt berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('dosen.riwayat_jabatan_dt',[$pegawai->slug])->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, data riwayat jabatan dt gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $jabatanDt->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($jabatanDt)
+            ->event('deactivated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has deactivated the riwayat jabatan fungsional data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, data riwayat jabatan dt berhasil dinonaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('dosen.riwayat_jabatan_dt',[$pegawai->slug])->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, data riwayat jabatan dt gagal dinonaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function deleteRiwayatJabatanDt(Pegawai $pegawai, RiwayatJabatanDt $jabatanDt){
@@ -695,12 +854,23 @@ class PegawaiController extends Controller
             );
             return redirect()->back()->with($notification);
         }else {
+            $oldData = $jabatanDt->toArray();
             $jabatanDt->delete();
+            activity()
+                ->causedBy(auth()->user()->id)
+                ->performedOn($jabatanDt)
+                ->event('deleted')
+                ->withProperties([
+                    'old_data' => $oldData, // Data lama
+                ])
+                ->log(auth()->user()->nama_user . ' has deleted the riwayat jabatan fungsional  data.');
             $notification = array(
                 'message' => 'Yeay, data riwayat jabatan fungsional berhasil dihapus',
                 'alert-type' => 'success'
             );
             return redirect()->route('dosen.riwayat_jabatan_fungsional',[$pegawai->slug])->with($notification);
         }
+
     }
 }
+

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R28DosenMelaksanakanPengembanganDiriController extends Controller
 {
@@ -65,15 +66,35 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
            'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 28 Melaksanakan Pengembangan Diri baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_028_melaksanakan_pengembangan_diri/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 28 Melaksanakan Pengembangan Diri gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R28 Melaksanakan Pengembangan Diri.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 28 Melaksanakan Pengembangan Diri baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_028_melaksanakan_pengembangan_diri/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 28 Melaksanakan Pengembangan Diri gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r28laksanakanpengembangandiri){
     return R028MelaksanakanPengembanganDiri::where('id',$r28laksanakanpengembangandiri)->first();
@@ -102,7 +123,9 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
             $ewmp = 0.15;
         }
         $point = $ewmp;
-       $update = R028MelaksanakanPengembanganDiri::where('id',$request->r28laksanakanpengembangandiri_id_edit)->update([
+        $data =  R028MelaksanakanPengembanganDiri::where('id',$request->r28laksanakanpengembangandiri_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
            'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'jenis_kegiatan'             =>  $request->jenis_kegiatan,
@@ -113,25 +136,69 @@ class R28DosenMelaksanakanPengembanganDiriController extends Controller
 
        ]);
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Melaksanakan Pengembangan Diri diubah',
-               'url'   =>  url('/dosen/r_028_melaksanakan_pengembangan_diri/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Melaksanakan Pengembangan Diri gagal diubah']);
+       $newData = $data->toArray();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R28 Melaksanakan Pengembangan Diri data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Melaksanakan Pengembangan Diri diubah',
+                'url'   =>  url('/dosen/r_028_melaksanakan_pengembangan_diri/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Melaksanakan Pengembangan Diri gagal diubah']);
+            }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
    }
    public function delete($r28laksanakanpengembangandiri){
-    $delete = R028MelaksanakanPengembanganDiri::where('id',$r28laksanakanpengembangandiri)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Melaksanakan Pengembangan Diri dihapus',
-            'url'   =>  route('dosen.r_028_melaksanakan_pengembangan_diri'),
-        ]);
-       }else {
+
+       $data =  R028MelaksanakanPengembanganDiri::where('id',$r28laksanakanpengembangandiri)->first();
+       $oldData = $data->toArray();
+       $delete = R028MelaksanakanPengembanganDiri::where('id',$r28laksanakanpengembangandiri)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R28 Melaksanakan Pengembangan Diri data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Melaksanakan Pengembangan Diri dihapus',
+                'url'   =>  route('dosen.r_028_melaksanakan_pengembangan_diri'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Melaksanakan Pengembangan Diri remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Melaksanakan Pengembangan Diri remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

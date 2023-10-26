@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
 {
@@ -24,6 +25,7 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         $r015menuliskaryailmiahdipublikasikans = R015MenulisKaryaIlmiahDipublikasikan::where('nip',$_SESSION['data']['kode'])
                                                                                     ->where('periode_id',$this->periode->id)
                                                                                      ->orderBy('created_at','desc')->get();
+
         return view('backend/dosen/rubriks/r_015_menulis_karya_ilmiah_dipublikasikans.index',[
            'pegawais'                                    =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -102,15 +104,35 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_015_menulis_karya_ilmiah_dipublikasikan/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R15 Menulis Karya Ilmiah Dipublikasi.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_015_menulis_karya_ilmiah_dipublikasikan/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r015karyailmiahpublikasi){
     return R015MenulisKaryaIlmiahDipublikasikan::where('id',$r015karyailmiahpublikasi)->first();
@@ -174,7 +196,10 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         }else {
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
-       $update = R015MenulisKaryaIlmiahDipublikasikan::where('id',$request->r015karyailmiahpublikasi_id_edit)->update([
+
+        $data =  R015MenulisKaryaIlmiahDipublikasikan::where('id',$request->r015karyailmiahpublikasi_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
@@ -187,30 +212,72 @@ class R15DosenMenulisKaryaIlmiahDipublikasikanController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan berhasil diubah',
-               'url'   =>  url('/dosen/r_015_menulis_karya_ilmiah_dipublikasikan/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik menulis karya ilmiah dipublikasikan anda gagal diubah']);
-       }
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R15 Menulis Karya Ilmiah Dipublikasi data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan berhasil diubah',
+                    'url'   =>  url('/dosen/r_015_menulis_karya_ilmiah_dipublikasikan/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik menulis karya ilmiah dipublikasikan anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function delete($r015karyailmiahpublikasi){
-    $delete = R015MenulisKaryaIlmiahDipublikasikan::where('id',$r015karyailmiahpublikasi)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik menulis karya ilmiah dipublikasikan berhasil dihapus',
-            'url'   =>  route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan'),
-        ]);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, Rubrik menulis karya ilmiah dipublikasikan remunerasi gagal dihapus',
-               'alert-type' => 'error'
-           );
-           return redirect()->back()->with($notification);
-       }
+       $data =  R015MenulisKaryaIlmiahDipublikasikan::where('id',$r015karyailmiahpublikasi)->first();
+        $oldData = $data->toArray();
+        $delete = R015MenulisKaryaIlmiahDipublikasikan::where('id',$r015karyailmiahpublikasi)->delete();
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R15 Menulis Karya Ilmiah Dipublikasi data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik menulis karya ilmiah dipublikasikan berhasil dihapus',
+                    'url'   =>  route('dosen.r_015_menulis_karya_ilmiah_dipublikasikan'),
+                ]);
+               }else {
+                   $notification = array(
+                       'message' => 'Ooopps, Rubrik menulis karya ilmiah dipublikasikan remunerasi gagal dihapus',
+                       'alert-type' => 'error'
+                   );
+                   return redirect()->back()->with($notification);
+               }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
    }
 
     public function verifikasi(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){

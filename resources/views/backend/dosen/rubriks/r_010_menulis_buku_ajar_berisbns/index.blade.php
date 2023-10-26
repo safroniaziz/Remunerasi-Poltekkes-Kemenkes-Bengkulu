@@ -54,6 +54,8 @@
                                         <th style="text-align:center; vertical-align:middle">ISBN</th>
                                         <th style="text-align:center; vertical-align:middle">Penulis Ke </th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -73,6 +75,8 @@
                                             <td class="text-center">{{ $r010menulisbukuajarberisbn->isbn }}</td>
                                             <td class="text-center">{{ $r010menulisbukuajarberisbn->penulis_ke }}</td>
                                             <td class="text-center">{{ $r010menulisbukuajarberisbn->jumlah_penulis }}</td>
+                                            <td>{{ $r010menulisbukuajarberisbn->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r010menulisbukuajarberisbn->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

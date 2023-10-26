@@ -9,6 +9,7 @@ use App\Models\Periode;
 use App\Models\NilaiEwmp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R06DosenMengujiUjianOscaController extends Controller
 {
@@ -26,12 +27,12 @@ class R06DosenMengujiUjianOscaController extends Controller
                                                     ->where('periode_id',$this->periode->id)
                                                     ->orderBy('created_at','desc')->get();
 
-         return view('backend/dosen/rubriks/r_06_menguji_ujian_oscas.index',[
-            'pegawais'                =>  $pegawais,
-            'periode'                 =>  $this->periode,
-            'r06mengujiujianoscas'    =>  $r06mengujiujianoscas,
-        ]);
-    }
+            return view('backend/dosen/rubriks/r_06_menguji_ujian_oscas.index',[
+                'pegawais'                =>  $pegawais,
+                'periode'                 =>  $this->periode,
+                'r06mengujiujianoscas'    =>  $r06mengujiujianoscas,
+            ]);
+        }
 
     public function store(Request $request){
         $rules = [
@@ -64,13 +65,33 @@ class R06DosenMengujiUjianOscaController extends Controller
 
         ]);
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 06 Menguji Ujian Osca baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 06 Menguji Ujian Osca gagal disimpan']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R06 Menguji Ujian Osca.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 06 Menguji Ujian Osca baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R06 Menguji Ujian Osca gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
     public function edit($r06mengujiujianosca){
@@ -97,7 +118,10 @@ class R06DosenMengujiUjianOscaController extends Controller
 
         $point = ($request->jumlah_mahasiswa/12)* $this->nilai_ewmp->ewmp;
 
-        $update = R06MengujiUjianOsca::where('id',$request->r06mengujiujianosca_id_edit)->update([
+        $data =  R06MengujiUjianOsca::where('id',$request->r06mengujiujianosca_id_edit)->first();
+        $oldData = $data->toArray();
+
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -108,25 +132,68 @@ class R06DosenMengujiUjianOscaController extends Controller
 
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Menguji Ujian Osca berhasil diubah',
-                'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Menguji Ujian Osca anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R06 Menguji Ujian Osca data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Menguji Ujian Osca berhasil diubah',
+                    'url'   =>  url('/dosen/r_06_menguji_ujian_osca/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Menguji Ujian Osca anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
+
     }
     public function delete($r06mengujiujianosca){
+        $data =  R06MengujiUjianOsca::where('id',$r06mengujiujianosca)->first();
+        $oldData = $data->toArray();
         $delete = R06MengujiUjianOsca::where('id',$r06mengujiujianosca)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Menguji Ujian Osca berhasil dihapus',
-                'url'   =>  route('dosen.r_06_menguji_ujian_osca'),
-            ]);
-        }else {
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R06 Menguji Ujian Osca data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Menguji Ujian Osca berhasil dihapus',
+                    'url'   =>  route('dosen.r_06_menguji_ujian_osca'),
+                ]);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, R06MengujiUjianOsca remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Ooopps, R06MengujiUjianOsca remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

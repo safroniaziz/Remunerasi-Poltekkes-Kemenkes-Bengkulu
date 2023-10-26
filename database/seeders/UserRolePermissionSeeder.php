@@ -61,9 +61,15 @@ class UserRolePermissionSeeder extends Seeder
                 'is_active' =>  1,
             ], $default_user_value));
 
-            $pimpinan = User::create(array_merge([
-                'email' =>  'pimpinan@mail.com',
-                'nama_user'  =>  'pimpinan',
+            $pimpinan1 = User::create(array_merge([
+                'email' =>  'pimpinan1@mail.com',
+                'nama_user'  =>  'pimpinan1',
+                'is_active' =>  1,
+            ], $default_user_value));
+
+            $pimpinan2 = User::create(array_merge([
+                'email' =>  'pimpinan2@mail.com',
+                'nama_user'  =>  'pimpinan2',
                 'is_active' =>  1,
             ], $default_user_value));
 
@@ -582,7 +588,7 @@ class UserRolePermissionSeeder extends Seeder
             $role_administrator->givePermissionTo('store-verifikator-prodi');
             $role_administrator->givePermissionTo('reset-verifikator-prodi');
             $role_administrator->givePermissionTo('generate-prodi');
-            
+
             $role_administrator->givePermissionTo('dashboard');
             $role_administrator->givePermissionTo('view-generate-point-rubrik');
             $role_administrator->givePermissionTo('view-point-rubrik-dosen');
@@ -712,6 +718,9 @@ class UserRolePermissionSeeder extends Seeder
             $role_administrator->givePermissionTo('delete-user');
 
             $role_pimpinan->givePermissionTo('read-rekap-daftar-nominatif');
+            $role_pimpinan->givePermissionTo('read-pegawai');
+            $role_pimpinan->givePermissionTo('view-generate-point-rubrik');
+            $role_pimpinan->givePermissionTo('view-point-rubrik-dosen');
 
             // $verifikator1->assignRole('verifikator');
             // $verifikator2->assignRole('verifikator');
@@ -719,7 +728,8 @@ class UserRolePermissionSeeder extends Seeder
             // $verifikator4->assignRole('verifikator');
             // $verifikator5->assignRole('verifikator');
             $administrator->assignRole('administrator');
-            $pimpinan->assignRole('pimpinan');
+            $pimpinan1->assignRole('pimpinan');
+            $pimpinan2->assignRole('pimpinan');
             $verifikator1->assignRole('verifikator');
             $verifikator2->assignRole('verifikator');
 

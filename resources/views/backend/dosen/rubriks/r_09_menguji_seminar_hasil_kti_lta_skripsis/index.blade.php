@@ -52,6 +52,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis Seminar</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -69,6 +71,8 @@
                                             <td class="text-center">{{ $r09mengujiseminarhasilktiltaskripsi->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r09mengujiseminarhasilktiltaskripsi->jumlah_mahasiswa }}</td>
                                             <td class="text-center">{{ $r09mengujiseminarhasilktiltaskripsi->jenis }}</td>
+                                            <td>{{ $r09mengujiseminarhasilktiltaskripsi->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r09mengujiseminarhasilktiltaskripsi->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

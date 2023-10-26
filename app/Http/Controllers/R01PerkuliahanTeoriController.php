@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prodi;
 use App\Models\Pegawai;
 use App\Models\Periode;
+use App\Models\User;
 use App\Models\NilaiEwmp;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -12,6 +13,9 @@ use App\Models\R01PerkuliahanTeori;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class R01PerkuliahanTeoriController extends Controller
 {
@@ -90,14 +94,35 @@ class R01PerkuliahanTeoriController extends Controller
             'sumber_data'       =>  'manual',
         ]);
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($simpan)
+            ->event('verifikator_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log(auth()->user()->nama_user. ' has created a new R01 Perkuliahan Teori On ' .$dosen);
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
+                    'url'   =>  url('/r_01_perkuliahan_teori/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit(R01PerkuliahanTeori $r01perkuliahanteori){
         if (!Gate::allows('edit-r01-perkuliahan-teori')) {
@@ -139,7 +164,10 @@ class R01PerkuliahanTeoriController extends Controller
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
-        $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
+
+        $data =  R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->first();
+        $oldData = $data->toArray();
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'nama_matkul'        =>  $request->nama_matkul,
@@ -154,56 +182,161 @@ class R01PerkuliahanTeoriController extends Controller
             'keterangan'        =>  $request->keterangan,
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
-                'url'   =>  url('/r_01_perkuliahan_teori/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user. ' has updated the R01 Perkuliahan Teori data On ' .$dosen);
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
+                    'url'   =>  url('/r_01_perkuliahan_teori/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
-    public function delete(R01PerkuliahanTeori $r01perkuliahanteori){
+    public function delete(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
         if (!Gate::allows('delete-r01-perkuliahan-teori')) {
             abort(403);
         }
+
+        $data =  $r01perkuliahanteori->first();
+        $oldData = $data->toArray();
         $delete = $r01perkuliahanteori->delete();
-        if ($delete) {
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has deleted the R01 Perkuliahan Teori data ' .$dosen);
+
+            if ($delete) {
+                $notification = array(
+                    'message' => 'Yeay, r01perkuliahanteori remunerasi berhasil dihapus',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('r_01_perkuliahan_teori')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Yeay, r01perkuliahanteori remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_01_perkuliahan_teori')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
 
-    public function verifikasi(R01PerkuliahanTeori $r01perkuliahanteori){
-        $r01perkuliahanteori->update([
+    public function verifikasi(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
+        
+        $verifikasi= $r01perkuliahanteori->update([
             'is_verified'   =>  1,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r01perkuliahanteori->first();
+        $oldData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_verified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Verified the R01 Perkuliahan Teori data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
-    public function tolak(R01PerkuliahanTeori $r01perkuliahanteori){
-        $r01perkuliahanteori->update([
+    public function tolak(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
+        $verifikasi= $r01perkuliahanteori->update([
             'is_verified'   =>  0,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r01perkuliahanteori->first();
+        $oldData = $data->toArray();
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_unverified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Cancel Verification the R01 Perkuliahan Teori data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

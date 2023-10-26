@@ -12,6 +12,8 @@ use App\Models\RiwayatPoint;
 use Illuminate\Http\Request;
 use App\Models\RekapPerRubrik;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class GeneratePointRubrikController extends Controller
 {
@@ -23,6 +25,10 @@ class GeneratePointRubrikController extends Controller
 
     public function index(){
         $dataRubriks = RekapPerRubrik::with(['periode'])->where('periode_id',$this->periode->id)->get();
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('accessed')
+        ->log(auth()->user()->nama_user . ' has accessed the Generate Point Rubrik value page.');
         return view('backend/generate_point_rubrik.index',[
             'dataRubriks'   =>  $dataRubriks,
             'periode'       =>  $this->periode,
@@ -30,6 +36,11 @@ class GeneratePointRubrikController extends Controller
     }
 
     public function generate(){
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('accessed')
+        ->log(auth()->user()->nama_user . ' has Click the Generate Point Rubrik value page.');
+
         try {
             DB::beginTransaction();
             $rubriks = NilaiEwmp::select('nama_rubrik','nama_tabel_rubrik')->get();
@@ -37,7 +48,7 @@ class GeneratePointRubrikController extends Controller
 
             $totalPoint = array();
             $riwayatPoint = array();
-            for ($i=0; $i <count($rubriks) ; $i++) { 
+            for ($i=0; $i <count($rubriks) ; $i++) {
                 $total_point = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
                                 ->where('periode_id',$this->periode->id)
                                 ->where('is_bkd',0)
@@ -72,7 +83,7 @@ class GeneratePointRubrikController extends Controller
                     'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                     'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
                 );
-                for ($j=0; $j <count($dosens) ; $j++) { 
+                for ($j=0; $j <count($dosens) ; $j++) {
                     $total_point_per_nip = DB::table($rubriks[$i]['nama_tabel_rubrik'])
                                 ->select(DB::raw('IFNULL(sum(point),0) as total_point'))
                                 ->where('periode_id',$this->periode->id)
@@ -80,7 +91,7 @@ class GeneratePointRubrikController extends Controller
                                 ->where('is_verified',1)
                                 ->where('nip',$dosens[$j]['nip'])
                                 ->first();
-                    
+
                     $riwayatPoint[] = array(
                         'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
                         'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
@@ -95,7 +106,7 @@ class GeneratePointRubrikController extends Controller
             RekapPerRubrik::insert($totalPoint);
             $riwayat_point = RiwayatPoint::insert($riwayatPoint);
             $rekapPerDosen = array();
-            for ($k=0; $k <count($dosens) ; $k++) { 
+            for ($k=0; $k <count($dosens) ; $k++) {
                 $total_point = RiwayatPoint::select(DB::raw('sum(point) as total_point'))
                                             ->where('nip',$dosens[$k]['nip'])
                                             ->where('periode_id',$this->periode->id)
@@ -109,7 +120,7 @@ class GeneratePointRubrikController extends Controller
                 );
             }
             RekapPerDosen::insert($rekapPerDosen);
-            
+
             DB::commit();
             $success = array(
                 'message' => 'Berhasil, Generate Point Rubrik Berhasil Dilakukan',
@@ -156,7 +167,7 @@ class GeneratePointRubrikController extends Controller
         RiwayatPoint::where('periode_id',$this->periode->id)->where('kode_rubrik',$rekapPerRubrik->kode_rubrik)->delete();
 
         $dosens = Pegawai::select('nip')->get();
-        for ($i=0; $i <count($dosens) ; $i++) { 
+        for ($i=0; $i <count($dosens) ; $i++) {
             $total_point_per_nip = DB::table($rekapPerRubrik->kode_rubrik)
                         ->select(DB::raw('IFNULL(sum(point),0) as total_point'))
                         ->where('periode_id',$this->periode->id)
@@ -164,7 +175,7 @@ class GeneratePointRubrikController extends Controller
                         ->where('is_verified',1)
                         ->where('nip',$dosens[$i]['nip'])
                         ->first();
-            
+
             $riwayatPoint[] = array(
                 'kode_rubrik'   =>  $rekapPerRubrik->kode_rubrik,
                 'nama_rubrik'   =>  $rekapPerRubrik->nama_rubrik,
@@ -177,7 +188,7 @@ class GeneratePointRubrikController extends Controller
         }
         $riwayat_point = RiwayatPoint::insert($riwayatPoint);
 
-        for ($k=0; $k <count($dosens) ; $k++) { 
+        for ($k=0; $k <count($dosens) ; $k++) {
             $total_point_baru = RiwayatPoint::select(DB::raw('sum(point) as total_point'))->where('nip',$dosens[$k]['nip'])->first();
             RekapPerDosen::where('nip',$dosens[$k]['nip'])->where('periode_id',$this->periode->id)->update([
                 'total_point'   =>  $total_point_baru->total_point,
@@ -210,6 +221,11 @@ class GeneratePointRubrikController extends Controller
     }
 
     public function generatePointMassal(Request $request){
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('accessed')
+        ->log(auth()->user()->nama_user . ' has Click the Generate Point value page.');
+
         if (!empty($request->kode_rubriks)) {
             for ($i=0; $i < count($request->kode_rubriks); $i++) {
                 $className = 'App\\Models\\' . Str::studly(Str::singular($request->kode_rubriks[$i]));
@@ -228,7 +244,7 @@ class GeneratePointRubrikController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->route('generate_point_rubrik')->with($notification);
-           
+
         }
         else{
             $notification = array(

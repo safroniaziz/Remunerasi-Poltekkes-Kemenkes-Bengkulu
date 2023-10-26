@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class VerifikatorController extends Controller
 {
@@ -18,6 +19,10 @@ class VerifikatorController extends Controller
                     ->select('kodefak', 'nmfak')
                     ->groupBy('kodefak', 'nmfak') // Menambahkan kolom nmfak ke GROUP BY
                     ->get();
+                    activity()
+                    ->causedBy(auth()->user()->id)
+                    ->event('accessed')
+                    ->log(auth()->user()->name . ' has accessed the Verifikator value page.');
         return view('backend/manajemen_data_verifikators.index',[
             'users'                   =>  $users,
             'fakultases'                   =>  $fakultases,
@@ -33,7 +38,7 @@ class VerifikatorController extends Controller
             'password_confirmation' => 'required|same:password', // Ini adalah validasi konfirmasi password
             'is_active' => 'required|boolean',
         ];
-        
+
         $text = [
             'nama_user.required'           => 'Nama User harus diisi',
             'email.required'               => 'Email harus diisi',
@@ -61,7 +66,14 @@ class VerifikatorController extends Controller
 
         $verifikatorRole = Role::where('name', 'verifikator')->first();
         $simpan->assignRole($verifikatorRole);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->name . ' has created a new Verifikator.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, Verifikator remunerasi berhasil ditambahkan',
@@ -87,7 +99,7 @@ class VerifikatorController extends Controller
             ],
             'is_active' => 'required|boolean',
         ];
-        
+
         $text = [
             'nama_user.required'           => 'Nama User harus diisi',
             'email.required'               => 'Email harus diisi',
@@ -99,6 +111,7 @@ class VerifikatorController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+        $oldData = $user->toArray();
 
         $update = $user->update([
             'nama_user'        =>  $request->nama_user,
@@ -107,6 +120,17 @@ class VerifikatorController extends Controller
             'is_active'        =>  $request->is_active,
         ]);
 
+        $newData = $user->toArray();
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($user)
+            ->event('updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has updated the ewmp data.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, Verifikator remunerasi berhasil diubah',
@@ -147,10 +171,20 @@ class VerifikatorController extends Controller
     }
 
     public function nonactive(User $user){
+        $oldData = $user->toArray();
         $user->update([
             'is_active'   =>  0,
         ]);
-
+        $newData = $user->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($user)
+            ->event('deactivated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has deactivated the verifikator data.');
         $notification = array(
             'message' => 'Berhasil, verifikator berhasil dinonaktifkan',
             'alert-type' => 'success'
@@ -163,7 +197,7 @@ class VerifikatorController extends Controller
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'password_confirmation' => 'required|same:password', // Ini adalah validasi konfirmasi password
         ];
-        
+
         $text = [
             'password.required'            => 'Password harus diisi',
             'password.min'                 => 'Password harus memiliki setidaknya :min karakter',
@@ -177,17 +211,32 @@ class VerifikatorController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $ubahPassword = User::where('id',$request->id)->update([
+        $data = User::where('id',$request->id)->first();
+        $oldData = $data->toArray();
+
+        $ubahPassword = $data->update([
             'password'  =>  Hash::make($request->password),
         ]);
-
-        if ($ubahPassword) {
-            return response()->json([
-                'text'  =>  'Yeay, Password verifikator berhasil diubah',
-                'url'   =>  url('/manajemen_data_verifikator/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Password verifikator gagal diubah']);
-        }
+        $update = $data->update([
+            'is_active' =>  0,
+        ]);
+        $newData = $data->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('deactivated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has deactivated the ewmp data.');
+            if ($ubahPassword) {
+                return response()->json([
+                    'text'  =>  'Yeay, Password verifikator berhasil diubah',
+                    'url'   =>  url('/manajemen_data_verifikator/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Password verifikator gagal diubah']);
+            }
     }
 }

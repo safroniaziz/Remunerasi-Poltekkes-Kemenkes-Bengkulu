@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
 {
@@ -105,15 +106,35 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
         'point'             =>  $point,
         'keterangan'        =>  $request->keterangan,
        ]);
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan baru berhasil ditambahkan',
-               'url'   =>  url('/r_015_menulis_karya_ilmiah_dipublikasikan/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan gagal disimpan']);
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($simpan)
+           ->event('verifikator_created')
+           ->withProperties([
+               'created_fields' => $simpan, // Contoh informasi tambahan
+           ])
+           ->log(auth()->user()->nama_user. ' has created a new R15 Menulis Karya Ilmiah Dipublikasi On ' .$dosen);
+
+           if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan baru berhasil ditambahkan',
+                'url'   =>  url('/r_015_menulis_karya_ilmiah_dipublikasikan/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan gagal disimpan']);
+        }
        }
+       else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
+       }
+
    }
    public function edit(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
     if (!Gate::allows('edit-r015-menulis-karya-ilmiah-dipublikasikan')) {
@@ -182,7 +203,9 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
         }else {
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
-       $update = R015MenulisKaryaIlmiahDipublikasikan::where('id',$request->r015karyailmiahpublikasi_id_edit)->update([
+        $data =  R015MenulisKaryaIlmiahDipublikasikan::where('id',$request->r015karyailmiahpublikasi_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
@@ -194,57 +217,162 @@ class R15MenulisKaryaIlmiahDipublikasikanController extends Controller
         'point'             =>  $point,
         'keterangan'        =>  $request->keterangan,
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan berhasil diubah',
-               'url'   =>  url('/r_015_menulis_karya_ilmiah_dipublikasikan/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan anda gagal diubah']);
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($data)
+           ->event('verifikator_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log(auth()->user()->nama_user. ' has updated the R15 Menulis Karya Ilmiah Dipublikasi data On ' .$dosen);
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan berhasil diubah',
+                'url'   =>  url('/r_015_menulis_karya_ilmiah_dipublikasikan/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Rubrik 15 menulis karya ilmiah dipublikasikan anda gagal diubah']);
+        }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
+
    }
-   public function delete(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
+   public function delete(Request $request, R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
     if (!Gate::allows('delete-r015-menulis-karya-ilmiah-dipublikasikan')) {
         abort(403);
     }
+       $data =  $r015karyailmiahpublikasi->first();
+       $oldData = $data->toArray();
        $delete = $r015karyailmiahpublikasi->delete();
-       if ($delete) {
+
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($data)
+           ->event('verifikator_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log(auth()->user()->nama_user. ' has deleted the R15 Menulis Karya Ilmiah Dipublikasi data ' .$dosen);
+
+           if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('r_015_menulis_karya_ilmiah_dipublikasikan')->with($notification);
+        }else {
+            $notification = array(
+                'message' => 'Ooopps, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi gagal dihapus',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+       }else{
            $notification = array(
-               'message' => 'Yeay, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_015_menulis_karya_ilmiah_dipublikasikan')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, Rubrik 15 menulis karya ilmiah dipublikasikan remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
        }
    }
 
-    public function verifikasi(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
-        $r015karyailmiahpublikasi->update([
+    public function verifikasi(Request $request, R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
+
+        $verifikasi=  $r015karyailmiahpublikasi->update([
             'is_verified'   =>  1,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r015karyailmiahpublikasi->first();
+        $oldData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_verified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Verified the R15 Menulis Karya Ilmiah Dipublikasi data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
-    public function tolak(R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
-        $r015karyailmiahpublikasi->update([
+    public function tolak(Request $request, R015MenulisKaryaIlmiahDipublikasikan $r015karyailmiahpublikasi){
+
+        $verifikasi= $r015karyailmiahpublikasi->update([
             'is_verified'   =>  0,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r015karyailmiahpublikasi->first();
+        $oldData = $data->toArray();
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_unverified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Cancel Verification the R15 Menulis Karya Ilmiah Dipublikasi data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

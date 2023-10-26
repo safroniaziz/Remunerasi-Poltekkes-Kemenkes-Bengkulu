@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R11DosenMengembangkanModulBerisbnController extends Controller
 {
@@ -28,6 +29,7 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
         $r011mengembangkanmodulberisbns = R011MengembangkanModulBerisbn::where('nip',$_SESSION['data']['kode'])
                                                                         ->where('periode_id',$this->periode->id)
                                                                        ->orderBy('created_at','desc')->get();
+
         return view('backend/dosen/rubriks/r_011_mengembangkan_modul_berisbns.index',[
            'pegawais'                             =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -80,15 +82,35 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_011_mengembangkan_modul_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R11 mengembangkan modul berisbn.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_011_mengembangkan_modul_berisbn/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r011mengembangkanmodulberisbn){
     return R011MengembangkanModulBerisbn::where('id',$r011mengembangkanmodulberisbn)->first();
@@ -124,8 +146,9 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
         else{
             $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
         }
-
-       $update = R011MengembangkanModulBerisbn::where('id',$request->r011mengembangkanmodulberisbn_id_edit)->update([
+        $data =  R011MengembangkanModulBerisbn::where('id',$request->r011mengembangkanmodulberisbn_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
@@ -138,26 +161,68 @@ class R11DosenMengembangkanModulBerisbnController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik mengembangkan modul berisbn berhasil diubah',
-               'url'   =>  url('/dosen/r_011_mengembangkan_modul_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik mengembangkan modul berisbn anda gagal diubah']);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R11 mengembangkan modul berisbn data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik mengembangkan modul berisbn berhasil diubah',
+                'url'   =>  url('/dosen/r_011_mengembangkan_modul_berisbn/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik mengembangkan modul berisbn anda gagal diubah']);
+            }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
+
    }
    public function delete($r011mengembangkanmodulberisbn){
-    $delete = R011MengembangkanModulBerisbn::where('id',$r011mengembangkanmodulberisbn)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik mengembangkan modul berisbn berhasil diubah',
-            'url'   =>  route('dosen.r_011_mengembangkan_modul_berisbn'),
-        ]);
-       }else {
+       $data =  R011MengembangkanModulBerisbn::where('id',$r011mengembangkanmodulberisbn)->first();
+       $oldData = $data->toArray();
+       $delete = R011MengembangkanModulBerisbn::where('id',$r011mengembangkanmodulberisbn)->delete();
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R11 mengembangkan modul berisbn data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik mengembangkan modul berisbn berhasil diubah',
+                'url'   =>  route('dosen.r_011_mengembangkan_modul_berisbn'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik mengembangkan modul berisbn remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik mengembangkan modul berisbn remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

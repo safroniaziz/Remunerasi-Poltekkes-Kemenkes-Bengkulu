@@ -52,6 +52,8 @@
                                         <th style="text-align:center; vertical-align:middle">Status Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -74,6 +76,7 @@
                                             <td class="text-center">{{ $r014karyainovasi->penulis_ke == "penulis_utama" ? 'Penulis Utama' : 'Penulis Anggota' }}</td>
                                             <td class="text-center">{{ $r014karyainovasi->jumlah_penulis }}</td>
                                             <td class="text-center" style="text-transform:capitalize">{{ $r014karyainovasi->jenis }}</td>
+                                            <td>{{ $r014karyainovasi->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r014karyainovasi->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

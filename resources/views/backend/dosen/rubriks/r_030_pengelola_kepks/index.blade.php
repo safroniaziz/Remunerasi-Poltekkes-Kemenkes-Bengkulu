@@ -51,6 +51,8 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jabatan</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -66,6 +68,7 @@
                                             <td>{{ $index+1 }}</td>
                                             <td class="text-center">{{ $r030pengelolakepk->nip }}</td>
                                             <td class="text-center">{{ $r030pengelolakepk->pegawai->nama }}</td>
+                                            <td>{{ $r030pengelolakepk->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r030pengelolakepk->jabatan == "ketua")
                                                     Ketua

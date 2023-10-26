@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class PengumumanController extends Controller
 {
@@ -25,6 +27,10 @@ class PengumumanController extends Controller
         }else {
             $pengumumans = Pengumuman::paginate(10);
         }
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('accessed')
+        ->log(auth()->user()->nama_user . ' has accessed the Pengumuman value page.');
         return view('backend/pengumumans.index',[
             'pengumumans'    =>  $pengumumans,
         ]);
@@ -40,7 +46,7 @@ class PengumumanController extends Controller
             'tanggal_pengumuman'   => 'required',
             'file_pengumuman'      => 'nullable|mimes:pdf|max:1024', // PDF dengan ukuran maksimal 1MB (1024 KB)
         ];
-        
+
         $text = [
             'judul_pengumuman.required'     => 'Judul Pengumuman harus diisi',
             'isi_pengumuman.required'       => 'Isi Pengumuman harus diisi',
@@ -68,7 +74,14 @@ class PengumumanController extends Controller
         }
 
         $create = Pengumuman::create($pengumumanAttributes);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($create)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $create, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new Pengumuman.');
         if ($create) {
             return response()->json([
                 'text'  =>  'Yeay, Pengumuman baru berhasil ditambahkan',
@@ -95,7 +108,7 @@ class PengumumanController extends Controller
             'tanggal_pengumuman'   => 'required',
             'file_pengumuman'      => 'nullable|mimes:pdf|max:1024', // PDF dengan ukuran maksimal 1MB (1024 KB)
         ];
-        
+
         $text = [
             'judul_pengumuman.required'     => 'Judul Pengumuman harus diisi',
             'isi_pengumuman.required'       => 'Isi Pengumuman harus diisi',
@@ -121,9 +134,22 @@ class PengumumanController extends Controller
             $fileName = $file->store('file_pengumumans', 'public');
             $pengumumanAttributes['file_pengumuman'] = $fileName;
         }
+        $data = Pengumuman::where('id',$request->pengumuman_id)->first();
+        $oldData = $data->toArray();
 
-        $update = Pengumuman::where('id',$request->pengumuman_id)->update($pengumumanAttributes);
+        $update = $data->update($pengumumanAttributes);
 
+        $newData = $data->toArray();
+
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($data)
+        ->event('updated')
+        ->withProperties([
+            'old_data' => $oldData, // Data lama
+            'new_data' => $newData, // Data baru
+        ])
+        ->log(auth()->user()->nama_user . ' has updated the Kelompok Rubrik data.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, Pengumuman berhasil diubah',
@@ -138,22 +164,31 @@ class PengumumanController extends Controller
         if (!Gate::allows('delete-pengumumen')) {
             abort(403);
         }
+        $oldData = $pengumuman->toArray();
         $delete = $pengumuman->delete();
-
-        if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, pengumuman remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('pengumuman')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, pengumuman remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($pengumuman)
+            ->event('deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user . ' has deleted the pengumuman data.');
+            if ($delete) {
+                $notification = array(
+                    'message' => 'Yeay, pengumuman remunerasi berhasil dihapus',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('pengumuman')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, pengumuman remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
+
 
     public function download(Pengumuman $pengumuman){
         if ($pengumuman) {
@@ -169,7 +204,7 @@ class PengumumanController extends Controller
             abort(404);
         }
     }
-    
+
     public function detail(Pengumuman $pengumuman){
         return view('backend.pengumumans.detail',[
             'pengumuman'    =>  $pengumuman,

@@ -80,6 +80,7 @@
                                         <th style="vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         <th style="vertical-align:middle">Sumber Data</th>
@@ -104,6 +105,7 @@
                                                     {{ $perkuliahanTeori->jumlah_tatap_muka }}
                                                 @endif
                                             </td>
+                                            <td>{{ $perkuliahanTeori->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($perkuliahanTeori->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>
