@@ -33,6 +33,7 @@ class AuthenticatedSessionController extends Controller
         if ($user->hasRole('verifikator')) {
             return redirect()->route('cari_dosen'); // Redirect to the admin dashboard
         }else{
+            dd('a');
             return redirect(RouteServiceProvider::HOME); // Default redirect for other users
         }
 
