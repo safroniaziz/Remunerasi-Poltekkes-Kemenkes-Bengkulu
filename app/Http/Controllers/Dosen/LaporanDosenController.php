@@ -7,6 +7,7 @@ use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\RekapPerDosen;
 use PDF;
 
 class LaporanDosenController extends Controller
@@ -32,8 +33,10 @@ class LaporanDosenController extends Controller
 
     public function riwayatKinerja(){
         $periodes = Periode::orderBy('created_at','desc')->get();
+        $riwayatKinerjas = RekapPerDosen::with(['periode','dosen'])->where('nip',$_SESSION['data']['kode'])->orderBy('periode_id','desc')->get();
         return view('backend/dosen/laporan.riwayat_kinerja',[
             'periodes'   =>  $periodes,
+            'riwayatKinerjas'   =>  $riwayatKinerjas,
         ]);
     }
 

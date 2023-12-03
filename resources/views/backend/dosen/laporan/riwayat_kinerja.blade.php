@@ -32,21 +32,56 @@
                         </div>
                         <div class="col-md-12" style="margin-bottom: 10px !important;">
                             <div class="row">
-                                <form action="{{ route('dosen.riwayatKinerjaCetak') }}" method="POST">
-                                    {{ csrf_field() }} {{ method_field('POST') }}
-                                    <div class="form-group col-md-12">
-                                        <label for="">Pilih Periode Remunerasi</label>
-                                        <select name="periode_id" id="periode_id" class="form-control">
-                                            <option disabled selected>-- pilih periode --</option> 
-                                            @foreach ($periodes as $periode)
-                                                <option value="{{ $periode->id }}">{{ $periode->nama_periode }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp; Cetak Riwayat Remunerasi</button>
-                                    </div>
-                                </form>
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Periode</th>
+                                            <th>Point</th>
+                                            <th>Remun Diterima</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($riwayatKinerjas as $index => $riwayat)
+                                            <tr>
+                                                <td>{{ $index+1 }}</td>
+                                                <td>{{ $riwayat->dosen->nama }}</td>
+                                                <td>{{ $riwayat->periode->nama_periode }}</td>
+                                                <td>{{ $riwayat->total_point }}</td>
+                                                <td>
+                                                    @php
+                                                        $gaji_blu = $riwayat->dosen->gaji_blu_jabatan_dt_aktif;
+                                                        $harga_point = $riwayat->dosen->harga_point_jabatan_fungsional_aktif;
+                                                        
+                                                    @endphp
+                                                    @if ($riwayat->dosen->nama_pangkat_golongan_aktif == "IIIA" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IIIB" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IIIC" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IIID")
+                                                        5%
+                                                        @php
+                                                            $pajak = 5;
+                                                        @endphp
+                                                    @elseif ($riwayat->dosen->nama_pangkat_golongan_aktif == "IVA" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVB" || $nominatif->dosen->nama_pangkat_golongan_aktif == "IVC" || $nominatif->dosen->nama_pangkat_golongan_aktif == "IVD")
+                                                        15%
+                                                        @php
+                                                            $pajak = 15;
+                                                        @endphp
+                                                    @else
+                                                        100%
+                                                        @php
+                                                            $pajak = 100;
+                                                        @endphp
+                                                    @endif
+                                                    @php
+                                                        $totalRemun = ($gaji_blu + ($nominatif->total_point * $harga_point));
+                                                        $pajak = ($pajak/100)*$totalRemun;
+                                                        $remunDiterima = $totalRemun - $pajak;
+                                                    @endphp
+                                                    Rp. {{ number_format($remunDiterima) }},-
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
