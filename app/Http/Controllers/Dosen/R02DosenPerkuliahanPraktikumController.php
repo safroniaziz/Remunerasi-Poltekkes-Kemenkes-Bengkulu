@@ -70,7 +70,6 @@ class R02DosenPerkuliahanPraktikumController extends Controller
         }
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
-
         $simpan = R02PerkuliahanPraktikum::create([
             'periode_id'        =>  $this->periode->id,
             // 'nip'               =>  $_SESSION['data']['kode'],
@@ -407,12 +406,15 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'presensi' =>  $presensi,
             ];
 
+            $jumlahSks = $result['kelas']['sks_mk_info']['praktikum'] != null ? $result['kelas']['sks_mk_info']['praktikum'] : 0;
+            $point = ((count($result['presensi'])/16)*($result['kelas']['jml_peserta']/40))* $this->nilai_ewmp->ewmp*$jumlahSks;
+
             $perkuliahan[]  =   array(
                 'periode_id'    =>  $this->periode->id,
                 'nip'           =>  $_SESSION['data']['kode'],
                 'nama_matkul'   =>  $result['kelas']['nama_mk'],
                 'kode_kelas'   =>  $result['kelas']['id_kls'],
-                'jumlah_sks'   =>  $result['kelas']['sks_mk_info']['praktikum'] != null ? $result['kelas']['sks_mk_info']['praktikum'] : null ,
+                'jumlah_sks'   =>  $jumlahSks,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
                 // 'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
                 // 'jumlah_tatap_muka'   =>  null,
@@ -424,6 +426,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'sumber_data'   =>  'siakad',
                 'created_at'    =>  now(), // Menggunakan fungsi now() untuk waktu saat ini
                 'updated_at'    =>  now(),
+                'point'         =>  $point,
                 'keterangan'    =>  $request->keterangan,
             );
         }
