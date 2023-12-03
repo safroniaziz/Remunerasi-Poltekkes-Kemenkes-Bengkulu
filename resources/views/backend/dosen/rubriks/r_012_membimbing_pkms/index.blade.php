@@ -53,6 +53,8 @@
                                         <th style="text-align:center; vertical-align:middle">Tingkat PKM</th>
                                         <th style="text-align:center; vertical-align:middle">Juara Ke </th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Pembimbing</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -69,6 +71,8 @@
                                             <td class="text-center">{{ $r012membimbingpkm->nip }}</td>
                                             <td class="text-center">{{ $r012membimbingpkm->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r012membimbingpkm->tingkat_pkm }}</td>
+                                            <td>{{ $r012membimbingpkm->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r012membimbingpkm->juara_ke == 0)
                                                 <small class="label label-danger">X</small>

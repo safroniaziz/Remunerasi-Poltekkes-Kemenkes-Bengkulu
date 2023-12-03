@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
 {
@@ -24,6 +25,7 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
         $r013orasiilmiahnarasumberbidangilmus = R013OrasiIlmiahNarasumberBidangIlmu::where('nip',$_SESSION['data']['kode'])
                                                                                     ->where('periode_id',$this->periode->id)
                                                                                    ->orderBy('created_at','desc')->get();
+
         return view('backend/dosen/rubriks/r_013_orasi_ilmiah_narasumber_bidang_ilmus.index',[
            'pegawais'                               =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -67,15 +69,35 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_013_orasi_ilmiah_narasumber_bidang_ilmu/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R13 Orasi Ilmiah Narasumber Bidang Ilmu.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_013_orasi_ilmiah_narasumber_bidang_ilmu/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 13 Orasi Ilmiah Narasumber Bidang Ilmu gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r013orasiilmiahnarasumber){
     return R013OrasiIlmiahNarasumberBidangIlmu::where('id',$r013orasiilmiahnarasumber)->first();
@@ -106,7 +128,9 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
             $point = 1;
         }
 
-       $update = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$request->r013Orasiilmiahnarasumber_id_edit)->update([
+        $data = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$request->r013Orasiilmiahnarasumber_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul_kegiatan'    =>  $request->judul_kegiatan,
@@ -117,26 +141,69 @@ class R13DosenOrasiIlmiahNarasumberBidangIlmuController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu berhasil diubah',
-               'url'   =>  url('/dosen/r_013_orasi_ilmiah_narasumber_bidang_ilmu/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu anda gagal diubah']);
-       }
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R13 Orasi Ilmiah Narasumber Bidang Ilmu data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu berhasil diubah',
+                    'url'   =>  url('/dosen/r_013_orasi_ilmiah_narasumber_bidang_ilmu/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function delete($r013orasiilmiahnarasumber){
-    $delete = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$r013orasiilmiahnarasumber)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu berhasil dihapus',
-            'url'   =>  route('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu'),
-        ]);
-       }else {
+       $data =  R013OrasiIlmiahNarasumberBidangIlmu::where('id',$r013orasiilmiahnarasumber)->first();
+       $oldData = $data->toArray();
+       $delete = R013OrasiIlmiahNarasumberBidangIlmu::where('id',$r013orasiilmiahnarasumber)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R13 Orasi Ilmiah Narasumber Bidang Ilmu data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu berhasil dihapus',
+                'url'   =>  route('dosen.r_013_orasi_ilmiah_narasumber_bidang_ilmu'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Orasi Ilmiah Narasumber Bidang Ilmu remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

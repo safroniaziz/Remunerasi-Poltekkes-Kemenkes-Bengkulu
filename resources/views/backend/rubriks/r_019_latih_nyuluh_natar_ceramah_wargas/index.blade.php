@@ -50,6 +50,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul Kegiatan</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -70,6 +72,8 @@
                                             <td class="text-center">{{ $r019latihnyuluhnatarceramahwarga->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r019latihnyuluhnatarceramahwarga->judul_kegiatan }}</td>
                                             <td class="text-center">{{ $r019latihnyuluhnatarceramahwarga->jenis == "insidentil" ? 'Insidentil' : 'Latihan/Penyuluhan/Pantaran/Ceramah' }}</td>
+                                            <td>{{ $r019latihnyuluhnatarceramahwarga->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r019latihnyuluhnatarceramahwarga->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

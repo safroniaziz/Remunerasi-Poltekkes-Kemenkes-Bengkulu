@@ -17,7 +17,7 @@ class RekapDaftarNominatifController extends Controller
     {
         $this->periode = Periode::where('is_active',1)->first();
     }
-    
+
     public function index(){
         $isRekap = RekapDaftarNominatif::where('periode_id',$this->periode->if)->get();
         if ($isRekap->count() > 0) {
@@ -28,6 +28,10 @@ class RekapDaftarNominatifController extends Controller
         }
 
         // $nominatifs = RekapDaftarNominatif::
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->event('accessed')
+            ->log(auth()->user()->name . ' has accessed the Rekap Daftar Nominatif value page.');
         return view('backend.laporan_nominatif.index',[
             'nominatifs'    =>  $nominatifs
         ]);

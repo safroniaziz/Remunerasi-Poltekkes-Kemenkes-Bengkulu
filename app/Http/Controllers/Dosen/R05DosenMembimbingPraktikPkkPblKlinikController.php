@@ -9,6 +9,7 @@ use App\Models\Periode;
 use App\Models\NilaiEwmp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 {
@@ -25,14 +26,12 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
          $r05membimbingpraktikpkkpblkliniks = R05MembimbingPraktikPkkPblKlinik::where('nip',$_SESSION['data']['kode'])
                                                                                 ->where('periode_id',$this->periode->id)
                                                                               ->orderBy('created_at','desc')->get();
-
-         return view('backend/dosen/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
-            'pegawais'                             =>  $pegawais,
-            'periode'                 =>  $this->periode,
-            'r05membimbingpraktikpkkpblkliniks'    =>  $r05membimbingpraktikpkkpblkliniks,
-        ]);
+                return view('backend/dosen/rubriks/r_05_membimbing_praktik_pkk_pbl_kliniks.index',[
+                    'pegawais'                             =>  $pegawais,
+                    'periode'                 =>  $this->periode,
+                    'r05membimbingpraktikpkkpblkliniks'    =>  $r05membimbingpraktikpkkpblkliniks,
+                ]);
     }
-
     public function store(Request $request){
         $rules = [
             'jumlah_sks'            =>  'required|regex:/^[0-9]+$/|min:0',
@@ -76,14 +75,35 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 
         ]);
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 05 Membimbing Praktik PKK PBL Klinik baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_05_membimbing_praktik_pkk_pbl_klinik/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik gagal disimpan']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R5 Membimbing Praktik PBL PKK KLinik.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 05 Membimbing Praktik PKK PBL Klinik baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_05_membimbing_praktik_pkk_pbl_klinik/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit($r05membimbingpraktikpkkpblklinik){
         return R05MembimbingPraktikPkkPblKlinik::where('id',$r05membimbingpraktikpkkpblklinik)->first();
@@ -119,7 +139,10 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 
         $point = (($request->jumlah_tatap_muka/6)*($request->jumlah_mahasiswa/12))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
-        $update = R05MembimbingPraktikPkkPblKlinik::where('id',$request->r05membimbingpraktikpkkpblklinik_id_edit)->update([
+        $data =  R05MembimbingPraktikPkkPblKlinik::where('id',$request->r05membimbingpraktikpkkpblklinik_id_edit)->first();
+        $oldData = $data->toArray();
+
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_sks'        =>  $request->jumlah_sks,
@@ -132,25 +155,67 @@ class R05DosenMembimbingPraktikPkkPblKlinikController extends Controller
 
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Membimbing Praktik PKK PBL Klinik berhasil diubah',
-                'url'   =>  url('/dosen/r_05_membimbing_praktik_pkk_pbl_klinik/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R5 Membimbing Praktik PBL PKK KLinik. data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Membimbing Praktik PKK PBL Klinik berhasil diubah',
+                    'url'   =>  url('/dosen/r_05_membimbing_praktik_pkk_pbl_klinik/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 05 Membimbing Praktik PKK PBL Klinik anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
     public function delete($r05membimbingpraktikpkkpblklinik){
+        $data =  R05MembimbingPraktikPkkPblKlinik::where('id',$r05membimbingpraktikpkkpblklinik)->first();
+        $oldData = $data->toArray();
         $delete = R05MembimbingPraktikPkkPblKlinik::where('id',$r05membimbingpraktikpkkpblklinik)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Membimbing Praktik PKK PBL Klinik berhasil dihapus',
-                'url'   =>  route('dosen.r_05_membimbing_praktik_pkk_pbl_klinik'),
-            ]);
-        }else {
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R5 Membimbing Praktik PBL PKK KLinik. data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Membimbing Praktik PKK PBL Klinik berhasil dihapus',
+                    'url'   =>  route('dosen.r_05_membimbing_praktik_pkk_pbl_klinik'),
+                ]);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, Membimbing Praktik PKK PBL Klinik remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Ooopps, Membimbing Praktik PKK PBL Klinik remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

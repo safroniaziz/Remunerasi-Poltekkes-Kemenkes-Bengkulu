@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R14DosenKaryaInovasiController extends Controller
 {
@@ -24,6 +25,7 @@ class R14DosenKaryaInovasiController extends Controller
         $r014karyainovasis = R014KaryaInovasi::where('nip',$_SESSION['data']['kode'])
                                             ->where('periode_id',$this->periode->id)
                                              ->orderBy('created_at','desc')->get();
+
         return view('backend/dosen/rubriks/r_014_karya_inovasis.index',[
            'pegawais'                =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -82,15 +84,35 @@ class R14DosenKaryaInovasiController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 14 Karya Inovasi baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_014_karya_inovasi/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R14 Karya Inovasi.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 14 Karya Inovasi baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_014_karya_inovasi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 14 Karya Inovasi gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r014karyainovasi){
     return R014KaryaInovasi::where('id',$r014karyainovasi)->first();
@@ -134,7 +156,10 @@ class R14DosenKaryaInovasiController extends Controller
         }else {
             $point = ((40/100)*$ewmp)/$request->jumlah_penulis;
         }
-       $update = R014KaryaInovasi::where('id',$request->r014karyainovasi_id_edit)->update([
+
+        $data =  R014KaryaInovasi::where('id',$request->r014karyainovasi_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $_SESSION['data']['kode'],
         'judul'             =>  $request->judul,
@@ -147,30 +172,72 @@ class R14DosenKaryaInovasiController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Karya Inovasi berhasil diubah',
-               'url'   =>  url('/dosen/r_014_karya_inovasi/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Karya Inovasi anda gagal diubah']);
-       }
-   }
-   public function delete($r014karyainovasi){
-    $delete = R014KaryaInovasi::where('id',$r014karyainovasi)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Karya Inovasi berhasil dihapus',
-            'url'   =>  route('dosen.r_014_karya_inovasi'),
-        ]);
-       }else {
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R14 Karya Inovasi.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Karya Inovasi berhasil diubah',
+                'url'   =>  url('/dosen/r_014_karya_inovasi/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Karya Inovasi anda gagal diubah']);
+            }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Karya Inovasi remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
        }
+
+   }
+   public function delete($r014karyainovasi){
+        $data =  R014KaryaInovasi::where('id',$r014karyainovasi)->first();
+        $oldData = $data->toArray();
+        $delete = R014KaryaInovasi::where('id',$r014karyainovasi)->delete();
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R14 Karya Inovasi data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Karya Inovasi berhasil dihapus',
+                    'url'   =>  route('dosen.r_014_karya_inovasi'),
+                ]);
+               }else {
+                   $notification = array(
+                       'message' => 'Ooopps, Rubrik Karya Inovasi remunerasi gagal dihapus',
+                       'alert-type' => 'error'
+                   );
+                   return redirect()->back()->with($notification);
+               }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
    }
 
     public function verifikasi(R014KaryaInovasi $r014karyainovasi){

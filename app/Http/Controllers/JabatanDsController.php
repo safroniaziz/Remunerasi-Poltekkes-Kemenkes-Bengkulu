@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 
 class JabatanDsController extends Controller
@@ -16,6 +20,7 @@ class JabatanDsController extends Controller
             abort(403);
         }
             $jabatands = JabatanDs::orderBy('created_at','desc')->get();
+
         return view('backend/jabatan_ds.index',[
             'jabatands'         =>  $jabatands,
         ]);
@@ -60,7 +65,14 @@ class JabatanDsController extends Controller
             'harga_point_ds'        =>  $request->harga_point_ds,
             'gaji_blu'              =>  $request->gaji_blu,
         ]);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new Jabatan Fungsional.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, Jabatan Ds baru berhasil ditambahkan',
@@ -104,6 +116,9 @@ class JabatanDsController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
+        $data = $jabatands->first();
+        $oldData = $jabatands->toArray();
+
         $update = $jabatands->update([
             'nama_jabatan_ds'       =>  $request->nama_jabatan_ds,
             'slug'                  =>  Str::slug($request->nama_jabatan_ds),
@@ -111,6 +126,18 @@ class JabatanDsController extends Controller
             'harga_point_ds'        =>  $request->harga_point_ds,
             'gaji_blu'              =>  $request->gaji_blu,
         ]);
+
+        $newData = $jabatands->toArray();
+
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($jabatands)
+        ->event('updated')
+        ->withProperties([
+            'old_data' => $oldData, // Data lama
+            'new_data' => $newData, // Data baru
+        ])
+        ->log(auth()->user()->nama_user . ' has updated the Jabatan Fungsional data.');
 
         if ($update) {
             return response()->json([
@@ -125,20 +152,29 @@ class JabatanDsController extends Controller
         if (!Gate::allows('delete-jabatan-ds')) {
             abort(403);
         }
-        $delete = $jabatands->delete();
-
-        if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, jabatan ds remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('jabatan_ds')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, jabatan ds remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            $oldData = $jabatands->toArray();
+            $delete = $jabatands->delete();
+            activity()
+                ->causedBy(auth()->user()->id)
+                ->performedOn($jabatands)
+                ->event('deleted')
+                ->withProperties([
+                    'old_data' => $oldData, // Data lama
+                ])
+                ->log(auth()->user()->nama_user . ' has deleted the Jabatan Fungsional data.');
+                if ($delete) {
+                    $notification = array(
+                        'message' => 'Yeay, jabatan ds remunerasi berhasil dihapus',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('jabatan_ds')->with($notification);
+                }else {
+                    $notification = array(
+                        'message' => 'Ooopps, jabatan ds remunerasi gagal dihapus',
+                        'alert-type' => 'error'
+                    );
+                return redirect()->back()->with($notification);
+                }
         }
     }
-}
+

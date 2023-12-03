@@ -9,6 +9,7 @@ use App\Models\Periode;
 use App\Models\NilaiEwmp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R03DosenMembimbingPencapaianKompetensiController extends Controller
 {
@@ -25,9 +26,9 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
          $r03membimbingpencapaiankompetensis = R03MembimbingPencapaianKompetensi::where('nip',$_SESSION['data']['kode'])
                                                                                 ->where('periode_id',$this->periode->id)
                                                                                 ->orderBy('created_at','desc')->get();
-         return view('backend/dosen/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
+        return view('backend/dosen/rubriks/r_03_membimbing_pencapaian_kompetensis.index',[
             'pegawais'                              =>  $pegawais,
-            'periode'                 =>  $this->periode,
+            'periode'                               =>  $this->periode,
             'r03membimbingpencapaiankompetensis'    =>  $r03membimbingpencapaiankompetensis,
         ]);
     }
@@ -63,14 +64,35 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         ]);
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pencapaian Kompetensi gagal disimpan']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R3 Membimbing Capaian Kompetensi.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pencapaian Kompetensi gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit($r03bimbingcapaiankompetensi){
         return R03MembimbingPencapaianKompetensi::where('id',$r03bimbingcapaiankompetensi)->first();
@@ -96,7 +118,10 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
-        $update = R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->update([
+        $data =  R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->first();
+        $oldData = $data->toArray();
+
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -107,24 +132,69 @@ class R03DosenMembimbingPencapaianKompetensiController extends Controller
 
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Membimbing Pencapaian Kompetensi berhasil diubah',
-                'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pencapaian Kompetensi anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R3 Membimbing Capaian Kompetensi.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Membimbing Pencapaian Kompetensi berhasil diubah',
+                    'url'   =>  url('/dosen/r_03_membimbing_pencapaian_kompetensi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Membimbing Pencapaian Kompetensi anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
     public function delete($r03bimbingcapaiankompetensi){
+
+
+        $data =  R03MembimbingPencapaianKompetensi::where('id',$r03bimbingcapaiankompetensi)->first();
+        $oldData = $data->toArray();
         $delete = R03MembimbingPencapaianKompetensi::where('id',$r03bimbingcapaiankompetensi)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Bimbingan Capaian Kompetensi berhasil dihapus',
-                'url'   =>  route('dosen.r_03_membimbing_pencapaian_kompetensi'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps,  Rubrik Bimbingan Capaian Kompetensi gagal dihapus']);
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R01 Perkuliahan Teori data.');
+
+            if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Bimbingan Capaian Kompetensi berhasil dihapus',
+                    'url'   =>  route('dosen.r_03_membimbing_pencapaian_kompetensi'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps,  Rubrik Bimbingan Capaian Kompetensi gagal dihapus']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 

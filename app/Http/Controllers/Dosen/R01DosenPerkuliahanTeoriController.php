@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Dosen;
 
 use DateTime;
 use App\Models\Prodi;
+use App\Models\NilaiEwmp;
 use App\Models\Pegawai;
 use App\Models\Periode;
-use App\Models\NilaiEwmp;
+use App\Models\PerkuliahanTeori;
 use Illuminate\Http\Request;
 use App\Models\R01PerkuliahanTeori;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\ApiEncController;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R01DosenPerkuliahanTeoriController extends Controller
 {
@@ -28,17 +30,18 @@ class R01DosenPerkuliahanTeoriController extends Controller
     public function index(){
         $dataProdis = Prodi::all();
         $pegawais = Pegawai::all();
+
         $r01perkuliahanteoris = R01PerkuliahanTeori::where('nip',$_SESSION['data']['kode'])
                                                 ->where('periode_id',$this->periode->id)
                                                 ->orderBy('created_at','desc')->get();
-        return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
-            'pegawais'                =>  $pegawais,
-            'periode'                 =>  $this->periode,
-            'dataProdis'                 =>  $dataProdis,
-            'perkuliahanTeoris'    =>  $r01perkuliahanteoris,
-        ]);
-    }
 
+            return view('backend/dosen/rubriks/r_01_perkuliahan_teoris.index',[
+                'pegawais'                =>  $pegawais,
+                'periode'                 =>  $this->periode,
+                'dataProdis'                 =>  $dataProdis,
+                'perkuliahanTeoris'    =>  $r01perkuliahanteoris,
+            ]);
+    }
     public function store(Request $request){
         $rules = [
             'kode_kelas'            =>  'required',
@@ -88,20 +91,41 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'sumber_data'       =>  'manual',
         ]);
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
-                'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R01 Perkuliahan Teori.');
+
+            if($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 01 Perkuliahan Teori baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
+                ]);
+            }
+            else {
+                return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit($perkuliahanTeori){
         $data = R01PerkuliahanTeori::where('id',$perkuliahanTeori)->first();
         return $data;
     }
-
     public function update(Request $request, R01PerkuliahanTeori $r01perkuliahanteori){
         $rules = [
             'kode_kelas'            =>  'required',
@@ -132,7 +156,9 @@ class R01DosenPerkuliahanTeoriController extends Controller
 
         $point = (($request->jumlah_tatap_muka/16)*($request->jumlah_mahasiswa/40))* $this->nilai_ewmp->ewmp*$request->jumlah_sks;
 
-        $update = R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->update([
+        $data =  R01PerkuliahanTeori::where('id',$request->r01perkuliahanteori_id_edit)->first();
+        $oldData = $data->toArray();
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             // 'nip'               =>  4022026301,
@@ -146,28 +172,69 @@ class R01DosenPerkuliahanTeoriController extends Controller
             'is_verified'       =>  0,
             'point'             =>  $point,
             'keterangan'        =>  $request->keterangan,
-
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
-                'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R1 Perkuliahan Teori data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 01 Perkuliahan Teori berhasil diubah',
+                    'url'   =>  url('/dosen/r_01_perkuliahan_teori/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 01 Perkuliahan Teori anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
-    public function delete($perkuliahanteori){
+    public function delete($r01perkuliahanteori){
+        $data =  R01PerkuliahanTeori::where('id',$r01perkuliahanteori)->first();
+        $oldData = $data->toArray();
+        $delete = R01PerkuliahanTeori::where('id',$r01perkuliahanteori)->delete();
 
-        $delete = R01PerkuliahanTeori::where('id',$perkuliahanteori)->delete();
-        if ($delete) {
-            return response()->json([
-                'text'  =>  'Yeay, Rubrik Pengajahan Teori berhasil dihapus',
-                'url'   =>  route('dosen.r_01_perkuliahan_teori'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, Rubrik Pengajahan Teori gagal dihapus']);
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log($_SESSION['data']['nama'] . ' has deleted the R01 Perkuliahan Teori data.');
+
+             if ($delete) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Pengajahan Teori berhasil dihapus',
+                    'url'   =>  route('dosen.r_01_perkuliahan_teori'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Pengajahan Teori gagal dihapus']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
     }
 

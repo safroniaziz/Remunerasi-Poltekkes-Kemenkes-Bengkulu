@@ -52,6 +52,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul</th>
                                         <th style="text-align:center; vertical-align:middle">ISBN</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -69,6 +71,8 @@
                                             <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->judul_buku }}</td>
                                             <td class="text-center">{{ $r017naskahbukubahasaterbitedarnas->isbn }}</td>
+                                            <td>{{ $r017naskahbukubahasaterbitedarnas->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r017naskahbukubahasaterbitedarnas->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

@@ -50,6 +50,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul</th>
                                         <th style="text-align:center; vertical-align:middle">Tingkat</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -70,6 +72,7 @@
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->judul_kegiatan }}</td>
                                             <td class="text-center">{{ $r013orasiilmiahnarasumberbidangilmu->tingkatan_ke }}</td>
+                                            <td>{{ $r013orasiilmiahnarasumberbidangilmu->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r013orasiilmiahnarasumberbidangilmu->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

@@ -11,6 +11,8 @@ use App\Models\JabatanDt;
 use App\Models\NilaiEwmp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class DashboardController extends Controller
 {
@@ -26,6 +28,10 @@ class DashboardController extends Controller
             $query->where('name', 'verifikator');
         })->count();
         $jumlahUserRole =   3;
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('accessed')
+        ->log(auth()->user()->nama_user . ' has accessed the Dashboard value page.');
         return view('backend.dashboard',[
             'periodeAktif'              => $periodeAktif,
             'jumlahRubrik'              => $jumlahRubrik,

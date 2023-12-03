@@ -51,6 +51,8 @@
                                         <th style="text-align:center; vertical-align:middle">Judul Kegiatan</th>
                                         <th style="text-align:center; vertical-align:middle">Jabatan</th>
                                         <th style="text-align:center; vertical-align:middle">Edisi Terbit</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -82,6 +84,8 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">{{ $r026pengelolajurnalbuletin->edisi_terbit }}</td>
+                                            <td>{{ $r026pengelolajurnalbuletin->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r026pengelolajurnalbuletin->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

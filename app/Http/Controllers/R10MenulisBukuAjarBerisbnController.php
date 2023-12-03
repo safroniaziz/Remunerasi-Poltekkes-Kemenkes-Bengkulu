@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R10MenulisBukuAjarBerisbnController extends Controller
 {
@@ -30,7 +31,6 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         $r010menulisbukuajarberisbns = R010MenulisBukuAjarBerisbn::where('nip',$request->session()->get('nip_dosen'))
                                                                 ->where('periode_id',$this->periode->id)
                                                                  ->orderBy('created_at','desc')->get();
-
 
         return view('backend/rubriks/r_010_menulis_buku_ajar_berisbns.index',[
            'pegawais'                          =>  $pegawais,
@@ -83,15 +83,35 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         'point'             =>  $point,
         'keterangan'        =>  $request->keterangan,
        ]);
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn baru berhasil ditambahkan',
-               'url'   =>  url('/r_010_menulis_buku_ajar_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn gagal disimpan']);
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($simpan)
+           ->event('verifikator_created')
+           ->withProperties([
+               'created_fields' => $simpan, // Contoh informasi tambahan
+           ])
+           ->log(auth()->user()->nama_user. ' has created a new R10 Menulis Buku Ajar ISBN On ' .$dosen);
+
+           if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn baru berhasil ditambahkan',
+                'url'   =>  url('/r_010_menulis_buku_ajar_berisbn/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn gagal disimpan']);
+            }
        }
+       else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
+       }
+
    }
    public function edit(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
     if (!Gate::allows('edit-r010-menulis-buku-ajar-berisbn')) {
@@ -131,7 +151,9 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         else{
             $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
         }
-       $update = R010MenulisBukuAjarBerisbn::where('id',$request->r010menulisbukuajarberisbn_id_edit)->update([
+        $data =  R010MenulisBukuAjarBerisbn::where('id',$request->r010menulisbukuajarberisbn_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
@@ -143,57 +165,161 @@ class R10MenulisBukuAjarBerisbnController extends Controller
         'point'             =>  $point,
         'keterangan'        =>  $request->keterangan,
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn berhasil diubah',
-               'url'   =>  url('/r_010_menulis_buku_ajar_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn anda gagal diubah']);
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($data)
+           ->event('verifikator_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log(auth()->user()->nama_user. ' has updated the R10 Menulis Buku Ajar ISBN data On ' .$dosen);
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn berhasil diubah',
+                'url'   =>  url('/r_010_menulis_buku_ajar_berisbn/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 10 Menulis Buku Ajar Berisbn anda gagal diubah']);
+            }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
+
    }
-   public function delete(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+   public function delete(Request $request, R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
     if (!Gate::allows('delete-r010-menulis-buku-ajar-berisbn')) {
         abort(403);
     }
+       $data =  $r010menulisbukuajarberisbn->first();
+       $oldData = $data->toArray();
        $delete = $r010menulisbukuajarberisbn->delete();
-       if ($delete) {
+
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($data)
+           ->event('verifikator_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log(auth()->user()->nama_user. ' has deleted the R10 Menulis Buku Ajar ISBN data ' .$dosen);
+
+           if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('r_010_menulis_buku_ajar_berisbn')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+       }else{
            $notification = array(
-               'message' => 'Yeay, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_010_menulis_buku_ajar_berisbn')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, Rubrik 10 Menulis Buku Ajar Berisbn remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
        }
    }
 
-    public function verifikasi(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
-        $r010menulisbukuajarberisbn->update([
+    public function verifikasi(Request $request, R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+
+        $verifikasi= $r010menulisbukuajarberisbn->update([
             'is_verified'   =>  1,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r010menulisbukuajarberisbn->first();
+        $oldData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_verified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Verified the R10 Menulis Buku Ajar ISBN data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
-    public function tolak(R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
-        $r010menulisbukuajarberisbn->update([
+    public function tolak(Request $request, R010MenulisBukuAjarBerisbn $r010menulisbukuajarberisbn){
+
+        $verifikasi= $r010menulisbukuajarberisbn->update([
             'is_verified'   =>  0,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r010menulisbukuajarberisbn->first();
+        $oldData = $data->toArray();
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_unverified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Cancel Verification the R10 Menulis Buku Ajar ISBN data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

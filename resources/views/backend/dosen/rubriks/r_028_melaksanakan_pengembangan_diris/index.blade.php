@@ -51,6 +51,8 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis Kegiatan</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -75,6 +77,7 @@
                                                     webinar
                                                 @endif
                                             </td>
+                                            <td>{{ $r028melaksanakanpengembangandiri->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r028melaksanakanpengembangandiri->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

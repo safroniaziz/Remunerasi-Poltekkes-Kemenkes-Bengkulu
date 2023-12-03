@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R26DosenPengelolaJurnalBuletinController extends Controller
 {
@@ -24,7 +25,6 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
         $r026pengelolajurnalbuletins = R026PengelolaJurnalBuletin::where('nip',$_SESSION['data']['kode'])
                                                                 ->where('periode_id',$this->periode->id)
                                                                  ->orderBy('created_at','desc')->get();
-
 
         return view('backend/dosen/rubriks/r_026_pengelola_jurnal_buletins.index',[
            'pegawais'                        =>  $pegawais,
@@ -70,15 +70,35 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 26 Pengelola Jurnal Buletin baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal disimpan']);
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($simpan)
+           ->event('dosen_created')
+           ->withProperties([
+               'created_fields' => $simpan, // Contoh informasi tambahan
+           ])
+           ->log($_SESSION['data']['nama'] . ' has created a new R26 Pengelola Jurnal Buletin.');
+
+           if ($simpan) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik 26 Pengelola Jurnal Buletin baru berhasil ditambahkan',
+                'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
+            ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 26 Pengelola Jurnal Buletin gagal disimpan']);
+            }
        }
+       else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
+       }
+
    }
    public function edit($r26pengelolajurnalbuletin){
     return R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->first();
@@ -109,7 +129,10 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
             $ewmp = 0.25;
         }
         $point = $ewmp;
-       $update = R026PengelolaJurnalBuletin::where('id',$request->r26pengelolajurnalbuletin_id_edit)->update([
+
+        $data =  R026PengelolaJurnalBuletin::where('id',$request->r26pengelolajurnalbuletin_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
            'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_kegiatan'             =>  $request->judul_kegiatan,
@@ -121,27 +144,69 @@ class R26DosenPengelolaJurnalBuletinController extends Controller
            'keterangan'                 =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Pengelola Jurnal Buletin diubah',
-               'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Pengelola Jurnal Buletin gagal diubah']);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R26 Pengelola Jurnal Buletin data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Pengelola Jurnal Buletin diubah',
+                'url'   =>  url('/dosen/r_026_pengelola_jurnal_buletin/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Rubrik Pengelola Jurnal Buletin gagal diubah']);
+        }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
    }
 
    public function delete($r26pengelolajurnalbuletin){
-    $delete = R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Pengelola Jurnal Buletin dihapus',
-            'url'   =>  route('dosen.r_026_pengelola_jurnal_buletin'),
-        ]);
-       }else {
+
+       $data =  R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->first();
+       $oldData = $data->toArray();
+       $delete = R026PengelolaJurnalBuletin::where('id',$r26pengelolajurnalbuletin)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R26 Pengelola Jurnal Buletin data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Pengelola Jurnal Buletin dihapus',
+                'url'   =>  route('dosen.r_026_pengelola_jurnal_buletin'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Pengelola Jurnal Buletin remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Pengelola Jurnal Buletin remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

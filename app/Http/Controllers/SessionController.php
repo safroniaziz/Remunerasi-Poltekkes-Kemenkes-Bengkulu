@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class SessionController extends Controller
 {
@@ -16,6 +17,7 @@ class SessionController extends Controller
             abort(403);
         }
         $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
         return view('backend.cari_dosen',[
             'dosen' =>  $dosen,
         ]);
@@ -49,7 +51,7 @@ class SessionController extends Controller
         $text = [
             'dosen.required'              => 'Silahkan cari nama/nip dosen terlebih dahulu',
         ];
- 
+
         $validasi = Validator::make($request->all(), $rules, $text);
         if ($validasi->fails()) {
             $error = array(
@@ -58,7 +60,7 @@ class SessionController extends Controller
             );
             return redirect()->route('cari_dosen')->with($error);
         }
-        
+
         $dosen = Pegawai::where('nip',$request->dosen_nip)->first();
         $request->session()->put('nama_dosen',$dosen->nama);
         $request->session()->put('nip_dosen',$dosen->nip);

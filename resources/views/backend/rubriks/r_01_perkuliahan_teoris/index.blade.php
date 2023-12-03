@@ -53,6 +53,8 @@
                                         <th style="text-align:center; vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -76,6 +78,8 @@
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_sks }} SKS</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_mahasiswa }} Mahasiswa</td>
                                             <td class="text-center">{{ $r01perkuliahanteori->jumlah_tatap_muka ? $r01perkuliahanteori->jumlah_tatap_muka : '-' }}</td>
+                                            <td>{{ $r01perkuliahanteori->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r01perkuliahanteori->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

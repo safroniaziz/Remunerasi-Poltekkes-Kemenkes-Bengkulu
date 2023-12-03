@@ -51,6 +51,8 @@
                                         <th style="text-align:center; vertical-align:middle">NIP</th>
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Dosen</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -67,6 +69,8 @@
                                             <td class="text-center">{{ $r020assessorbkdlkd->nip }}</td>
                                             <td class="text-center">{{ $r020assessorbkdlkd->pegawai->nama }}</td>
                                             <td class="text-center">{{ $r020assessorbkdlkd->jumlah_dosen }}</td>
+                                            <td>{{ $r020assessorbkdlkd->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r020assessorbkdlkd->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

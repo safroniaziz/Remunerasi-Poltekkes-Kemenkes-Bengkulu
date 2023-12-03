@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R12DosenMembimbingPkmController extends Controller
 {
@@ -24,6 +25,7 @@ class R12DosenMembimbingPkmController extends Controller
         $r012membimbingpkms = R012MembimbingPkm::where('nip',$_SESSION['data']['kode'])
                                                 ->where('periode_id',$this->periode->id)
                                                ->orderBy('created_at','desc')->get();
+
         return view('backend/dosen/rubriks/r_012_membimbing_pkms.index',[
            'pegawais'                 =>  $pegawais,
            'periode'                 =>  $this->periode,
@@ -79,15 +81,35 @@ class R12DosenMembimbingPkmController extends Controller
         'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 12 Membimbing PKM baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R12 Membimbing PKM.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 12 Membimbing PKM baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 12 Membimbing PKM gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r012membimbingpkm){
     return R012MembimbingPkm::where('id',$r012membimbingpkm)->first();
@@ -129,7 +151,10 @@ class R12DosenMembimbingPkmController extends Controller
             }
         }
         $point = $ewmp/$request->jumlah_pembimbing;
-        $update = R012MembimbingPkm::where('id',$request->r012membimbingpkm_id_edit)->update([
+
+        $data =  R012MembimbingPkm::where('id',$request->r012membimbingpkm_id_edit)->first();
+        $oldData = $data->toArray();
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $_SESSION['data']['kode'],
             'tingkat_pkm'       =>  $request->tingkat_pkm,
@@ -141,26 +166,68 @@ class R12DosenMembimbingPkmController extends Controller
             'keterangan'        =>  $request->keterangan,
 
         ]);
+        $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 12 Membimbing PKM berhasil diubah',
-               'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Membimbing PKM anda gagal diubah']);
-       }
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R12 Membimbing PKM data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 12 Membimbing PKM berhasil diubah',
+                    'url'   =>  url('/dosen/r_012_membimbing_pkm/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Membimbing PKM anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function delete($r012membimbingpkm){
-    $delete = R012MembimbingPkm::where('id',$r012membimbingpkm)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Membimbing PKM berhasil dihapus',
-            'url'   =>  route('dosen.r_012_membimbing_pkm'),
-        ]);
-       }else {
+       $data =  R012MembimbingPkm::where('id',$r012membimbingpkm)->first();
+       $oldData = $data->toArray();
+       $delete = R012MembimbingPkm::where('id',$r012membimbingpkm)->delete();
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R12 Membimbing PKM data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Membimbing PKM berhasil dihapus',
+                'url'   =>  route('dosen.r_012_membimbing_pkm'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Membimbing PKM remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Membimbing PKM remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

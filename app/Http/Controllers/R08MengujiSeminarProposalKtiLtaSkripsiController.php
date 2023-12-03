@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
 {
@@ -26,7 +28,6 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
          $r08mengujiseminarproposalktiltaskripsis = R08MengujiSeminarProposalKtiLtaSkripsi::where('nip',$request->session()->get('nip_dosen'))
                                                                                         ->where('periode_id',$this->periode->id)
                                                                                           ->orderBy('created_at','desc')->get();
-
 
          return view('backend/rubriks/r_08_menguji_seminar_proposal_kti_lta_skripsis.index',[
             'pegawais'                                   =>  $pegawais,
@@ -72,15 +73,35 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             'point'             =>  $point,
             'keterangan'        =>  $request->keterangan,
         ]);
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 08 Menguji Seminar Proposal Kti Lta Skripsi baru berhasil ditambahkan',
-                'url'   =>  url('/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi gagal disimpan']);
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($simpan)
+            ->event('verifikator_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log(auth()->user()->nama_user. ' has created a new R8 Meng Seminar Proposal KTI LTA Skripsi On ' .$dosen);
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 08 Menguji Seminar Proposal Kti Lta Skripsi baru berhasil ditambahkan',
+                    'url'   =>  url('/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
         if (!Gate::allows('edit-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
@@ -116,7 +137,10 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             $ewmp = 0.06;
         }
         $point = $request->jumlah_mahasiswa * $ewmp;
-        $update = R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$request->r08mengujiseminarproposal_id_edit)->update([
+
+        $data =  R08MengujiSeminarProposalKtiLtaSkripsi::where('id',$request->r08mengujiseminarproposal_id_edit)->first();
+        $oldData = $data->toArray();
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -126,57 +150,162 @@ class R08MengujiSeminarProposalKtiLtaSkripsiController extends Controller
             'point'             =>  $point,
             'keterangan'        =>  $request->keterangan,
         ]);
+        $newData = $data->toArray();
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, R 08 Menguji Seminar Proposal Kti Lta Skripsi berhasil diubah',
-                'url'   =>  url('/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi anda gagal diubah']);
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user. ' has updated the R8 Meng Seminar Proposal KTI LTA Skripsi data On ' .$dosen);
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 08 Menguji Seminar Proposal Kti Lta Skripsi berhasil diubah',
+                    'url'   =>  url('/r_08_menguji_seminar_proposal_kti_lta_skripsi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 08 Menguji Seminar Proposal Kti Lta Skripsi anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
+
     }
-    public function delete(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+    public function delete(Request $request,R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
         if (!Gate::allows('delete-r08-menguji-seminar-proposal-kti-lta-skripsi')) {
             abort(403);
         }
+
+        $data =  $r08mengujiseminarproposal->first();
+        $oldData = $data->toArray();
         $delete = $r08mengujiseminarproposal->delete();
-        if ($delete) {
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has deleted the R8 Meng Seminar Proposal KTI LTA Skripsi data ' .$dosen);
+
+            if ($delete) {
+                $notification = array(
+                    'message' => 'Yeay, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi berhasil dihapus',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('r_08_menguji_seminar_proposal_kti_lta_skripsi')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Yeay, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_08_menguji_seminar_proposal_kti_lta_skripsi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, R08 Menguji Seminar Proposal Kti Lta Skripsi remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
 
-    public function verifikasi(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
-        $r08mengujiseminarproposal->update([
+    public function verifikasi(Request $request,R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        $verifikasi= $r08mengujiseminarproposal->update([
             'is_verified'   =>  1,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r08mengujiseminarproposal->first();
+        $oldData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_verified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Verified the R8 Meng Seminar Proposal KTI LTA Skripsi data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
 
-    public function tolak(R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
-        $r08mengujiseminarproposal->update([
+    public function tolak(Request $request,R08MengujiSeminarProposalKtiLtaSkripsi $r08mengujiseminarproposal){
+        $verifikasi=$r08mengujiseminarproposal->update([
             'is_verified'   =>  0,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r08mengujiseminarproposal->first();
+        $oldData = $data->toArray();
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_unverified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Cancel Verification the R8 Meng Seminar Proposal KTI LTA Skripsi data ' .$dosen);
+
+            if ($verifikasi) {
+                $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
-}
+ }

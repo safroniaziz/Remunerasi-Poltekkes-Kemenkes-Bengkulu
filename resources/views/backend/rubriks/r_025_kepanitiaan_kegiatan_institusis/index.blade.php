@@ -50,6 +50,8 @@
                                         <th style="text-align:center; vertical-align:middle">Nama Dosen</th>
                                         <th style="text-align:center; vertical-align:middle">Judul Kegiatan</th>
                                         <th style="text-align:center; vertical-align:middle">Jabatan</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         @if(Auth::user()->hasRole('verifikator'))
                                             <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
@@ -80,6 +82,7 @@
                                                     Anggota
                                                 @endif
                                             </td>
+                                            <td>{{ $r025kepanitiaankegiataninstitusi->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r025kepanitiaankegiataninstitusi->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

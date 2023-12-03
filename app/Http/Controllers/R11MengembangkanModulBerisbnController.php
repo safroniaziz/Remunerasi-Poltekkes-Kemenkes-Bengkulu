@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R11MengembangkanModulBerisbnController extends Controller
 {
@@ -83,15 +84,35 @@ class R11MengembangkanModulBerisbnController extends Controller
         'point'             =>  $point,
         'keterangan'        =>  $request->keterangan,
        ]);
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn baru berhasil ditambahkan',
-               'url'   =>  url('/r_011_mengembangkan_modul_berisbn/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($simpan)
+            ->event('verifikator_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log(auth()->user()->nama_user. ' has created a new R11 Mengembangkan Modul ISBN On ' .$dosen);
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 11 mengembangkan modul berisbn baru berhasil ditambahkan',
+                    'url'   =>  url('/r_011_mengembangkan_modul_berisbn/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
     if (!Gate::allows('edit-r011-mengembangkan-modul-berisbn')) {
@@ -131,8 +152,9 @@ class R11MengembangkanModulBerisbnController extends Controller
         else{
             $point = (0.5 * $this->nilai_ewmp->ewmp) / $request->jumlah_penulis;
         }
-
-       $update = R011MengembangkanModulBerisbn::where('id',$request->r011mengembangkanmodulberisbn_id_edit)->update([
+        $data =  R011MengembangkanModulBerisbn::where('id',$request->r011mengembangkanmodulberisbn_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
         'periode_id'        =>  $this->periode->id,
         'nip'               =>  $request->session()->get('nip_dosen'),
         'judul'             =>  $request->judul,
@@ -154,47 +176,130 @@ class R11MengembangkanModulBerisbnController extends Controller
            return response()->json(['text' =>  'Oopps, Rubrik 11 mengembangkan modul berisbn anda gagal diubah']);
        }
    }
-   public function delete(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+   public function delete(Request $request, R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
     if (!Gate::allows('delete-r011-mengembangkan-modul-berisbn')) {
         abort(403);
     }
+       $data =  $r011mengembangkanmodulberisbn->first();
+       $oldData = $data->toArray();
        $delete = $r011mengembangkanmodulberisbn->delete();
-       if ($delete) {
+       $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy(auth()->user()->id)
+           ->performedOn($data)
+           ->event('verifikator_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log(auth()->user()->nama_user. ' has deleted the R11 Mengembangkan Modul ISBN data ' .$dosen);
+
+           if ($delete) {
+            $notification = array(
+                'message' => 'Yeay, Rubrik 11 mengembangkan modul berisbn remunerasi berhasil dihapus',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('r_011_mengembangkan_modul_berisbn')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, Rubrik 11 mengembangkan modul berisbn remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+       }else{
            $notification = array(
-               'message' => 'Yeay, Rubrik 11 mengembangkan modul berisbn remunerasi berhasil dihapus',
-               'alert-type' => 'success'
-           );
-           return redirect()->route('r_011_mengembangkan_modul_berisbn')->with($notification);
-       }else {
-           $notification = array(
-               'message' => 'Ooopps, Rubrik 11 mengembangkan modul berisbn remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);
        }
    }
 
-    public function verifikasi(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
-        $r011mengembangkanmodulberisbn->update([
+    public function verifikasi(Request $request,R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+
+        $verifikasi= $r011mengembangkanmodulberisbn->update([
             'is_verified'   =>  1,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r011mengembangkanmodulberisbn->first();
+        $oldData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_verified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Verified the R11 Mengembangkan Modul ISBN data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
-    public function tolak(R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
-        $r011mengembangkanmodulberisbn->update([
+    public function tolak(Request $request,R011MengembangkanModulBerisbn $r011mengembangkanmodulberisbn){
+
+        $verifikasi=  $r011mengembangkanmodulberisbn->update([
             'is_verified'   =>  0,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r011mengembangkanmodulberisbn->first();
+        $oldData = $data->toArray();
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_unverified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Cancel Verification the R11 Mengembangkan Modul ISBN data ' .$dosen);
+
+            if ($verifikasi) {
+                  $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R29DosenMemperolehPenghargaanController extends Controller
 {
@@ -63,15 +64,35 @@ class R29DosenMemperolehPenghargaanController extends Controller
            'keterangan'        =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 29 Memperoleh Penghargaan baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R29 Memperoleh Penghargaan.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 29 Memperoleh Penghargaan baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 29 Memperoleh Penghargaan gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r29memperolehpenghargaan){
     return R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->first();
@@ -98,7 +119,10 @@ class R29DosenMemperolehPenghargaanController extends Controller
             $ewmp = 0.5;
         }
         $point = $ewmp;
-       $update = R029MemperolehPenghargaan::where('id',$request->r29memperolehpenghargaan_id_edit)->update([
+
+        $data =  R029MemperolehPenghargaan::where('id',$request->r29memperolehpenghargaan_id_edit)->first();
+        $oldData = $data->toArray();
+       $update = $data->update([
            'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_penghargaan'          =>  $request->judul_penghargaan,
@@ -108,26 +132,70 @@ class R29DosenMemperolehPenghargaanController extends Controller
            'keterangan'                 =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Memperoleh Penghargaan diubah',
-               'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Memperoleh Penghargaan gagal diubah']);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+       if (!empty($dosen)) {
+       activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_updated')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+               'new_data' => $newData, // Data baru
+           ])
+           ->log($_SESSION['data']['nama'] . ' has updated the R29 Memperoleh Penghargaan data.');
+
+           if ($update) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Memperoleh Penghargaan diubah',
+                'url'   =>  url('/dosen/r_029_memperoleh_penghargaan/'),
+            ]);
+        }else {
+            return response()->json(['text' =>  'Oopps, Rubrik Memperoleh Penghargaan gagal diubah']);
+        }
+       }else{
+           $notification = array(
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+               'alert-type' => 'error'
+           );
+           return redirect()->back()->with($notification);
        }
+
    }
    public function delete($r29memperolehpenghargaan){
-    $delete = R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Memperoleh Penghargaan dihapus',
-            'url'   =>  route('dosen.r_029_memperoleh_penghargaan'),
-        ]);
-       }else {
+
+       $data =  R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->first();
+       $oldData = $data->toArray();
+       $delete = R029MemperolehPenghargaan::where('id',$r29memperolehpenghargaan)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R29 Memperoleh Penghargaan data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Memperoleh Penghargaan dihapus',
+                'url'   =>  route('dosen.r_029_memperoleh_penghargaan'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Memperoleh Penghargaan remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Memperoleh Penghargaan remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

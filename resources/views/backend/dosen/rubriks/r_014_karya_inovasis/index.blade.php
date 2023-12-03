@@ -54,6 +54,8 @@
                                         <th style="text-align:center; vertical-align:middle">Status Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Penulis</th>
                                         <th style="text-align:center; vertical-align:middle">Jenis</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
+
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         {{--  <th style="text-align:center; vertical-align:middle">Point</th>  --}}
@@ -84,6 +86,8 @@
                                                    <small class="label label-success">HKI</small>
                                                 @endif
                                             </td>
+                                            <td>{{ $r014karyainovasi->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r014karyainovasi->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>

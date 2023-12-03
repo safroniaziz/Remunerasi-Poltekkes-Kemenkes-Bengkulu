@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class PresensiController extends Controller
 {
@@ -16,6 +18,10 @@ class PresensiController extends Controller
             abort(403);
         }
         $presensis = Presensi::orderBy('created_at','desc')->get();
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->event('accessed')
+        ->log(auth()->user()->name . ' has accessed the Presensi value page.');
         return view('backend/presensis.index',[
             'presensis'         =>  $presensis,
         ]);
@@ -56,7 +62,14 @@ class PresensiController extends Controller
             'nip'                 =>  $request->nip,
             'jumlah_kehadiran'    =>  $request->jumlah_kehadiran,
         ]);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->name . ' has created a new Presensi.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, Presensi baru berhasil ditambahkan',

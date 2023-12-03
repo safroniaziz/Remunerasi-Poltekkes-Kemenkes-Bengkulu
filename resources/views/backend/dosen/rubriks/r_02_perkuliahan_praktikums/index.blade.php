@@ -80,6 +80,7 @@
                                         <th style="vertical-align:middle">Jumlah SKS</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Mahasiswa</th>
                                         <th style="text-align:center; vertical-align:middle">Jumlah Tatap Muka</th>
+                                        <th style="text-align:center; vertical-align:middle">Bukti Validasi Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Data</th>
                                         <th style="text-align:center; vertical-align:middle">Status Verifikasi</th>
                                         <th style="vertical-align:middle">Sumber Data</th>
@@ -97,6 +98,8 @@
                                             <td>{{ $r02perkuliahanpraktikum->prodiMatkul ? $r02perkuliahanpraktikum->prodiMatkul->nama_lengkap_prodi : ''}} </td>
                                             <td>{{ $r02perkuliahanpraktikum->jumlah_sks }} SKS</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_mahasiswa }} Mahasiswa</td>
+                                            <td>{{ $r02perkuliahanpraktikum->keterangan }}</td>
+
                                             <td class="text-center">
                                                 @if ($r02perkuliahanpraktikum->jumlah_tatap_muka == null)
                                                     -

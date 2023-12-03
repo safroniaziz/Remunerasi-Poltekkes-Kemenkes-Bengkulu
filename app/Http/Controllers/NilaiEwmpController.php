@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class NilaiEwmpController extends Controller
@@ -17,10 +19,7 @@ class NilaiEwmpController extends Controller
             abort(403);
         }
         $nilaiEwmps = NilaiEwmp::all();
-        activity()
-            ->causedBy(auth()->user()->id)
-            ->event('accessed')
-            ->log(auth()->user()->name . ' has accessed the ewmp value page.');
+
         return view('backend/nilai_ewmps.index',[
             'nilaiEwmps'         =>  $nilaiEwmps,
         ]);
@@ -31,10 +30,7 @@ class NilaiEwmpController extends Controller
             abort(403);
         }
         $kelompokrubriks = KelompokRubrik::all();
-        activity()
-            ->causedBy(auth()->user()->id)
-            ->event('accessed')
-            ->log(auth()->user()->name . ' has accessed the create page for ewmp values.');
+
         return view('backend/nilai_ewmps.create',compact('kelompokrubriks'));
     }
 
@@ -69,7 +65,7 @@ class NilaiEwmpController extends Controller
             'ewmp'                      =>  $request->ewmp,
             'is_active'                 =>  1,
         ]);
-        
+
         activity()
             ->causedBy(auth()->user()->id)
             ->performedOn($simpan)
@@ -77,7 +73,7 @@ class NilaiEwmpController extends Controller
             ->withProperties([
                 'created_fields' => $simpan, // Contoh informasi tambahan
             ])
-            ->log(auth()->user()->name . ' has created a new ewmp.');
+            ->log(auth()->user()->nama_user . ' has created a new ewmp.');
 
         if ($simpan) {
             return response()->json([
@@ -93,14 +89,7 @@ class NilaiEwmpController extends Controller
             abort(403);
         }
         $kelompokrubriks = KelompokRubrik::all();
-        activity()
-            ->causedBy(auth()->user()->id)
-            ->performedOn($nilaiewmp)
-            ->event('edited')
-            ->withProperties([
-                'edited_fields' => $nilaiewmp, // Contoh informasi tambahan
-            ])
-            ->log(auth()->user()->name . ' has edited the ewmp data.');
+
         return view('backend.nilai_ewmps.edit',compact('kelompokrubriks'),[
             'nilaiewmp'   =>  $nilaiewmp,
         ]);
@@ -149,7 +138,7 @@ class NilaiEwmpController extends Controller
                 'old_data' => $oldData, // Data lama
                 'new_data' => $newData, // Data baru
             ])
-            ->log(auth()->user()->name . ' has updated the ewmp data.');
+            ->log(auth()->user()->nama_user . ' has updated the ewmp data.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, nilai ewmp berhasil diubah',
@@ -173,7 +162,7 @@ class NilaiEwmpController extends Controller
                 'old_data' => $oldData, // Data lama
                 'new_data' => $newData, // Data baru
             ])
-            ->log(auth()->user()->name . ' has deactivated the ewmp data.');
+            ->log(auth()->user()->nama_user . ' has deactivated the ewmp data.');
         if ($update) {
             $notification = array(
                 'message'    => 'Yeay, data nilai ewmp berhasil dinonaktifkan',
@@ -204,7 +193,7 @@ class NilaiEwmpController extends Controller
                 'old_data' => $oldData, // Data lama
                 'new_data' => $newData, // Data baru
             ])
-            ->log(auth()->user()->name . ' has activated the ewmp data.');
+            ->log(auth()->user()->nama_user . ' has activated the ewmp data.');
         if ($update) {
             $notification = array(
                 'message' => 'Yeay, data nilai ewmp berhasil diaktifkan',
@@ -225,16 +214,14 @@ class NilaiEwmpController extends Controller
         }
         $oldData = $nilaiewmp->toArray();
         $delete = $nilaiewmp->delete();
-        $newData = $nilaiewmp->toArray();
         activity()
             ->causedBy(auth()->user()->id)
             ->performedOn($nilaiewmp)
             ->event('deleted')
             ->withProperties([
                 'old_data' => $oldData, // Data lama
-                'new_data' => $newData, // Data baru
             ])
-            ->log(auth()->user()->name . ' has deleted the ewmp data.');
+            ->log(auth()->user()->nama_user . ' has deleted the ewmp data.');
         if ($delete) {
             $notification = array(
                 'message' => 'Yeay, Nilai Ewmp remunerasi berhasil dihapus',

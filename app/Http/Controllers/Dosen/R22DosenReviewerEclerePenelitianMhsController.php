@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class R22DosenReviewerEclerePenelitianMhsController extends Controller
 {
@@ -28,7 +29,6 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
         $r022reviewereclerepenelitianmhs = R022ReviewerEclerePenelitianMhs::where('nip',$_SESSION['data']['kode'])
                                                                             ->where('periode_id',$this->periode->id)
                                                                           ->orderBy('created_at','desc')->get();
-
 
         return view('backend/dosen/rubriks/r_022_reviewer_eclere_penelitian_mhs.index',[
            'pegawais'                           =>  $pegawais,
@@ -63,15 +63,35 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
            'keterangan'                 =>  $request->keterangan,
 
        ]);
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
 
-       if ($simpan) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs baru berhasil ditambahkan',
-               'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal disimpan']);
-       }
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy($dosen)
+            ->performedOn($simpan)
+            ->event('dosen_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log($_SESSION['data']['nama'] . ' has created a new R22 Reviewer Eclere Penelitian Mahasiswa.');
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik 22 Reviewer Eclere Penelitian mhs baru berhasil ditambahkan',
+                    'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik 22 Reviewer Eclere Penelitian mhs gagal disimpan']);
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function edit($r22revieweclerepenelitimhs){
     return R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->first();
@@ -94,7 +114,9 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
 
        $point = $this->nilai_ewmp->ewmp;
 
-       $update = R022ReviewerEclerePenelitianMhs::where('id',$request->r22revieweclerepenelitimhs_id_edit)->update([
+       $data =  R022ReviewerEclerePenelitianMhs::where('id',$request->r22revieweclerepenelitimhs_id_edit)->first();
+       $oldData = $data->toArray();
+       $update = $data->update([
            'periode_id'                 =>  $this->periode->id,
            'nip'                        =>  $_SESSION['data']['kode'],
            'judul_protokol_penelitian'  =>  $request->judul_protokol_penelitian,
@@ -104,26 +126,70 @@ class R22DosenReviewerEclerePenelitianMhsController extends Controller
            'keterangan'                 =>  $request->keterangan,
 
        ]);
+       $newData = $data->toArray();
 
-       if ($update) {
-           return response()->json([
-               'text'  =>  'Yeay, Rubrik Reviewer Eclere Penelitian mhs diubah',
-               'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
-           ]);
-       }else {
-           return response()->json(['text' =>  'Oopps, Rubrik Reviewer Eclere Penelitian mhs gagal diubah']);
-       }
+        $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy($dosen)
+            ->performedOn($data)
+            ->event('dosen_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log($_SESSION['data']['nama'] . ' has updated the R22 Reviewer Eclere Penelitian Mahasiswa data.');
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, Rubrik Reviewer Eclere Penelitian mhs diubah',
+                    'url'   =>  url('/dosen/r_022_reviewer_eclere_penelitian_mhs/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, Rubrik Reviewer Eclere Penelitian mhs gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
    }
    public function delete($r22revieweclerepenelitimhs){
-    $delete = R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->delete();
-       if ($delete) {
-        return response()->json([
-            'text'  =>  'Yeay, Rubrik Reviewer Eclere Penelitian mhs dihapus',
-            'url'   =>  route('dosen.r_022_reviewer_eclere_penelitian_mhs'),
-        ]);
-       }else {
+
+       $data =  R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->first();
+       $oldData = $data->toArray();
+       $delete = R022ReviewerEclerePenelitianMhs::where('id',$r22revieweclerepenelitimhs)->delete();
+
+       $dosen = Pegawai::where('nip',$_SESSION['data']['kode'])->first();
+
+       if (!empty($dosen)) {
+           activity()
+           ->causedBy($dosen)
+           ->performedOn($data)
+           ->event('dosen_deleted')
+           ->withProperties([
+               'old_data' => $oldData, // Data lama
+           ])
+           ->log($_SESSION['data']['nama'] . ' has deleted the R22 Reviewer Eclere Penelitian Mahasiswa data.');
+
+           if ($delete) {
+            return response()->json([
+                'text'  =>  'Yeay, Rubrik Reviewer Eclere Penelitian mhs dihapus',
+                'url'   =>  route('dosen.r_022_reviewer_eclere_penelitian_mhs'),
+            ]);
+           }else {
+               $notification = array(
+                   'message' => 'Ooopps, Rubrik Reviewer Eclere Penelitian mhs remunerasi gagal dihapus',
+                   'alert-type' => 'error'
+               );
+               return redirect()->back()->with($notification);
+           }
+       }else{
            $notification = array(
-               'message' => 'Ooopps, Rubrik Reviewer Eclere Penelitian mhs remunerasi gagal dihapus',
+               'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                'alert-type' => 'error'
            );
            return redirect()->back()->with($notification);

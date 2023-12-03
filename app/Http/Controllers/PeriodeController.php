@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class PeriodeController extends Controller
 {
@@ -16,6 +18,7 @@ class PeriodeController extends Controller
             abort(403);
         }
         $periodes = Periode::orderBy('created_at','desc')->get();
+
         return view('backend/periode_penilaians.index',[
             'periodes'    =>  $periodes,
         ]);
@@ -65,7 +68,14 @@ class PeriodeController extends Controller
             'tanggal_akhir'         =>  $tanggal_terakhir_formatted,
             'is_active'             =>  0,
         ]);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new Periode Penilaian.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, periode remunerasi berhasil ditambahkan',
@@ -106,6 +116,8 @@ class PeriodeController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
+        $dataOld=Periode::where('id',$request->periode_id_edit)->first();
+        $oldData = $dataOld->toArray();
 
         $bulan = $request->bulan_pembayaran_edit;
         $tahun = $request->tahun_ajaran_edit;
@@ -124,6 +136,18 @@ class PeriodeController extends Controller
             'tanggal_akhir'         =>  $tanggal_terakhir_formatted,
         ]);
 
+        $data=Periode::where('id',$request->periode_id_edit)->first();
+        $newData = $data->toArray();
+
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($data)
+        ->event('updated')
+        ->withProperties([
+            'old_data' => $oldData, // Data lama
+            'new_data' => $newData, // Data baru
+        ])
+        ->log(auth()->user()->nama_user . ' has updated the periode penelitian data.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay,periode remunerasi berhasil diubah',
@@ -135,64 +159,100 @@ class PeriodeController extends Controller
     }
 
     public function setNonActive(Periode $periode){
+
+        $oldData = $periode->toArray();
+
         $update = $periode->update([
             'is_active' =>  0,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, periode remunerasi berhasil dinonaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('periode_penilaian')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, periode remunerasi gagal dinonaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+
+        $newData = $periode->toArray();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($periode)
+            ->event('deactivated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has deactivated the periode data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, periode remunerasi berhasil dinonaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('periode_penilaian')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, periode remunerasi gagal dinonaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function setActive(Periode $periode){
         Periode::where('id','!=',$periode->id)->update([
             'is_active' =>  0,
         ]);
+
+        $oldData = $periode->toArray();
         $update = $periode->update([
             'is_active' =>  1,
         ]);
-        if ($update) {
-            $notification = array(
-                'message' => 'Yeay, periode remunerasi berhasil diaktifkan',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('periode_penilaian')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, periode remunerasi gagal diaktifkan',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $newData = $periode->toArray();
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($periode)
+            ->event('activated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user . ' has activated the periode data.');
+            if ($update) {
+                $notification = array(
+                    'message' => 'Yeay, periode remunerasi berhasil diaktifkan',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('periode_penilaian')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, periode remunerasi gagal diaktifkan',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 
     public function delete(Periode $periode){
         if (!Gate::allows('delete-periode')) {
             abort(403);
         }
-        $delete = $periode->delete();
 
-        if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, periode remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('periode_penilaian')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, periode remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+        $oldData = $periode->toArray();
+        $delete = $periode->delete();
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($periode)
+            ->event('deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user . ' has deleted the periode data.');
+            if ($delete) {
+                $notification = array(
+                    'message' => 'Yeay, periode remunerasi berhasil dihapus',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('periode_penilaian')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, periode remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
     }
 }

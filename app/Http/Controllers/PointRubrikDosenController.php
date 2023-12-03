@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use App\Models\RiwayatPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class PointRubrikDosenController extends Controller
 {
@@ -23,6 +25,7 @@ class PointRubrikDosenController extends Controller
                             ->groupBy('pegawais.nip')
                             ->orderBy('total_point', 'desc')
                             ->get();
+
         return view('backend/point_rubrik_dosen.index',[
             'dosens'    =>  $dosens,
         ]);
@@ -30,6 +33,7 @@ class PointRubrikDosenController extends Controller
 
     public function pointDetail(Pegawai $dosen) {
         $riwayatPoints = Pegawai::with('riwayatPoints')->where('nip',$dosen->nip)->first();
+
         return view('backend.point_rubrik_dosen.detail', compact('riwayatPoints','dosen'));
     }
 
@@ -39,6 +43,7 @@ class PointRubrikDosenController extends Controller
                             ->where('nip',$dosen->nip)
                             ->where('is_verified',1)
                             ->get();
+
         return view('backend/point_rubrik_dosen.detail_borang',[
             'dosen'    =>  $dosen,
             'borangs'    =>  $borangs,

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class RiwayatPointController extends Controller
 {
@@ -25,6 +26,7 @@ class RiwayatPointController extends Controller
         }else {
             $riwayatpoints = RiwayatPoint::paginate(10);
         }
+
         return view('backend/riwayat_points.index',[
             'riwayatpoints'         =>  $riwayatpoints,
             'nip'        =>  $nip,
@@ -37,6 +39,7 @@ class RiwayatPointController extends Controller
         }
         $dosens = Pegawai::all();
         $periodes = Periode::all();
+
         return view('backend/riwayat_points.create',compact('dosens','periodes'));
     }
 
@@ -68,7 +71,14 @@ class RiwayatPointController extends Controller
             'nip'        =>  $request->nip,
             'point'      =>  $request->point,
         ]);
-
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($simpan)
+        ->event('created')
+        ->withProperties([
+            'created_fields' => $simpan, // Contoh informasi tambahan
+        ])
+        ->log(auth()->user()->nama_user . ' has created a new Riwayat Point.');
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Yeay, Riwayat Point baru berhasil ditambahkan',
@@ -110,14 +120,26 @@ class RiwayatPointController extends Controller
         if ($validasi->fails()) {
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
-
-        $update = RiwayatPoint::where('id',$request->nip_edit)->update([
+        $data = RiwayatPoint::where('id',$request->nip_edit)->first();
+        $oldData = $data->toArray();
+        $update = $data->update([
             'rubrik_id'  =>  $request->rubrik_id,
             'periode_id' =>  $request->periode_id,
             'nip'        =>  $request->nip,
             'point'      =>  $request->point,
         ]);
 
+        $newData = $data->toArray();
+
+        activity()
+        ->causedBy(auth()->user()->id)
+        ->performedOn($data)
+        ->event('updated')
+        ->withProperties([
+            'old_data' => $oldData, // Data lama
+            'new_data' => $newData, // Data baru
+        ])
+        ->log(auth()->user()->nama_user . ' has updated the Riwayat Point  data.');
         if ($update) {
             return response()->json([
                 'text'  =>  'Yeay, Riwayat Point berhasil diubah',
@@ -131,20 +153,30 @@ class RiwayatPointController extends Controller
         if (!Gate::allows('delete-riwayat-point')) {
             abort(403);
         }
-        $delete = $riwayatpoint->delete();
 
-        if ($delete) {
-            $notification = array(
-                'message' => 'Yeay, Riwayat Point remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('pegawai')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, Riwayat Point remunerasi gagal dihapus',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+            $oldData = $riwayatpoint->toArray();
+            $delete = $riwayatpoint->delete();
+
+            activity()
+                ->causedBy(auth()->user()->id)
+                ->performedOn($riwayatpoint)
+                ->event('deleted')
+                ->withProperties([
+                    'old_data' => $oldData, // Data lama
+                ])
+                ->log(auth()->user()->nama_user . ' has deleted the Riwayat Point data.');
+                if ($delete) {
+                    $notification = array(
+                        'message' => 'Yeay, Riwayat Point remunerasi berhasil dihapus',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('pegawai')->with($notification);
+                }else {
+                    $notification = array(
+                        'message' => 'Ooopps, Riwayat Point remunerasi gagal dihapus',
+                        'alert-type' => 'error'
+                    );
+                    return redirect()->back()->with($notification);
+            }
         }
     }
-}

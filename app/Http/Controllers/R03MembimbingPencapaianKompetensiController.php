@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class R03MembimbingPencapaianKompetensiController extends Controller
 {
@@ -69,15 +71,35 @@ class R03MembimbingPencapaianKompetensiController extends Controller
             'keterangan'        =>  $request->keterangan,
 
         ]);
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
 
-        if ($simpan) {
-            return response()->json([
-                'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
-                'url'   =>  url('/r_03_membimbing_pencapaian_kompetensi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi gagal disimpan']);
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($simpan)
+            ->event('verifikator_created')
+            ->withProperties([
+                'created_fields' => $simpan, // Contoh informasi tambahan
+            ])
+            ->log(auth()->user()->nama_user. ' has created a new R3 Membimbing Capaian Kompetensi On ' .$dosen);
+
+            if ($simpan) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi baru berhasil ditambahkan',
+                    'url'   =>  url('/r_03_membimbing_pencapaian_kompetensi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi gagal disimpan']);
+            }
         }
+        else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
     public function edit(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
         if (!Gate::allows('edit-r03-membimbing-capaian-kompetensi')) {
@@ -107,7 +129,9 @@ class R03MembimbingPencapaianKompetensiController extends Controller
 
         $point = $this->nilai_ewmp->ewmp*$request->jumlah_mahasiswa;
 
-        $update = R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->update([
+        $data =  R03MembimbingPencapaianKompetensi::where('id',$request->r03membimbingpencapaiankompetensi_id_edit)->first();
+        $oldData = $data->toArray();
+        $update = $data->update([
             'periode_id'        =>  $this->periode->id,
             'nip'               =>  $request->session()->get('nip_dosen'),
             'jumlah_mahasiswa'  =>  $request->jumlah_mahasiswa,
@@ -118,56 +142,161 @@ class R03MembimbingPencapaianKompetensiController extends Controller
 
         ]);
 
-        if ($update) {
-            return response()->json([
-                'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi berhasil diubah',
-                'url'   =>  url('/r_03_membimbing_pencapaian_kompetensi/'),
-            ]);
-        }else {
-            return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi anda gagal diubah']);
+        $newData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+        if (!empty($dosen)) {
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_updated')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+                'new_data' => $newData, // Data baru
+            ])
+            ->log(auth()->user()->nama_user. ' has updated the R3 Membimbing Capaian Kompetensi  On ' .$dosen);
+
+            if ($update) {
+                return response()->json([
+                    'text'  =>  'Yeay, R 03 Membimbing Pencapaian Kompetensi berhasil diubah',
+                    'url'   =>  url('/r_03_membimbing_pencapaian_kompetensi/'),
+                ]);
+            }else {
+                return response()->json(['text' =>  'Oopps, R 03 Membimbing Pencapaian Kompetensi anda gagal diubah']);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
+
     }
-    public function delete(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
+    public function delete(Request $request, R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
         if (!Gate::allows('delete-r03-membimbing-capaian-kompetensi')) {
             abort(403);
         }
+
+        $data =  $r03bimbingcapaiankompetensi->first();
+        $oldData = $data->toArray();
         $delete = $r03bimbingcapaiankompetensi->delete();
-        if ($delete) {
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_deleted')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has deleted the R3 Membimbing Capaian Kompetensi data ' .$dosen);
+
+            if ($delete) {
+                $notification = array(
+                    'message' => 'Yeay, r03membimbingpencapaiankompetensi remunerasi berhasil dihapus',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('r_03_membimbing_pencapaian_kompetensi')->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r03membimbingpencapaiankompetensi remunerasi gagal dihapus',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
             $notification = array(
-                'message' => 'Yeay, r03membimbingpencapaiankompetensi remunerasi berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('r_03_membimbing_pencapaian_kompetensi')->with($notification);
-        }else {
-            $notification = array(
-                'message' => 'Ooopps, r03membimbingpencapaiankompetensi remunerasi gagal dihapus',
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
         }
     }
 
-    public function verifikasi(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
-        $r03bimbingcapaiankompetensi->update([
+    public function verifikasi(Request $request, R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
+        $verifikasi= $r03bimbingcapaiankompetensi->update([
             'is_verified'   =>  1,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $data =  $r03bimbingcapaiankompetensi->first();
+        $oldData = $data->toArray();
+
+        $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+        if (!empty($dosen)) {
+            activity()
+            ->causedBy(auth()->user()->id)
+            ->performedOn($data)
+            ->event('verifikator_verified')
+            ->withProperties([
+                'old_data' => $oldData, // Data lama
+            ])
+            ->log(auth()->user()->nama_user. ' has Verified the R3 Membimbing Capaian Kompetensi data ' .$dosen);
+
+            if ($verifikasi) {
+                $notification = array(
+                        'message' => 'Berhasil, status verifikasi berhasil diubah',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+            }else {
+                $notification = array(
+                    'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
-    public function tolak(R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
-        $r03bimbingcapaiankompetensi->update([
+    public function tolak(Request $request, R03MembimbingPencapaianKompetensi $r03bimbingcapaiankompetensi){
+        $verifikasi=$r03bimbingcapaiankompetensi->update([
             'is_verified'   =>  0,
         ]);
 
-        $notification = array(
-            'message' => 'Berhasil, status verifikasi berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+            $data =  $r03bimbingcapaiankompetensi->first();
+            $oldData = $data->toArray();
+            $dosen = Pegawai::where('nip',$request->session()->get('nip_dosen'))->first();
+
+
+            if (!empty($dosen)) {
+                activity()
+                ->causedBy(auth()->user()->id)
+                ->performedOn($data)
+                ->event('verifikator_unverified')
+                ->withProperties([
+                    'old_data' => $oldData, // Data lama
+                ])
+                ->log(auth()->user()->nama_user. ' has Cancel Verification the R3 Membimbing Capaian Kompetensi data ' .$dosen);
+
+                if ($verifikasi) {
+                    $notification = array(
+                            'message' => 'Berhasil, status verifikasi berhasil diubah',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->back()->with($notification);
+                }else {
+                    $notification = array(
+                        'message' => 'Ooopps, r01perkuliahanteori remunerasi gagal diverifikasi',
+                        'alert-type' => 'error'
+                    );
+                    return redirect()->back()->with($notification);
+                }
+            }else{
+                $notification = array(
+                    'message' => 'Data anda tidak ada di siakad, hubungi admin siakad',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        }
     }
-}
