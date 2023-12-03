@@ -2,7 +2,7 @@
 @section('subTitle','Dashboard')
 @section('page','Dashboard')
 @section('sidebar')
-    @include('layouts.partials.sidebar_dosen')
+    @include('layouts.partials.sidebar')
 @endsection
 @section('login_as')
     Halaman Dosen

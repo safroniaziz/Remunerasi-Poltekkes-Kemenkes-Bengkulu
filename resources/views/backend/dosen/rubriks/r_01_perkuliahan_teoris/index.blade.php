@@ -11,8 +11,7 @@
 @section('user-login2')
     @if (isset($_SESSION['data']['namatitle']))
         {{ $_SESSION['data']['nama'] }}
-    @endif
-@endsection
+    @endif@endsection
 @push('styles')
     <style>
         .loader {

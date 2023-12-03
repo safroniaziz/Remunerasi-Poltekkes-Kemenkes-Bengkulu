@@ -34,6 +34,7 @@ use App\Http\Controllers\R01PerkuliahanTeoriController;
 use App\Http\Controllers\R06MengujiUjianOscaController;
 use App\Http\Controllers\R18MendapatHibahPkmController;
 use App\Http\Controllers\R27KeanggotaanSenatController;
+use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\RekapDaftarNominatifController;
 use App\Http\Controllers\R02PerkuliahanPraktikumController;
 use App\Http\Controllers\R29MemperolehPenghargaanController;
@@ -72,7 +73,6 @@ use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
 Route::get('/', [WelcomeController::class, 'home'])->name('home');
 Route::get('/pengumuman/{pengumuman}/detail', [WelcomeController::class, 'pengumumanDetail'])->name('home.detail');
 Route::get('/pengumuman/{pengumuman}/download', [WelcomeController::class, 'downloadPengumuman'])->name('home.download_pengumuman');
-
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

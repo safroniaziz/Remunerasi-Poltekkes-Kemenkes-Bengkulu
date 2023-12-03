@@ -18,7 +18,7 @@ class OauthCallbackController extends Controller
             'action'=>'oAuthToken',
             'token'=>$_GET['token'],
         );
-
+        return $parameter;
         $hashed_string = ApiEncController::encrypt(
             $parameter,
             $config['client_id'],

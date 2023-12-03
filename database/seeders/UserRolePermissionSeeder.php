@@ -589,7 +589,6 @@ class UserRolePermissionSeeder extends Seeder
             $role_administrator->givePermissionTo('reset-verifikator-prodi');
             $role_administrator->givePermissionTo('generate-prodi');
 
-            $role_administrator->givePermissionTo('dashboard');
             $role_administrator->givePermissionTo('view-generate-point-rubrik');
             $role_administrator->givePermissionTo('view-point-rubrik-dosen');
             $role_administrator->givePermissionTo('view-laporan-keuangan');

@@ -2,20 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Pegawai extends Model
+class Pegawai extends Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
+    use Notifiable;
     
+    protected $guard = 'pegawai'; // Sesuaikan dengan nama guard yang Anda tentukan
     protected $primaryKey = 'nip';
     protected $keyType = 'string';
     public $incrementing = false;
-
     protected $fillable = [
         'nip',
         'nidn',
@@ -31,6 +34,11 @@ class Pegawai extends Model
         'no_sertifikat_serdos',
         'no_whatsapp',
         'is_active',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     protected $appends = ['total_point'];

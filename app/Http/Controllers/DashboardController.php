@@ -44,4 +44,11 @@ class DashboardController extends Controller
             'jumlahUserRole'            => $jumlahUserRole,
         ]);
     }
+
+    public function dashboardDosen(){
+        $periodeAktif = Periode::where('is_active',1)->first();
+        return view('backend.dashboard_dosen',[
+            'periodeAktif'   =>  $periodeAktif,
+        ]);
+    }
 }

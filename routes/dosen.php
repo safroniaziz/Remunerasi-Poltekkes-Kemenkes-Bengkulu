@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Periode;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dosen\LaporanDosenController;
+use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Dosen\R14DosenKaryaInovasiController;
 use App\Http\Controllers\Dosen\R12DosenMembimbingPkmController;
 use App\Http\Controllers\Dosen\R30DosenPengelolaKepkController;
@@ -31,15 +34,12 @@ use App\Http\Controllers\Dosen\R09DosenMengujiSeminarHasilKtiLtaSkripsiControlle
 use App\Http\Controllers\Dosen\R15DosenMenulisKaryaIlmiahDipublikasikanController;
 use App\Http\Controllers\Dosen\R23DosenAuditorMutuAssessorAkredInternalController;
 use App\Http\Controllers\Dosen\R08DosenMengujiSeminarProposalKtiLtaSkripsiController;
-use App\Http\Controllers\Dosen\LaporanDosenController;
-use App\Models\Periode;
 
-Route::get('/home', function () {
-    $periodeAktif = Periode::where('is_active',1)->first();
-    return view('backend.dosen.dashboard',[
-        'periodeAktif'   =>  $periodeAktif,
-    ]);
-})->name('dosen.dashboard');
+Route::controller(DosenDashboardController::class)->group(function () {
+    Route::get('/home', [DosenDashboardController::class, 'dashboard'])->name('dosen.dashboard');
+    Route::post('/login_submit',[DosenDashboardController::class, 'loginSubmit'])->name('dosen.login_submit');
+    Route::get('/logout',[DosenDashboardController::class, 'logout'])->name('dosen.logout');
+});
 
 Route::get('/logoutDosen',function(){
     session_destroy();
