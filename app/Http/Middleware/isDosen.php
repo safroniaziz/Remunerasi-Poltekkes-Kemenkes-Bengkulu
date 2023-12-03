@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class isDosen
@@ -20,7 +19,8 @@ class isDosen
         if (!empty($_SESSION['data']['namatitle']))
         {
             return $next($request);
-        }else{
+        }
+        else{
             return redirect()->route('login');
         }
     }
