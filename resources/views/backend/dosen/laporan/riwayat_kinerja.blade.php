@@ -60,7 +60,7 @@
                                                         @php
                                                             $pajak = 5;
                                                         @endphp
-                                                    @elseif ($riwayat->dosen->nama_pangkat_golongan_aktif == "IVA" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVB" || $nominatif->dosen->nama_pangkat_golongan_aktif == "IVC" || $nominatif->dosen->nama_pangkat_golongan_aktif == "IVD")
+                                                    @elseif ($riwayat->dosen->nama_pangkat_golongan_aktif == "IVA" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVB" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVC" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVD")
                                                         15%
                                                         @php
                                                             $pajak = 15;
@@ -72,7 +72,7 @@
                                                         @endphp
                                                     @endif
                                                     @php
-                                                        $totalRemun = ($gaji_blu + ($nominatif->total_point * $harga_point));
+                                                        $totalRemun = ($gaji_blu + ($riwayat->total_point * $harga_point));
                                                         $pajak = ($pajak/100)*$totalRemun;
                                                         $remunDiterima = $totalRemun - $pajak;
                                                     @endphp
