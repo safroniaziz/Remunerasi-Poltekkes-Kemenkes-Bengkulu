@@ -415,7 +415,7 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'jumlah_sks'   =>  $result['kelas']['sks_mk_info']['praktikum'] != null ? $result['kelas']['sks_mk_info']['praktikum'] : null ,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
                 // 'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
-                // 'jumlah_tatap_muka' =>  null,
+                // 'jumlah_tatap_muka'   =>  null,
                 'jumlah_tatap_muka' =>  count($result['presensi']),
 
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
