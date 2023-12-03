@@ -9,8 +9,8 @@
 @endsection
 @section('user-login2')
 @if (isset($_SESSION['data']['namatitle']))
-        {{ $_SESSION['data']['nama'] }}
-    @endif
+    {{ $_SESSION['data']['nama'] }}
+@endif
 @endsection
 @section('content')
     <div class="row">

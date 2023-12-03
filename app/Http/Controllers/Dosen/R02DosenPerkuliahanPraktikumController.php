@@ -370,41 +370,41 @@ class R02DosenPerkuliahanPraktikumController extends Controller
             $response = _curl_api($config['url'], json_encode($data));
             $response_array = json_decode($response, true);
 
-            // $parameter_presensi = array(
-            //     'action'=>'absensi.get',
-            //     'thsms'=>$this->periodeAktif,
-            //     'kdjen'=>$request->kodeJenjang,
-            //     'kdpst'=>$request->kodeProdi,
-            //     'id_kls'=>$id_kelas,
-            //     'nodos'=>$_SESSION['data']['kode'],	// optional by dosen
-            //     'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
-            //     'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
-            //     'offset'=>'',		// mulai data dari 0 / 10 (Optional)
-            //     'limit'=>'',		// batas (Optional)
-            // );
+            $parameter_presensi = array(
+                'action'=>'absensi.get',
+                'thsms'=>$this->periodeAktif,
+                'kdjen'=>$request->kodeJenjang,
+                'kdpst'=>$request->kodeProdi,
+                'id_kls'=>$id_kelas,
+                'nodos'=>$_SESSION['data']['kode'],	// optional by dosen
+                'date1'=>$this->periode->tanggal_awal,	// optional rentang tanggal mulai Y-m-d
+                'date2'=>$this->periode->tanggal_akhir,	// optional rentang tanggal akhir Y-m-d
+                'offset'=>'',		// mulai data dari 0 / 10 (Optional)
+                'limit'=>'',		// batas (Optional)
+            );
 
-            // $hashed_string_presensi = ApiEncController::encrypt(
-            //     $parameter_presensi,
-            //     $config['client_id'],
-            //     $config['version'],
-            //     $config['secret_key']
-            // );
+            $hashed_string_presensi = ApiEncController::encrypt(
+                $parameter_presensi,
+                $config['client_id'],
+                $config['version'],
+                $config['secret_key']
+            );
 
-            // $dataPresensi = array(
-            //     'client_id' => $config['client_id'],
-            //     'data' => $hashed_string_presensi,
-            // );
+            $dataPresensi = array(
+                'client_id' => $config['client_id'],
+                'data' => $hashed_string_presensi,
+            );
 
-            // $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
-            // $response_array_presensi = json_decode($responsePresensi, true);
-            // if (count($response_array_presensi['data'])>0) {
-            //     $presensi = $response_array_presensi['data'][0]['detail'];
-            // }else{
-            //     $presensi = null;
-            // }
+            $responsePresensi = _curl_api($config['url'], json_encode($dataPresensi));
+            $response_array_presensi = json_decode($responsePresensi, true);
+            if (count($response_array_presensi['data'])>0) {
+                $presensi = $response_array_presensi['data'][0]['detail'];
+            }else{
+                $presensi = [];
+            }
             $result = [
                 'kelas' =>  $response_array['data'][0],
-                // 'presensi' =>  $presensi,
+                'presensi' =>  $presensi,
             ];
 
             $perkuliahan[]  =   array(
@@ -415,13 +415,16 @@ class R02DosenPerkuliahanPraktikumController extends Controller
                 'jumlah_sks'   =>  $result['kelas']['sks_mk_info']['praktikum'] != null ? $result['kelas']['sks_mk_info']['praktikum'] : null ,
                 'jumlah_mahasiswa'   =>  $result['kelas']['jml_peserta'],
                 // 'jumlah_tatap_muka' =>  $presensi == null ? null : count($result['presensi']),
-                'jumlah_tatap_muka' =>  null,
+                // 'jumlah_tatap_muka' =>  null,
+                'jumlah_tatap_muka' =>  count($result['presensi']),
+
                 'id_prodi'      =>  $request->kodeJenjang.$request->kodeProdi,
                 'is_bkd'        => 0,
                 'is_verified'   => 0,
                 'sumber_data'   =>  'siakad',
                 'created_at'    =>  now(), // Menggunakan fungsi now() untuk waktu saat ini
                 'updated_at'    =>  now(),
+                'keterangan'    =>  $request->keterangan,
             );
         }
 

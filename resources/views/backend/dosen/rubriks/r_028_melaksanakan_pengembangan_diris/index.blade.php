@@ -11,7 +11,8 @@
 @section('user-login2')
     @if (isset($_SESSION['data']['namatitle']))
         {{ $_SESSION['data']['nama'] }}
-    @endif@endsection
+    @endif
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

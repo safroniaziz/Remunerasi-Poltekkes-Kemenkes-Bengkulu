@@ -49,6 +49,8 @@
                         <div class="table-responsive">
                             <table class="table table-bordered" id="table_siakad">
                             </table>
+                            <label for="">Masukan nomor sk atau keterangan lainnya</label>
+                            <input type="text" name="keterangan"  class="form-control">
                         </div>
                     </div>
                 </div>

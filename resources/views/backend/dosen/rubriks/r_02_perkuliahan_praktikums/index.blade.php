@@ -11,7 +11,8 @@
 @section('user-login2')
     @if (isset($_SESSION['data']['namatitle']))
         {{ $_SESSION['data']['nama'] }}
-    @endif@endsection
+    @endif
+@endsection
 @push('styles')
     <style>
         .loader {
@@ -97,8 +98,6 @@
                                             <td>{{ $r02perkuliahanpraktikum->prodiMatkul ? $r02perkuliahanpraktikum->prodiMatkul->nama_lengkap_prodi : ''}} </td>
                                             <td>{{ $r02perkuliahanpraktikum->jumlah_sks }} SKS</td>
                                             <td class="text-center">{{ $r02perkuliahanpraktikum->jumlah_mahasiswa }} Mahasiswa</td>
-                                            <td>{{ $r02perkuliahanpraktikum->keterangan }}</td>
-
                                             <td class="text-center">
                                                 @if ($r02perkuliahanpraktikum->jumlah_tatap_muka == null)
                                                     -
@@ -106,6 +105,7 @@
                                                     {{ $r02perkuliahanpraktikum->jumlah_tatap_muka }}
                                                 @endif
                                             </td>
+                                            <td>{{ $r02perkuliahanpraktikum->keterangan }}</td>
                                             <td class="text-center">
                                                 @if ($r02perkuliahanpraktikum->is_bkd == 1)
                                                     <small class="label label-danger">BKD</small>
