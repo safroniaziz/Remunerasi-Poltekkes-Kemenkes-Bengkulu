@@ -82,7 +82,7 @@ Route::get('/pengumuman/{pengumuman}/download', [WelcomeController::class, 'down
 
 Route::get('/oauth-callback',[OauthCallbackController::class, 'oAuthCallback'])->name('oAuthCallback');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::controller(SessionController::class)->group(function () {
