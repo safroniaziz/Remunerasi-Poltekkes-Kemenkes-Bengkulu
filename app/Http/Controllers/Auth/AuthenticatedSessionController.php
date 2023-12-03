@@ -30,7 +30,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-        dd($user);
         if ($user->hasRole('verifikator')) {
             return redirect()->route('cari_dosen'); // Redirect to the admin dashboard
         }else{
