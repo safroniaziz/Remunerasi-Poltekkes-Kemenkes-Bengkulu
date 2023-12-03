@@ -111,5 +111,32 @@
 
         @endif
     @endforeach
+    <table style="width: 100% !important; margin-top:20px !important;">
+        <tr>
+            <td style="text-align: center">Verifikator</td>
+            <td></td>
+            <td style="text-align: center">Pegawai</td>
+        </tr>
+        <tr>
+            <td style="text-align: center; vertical-align: bottom;">{{ $pegawai->prodi->verifikator->nama }}</td>
+            <td  style="padding-top:100px !important;"></td>
+            <td style="text-align: center; vertical-align: bottom;">{{ $pegawai->nama }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: center"></td>
+            <td style="text-align: center;">Penanggung Jawab</td>
+            <td style="text-align: center"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td  style="padding-top:100px !important; text-align:center">{{ $pegawai->prodi->penanggungJawab->nama }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align: center">{{ $pegawai->prodi->penanggungJawab->nip }}</td>
+            <td></td>
+        </tr>
+    </table>
 </body>
 </html>

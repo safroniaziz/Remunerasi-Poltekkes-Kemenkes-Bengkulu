@@ -20,11 +20,13 @@ class LaporanDosenController extends Controller
                             $query->where('periode_id', $periode->id);
                         }])
                         ->first();
+        $pegawai = Pegawai::with(['prodi'])->where('nip',$_SESSION['data']['kode'])->first();
         $judul = $periode->nama_periode;
         $data = [
             'riwayatPoints' => $riwayatPoints,
             'judul' => $judul,
             'periode' => $periode,
+            'pegawai' => $pegawai,
             'nip'       =>  $_SESSION['data']['kode'],
         ];
         $pdf = PDF::loadView('backend/dosen/laporan.cetak', $data); // Ganti 'nama_view' dengan nama view Anda
