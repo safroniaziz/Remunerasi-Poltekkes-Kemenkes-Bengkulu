@@ -1,5 +1,5 @@
 var oAuth2Siakad = {
-    'url': 'https://siakad.poltekkesbengkulu.ac.id/',
+    'url': 'http://103.219.248.108/',
     'params': {
         'title': 'Login',
         'client_id': '23020001',
