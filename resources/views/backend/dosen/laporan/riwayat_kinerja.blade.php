@@ -56,17 +56,14 @@
                                                         
                                                     @endphp
                                                     @if ($riwayat->dosen->nama_pangkat_golongan_aktif == "IIIA" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IIIB" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IIIC" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IIID")
-                                                        5%
                                                         @php
                                                             $pajak = 5;
                                                         @endphp
                                                     @elseif ($riwayat->dosen->nama_pangkat_golongan_aktif == "IVA" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVB" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVC" || $riwayat->dosen->nama_pangkat_golongan_aktif == "IVD")
-                                                        15%
                                                         @php
                                                             $pajak = 15;
                                                         @endphp
                                                     @else
-                                                        100%
                                                         @php
                                                             $pajak = 100;
                                                         @endphp
