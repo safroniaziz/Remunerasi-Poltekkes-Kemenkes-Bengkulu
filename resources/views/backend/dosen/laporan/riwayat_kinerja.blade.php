@@ -50,8 +50,32 @@
                                                 <td>{{ $riwayat->periode->nama_periode }}</td>
                                                 <td>{{ $riwayat->total_point }}</td>
                                                 <td>
+                                                    @if ($riwayat->dosen->nama_jabatan_fungsional_aktif && $riwayat->dosen->nama_jabatan_dt_aktif)
+                                                        @if ($riwayat->dosen->grade_jabatan_fungsional_aktif > $riwayat->dosen->grade_jabatan_dt_aktif) 
+                                                            {{ $riwayat->dosen->gaji_blu_jabatan_fungsional_aktif }}
+                                                            @php
+                                                                $gaji_blu = $riwayat->dosen->gaji_blu_jabatan_fungsional_aktif;
+                                                            @endphp
+                                                        @elseif ($riwayat->dosen->grade_jabatan_fungsional_aktif < $riwayat->dosen->grade_jabatan_dt_aktif) 
+                                                            {{ $riwayat->dosen->gaji_blu_jabatan_dt_aktif }}
+                                                            @php
+                                                                $gaji_blu = $riwayat->dosen->gaji_blu_jabatan_dt_aktif;
+                                                            @endphp
+                                                        @endif
+                                                    @elseif (!$riwayat->dosen->nama_jabatan_fungsional_aktif && $riwayat->dosen->nama_jabatan_dt_aktif)
+                                                        {{ $riwayat->dosen->gaji_blu_jabatan_dt_aktif }}
+                                                        @php
+                                                            $gaji_blu = $riwayat->dosen->gaji_blu_jabatan_dt_aktif;
+                                                        @endphp
+                                                    @elseif ($riwayat->dosen->nama_jabatan_fungsional_aktif && !$riwayat->dosen->nama_jabatan_dt_aktif)
+                                                        {{ $riwayat->dosen->gaji_blu_jabatan_fungsional_aktif }}
+                                                        @php
+                                                            $gaji_blu = $riwayat->dosen->gaji_blu_jabatan_fungsional_aktif;
+                                                        @endphp
+                                                    @else
+                                                        -
+                                                    @endif
                                                     @php
-                                                        $gaji_blu = $riwayat->dosen->gaji_blu_jabatan_dt_aktif;
                                                         $harga_point = $riwayat->dosen->harga_point_jabatan_fungsional_aktif;
                                                         
                                                     @endphp
