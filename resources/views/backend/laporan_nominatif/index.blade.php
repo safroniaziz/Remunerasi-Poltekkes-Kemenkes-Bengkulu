@@ -20,6 +20,15 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
+                        <form method="GET" id="pencarian">
+                            <div class="form-group col-md-12" style="margin-bottom: 5px !important;">
+                                <label for="nama" class="col-form-label">Cari Nama/Nomor Dosen</label>
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama atau Nomor Dosen..." value="{{$nama}}">
+                            </div>
+                            <div class="col-md-12" style="margin-bottom:10px !important;">
+                                <button type="submit" class="btn btn-success btn-sm btn-flat mb-2"><i class="fa fa-search"></i>&nbsp;Cari Data</button>
+                            </div>
+                        </form>
                         <div class="col-md-12" style="margin-bottom: 5px !important;">
                             <a href="{{ route('laporan_keuangan.exportData') }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-file-excel-o"></i>&nbsp;Export Data</a>
                         </div>
