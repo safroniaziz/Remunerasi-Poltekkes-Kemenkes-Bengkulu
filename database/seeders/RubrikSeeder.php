@@ -102,12 +102,36 @@ class RubrikSeeder extends Seeder
             throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data remunerasi.');
         }
 
-        $jabatanDs = Schema::hasTable('jabatan_ds') ? DB::table('jabatan_ds')->orderBy('id')->first() : null;
-        $jabatanDt = Schema::hasTable('jabatan_dts') ? DB::table('jabatan_dts')->orderBy('id')->first() : null;
-
-        if (! $jabatanDs || ! $jabatanDt) {
+        if (! Schema::hasTable('jabatan_ds') || ! Schema::hasTable('jabatan_dts')) {
             throw new \RuntimeException('Master jabatan DS/DT belum tersedia. Jalankan JabatanDsSeeder dan JabatanDtSeeder terlebih dahulu.');
         }
+
+        $now = now();
+        DB::table('jabatan_ds')->updateOrInsert(
+            ['slug' => 'sample-dosen-seeder'],
+            [
+                'nama_jabatan_ds' => 'Dosen Sample',
+                'grade' => '7b',
+                'harga_point_ds' => 300000,
+                'gaji_blu' => 0,
+                'updated_at' => $now,
+                'created_at' => $now,
+            ]
+        );
+        DB::table('jabatan_dts')->updateOrInsert(
+            ['slug' => 'sample-staf-seeder'],
+            [
+                'nama_jabatan_dt' => 'Staf Sample',
+                'grade' => '7a',
+                'harga_point_dt' => 300000,
+                'gaji_blu' => 0,
+                'updated_at' => $now,
+                'created_at' => $now,
+            ]
+        );
+
+        $jabatanDs = DB::table('jabatan_ds')->where('slug', 'sample-dosen-seeder')->first();
+        $jabatanDt = DB::table('jabatan_dts')->where('slug', 'sample-staf-seeder')->first();
 
         DB::table('riwayat_jabatan_fungsionals')->whereIn('nip', $sampleNips)->delete();
         DB::table('riwayat_jabatan_dts')->whereIn('nip', $sampleNips)->delete();
