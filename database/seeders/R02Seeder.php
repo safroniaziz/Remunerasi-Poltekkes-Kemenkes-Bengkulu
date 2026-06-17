@@ -47,11 +47,13 @@ class R02Seeder extends Seeder
                 'periode_id' => $periodeId,
                 'nip' => $nip,
                 'nama_matkul' => $nama_matkul,
+                'kode_kelas' => 'A',
                 'jumlah_sks' => $jumlah_sks,
                 'jumlah_mahasiswa' => $jumlah_mahasiswa,
                 'jumlah_tatap_muka' => $jumlah_tatap_muka,
                 'is_bkd' => $is_bkd,
                 'is_verified' => $is_verified,
+                'sumber_data' => 'manual',
                 'point' => $point,
             ]);
         }
