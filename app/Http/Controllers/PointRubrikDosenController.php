@@ -6,9 +6,7 @@ use App\Models\Pegawai;
 use App\Models\Periode;
 use Illuminate\Support\Str;
 use App\Models\RiwayatPoint;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class PointRubrikDosenController extends Controller
@@ -21,12 +19,14 @@ class PointRubrikDosenController extends Controller
 
     public function index(){
         $pointTotals = RiwayatPoint::select('nip', DB::raw('SUM(point) as total_point'))
+                            ->where('periode_id', $this->periode->id)
                             ->groupBy('nip');
 
-        $dosens = Pegawai::leftJoinSub($pointTotals, 'point_totals', function ($join) {
+        $dosens = Pegawai::joinSub($pointTotals, 'point_totals', function ($join) {
                                 $join->on('pegawais.nip', '=', 'point_totals.nip');
                             })
-                            ->select('pegawais.*', DB::raw('COALESCE(point_totals.total_point, 0) as total_point'))
+                            ->select('pegawais.*', DB::raw('point_totals.total_point as total_point'))
+                            ->where('point_totals.total_point', '>', 0)
                             ->orderBy('total_point', 'desc')
                             ->get();
 

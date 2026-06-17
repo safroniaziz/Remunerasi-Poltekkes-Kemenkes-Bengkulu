@@ -20,6 +20,13 @@
                 </header>
                 <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
                     <div class="row" style="margin-right:-15px; margin-left:-15px;">
+                        @if ($dosens->isEmpty())
+                            <div class="col-md-12">
+                                <div class="alert alert-info" style="margin-bottom: 15px;">
+                                    <i class="fa fa-info-circle"></i>&nbsp; Data point rubrik dosen belum tersedia. Silakan jalankan Generate Point Rubrik terlebih dahulu.
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered" id="table" style="width:100%;">
                                 <thead class="bg-primary">
