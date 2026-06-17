@@ -52,6 +52,7 @@ class RubrikSeeder extends Seeder
         DB::transaction(function () use ($periodeId) {
             $this->clearGeneratedData($periodeId);
             $this->clearRubrikData($periodeId);
+            $this->seedRemunerasiData();
 
             $this->call([
                 R01Seeder::class,
@@ -86,6 +87,67 @@ class RubrikSeeder extends Seeder
                 R030Seeder::class,
             ]);
         });
+    }
+
+    private function seedRemunerasiData(): void
+    {
+        $sampleNips = DB::table('pegawais')
+            ->whereNull('deleted_at')
+            ->orderBy('nip')
+            ->limit(3)
+            ->pluck('nip')
+            ->all();
+
+        if (count($sampleNips) < 3) {
+            throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data remunerasi.');
+        }
+
+        $jabatanDs = Schema::hasTable('jabatan_ds') ? DB::table('jabatan_ds')->orderBy('id')->first() : null;
+        $jabatanDt = Schema::hasTable('jabatan_dts') ? DB::table('jabatan_dts')->orderBy('id')->first() : null;
+
+        if (! $jabatanDs || ! $jabatanDt) {
+            throw new \RuntimeException('Master jabatan DS/DT belum tersedia. Jalankan JabatanDsSeeder dan JabatanDtSeeder terlebih dahulu.');
+        }
+
+        DB::table('riwayat_jabatan_fungsionals')->whereIn('nip', $sampleNips)->delete();
+        DB::table('riwayat_jabatan_dts')->whereIn('nip', $sampleNips)->delete();
+        DB::table('pangkat_golongans')->whereIn('nip', $sampleNips)->delete();
+
+        $now = now();
+        foreach ($sampleNips as $nip) {
+            DB::table('riwayat_jabatan_fungsionals')->insert([
+                'nip' => $nip,
+                'jabatan_ds_id' => $jabatanDs->id,
+                'nama_jabatan_fungsional' => $jabatanDs->nama_jabatan_ds,
+                'slug' => 'sample-' . $nip . '-jabatan-fungsional',
+                'tmt_jabatan_fungsional' => $now->toDateString(),
+                'is_active' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+
+            DB::table('riwayat_jabatan_dts')->insert([
+                'nip' => $nip,
+                'jabatan_dt_id' => $jabatanDt->id,
+                'nama_jabatan_dt' => $jabatanDt->nama_jabatan_dt,
+                'slug' => 'sample-' . $nip . '-jabatan-dt',
+                'tmt_jabatan_dt' => $now->toDateString(),
+                'is_active' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+
+            DB::table('pangkat_golongans')->insert([
+                'nip' => $nip,
+                'nama_pangkat' => 'IIIA',
+                'slug' => 'sample-' . $nip . '-iiia',
+                'golongan' => 'III',
+                'tmt_pangkat_golongan' => $now->toDateString(),
+                'is_active' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
     }
 
     private function clearGeneratedData(int $periodeId): void
