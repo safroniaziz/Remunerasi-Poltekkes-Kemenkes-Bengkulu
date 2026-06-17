@@ -79,6 +79,9 @@ class UserRolePermissionSeeder extends Seeder
 
             $role_verifikator = Role::create(['name'  =>  'verifikator']);
 
+            // Role untuk Dosen yang login via SIAKAD OAuth
+            $role_dosen = Role::create(['name'  =>  'dosen']);
+
             $permission = Permission::create(['name'  =>  'dashboard']);
             $permission = Permission::create(['name'  =>  'dashboard-verifikator']);
             $permission = Permission::create(['name'  =>  'view-generate-point-rubrik']);

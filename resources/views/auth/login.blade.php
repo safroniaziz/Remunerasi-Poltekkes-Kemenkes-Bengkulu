@@ -8,27 +8,7 @@
     <title>Sistem Remunerasi | Login</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logo.svg') }}">
 
-    <!-- stylesheets tailwind -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: { DEFAULT: '#152042', dark: '#0d1530', light: '#1e2d5a' },
-                        gold: { DEFAULT: '#fbbf24', dark: '#f59e0b', light: '#fef3c7' },
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- stylesheet login (compiled Tailwind output) -->
     <link rel="stylesheet" href="{{ asset('assets/login/output.css') }}">
     <!-- alpine js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
@@ -55,7 +35,7 @@
                     </button>
                     <div class="px-6 py-6 lg:px-8">
                         <h3 class="mb-4 text-xl font-bold text-navy font-heading">Login Akun SIAKAD (Dosen)</h3>
-                        <iframe src="{{ asset('Helpers/api/oAuth2Client/index.blade.php') }}" width="100%" height="190" class="rounded-lg border border-gray-200"></iframe>
+                        <iframe src="{{ route('siakad.iframe') }}" width="100%" height="190" class="rounded-lg border border-gray-200"></iframe>
                     </div>
                 </div>
             </div>

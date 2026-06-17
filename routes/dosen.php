@@ -42,7 +42,12 @@ Route::get('/home', function () {
 })->name('dosen.dashboard');
 
 Route::get('/logoutDosen',function(){
-    session_destroy();
+    // Logout dari Laravel Auth Guard
+    \Illuminate\Support\Facades\Auth::logout();
+    // Hancurkan native PHP session untuk kompatibilitas controller dosen
+    if (session_status() !== PHP_SESSION_NONE) {
+        session_destroy();
+    }
     session()->invalidate();
     session()->regenerateToken();
     return redirect()->route('home');
