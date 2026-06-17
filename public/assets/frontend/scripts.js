@@ -1,4 +1,6 @@
-AOS.init();
+if (window.AOS) {
+    AOS.init();
+}
 
 
 const sections = document.querySelectorAll("section[id]");
@@ -12,16 +14,20 @@ function navHighlighter() {
     sections.forEach(current => {
         const sectionHeight = current.offsetHeight;
         const sectionTop = current.offsetTop - 50;
-        sectionId = current.getAttribute("id");
+        let sectionId = current.getAttribute("id");
+        const menuLink = document.querySelector(".menu-navbar a[href*=" + sectionId + "]");
+
+        if (!menuLink) {
+            return;
+        }
+
         if (
             scrollY > sectionTop &&
             scrollY <= sectionTop + sectionHeight
         ) {
-            document.querySelector(".menu-navbar a[href*=" + sectionId + "]").classList.add(
-                "active-menu");
+            menuLink.classList.add("active-menu");
         } else {
-            document.querySelector(".menu-navbar a[href*=" + sectionId + "]").classList.remove(
-                "active-menu");
+            menuLink.classList.remove("active-menu");
         }
     });
 }
@@ -73,15 +79,22 @@ window.onscroll = function () {
 };
 
 function scrollFunction() {
+    const navbar = document.getElementById("navbar");
+    const listMenu = document.getElementById("list-menu");
+
+    if (!navbar || !listMenu) {
+        return;
+    }
+
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        document.getElementById("navbar").style.padding = "10px 25px";
-        document.getElementById("navbar").classList.add("nav-scroll");
-        document.getElementById("navbar").classList.add("shadow-lg");
-        document.getElementById("list-menu").classList.add("list-menu-scroll");
+        navbar.style.padding = "10px 25px";
+        navbar.classList.add("nav-scroll");
+        navbar.classList.add("shadow-lg");
+        listMenu.classList.add("list-menu-scroll");
     } else {
-        document.getElementById("navbar").style.padding = "15px 25px";
-        document.getElementById("navbar").classList.remove("nav-scroll");
-        document.getElementById("navbar").classList.remove("shadow-lg");
-        document.getElementById("list-menu").classList.remove("list-menu-scroll");
+        navbar.style.padding = "15px 25px";
+        navbar.classList.remove("nav-scroll");
+        navbar.classList.remove("shadow-lg");
+        listMenu.classList.remove("list-menu-scroll");
     }
 }

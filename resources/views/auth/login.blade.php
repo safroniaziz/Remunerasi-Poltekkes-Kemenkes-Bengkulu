@@ -9,16 +9,8 @@
     <link rel="shortcut icon" href="{{ asset('assets/img/logo.svg') }}">
 
     <!-- stylesheet login (compiled Tailwind output) -->
-    <link rel="stylesheet" href="{{ asset('assets/login/output.css') }}">
-    <!-- alpine js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
-    <!-- tailwindcss flag-icon  -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css" rel="stylesheet">
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('assets/login/style.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
     <style>[x-cloak]{display:none!important}</style>
 </head>
 
@@ -56,7 +48,7 @@
             </a>
 
             <div class="relative">
-                <lottie-player src="{{ asset('assets/img/finance.json') }}" background="transparent" speed="1" class="w-full max-w-md mx-auto h-auto" loop autoplay></lottie-player>
+                <img src="{{ asset('assets/img/logo.svg') }}" class="w-36 h-36 mx-auto rounded-full bg-white/10 p-6 shadow-2xl shadow-black/10" alt="Logo Poltekkes">
                 <h2 class="mt-6 text-3xl font-extrabold leading-tight font-heading">Selamat Datang Kembali</h2>
                 <p class="mt-3 text-gray-300 max-w-md leading-relaxed">Masuk untuk mengelola dan memantau remunerasi Anda secara transparan, akurat, dan aman.</p>
                 
@@ -150,6 +142,5 @@
             </div>
         </section>
     </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
 </body>
 </html>

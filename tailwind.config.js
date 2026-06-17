@@ -11,8 +11,21 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                navy: {
+                    DEFAULT: '#152042',
+                    dark: '#0d1530',
+                    light: '#1e2d5a',
+                },
+                gold: {
+                    DEFAULT: '#fbbf24',
+                    dark: '#f59e0b',
+                    light: '#fef3c7',
+                },
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                heading: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
             },
         },
     },

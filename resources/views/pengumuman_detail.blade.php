@@ -9,16 +9,7 @@
     <title>Sistem Remunerasi Poltekkes Kemenkes Bengkulu</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logo.svg') }}">
     <!-- stylesheets tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('assets/frontend/output.css') }}">
-    <!-- alpine js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
-    <!-- tailwindcss flag-icon  -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css" rel="stylesheet">
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('assets/frontend/style.css') }}">
 
     <style>
@@ -322,38 +313,22 @@
     </div>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if(session('pesan'))
     <script>
-        Swal.fire({
-            title: 'Berhasil!',
-            text: {!! json_encode(session('pesan')) !!}, // Perhatikan penggunaan json_encode()
-            icon: 'success',
-            confirmButtonText: 'OK',
-            allowOutsideClick: false
+        window.addEventListener('DOMContentLoaded', () => {
+            alert({!! json_encode('Berhasil! ' . session('pesan')) !!});
         });
     </script>
 @endif
 @if(session('error'))
     <script>
-        Swal.fire({
-            title: 'Gagal!',
-            text: {!! json_encode(session('error')) !!}, // Perhatikan penggunaan json_encode()
-            icon: 'error',
-            confirmButtonText: 'OK',
-            allowOutsideClick: false
+        window.addEventListener('DOMContentLoaded', () => {
+            alert({!! json_encode('Gagal! ' . session('error')) !!});
         });
     </script>
 @endif
 <!-- script -->
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="{{ asset('assets/frontend/scripts1.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
 <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="{{ asset('assets/frontend/scripts.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/ckeditor/build/ckeditor.js') }}"></script>
 </html>
