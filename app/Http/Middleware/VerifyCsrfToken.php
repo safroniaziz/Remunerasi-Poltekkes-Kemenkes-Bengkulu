@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        // Proxy SIAKAD: request datang dari widget pihak ketiga tanpa token CSRF.
+        'siakad-proxy/*',
     ];
 }

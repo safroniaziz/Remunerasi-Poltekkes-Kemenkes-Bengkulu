@@ -20,6 +20,7 @@ use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\RiwayatPointController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\OauthCallbackController;
+use App\Http\Controllers\SiakadProxyController;
 use App\Http\Controllers\KelompokRubrikController;
 use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\PangkatGolonganController;
@@ -82,6 +83,11 @@ Route::get('/pengumuman/{pengumuman}/download', [WelcomeController::class, 'down
 
 Route::get('/oauth-callback',[OauthCallbackController::class, 'oAuthCallback'])->name('oAuthCallback');
 Route::get('/login/siakad-iframe', fn() => view('auth.siakad-iframe'))->name('siakad.iframe');
+
+// Proxy HTTPS untuk widget/aset SIAKAD (server SIAKAD hanya HTTP).
+Route::match(['get', 'post'], '/siakad-proxy/{path?}', [SiakadProxyController::class, 'proxy'])
+    ->where('path', '.*')
+    ->name('siakad.proxy');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [DashboardController::class, 'dashboard'])->name('dashboard');

@@ -1,5 +1,7 @@
 var oAuth2Siakad = {
-    'url': 'http://103.219.248.108/',
+    // Disalurkan lewat proxy HTTPS kita (server SIAKAD hanya HTTP) agar tidak
+    // terjadi mixed content. Lihat route 'siakad.proxy' + SiakadProxyController.
+    'url': '/siakad-proxy/',
     'params': {
         'title': 'Login',
         'client_id': '23060001',

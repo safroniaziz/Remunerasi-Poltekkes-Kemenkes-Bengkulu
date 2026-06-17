@@ -31,4 +31,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'siakad' => [
+        // Server SIAKAD hanya melayani HTTP. Karena situs kita HTTPS, semua
+        // request dari browser ke host ini diblokir (mixed content). Maka
+        // trafik browser disalurkan lewat /siakad-proxy/* yang di-forward
+        // server-side oleh SiakadProxyController ke target di bawah ini.
+        'target' => rtrim(env('SIAKAD_PROXY_TARGET', 'http://103.219.248.108'), '/'),
+    ],
+
 ];
