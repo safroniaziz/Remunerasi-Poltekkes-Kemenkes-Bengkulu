@@ -30,7 +30,7 @@
                             </div>
                         </form>
                         <div class="col-md-12" style="margin-bottom: 5px !important;">
-                            <a href="{{ route('laporan_keuangan.exportData') }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-file-excel-o"></i>&nbsp;Export Data</a>
+                            <a href="{{ route('laporan_keuangan.exportData', request()->has('nama') ? ['nama' => $nama] : []) }}" class="btn btn-success btn-sm btn-flat" id="btnExportData"><i class="fa fa-file-excel-o"></i>&nbsp;Export Data</a>
                         </div>
                         <div class="col-md-12 table-responsive">
                             <table class="table table-striped table-bordered" id="table" style="width:100%; margin-bottom: 5px !important;">
@@ -185,4 +185,27 @@
             </section>
         </div>
     </div>
+
+    <div class="modal fade" id="exportLoadingModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document" style="margin-top: 15%;">
+            <div class="modal-content">
+                <div class="modal-body text-center" style="padding: 25px;">
+                    <i class="fa fa-spinner fa-spin fa-3x text-success" style="margin-bottom: 15px;"></i>
+                    <h4 style="margin: 0 0 8px 0; font-weight: 600;">Menyiapkan Export</h4>
+                    <p style="margin: 0; color: #666;">Mohon tunggu, file Excel sedang diproses...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#btnExportData').on('click', function () {
+            $('#exportLoadingModal').modal('show');
+            setTimeout(function () {
+                $('#exportLoadingModal').modal('hide');
+            }, 8000);
+        });
+    </script>
+@endpush

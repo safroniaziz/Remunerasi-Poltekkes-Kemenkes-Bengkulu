@@ -52,14 +52,18 @@ class RekapDaftarNominatifController extends Controller
     }
 
     public function exportData(Request $request){
-        $isRekap = RekapDaftarNominatif::where('periode_id',$this->periode->if)->get();
-        if ($isRekap->count() > 0) {
+        $nama = $request->query('nama');
+        $nominatifs = RekapPerDosen::with(['dosen'])
+            ->where('periode_id',$this->periode->id)
+            ->when(!empty($nama), function ($query) use ($nama) {
+                $query->whereHas('dosen', function ($query) use ($nama) {
+                    $query->where('nama', 'LIKE', '%' . $nama . '%')
+                        ->orWhere('nip', 'LIKE', '%' . $nama . '%');
+                });
+            })
+            ->get();
 
-        }
-        else{
-            $nominatifs = RekapPerDosen::with(['dosen'])->where('periode_id',$this->periode->id)->get();
-        }
-
-        return Excel::download(new RekapLaporanNominatifExport($nominatifs), 'data.xlsx');
+        $fileName = 'laporan-keuangan-' . now()->format('Ymd-His') . '.xlsx';
+        return Excel::download(new RekapLaporanNominatifExport($nominatifs), $fileName);
     }
 }
