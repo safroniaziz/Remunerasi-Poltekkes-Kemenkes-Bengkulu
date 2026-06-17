@@ -17,10 +17,21 @@ class R04Seeder extends Seeder
             throw new \RuntimeException('Periode aktif tidak ditemukan.');
         }
 
+        $sampleNips = DB::table('pegawais')
+            ->whereNull('deleted_at')
+            ->orderBy('nip')
+            ->limit(3)
+            ->pluck('nip')
+            ->all();
+
+        if (count($sampleNips) < 3) {
+            throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data rubrik.');
+        }
+
         DB::table('r04_membimbing_pendampingan_ukoms')->insert(array([
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'jumlah_mahasiswa'      =>  10,
             'is_bkd'                =>  0,
             'is_verified'           =>  1,
@@ -29,7 +40,7 @@ class R04Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'jumlah_mahasiswa'      =>  20,
             'is_bkd'                =>  0,
             'is_verified'           =>  1,
@@ -38,7 +49,7 @@ class R04Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'jumlah_mahasiswa'      =>  30,
             'is_bkd'                =>  1,
             'is_verified'           =>  1,
@@ -47,7 +58,7 @@ class R04Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'jumlah_mahasiswa'      =>  40,
             'is_bkd'                =>  0,
             'is_verified'           =>  1,
@@ -56,7 +67,7 @@ class R04Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'jumlah_mahasiswa'      =>  50,
             'is_bkd'                =>  1,
             'is_verified'           =>  0,
@@ -65,7 +76,7 @@ class R04Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'jumlah_mahasiswa'      =>  60,
             'is_bkd'                =>  0,
             'is_verified'           =>  0,

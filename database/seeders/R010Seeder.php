@@ -17,10 +17,21 @@ class R010Seeder extends Seeder
             throw new \RuntimeException('Periode aktif tidak ditemukan.');
         }
 
+        $sampleNips = DB::table('pegawais')
+            ->whereNull('deleted_at')
+            ->orderBy('nip')
+            ->limit(3)
+            ->pluck('nip')
+            ->all();
+
+        if (count($sampleNips) < 3) {
+            throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data rubrik.');
+        }
+
         DB::table('r010_menulis_buku_ajar_berisbns')->insert(array([
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'judul'                 =>  10,
             'isbn'                  => '1234',
             'penulis_ke'            => 'utama',
@@ -33,7 +44,7 @@ class R010Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'judul'                 =>  20,
             'isbn'                  => '1234',
             'penulis_ke'            => 'angggota',
@@ -45,7 +56,7 @@ class R010Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'judul'                 =>  30,
             'isbn'                  => '1234',
             'penulis_ke'            => 'anggota',
@@ -57,7 +68,7 @@ class R010Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'judul'                 =>  40,
             'isbn'                  => '1234',
             'penulis_ke'            => 'utama',
@@ -69,7 +80,7 @@ class R010Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'judul'                 =>  50,
             'isbn'                  => '1234',
             'penulis_ke'            => 'anggota',
@@ -81,7 +92,7 @@ class R010Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'judul'                 =>  60,
             'isbn'                  => '1234',
             'penulis_ke'            => 'anggota',

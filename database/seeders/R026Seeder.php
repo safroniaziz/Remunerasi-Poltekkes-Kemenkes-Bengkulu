@@ -20,10 +20,21 @@ class R026Seeder extends Seeder
             throw new \RuntimeException('Periode aktif tidak ditemukan.');
         }
 
+        $sampleNips = DB::table('pegawais')
+            ->whereNull('deleted_at')
+            ->orderBy('nip')
+            ->limit(3)
+            ->pluck('nip')
+            ->all();
+
+        if (count($sampleNips) < 3) {
+            throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data rubrik.');
+        }
+
         DB::table('r026_pengelola_jurnal_buletins')->insert(array([
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'ketua',
             'edisi_terbit'          =>  10,
@@ -34,7 +45,7 @@ class R026Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'ketua',
             'edisi_terbit'          =>  20,
@@ -45,7 +56,7 @@ class R026Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'ketua',
             'edisi_terbit'          =>  30,
@@ -56,7 +67,7 @@ class R026Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
             'edisi_terbit'          =>  40,
@@ -67,7 +78,7 @@ class R026Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
             'edisi_terbit'          =>  50,
@@ -78,7 +89,7 @@ class R026Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
             'edisi_terbit'          =>  60,

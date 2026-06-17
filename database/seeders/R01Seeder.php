@@ -31,6 +31,17 @@ class R01Seeder extends Seeder
             throw new \RuntimeException('Periode aktif tidak ditemukan.');
         }
 
+        $sampleNips = DB::table('pegawais')
+            ->whereNull('deleted_at')
+            ->orderBy('nip')
+            ->limit(3)
+            ->pluck('nip')
+            ->all();
+
+        if (count($sampleNips) < 3) {
+            throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data rubrik.');
+        }
+
         $dosenData = Pegawai::all();
         foreach ($dosenData as $dosen) {
             $nip = $dosen['nip'];
@@ -61,7 +72,7 @@ class R01Seeder extends Seeder
         // $faker = \Faker\Factory::create();
         // DB::table('r01_perkuliahan_teoris')->insert(array([
         //     'periode_id'            =>  $periodeId,
-        //     'nip'                   =>  198909032015041004,
+        //     'nip'                   =>  $sampleNips[0],
         //     'nama_matkul'           =>  'kesehatan',
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  2,
@@ -74,7 +85,7 @@ class R01Seeder extends Seeder
         // ],
         // [
         //     'periode_id'            =>  $periodeId,
-        //     'nip'                   =>  198909032015041004,
+        //     'nip'                   =>  $sampleNips[0],
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  3,
         //     'jumlah_mahasiswa'      =>  40,
@@ -85,7 +96,7 @@ class R01Seeder extends Seeder
         // ],
         // [
         //     'periode_id'            =>  $periodeId,
-        //     'nip'                   =>  199308192022032013,
+        //     'nip'                   =>  $sampleNips[1],
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  4,
         //     'jumlah_mahasiswa'      =>  40,
@@ -96,7 +107,7 @@ class R01Seeder extends Seeder
         // ],
         // [
         //     'periode_id'            =>  $periodeId,
-        //     'nip'                   =>  199308192022032013,
+        //     'nip'                   =>  $sampleNips[1],
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  2,
         //     'jumlah_mahasiswa'      =>  80,
@@ -107,7 +118,7 @@ class R01Seeder extends Seeder
         // ],
         // [
         //     'periode_id'            =>  $periodeId,
-        //     'nip'                   =>  199201312019031010,
+        //     'nip'                   =>  $sampleNips[2],
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  3,
         //     'jumlah_mahasiswa'      =>  80,
@@ -118,7 +129,7 @@ class R01Seeder extends Seeder
         // ],
         // [
         //     'periode_id'            =>  $periodeId,
-        //     'nip'                   =>  199201312019031010,
+        //     'nip'                   =>  $sampleNips[2],
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  4,
         //     'jumlah_mahasiswa'      =>  80,

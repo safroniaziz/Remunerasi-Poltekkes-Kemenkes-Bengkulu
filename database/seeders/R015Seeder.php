@@ -17,10 +17,21 @@ class R015Seeder extends Seeder
             throw new \RuntimeException('Periode aktif tidak ditemukan.');
         }
 
+        $sampleNips = DB::table('pegawais')
+            ->whereNull('deleted_at')
+            ->orderBy('nip')
+            ->limit(3)
+            ->pluck('nip')
+            ->all();
+
+        if (count($sampleNips) < 3) {
+            throw new \RuntimeException('Minimal 3 pegawai diperlukan untuk seed data rubrik.');
+        }
+
         DB::table('r015_menulis_karya_ilmiah_dipublikasikans')->insert(array([
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
             'jenis'                 => 'internasional_Q3',
@@ -33,7 +44,7 @@ class R015Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  198909032015041004,
+            'nip'                   =>  $sampleNips[0],
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
             'jenis'                 => 'internasional_Q3',
@@ -45,7 +56,7 @@ class R015Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
             'jenis'                 => 'nasional_sinta_3',
@@ -57,7 +68,7 @@ class R015Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199308192022032013,
+            'nip'                   =>  $sampleNips[1],
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
             'jenis'                 => 'nasional_sinta_3',
@@ -69,7 +80,7 @@ class R015Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
             'jenis'                 => 'seminar_oral_presentation_internasional',
@@ -81,7 +92,7 @@ class R015Seeder extends Seeder
         [
             'periode_id'            =>  $periodeId,
                 'keterangan'            =>  'Data sample seeder',
-            'nip'                   =>  199201312019031010,
+            'nip'                   =>  $sampleNips[2],
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
             'jenis'                 => 'seminar_poster_nasional',
