@@ -22,6 +22,7 @@ class R028Seeder extends Seeder
 
         DB::table('r028_melaksanakan_pengembangan_diris')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'jenis_kegiatan'        =>  'pelatihan',
             'is_bkd'                =>  0,
@@ -30,6 +31,7 @@ class R028Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'jenis_kegiatan'        =>  'pelatihan',
             'is_bkd'                =>  0,
@@ -38,6 +40,7 @@ class R028Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'jenis_kegiatan'        =>  'workshop',
             'is_bkd'                =>  1,
@@ -46,6 +49,7 @@ class R028Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'jenis_kegiatan'        =>  'workshop',
             'is_bkd'                =>  0,
@@ -54,6 +58,7 @@ class R028Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'jenis_kegiatan'        =>  'webinar',
             'is_bkd'                =>  1,
@@ -62,6 +67,7 @@ class R028Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'jenis_kegiatan'        =>  'webinar',
             'is_bkd'                =>  0,

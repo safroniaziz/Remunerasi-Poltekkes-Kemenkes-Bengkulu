@@ -22,6 +22,7 @@ class R023Seeder extends Seeder
 
         DB::table('r023_auditor_mutu_assessor_akred_internals')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  'webinar',
             'is_bkd'                =>  0,
@@ -31,6 +32,7 @@ class R023Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  'webinar',
             'is_bkd'                =>  0,
@@ -39,6 +41,7 @@ class R023Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  'webinar',
             'is_bkd'                =>  1,
@@ -47,6 +50,7 @@ class R023Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  'webinar',
             'is_bkd'                =>  0,
@@ -55,6 +59,7 @@ class R023Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  'webinar',
             'is_bkd'                =>  1,
@@ -63,6 +68,7 @@ class R023Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  'webinar',
             'is_bkd'                =>  0,

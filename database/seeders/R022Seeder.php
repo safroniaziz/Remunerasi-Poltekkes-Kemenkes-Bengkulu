@@ -23,6 +23,7 @@ class R022Seeder extends Seeder
 
         DB::table('r022_reviewer_eclere_penelitian_mhs')->insert(array([
             'periode_id'                =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                       =>  198909032015041004,
             'judul_protokol_penelitian' =>  'webinar',
             'is_bkd'                    =>  0,
@@ -32,6 +33,7 @@ class R022Seeder extends Seeder
         ],
         [
             'periode_id'                =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                       =>  198909032015041004,
             'judul_protokol_penelitian' =>  'webinar',
             'is_bkd'                    =>  0,
@@ -40,6 +42,7 @@ class R022Seeder extends Seeder
         ],
         [
             'periode_id'                =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                       =>  199308192022032013,
             'judul_protokol_penelitian' =>  'webinar',
             'is_bkd'                    =>  1,
@@ -48,6 +51,7 @@ class R022Seeder extends Seeder
         ],
         [
             'periode_id'                =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                       =>  199308192022032013,
             'judul_protokol_penelitian' =>  'webinar',
             'is_bkd'                    =>  0,
@@ -56,6 +60,7 @@ class R022Seeder extends Seeder
         ],
         [
             'periode_id'                =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                       =>  199201312019031010,
             'judul_protokol_penelitian' =>  'webinar',
             'is_bkd'                    =>  1,
@@ -64,6 +69,7 @@ class R022Seeder extends Seeder
         ],
         [
             'periode_id'                =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                       =>  199201312019031010,
             'judul_protokol_penelitian' =>  'webinar',
             'is_bkd'                    =>  0,

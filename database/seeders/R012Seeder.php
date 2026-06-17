@@ -20,6 +20,7 @@ class R012Seeder extends Seeder
 
         DB::table('r012_membimbing_pkms')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'tingkat_pkm'           => 'internasional',
             'juara_ke'              => '1',
@@ -31,6 +32,7 @@ class R012Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'tingkat_pkm'           => 'internasional',
             'juara_ke'              => '2',
@@ -41,6 +43,7 @@ class R012Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'tingkat_pkm'           => 'internasional',
             'juara_ke'              => 'tidak_juara',
@@ -51,6 +54,7 @@ class R012Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'tingkat_pkm'           => 'nasional',
             'juara_ke'              => '1',
@@ -61,6 +65,7 @@ class R012Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'tingkat_pkm'           => 'nasional',
             'juara_ke'              => '2',
@@ -71,6 +76,7 @@ class R012Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'tingkat_pkm'           => 'nasional',
             'juara_ke'              => 'tidak_juara',

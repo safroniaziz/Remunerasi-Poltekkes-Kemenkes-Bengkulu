@@ -19,6 +19,7 @@ class R015Seeder extends Seeder
 
         DB::table('r015_menulis_karya_ilmiah_dipublikasikans')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -31,6 +32,7 @@ class R015Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
@@ -42,6 +44,7 @@ class R015Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -53,6 +56,7 @@ class R015Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
@@ -64,6 +68,7 @@ class R015Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -75,6 +80,7 @@ class R015Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',

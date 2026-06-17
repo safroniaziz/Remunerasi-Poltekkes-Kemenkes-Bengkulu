@@ -22,6 +22,7 @@ class R019Seeder extends Seeder
 
         DB::table('r019_latih_nyuluh_natar_ceramah_wargas')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  10,
             'jenis'                 => 'pelatihan_insidentil',
@@ -32,6 +33,7 @@ class R019Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  10,
             'jenis'                 => 'pelatihan_insidentil',
@@ -41,6 +43,7 @@ class R019Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  10,
             'jenis'                 => 'latihan_penyuluhan',
@@ -50,6 +53,7 @@ class R019Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  10,
             'jenis'                 => 'latihan_penyuluhan',
@@ -59,6 +63,7 @@ class R019Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  10,
             'jenis'                 => 'pelatihan_insidentil',
@@ -68,6 +73,7 @@ class R019Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  10,
             'jenis'                 => 'pelatihan_insidentil',

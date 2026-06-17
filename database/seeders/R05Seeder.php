@@ -20,6 +20,7 @@ class R05Seeder extends Seeder
         $faker = \Faker\Factory::create();
         DB::table('r05_membimbing_praktik_pkk_pbl_kliniks')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'jumlah_sks'            =>  2,
             'jumlah_mahasiswa'      =>  12,
@@ -31,6 +32,7 @@ class R05Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'jumlah_sks'            =>  3,
             'jumlah_mahasiswa'      =>  12,
@@ -41,6 +43,7 @@ class R05Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'jumlah_sks'            =>  4,
             'jumlah_mahasiswa'      =>  12,
@@ -51,6 +54,7 @@ class R05Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'jumlah_sks'            =>  2,
             'jumlah_mahasiswa'      =>  80,
@@ -61,6 +65,7 @@ class R05Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'jumlah_sks'            =>  3,
             'jumlah_mahasiswa'      =>  80,
@@ -71,6 +76,7 @@ class R05Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'jumlah_sks'            =>  4,
             'jumlah_mahasiswa'      =>  80,

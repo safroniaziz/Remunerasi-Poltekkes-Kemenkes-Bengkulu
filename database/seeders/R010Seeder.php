@@ -19,6 +19,7 @@ class R010Seeder extends Seeder
 
         DB::table('r010_menulis_buku_ajar_berisbns')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul'                 =>  10,
             'isbn'                  => '1234',
@@ -31,6 +32,7 @@ class R010Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul'                 =>  20,
             'isbn'                  => '1234',
@@ -42,6 +44,7 @@ class R010Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul'                 =>  30,
             'isbn'                  => '1234',
@@ -53,6 +56,7 @@ class R010Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul'                 =>  40,
             'isbn'                  => '1234',
@@ -64,6 +68,7 @@ class R010Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul'                 =>  50,
             'isbn'                  => '1234',
@@ -75,6 +80,7 @@ class R010Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul'                 =>  60,
             'isbn'                  => '1234',

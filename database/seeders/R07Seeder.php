@@ -19,6 +19,7 @@ class R07Seeder extends Seeder
 
         DB::table('r07_membimbing_skripsi_lta_la_profesis')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'jumlah_mahasiswa'      =>  4,
             'pembimbing_ke'         => 'pembimbing_utama',
@@ -29,6 +30,7 @@ class R07Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'jumlah_mahasiswa'      =>  8,
             'pembimbing_ke'         => 'pembimbing_utama',
@@ -38,6 +40,7 @@ class R07Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'jumlah_mahasiswa'      =>  10,
             'pembimbing_ke'         => 'pembimbing_pendamping',
@@ -47,6 +50,7 @@ class R07Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'jumlah_mahasiswa'      =>  12,
             'pembimbing_ke'         => 'pembimbing_utama',
@@ -56,6 +60,7 @@ class R07Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'jumlah_mahasiswa'      =>  5,
             'pembimbing_ke'         => 'pembimbing_pendamping',
@@ -65,6 +70,7 @@ class R07Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'jumlah_mahasiswa'      =>  15,
             'pembimbing_ke'         => 'pembimbing_pendamping',

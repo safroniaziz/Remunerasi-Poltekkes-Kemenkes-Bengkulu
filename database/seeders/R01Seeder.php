@@ -45,6 +45,7 @@ class R01Seeder extends Seeder
             // Query untuk memasukkan data ke tabel r01perkulianteoris menggunakan Query Builder
             DB::table('r01_perkuliahan_teoris')->insert([
                 'periode_id' => $periodeId,
+                'keterangan'            =>  'Data sample seeder',
                 'nip' => $nip,
                 'nama_matkul' => $nama_matkul,
                 'kode_kelas' => 'A',

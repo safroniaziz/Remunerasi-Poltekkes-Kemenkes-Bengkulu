@@ -22,6 +22,7 @@ class R017Seeder extends Seeder
 
         DB::table('r017_naskah_buku_bahasa_terbit_edar_nas')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -32,6 +33,7 @@ class R017Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -41,6 +43,7 @@ class R017Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -50,6 +53,7 @@ class R017Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -59,6 +63,7 @@ class R017Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -68,6 +73,7 @@ class R017Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',

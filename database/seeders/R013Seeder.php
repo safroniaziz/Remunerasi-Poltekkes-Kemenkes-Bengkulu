@@ -22,6 +22,7 @@ class R013Seeder extends Seeder
 
         DB::table('r013_orasi_ilmiah_narasumber_bidang_ilmus')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'internasional',
@@ -32,6 +33,7 @@ class R013Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'internasional',
@@ -41,6 +43,7 @@ class R013Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'nasional',
@@ -50,6 +53,7 @@ class R013Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'nasional',
@@ -59,6 +63,7 @@ class R013Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'regional',
@@ -68,6 +73,7 @@ class R013Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'regional',

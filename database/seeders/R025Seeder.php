@@ -22,6 +22,7 @@ class R025Seeder extends Seeder
 
         DB::table('r025_kepanitiaan_kegiatan_institusis')->insert(array([
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  10,
             'jabatan'               =>  'ketua',
@@ -31,6 +32,7 @@ class R025Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  20,
             'jabatan'               =>  'ketua',
@@ -40,6 +42,7 @@ class R025Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  30,
             'jabatan'               =>  'sekretaris',
@@ -49,6 +52,7 @@ class R025Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  40,
             'jabatan'               =>  'sekretaris',
@@ -58,6 +62,7 @@ class R025Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  50,
             'jabatan'               =>  'anggota',
@@ -67,6 +72,7 @@ class R025Seeder extends Seeder
         ],
         [
             'periode_id'            =>  $periodeId,
+                'keterangan'            =>  'Data sample seeder',
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
