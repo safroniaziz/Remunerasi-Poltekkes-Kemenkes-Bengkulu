@@ -114,7 +114,7 @@
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid items-center gap-10 lg:grid-cols-2 pb-16">
-                <div data-aos="fade-right">
+                <div class="text-center lg:text-left" data-aos="fade-right">
                     <span class="inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-bold tracking-wider uppercase rounded-full bg-gold/10 text-gold-dark border border-gold/20">
                         <span class="h-2 w-2 rounded-full bg-gold animate-pulse"></span>
                         Sistem Informasi Remunerasi
@@ -122,10 +122,10 @@
                     <h1 class="text-navy text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.15] font-heading tracking-tight">
                         Kelola Remunerasi Kampus Lebih <span class="text-transparent bg-clip-text bg-gradient-to-r from-navy to-navy-light">Transparan &amp; Akurat</span>
                     </h1>
-                    <p class="text-slate-600 text-base md:text-lg leading-relaxed max-w-xl mb-8 font-sans">
+                    <p class="text-slate-600 text-base md:text-lg leading-relaxed max-w-xl mb-8 font-sans mx-auto lg:mx-0">
                         Platform resmi pengelolaan remunerasi tenaga pendidik dan kependidikan <span class="text-navy font-semibold font-heading">Poltekkes Kemenkes Bengkulu</span>. Perhitungan otomatis berbasis rubrik kinerja, akurat, aman, dan dapat diakses kapan saja.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         @if(auth()->check())
                             <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-navy hover:bg-navy-light text-white font-bold text-sm transition-all duration-300 rounded-2xl shadow-lg shadow-navy/20 hover:scale-[1.02] active:scale-[0.98] focus:ring-4 focus:ring-navy/15 focus:outline-none">
                                 Ke Dashboard Saya

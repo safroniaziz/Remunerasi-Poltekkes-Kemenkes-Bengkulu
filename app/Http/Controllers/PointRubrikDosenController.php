@@ -20,9 +20,13 @@ class PointRubrikDosenController extends Controller
     }
 
     public function index(){
-        $dosens = Pegawai::leftJoin('riwayat_points', 'pegawais.nip', '=', 'riwayat_points.nip')
-                            ->select('pegawais.*', DB::raw('SUM(riwayat_points.point) as total_point'))
-                            ->groupBy('pegawais.nip')
+        $pointTotals = RiwayatPoint::select('nip', DB::raw('SUM(point) as total_point'))
+                            ->groupBy('nip');
+
+        $dosens = Pegawai::leftJoinSub($pointTotals, 'point_totals', function ($join) {
+                                $join->on('pegawais.nip', '=', 'point_totals.nip');
+                            })
+                            ->select('pegawais.*', DB::raw('COALESCE(point_totals.total_point, 0) as total_point'))
                             ->orderBy('total_point', 'desc')
                             ->get();
 

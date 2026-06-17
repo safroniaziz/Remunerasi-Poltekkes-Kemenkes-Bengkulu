@@ -34,49 +34,117 @@
         </div>
 
         <!-- Brand panel (kiri) -->
-        <aside class="relative hidden lg:flex flex-col justify-between overflow-hidden bg-navy p-12 text-white font-sans">
-            <div class="pointer-events-none absolute -top-24 -right-20 h-96 w-96 rounded-full bg-gold/20 blur-3xl"></div>
-            <div class="pointer-events-none absolute -bottom-24 -left-20 h-96 w-96 rounded-full bg-gold/10 blur-3xl"></div>
-            <div class="pointer-events-none absolute inset-0 opacity-[0.05]" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:22px 22px;"></div>
+        <aside class="relative hidden lg:flex flex-col overflow-hidden bg-gradient-to-br from-navy-dark via-navy to-navy-light p-8 lg:p-12 text-white font-sans">
+            <!-- dekorasi -->
+            <div class="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-gold/25 blur-3xl"></div>
+            <div class="pointer-events-none absolute top-1/3 -left-28 h-80 w-80 rounded-full bg-gold/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute inset-0 opacity-[0.06]" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:22px 22px;"></div>
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/30 to-transparent"></div>
 
-            <a href="/" class="relative flex items-center gap-3">
-                <img src="{{ asset('assets/img/logo.svg') }}" class="h-12 w-auto" alt="Logo Poltekkes">
+            <!-- logo header -->
+            <a href="/" class="relative z-10 flex items-center gap-3">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 p-2 ring-1 ring-white/15 backdrop-blur-md">
+                    <img src="{{ asset('assets/img/logo.svg') }}" class="h-full w-auto" alt="Logo Poltekkes">
+                </span>
                 <div class="leading-tight">
-                    <strong class="block tracking-wide font-heading">SISTEM REMUNERASI</strong>
-                    <span class="text-xs text-gold/90 font-semibold">POLTEKKES KEMENKES BENGKULU</span>
+                    <strong class="block text-sm tracking-wide font-heading">SISTEM REMUNERASI</strong>
+                    <span class="text-[11px] font-semibold text-gold/90">POLTEKKES KEMENKES BENGKULU</span>
                 </div>
             </a>
 
-            <div class="relative">
-                <img src="{{ asset('assets/img/logo.svg') }}" class="w-36 h-36 mx-auto rounded-full bg-white/10 p-6 shadow-2xl shadow-black/10" alt="Logo Poltekkes">
-                <h2 class="mt-6 text-3xl font-extrabold leading-tight font-heading">Selamat Datang Kembali</h2>
-                <p class="mt-3 text-gray-300 max-w-md leading-relaxed">Masuk untuk mengelola dan memantau remunerasi Anda secara transparan, akurat, dan aman.</p>
-                
-                <div class="mt-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 max-w-md">
-                    <ul class="space-y-3.5 text-sm text-gray-200">
-                        <li class="flex items-center gap-3"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-gold/20 text-gold"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span> Data remunerasi real-time</li>
-                        <li class="flex items-center gap-3"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-gold/20 text-gold"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span> Integrasi dengan SIAKAD</li>
-                        <li class="flex items-center gap-3"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-gold/20 text-gold"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span> Akses aman 24/7</li>
-                    </ul>
+            <!-- hero -->
+            <div class="relative z-10 flex flex-1 flex-col justify-center py-10">
+                <span class="inline-flex w-fit items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 text-xs font-semibold text-gold backdrop-blur-md">
+                    <span class="h-1.5 w-1.5 rounded-full bg-gold animate-pulse"></span> Portal Resmi Remunerasi
+                </span>
+
+                <h2 class="mt-6 font-heading text-3xl font-extrabold leading-[1.15] lg:text-4xl">
+                    Kelola Remunerasi
+                    <span class="block bg-gradient-to-r from-gold-light via-gold to-gold-dark bg-clip-text text-transparent">Transparan & Akurat</span>
+                </h2>
+                <p class="mt-4 max-w-md text-sm leading-relaxed text-gray-300/90 lg:text-base">
+                    Satu pintu untuk memantau, menghitung, dan mengelola remunerasi dosen &amp; tenaga kependidikan secara real-time.
+                </p>
+
+                <!-- kartu fitur -->
+                <div class="mt-8 max-w-md space-y-3">
+                    <div class="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md transition-all duration-300 hover:border-gold/30 hover:bg-white/10">
+                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold/15 text-gold transition-transform duration-300 group-hover:scale-110">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Data Real-time</p>
+                            <p class="text-xs text-gray-400">Pantau remunerasi kapan saja</p>
+                        </div>
+                    </div>
+
+                    <div class="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md transition-all duration-300 hover:border-gold/30 hover:bg-white/10">
+                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold/15 text-gold transition-transform duration-300 group-hover:scale-110">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m6.656-1.828a4 4 0 010-5.656l3-3a4 4 0 015.656 5.656l-1.5 1.5"/></svg>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Terintegrasi SIAKAD</p>
+                            <p class="text-xs text-gray-400">Login & data sinkron otomatis</p>
+                        </div>
+                    </div>
+
+                    <div class="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md transition-all duration-300 hover:border-gold/30 hover:bg-white/10">
+                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold/15 text-gold transition-transform duration-300 group-hover:scale-110">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Aman &amp; Terpercaya</p>
+                            <p class="text-xs text-gray-400">Akses terlindungi 24/7</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <p class="relative text-xs text-gray-400">&copy; {{ date('Y') }} Poltekkes Kemenkes Bengkulu. All rights reserved.</p>
+            <!-- statistik + copyright -->
+            <div class="relative z-10">
+                <div class="grid max-w-md grid-cols-3 gap-4 border-t border-white/10 pt-6">
+                    <div>
+                        <p class="font-heading text-2xl font-extrabold text-white">4</p>
+                        <p class="text-[11px] text-gray-400">Jurusan</p>
+                    </div>
+                    <div>
+                        <p class="font-heading text-2xl font-extrabold text-white">24/7</p>
+                        <p class="text-[11px] text-gray-400">Akses Online</p>
+                    </div>
+                    <div>
+                        <p class="font-heading text-2xl font-extrabold text-white">100%</p>
+                        <p class="text-[11px] text-gray-400">Transparan</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-xs text-gray-400">&copy; {{ date('Y') }} Poltekkes Kemenkes Bengkulu.</p>
+            </div>
         </aside>
 
         <!-- Form panel (kanan) -->
-        <section class="flex items-center justify-center px-6 py-12 sm:px-12 font-sans">
-            <div class="w-full max-w-md" x-data="{ showPassword: false }">
-                <!-- brand mobile -->
-                <div class="lg:hidden text-center mb-8">
-                    <img src="{{ asset('assets/img/logo.svg') }}" class="h-20 w-auto mx-auto mb-3" alt="logo">
-                    <h1 class="text-lg font-extrabold text-navy leading-tight font-heading">SISTEM REMUNERASI<br><span class="text-gold-dark font-sans text-sm font-bold block mt-1">POLTEKKES KEMENKES BENGKULU</span></h1>
-                </div>
+        <section class="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-12 sm:px-12 lg:px-12 font-sans">
+            <!-- dekorasi (tampil di mobile/iPad saat panel kiri disembunyikan) -->
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200/70 lg:hidden"></div>
+            <div class="pointer-events-none absolute -top-24 -right-20 h-80 w-80 rounded-full bg-gold/10 blur-3xl lg:hidden"></div>
+            <div class="pointer-events-none absolute -bottom-28 -left-20 h-80 w-80 rounded-full bg-navy/10 blur-3xl lg:hidden"></div>
+            <div class="pointer-events-none absolute inset-0 opacity-[0.04] lg:hidden" style="background-image:radial-gradient(#152042 1px,transparent 1px);background-size:24px 24px;"></div>
 
-                <div class="mb-8">
-                    <h2 class="text-2xl font-extrabold text-navy font-heading">Masuk ke Akun</h2>
-                    <p class="mt-1.5 text-sm text-gray-500">Gunakan NIP/Email dan password Anda untuk melanjutkan.</p>
-                </div>
+            <div class="relative z-10 w-full max-w-md" x-data="{ showPassword: false }">
+                <div class="overflow-hidden rounded-3xl bg-white shadow-2xl shadow-navy/10 ring-1 ring-slate-200/70">
+                    <div class="h-1.5 w-full bg-gradient-to-r from-gold-light via-gold to-gold-dark"></div>
+                    <div class="p-7 sm:p-9">
+                        <!-- brand mobile/iPad -->
+                        <div class="lg:hidden mb-7 flex flex-col items-center text-center">
+                            <span class="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl bg-navy/5 p-3 ring-1 ring-navy/10">
+                                <img src="{{ asset('assets/img/logo.svg') }}" class="h-full w-auto" alt="logo">
+                            </span>
+                            <h1 class="font-heading text-lg font-extrabold leading-tight text-navy">SISTEM REMUNERASI</h1>
+                            <span class="mt-1 text-xs font-bold text-gold-dark">POLTEKKES KEMENKES BENGKULU</span>
+                        </div>
+
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-extrabold text-navy font-heading">Masuk ke Akun</h2>
+                            <p class="mt-1.5 text-sm text-gray-500">Gunakan NIP/Email dan password Anda untuk melanjutkan.</p>
+                        </div>
 
                 @if (session('status'))
                 <div class="flex items-center gap-2 bg-gold/15 border border-gold/40 text-navy text-sm font-semibold px-4 py-3 rounded-xl mb-5" role="alert">
@@ -136,9 +204,11 @@
                     Login dengan SIAKAD
                 </button>
 
-                <p class="mt-8 text-center text-xs text-gray-400">
-                    <a href="/" class="hover:text-navy font-medium transition-colors">&larr; Kembali ke beranda</a>
-                </p>
+                        <p class="mt-8 text-center text-xs text-gray-400">
+                            <a href="/" class="hover:text-navy font-medium transition-colors">&larr; Kembali ke beranda</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

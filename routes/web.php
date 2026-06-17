@@ -70,7 +70,7 @@ use App\Http\Controllers\R08MengujiSeminarProposalKtiLtaSkripsiController;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'home'])->name('home');
+Route::get('/', fn() => redirect()->route('login'))->name('home');
 Route::get('/pengumuman/{pengumuman}/detail', [WelcomeController::class, 'pengumumanDetail'])->name('home.detail');
 Route::get('/pengumuman/{pengumuman}/download', [WelcomeController::class, 'downloadPengumuman'])->name('home.download_pengumuman');
 

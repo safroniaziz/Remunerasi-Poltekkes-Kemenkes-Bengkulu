@@ -85,14 +85,9 @@
                                                 <tbody>
                                                     @foreach ($dataRubriks as $index=> $dataRubrik)
                                                         @php
-                                                            $statusRubrik = DB::table($dataRubrik->kode_rubrik)->select(DB::raw('IFNULL(sum(point),0) as total_point'))
-                                                                        ->where('periode_id',$periode->id)
-                                                                        ->where('is_bkd',0)
-                                                                        ->where('is_verified',1)
-                                                                        ->first();
-                                                                        $tolerance = 0.01; // Toleransi yang sesuai
-                                                                        $statusPoint = floatval($statusRubrik->total_point);
-                                                                        $dataPoint = floatval($dataRubrik->total_point);
+                                                            $tolerance = 0.01; // Toleransi yang sesuai
+                                                            $statusPoint = floatval($dataRubrik->status_total_point);
+                                                            $dataPoint = floatval($dataRubrik->total_point);
                                                         @endphp
                                                         <tr  @if (abs($statusPoint - $dataPoint) > $tolerance)
                                                             style="background:#f2dede"
@@ -112,7 +107,7 @@
                                                             <td>{{ $dataRubrik->periode->nama_periode }}</td>
                                                             <td class="text-center" style="font-weight: bold;">{{ $dataRubrik->total_point }}</td>
                                                             <td style="width:15% !important; text-align:center">
-                                                                @if (number_format($statusRubrik->total_point,2) != number_format($dataRubrik->total_point,2))
+                                                                @if (number_format($dataRubrik->status_total_point,2) != number_format($dataRubrik->total_point,2))
                                                                     <a class="text-danger">
                                                                         <i class="fa fa-times-circle-o "></i>&nbsp; Belum Diperbarui
                                                                     </a>

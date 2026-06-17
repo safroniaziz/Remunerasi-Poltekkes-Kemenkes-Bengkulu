@@ -12,7 +12,6 @@ use App\Models\RiwayatPoint;
 use Illuminate\Http\Request;
 use App\Models\RekapPerRubrik;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class GeneratePointRubrikController extends Controller
@@ -24,7 +23,19 @@ class GeneratePointRubrikController extends Controller
     }
 
     public function index(){
-        $dataRubriks = RekapPerRubrik::with(['periode'])->where('periode_id',$this->periode->id)->get();
+        $periodeId = $this->periode->id;
+        $dataRubriks = RekapPerRubrik::with(['periode'])
+            ->where('periode_id',$periodeId)
+            ->get()
+            ->map(function ($rubrik) use ($periodeId) {
+                $rubrik->setAttribute('status_total_point', DB::table($rubrik->kode_rubrik)
+                    ->where('periode_id',$periodeId)
+                    ->where('is_bkd',0)
+                    ->where('is_verified',1)
+                    ->sum('point'));
+
+                return $rubrik;
+            });
         activity()
         ->causedBy(auth()->user()->id)
         ->event('accessed')
@@ -45,78 +56,73 @@ class GeneratePointRubrikController extends Controller
             DB::beginTransaction();
             $rubriks = NilaiEwmp::select('nama_rubrik','nama_tabel_rubrik')->get();
             $dosens = Pegawai::select('nip')->get();
+            $now = Carbon::now()->format("Y-m-d H:i:s");
 
             $totalPoint = array();
             $riwayatPoint = array();
             for ($i=0; $i <count($rubriks) ; $i++) {
-                $total_point = DB::table($rubriks[$i]['nama_tabel_rubrik'])->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
+                $kodeRubrik = $rubriks[$i]['nama_tabel_rubrik'];
+                $namaRubrik = $rubriks[$i]['nama_rubrik'];
+
+                $summary = DB::table($kodeRubrik)
+                                ->where('periode_id',$this->periode->id)
+                                ->selectRaw('IFNULL(SUM(point), 0) as jumlah_point_seluruh')
+                                ->selectRaw('COUNT(id) as jumlah_data_seluruh')
+                                ->selectRaw('IFNULL(SUM(CASE WHEN is_bkd = 0 AND is_verified = 1 THEN point ELSE 0 END), 0) as total_point')
+                                ->selectRaw('COUNT(CASE WHEN is_bkd = 0 AND is_verified = 1 THEN id END) as jumlah_data_terhitung')
+                                ->selectRaw('IFNULL(SUM(CASE WHEN is_bkd = 1 OR is_verified = 0 THEN point ELSE 0 END), 0) as jumlah_point_tidak_terhitung')
+                                ->selectRaw('COUNT(CASE WHEN is_bkd = 1 OR is_verified = 0 THEN id END) as jumlah_data_tidak_terhitung')
+                                ->first();
+                $pointsByNip = DB::table($kodeRubrik)
+                                ->select('nip', DB::raw('IFNULL(sum(point),0) as total_point'))
                                 ->where('periode_id',$this->periode->id)
                                 ->where('is_bkd',0)
                                 ->where('is_verified',1)
-                                ->first();
-                $tidak_terhitung = DB::table($rubriks[$i]['nama_tabel_rubrik'])
-                                ->select(
-                                    DB::raw('IFNULL(SUM(point), 0) as jumlah_point'),
-                                    DB::raw('COUNT(id) as jumlah_data')
-                                )
-                                ->where('periode_id', $this->periode->id)
-                                ->where(function ($query) {
-                                    $query->where('is_bkd', 1)
-                                        ->orWhere('is_verified', 0);
-                                })
-                                ->first();
-                $jumlah_data_seluruh = DB::table($rubriks[$i]['nama_tabel_rubrik'])
-                                            ->where('periode_id',$this->periode->id)
-                                            ->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),
-                                            DB::raw('count(id) as jumlah_data'))->first();
+                                ->groupBy('nip')
+                                ->pluck('total_point', 'nip');
+
                 $totalPoint[] = array(
                     'periode_id'    =>  $this->periode->id,
-                    'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
-                    'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
-                    'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
-                    'jumlah_data_seluruh'   =>  $jumlah_data_seluruh->jumlah_data,
-                    'jumlah_point_seluruh'   =>  $jumlah_data_seluruh->jumlah_point,
-                    'jumlah_data_terhitung'   =>  $total_point->jumlah_data_terhitung,
-                    'jumlah_data_tidak_terhitung'   =>  $tidak_terhitung->jumlah_data,
-                    'jumlah_point_tidak_terhitung'   =>  $tidak_terhitung->jumlah_point,
-                    'total_point'   =>  $total_point->total_point,
-                    'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
-                    'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+                    'kode_rubrik'   =>  $kodeRubrik,
+                    'nama_rubrik'   =>  $namaRubrik,
+                    'jumlah_data_seluruh'   =>  $summary->jumlah_data_seluruh,
+                    'jumlah_point_seluruh'   =>  $summary->jumlah_point_seluruh,
+                    'jumlah_data_terhitung'   =>  $summary->jumlah_data_terhitung,
+                    'jumlah_data_tidak_terhitung'   =>  $summary->jumlah_data_tidak_terhitung,
+                    'jumlah_point_tidak_terhitung'   =>  $summary->jumlah_point_tidak_terhitung,
+                    'total_point'   =>  $summary->total_point,
+                    'created_at'    =>  $now,
+                    'updated_at'    =>  $now,
                 );
                 for ($j=0; $j <count($dosens) ; $j++) {
-                    $total_point_per_nip = DB::table($rubriks[$i]['nama_tabel_rubrik'])
-                                ->select(DB::raw('IFNULL(sum(point),0) as total_point'))
-                                ->where('periode_id',$this->periode->id)
-                                ->where('is_bkd',0)
-                                ->where('is_verified',1)
-                                ->where('nip',$dosens[$j]['nip'])
-                                ->first();
+                    $nip = $dosens[$j]['nip'];
 
                     $riwayatPoint[] = array(
-                        'kode_rubrik'   =>  $rubriks[$i]['nama_tabel_rubrik'],
-                        'nama_rubrik'   =>  $rubriks[$i]['nama_rubrik'],
+                        'kode_rubrik'   =>  $kodeRubrik,
+                        'nama_rubrik'   =>  $namaRubrik,
                         'periode_id'    =>  $this->periode->id,
-                        'point'         =>  $total_point_per_nip->total_point,
-                        'nip'           =>  $dosens[$j]['nip'],
-                        'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
-                        'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+                        'point'         =>  $pointsByNip[$nip] ?? 0,
+                        'nip'           =>  $nip,
+                        'created_at'    =>  $now,
+                        'updated_at'    =>  $now,
                     );
                 }
             }
             RekapPerRubrik::insert($totalPoint);
-            $riwayat_point = RiwayatPoint::insert($riwayatPoint);
+            RiwayatPoint::insert($riwayatPoint);
+            $totalsByNip = RiwayatPoint::select('nip', DB::raw('sum(point) as total_point'))
+                                        ->where('periode_id',$this->periode->id)
+                                        ->groupBy('nip')
+                                        ->pluck('total_point', 'nip');
             $rekapPerDosen = array();
             for ($k=0; $k <count($dosens) ; $k++) {
-                $total_point = RiwayatPoint::select(DB::raw('sum(point) as total_point'))
-                                            ->where('nip',$dosens[$k]['nip'])
-                                            ->where('periode_id',$this->periode->id)
-                                            ->first();
+                $nip = $dosens[$k]['nip'];
                 $rekapPerDosen[] = array(
-                    'nip'           =>  $dosens[$k]['nip'],
+                    'nip'           =>  $nip,
                     'periode_id'    =>  $this->periode->id,
-                    'total_point'   =>  $total_point->total_point,
-                    'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
-                    'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+                    'total_point'   =>  $totalsByNip[$nip] ?? 0,
+                    'created_at'    =>  $now,
+                    'updated_at'    =>  $now,
                 );
             }
             RekapPerDosen::insert($rekapPerDosen);
@@ -134,64 +140,60 @@ class GeneratePointRubrikController extends Controller
     }
 
     public function rekapPointPerRubrik(RekapPerRubrik $rekapPerRubrik){
-        $total_point = DB::table($rekapPerRubrik->kode_rubrik)->select(DB::raw('IFNULL(sum(point),0) as total_point'),DB::raw('count(id) as jumlah_data_terhitung'))
-                            ->where('periode_id',$this->periode->id)
-                            ->where('is_bkd',0)
-                            ->where('is_verified',1)
-                            ->first();
-        $tidak_terhitung = DB::table($rekapPerRubrik->kode_rubrik)
-            ->select(
-                DB::raw('IFNULL(SUM(point), 0) as jumlah_point'),
-                DB::raw('COUNT(id) as jumlah_data')
-            )
-            ->where('periode_id', $this->periode->id)
-            ->where(function ($query) {
-                $query->where('is_bkd', 1)
-                    ->orWhere('is_verified', 0);
-            })
-            ->first();
-
-        $jumlah_data_seluruh = DB::table($rekapPerRubrik->kode_rubrik)
+        $summary = DB::table($rekapPerRubrik->kode_rubrik)
                         ->where('periode_id',$this->periode->id)
-                        ->select(DB::raw('IFNULL(sum(point),0) as jumlah_point'),
-                        DB::raw('count(id) as jumlah_data'))->first();
+                        ->selectRaw('IFNULL(SUM(point), 0) as jumlah_point_seluruh')
+                        ->selectRaw('COUNT(id) as jumlah_data_seluruh')
+                        ->selectRaw('IFNULL(SUM(CASE WHEN is_bkd = 0 AND is_verified = 1 THEN point ELSE 0 END), 0) as total_point')
+                        ->selectRaw('COUNT(CASE WHEN is_bkd = 0 AND is_verified = 1 THEN id END) as jumlah_data_terhitung')
+                        ->selectRaw('IFNULL(SUM(CASE WHEN is_bkd = 1 OR is_verified = 0 THEN point ELSE 0 END), 0) as jumlah_point_tidak_terhitung')
+                        ->selectRaw('COUNT(CASE WHEN is_bkd = 1 OR is_verified = 0 THEN id END) as jumlah_data_tidak_terhitung')
+                        ->first();
         $rekapPerRubrik->update([
-            'total_point'   =>  $total_point->total_point,
-            'jumlah_data_seluruh'   =>  $jumlah_data_seluruh->jumlah_data,
-            'jumlah_point_seluruh'   =>  $jumlah_data_seluruh->jumlah_point,
-            'jumlah_data_terhitung'   =>  $total_point->jumlah_data_terhitung,
-            'jumlah_data_tidak_terhitung'   =>  $tidak_terhitung->jumlah_data,
-            'jumlah_point_tidak_terhitung'   =>  $tidak_terhitung->jumlah_point,
+            'total_point'   =>  $summary->total_point,
+            'jumlah_data_seluruh'   =>  $summary->jumlah_data_seluruh,
+            'jumlah_point_seluruh'   =>  $summary->jumlah_point_seluruh,
+            'jumlah_data_terhitung'   =>  $summary->jumlah_data_terhitung,
+            'jumlah_data_tidak_terhitung'   =>  $summary->jumlah_data_tidak_terhitung,
+            'jumlah_point_tidak_terhitung'   =>  $summary->jumlah_point_tidak_terhitung,
         ]);
 
         RiwayatPoint::where('periode_id',$this->periode->id)->where('kode_rubrik',$rekapPerRubrik->kode_rubrik)->delete();
 
         $dosens = Pegawai::select('nip')->get();
+        $now = Carbon::now()->format("Y-m-d H:i:s");
+        $riwayatPoint = array();
+        $pointsByNip = DB::table($rekapPerRubrik->kode_rubrik)
+                    ->select('nip', DB::raw('IFNULL(sum(point),0) as total_point'))
+                    ->where('periode_id',$this->periode->id)
+                    ->where('is_bkd',0)
+                    ->where('is_verified',1)
+                    ->groupBy('nip')
+                    ->pluck('total_point', 'nip');
+
         for ($i=0; $i <count($dosens) ; $i++) {
-            $total_point_per_nip = DB::table($rekapPerRubrik->kode_rubrik)
-                        ->select(DB::raw('IFNULL(sum(point),0) as total_point'))
-                        ->where('periode_id',$this->periode->id)
-                        ->where('is_bkd',0)
-                        ->where('is_verified',1)
-                        ->where('nip',$dosens[$i]['nip'])
-                        ->first();
+            $nip = $dosens[$i]['nip'];
 
             $riwayatPoint[] = array(
                 'kode_rubrik'   =>  $rekapPerRubrik->kode_rubrik,
                 'nama_rubrik'   =>  $rekapPerRubrik->nama_rubrik,
                 'periode_id'    =>  $this->periode->id,
-                'point'         =>  $total_point_per_nip->total_point,
-                'nip'           =>  $dosens[$i]['nip'],
-                'created_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
-                'updated_at'    =>  Carbon::now()->format("Y-m-d H:i:s"),
+                'point'         =>  $pointsByNip[$nip] ?? 0,
+                'nip'           =>  $nip,
+                'created_at'    =>  $now,
+                'updated_at'    =>  $now,
             );
         }
-        $riwayat_point = RiwayatPoint::insert($riwayatPoint);
+        RiwayatPoint::insert($riwayatPoint);
+
+        $totalsByNip = RiwayatPoint::select('nip', DB::raw('sum(point) as total_point'))
+                    ->groupBy('nip')
+                    ->pluck('total_point', 'nip');
 
         for ($k=0; $k <count($dosens) ; $k++) {
-            $total_point_baru = RiwayatPoint::select(DB::raw('sum(point) as total_point'))->where('nip',$dosens[$k]['nip'])->first();
-            RekapPerDosen::where('nip',$dosens[$k]['nip'])->where('periode_id',$this->periode->id)->update([
-                'total_point'   =>  $total_point_baru->total_point,
+            $nip = $dosens[$k]['nip'];
+            RekapPerDosen::where('nip',$nip)->where('periode_id',$this->periode->id)->update([
+                'total_point'   =>  $totalsByNip[$nip] ?? 0,
             ]);
         }
 
