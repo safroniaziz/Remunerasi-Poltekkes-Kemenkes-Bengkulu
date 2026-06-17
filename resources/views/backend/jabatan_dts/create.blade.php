@@ -42,6 +42,11 @@
                                 <input type="text" class="form-control" id="gaji_blu" name="gaji_blu" >
                             </div>
 
+                            <div class="form-group col-md-6" >
+                                <label for="pir" class="col-form-label">PIR</label>
+                                <input type="text" class="form-control" id="pir" name="pir" value="2500" >
+                            </div>
+
                             <div class="col-md-12" style="margin-bottom:10px !important; text-align:center">
                                 <a href="{{ route('jabatan_dt') }}" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="submit" class="btn btn-primary btn-sm btn-flat mb-2 btnSubmit"><i class="fa fa-check-circle"></i>&nbsp;Simpan Data</button>

@@ -12,6 +12,6 @@ class JabatanDs extends Model
     protected $dates = ['deleted_at'];
     
     protected $fillable = [
-        'nama_jabatan_ds','grade','harga_point_ds','gaji_blu','slug'
+        'nama_jabatan_ds','grade','harga_point_ds','gaji_blu','slug','pir'
     ];
 }

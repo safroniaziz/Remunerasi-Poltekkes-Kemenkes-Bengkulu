@@ -24,16 +24,16 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(LoginResponse::class, new class implements LoginResponse  {
             public function toResponse($request)
             {
+                if (Auth::user()->hasRole('administrator') || Auth::user()->hasRole('pimpinan')) {
+                    return $request->wantsJson()
+                    ? response()->json(['two_factor' => false])
+                    : redirect()->intended(config('fortify.home') ?? '/home');
+                }
+
                 if (Auth::user()->hasRole('operator') || Auth::user()->hasRole('verifikator')) {
                     return $request->wantsJson()
                     ? response()->json(['two_factor' => false])
-                    : redirect()->intended(config('fortify.homeoperatorverifikator'));
-                }
-
-                if (Auth::user()->hasRole('pimpinan') || Auth::user()->hasRole('administrator')) {
-                    return $request->wantsJson()
-                    ? response()->json(['two_factor' => false])
-                    : redirect()->intended(config('fortify.home'));
+                    : redirect()->intended(config('fortify.homeoperatorverifikator') ?? '/cari_dosen');
                 }
             }
         });

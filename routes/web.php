@@ -136,6 +136,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/manajemen_jabatan_dt', 'index')->name('jabatan_dt');
         Route::get('/manajemen_jabatan_dt/create', 'create')->name('jabatan_dt.create');
         Route::post('/manajemen_jabatan_dt', 'store')->name('jabatan_dt.store');
+        Route::patch('/manajemen_jabatan_dt/update_all_pir', 'updateAllPir')->name('jabatan_dt.update_all_pir');
         Route::get('/manajemen_jabatan_dt/{jabatandt:slug}/edit', 'edit')->name('jabatan_dt.edit');
         Route::patch('/manajemen_jabatan_dt/{jabatandt:slug}/update', 'update')->name('jabatan_dt.update');
         Route::delete('/manajemen_jabatan_dt/{jabatandt}/delete', 'delete')->name('jabatan_dt.delete');
@@ -145,6 +146,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/manajemen_jabatan_ds', 'index')->name('jabatan_ds');
         Route::get('/manajemen_jabatan_ds/create', 'create')->name('jabatan_ds.create');
         Route::post('/manajemen_jabatan_ds', 'store')->name('jabatan_ds.store');
+        Route::patch('/manajemen_jabatan_ds/update_all_pir', 'updateAllPir')->name('jabatan_ds.update_all_pir');
         Route::get('/manajemen_jabatan_ds/{jabatands:slug}/edit', 'edit')->name('jabatan_ds.edit');
         Route::patch('/manajemen_jabatan_ds/{jabatands:slug}/update', 'update')->name('jabatan_ds.update');
         Route::delete('/manajemen_jabatan_ds/{jabatands}/delete', 'delete')->name('jabatan_ds.delete');

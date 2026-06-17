@@ -39,6 +39,7 @@ class JabatanDtController extends Controller
             'grade'                 =>  'required',
             'harga_point_dt'        =>  'required|numeric',
             'gaji_blu'              =>  'required|numeric',
+            'pir'                   =>  'required|numeric',
         ];
         $text = [
             'nama_jabatan_dt.required'          => 'nama jabatan dt harus diisi',
@@ -47,6 +48,8 @@ class JabatanDtController extends Controller
             'harga_point_dt.numeric'            => 'harga point dt harus berupa angka',
             'gaji_blu.required'                 => 'gaji blu harus diisi',
             'gaji_blu.numeric'                  => 'gaji blu harus berupa angka',
+            'pir.required'                      => 'pir harus diisi',
+            'pir.numeric'                       => 'pir harus berupa angka',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -60,6 +63,7 @@ class JabatanDtController extends Controller
             'grade'                 =>  $request->grade,
             'harga_point_dt'        =>  $request->harga_point_dt,
             'gaji_blu'              =>  $request->gaji_blu,
+            'pir'                   =>  $request->pir,
         ]);
         activity()
         ->causedBy(auth()->user()->id)
@@ -96,6 +100,7 @@ class JabatanDtController extends Controller
             'grade'                 =>  'required',
             'harga_point_dt'        =>  'required|numeric',
             'gaji_blu'              =>  'required|numeric',
+            'pir'                   =>  'required|numeric',
         ];
         $text = [
             'nama_jabatan_dt.required'          => 'nama jabatan dt harus diisi',
@@ -104,6 +109,8 @@ class JabatanDtController extends Controller
             'harga_point_dt.numeric'            => 'harga point dt harus berupa angka',
             'gaji_blu.required'                 => 'gaji blu harus diisi',
             'gaji_blu.numeric'                  => 'gaji blu harus berupa angka',
+            'pir.required'                      => 'pir harus diisi',
+            'pir.numeric'                       => 'pir harus berupa angka',
         ];
 
         $validasi = Validator::make($request->all(), $rules, $text);
@@ -119,6 +126,7 @@ class JabatanDtController extends Controller
             'grade'                 =>  $request->grade,
             'harga_point_dt'        =>  $request->harga_point_dt,
             'gaji_blu'              =>  $request->gaji_blu,
+            'pir'                   =>  $request->pir,
         ]);
 
         $newData = $jabatandt->toArray();
@@ -141,6 +149,40 @@ class JabatanDtController extends Controller
             return response()->json(['text' =>  'Oopps, jabatan dt anda gagal diubah']);
         }
     }
+
+    public function updateAllPir(Request $request){
+        if (!Gate::allows('update-jabatan-dt')) {
+            abort(403);
+        }
+        $rules = [
+            'pir' => 'required|numeric',
+        ];
+        $text = [
+            'pir.required' => 'pir harus diisi',
+            'pir.numeric' => 'pir harus berupa angka',
+        ];
+
+        $validasi = Validator::make($request->all(), $rules, $text);
+        if ($validasi->fails()) {
+            return response()->json(['error' => 0, 'text' => $validasi->errors()->first()], 422);
+        }
+
+        JabatanDt::query()->update(['pir' => $request->pir]);
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->event('updated')
+            ->withProperties([
+                'new_pir' => $request->pir,
+            ])
+            ->log(auth()->user()->nama_user . ' has updated PIR for all Jabatan DT records.');
+
+        return response()->json([
+            'text' => 'Yeay, PIR semua Jabatan DT berhasil diubah',
+            'url' => url('/manajemen_jabatan_dt/'),
+        ]);
+    }
+
     public function delete(Jabatandt $jabatandt){
         if (!Gate::allows('delete-jabatan-dt')) {
             abort(403);

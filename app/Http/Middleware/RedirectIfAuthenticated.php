@@ -23,9 +23,11 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 $user = Auth::guard($guard)->user();
 
-                if ($user->hasRole('verifikator')) {
-                    return redirect()->route('cari_dosen'); // Redirect to the admin dashboard
-                }else {
+                if ($user->hasRole('administrator') || $user->hasRole('pimpinan')) {
+                    return redirect(RouteServiceProvider::HOME);
+                } elseif ($user->hasRole('verifikator') || $user->hasRole('operator')) {
+                    return redirect()->route('cari_dosen');
+                } else {
                     return redirect(RouteServiceProvider::HOME);
                 }
             }

@@ -35,8 +35,28 @@
                             @endif
                         </div>
                         <div class="col-md-12">
-                            <div style="margin-bottom: 10px !important;">
+                            <div style="margin-bottom: 15px !important;">
                                 <a href="{{ route('jabatan_ds.create') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Jabatan DS</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-bottom: 20px;">
+                            <div class="callout callout-info" style="background: #eef7f9; border: 1px solid #bce8f1; border-left: 5px solid #00c0ef; padding: 15px 20px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 0;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fa fa-info-circle text-info" style="font-size: 22px; color: #31708f;"></i>
+                                    <div>
+                                        <span style="font-weight: 700; display: block; color: #31708f; font-size: 14px;">Pengaturan PIR Masal</span>
+                                        <span style="font-size: 12px; color: #31708f;">Nilai PIR saat ini berlaku untuk seluruh jabatan DS.</span>
+                                    </div>
+                                </div>
+                                <form action="{{ route('jabatan_ds.update_all_pir') }}" method="POST" class="form-bulk-pir" style="margin-bottom: 0; display: flex; align-items: center; gap: 10px;">
+                                    {{ csrf_field() }} {{ method_field('PATCH') }}
+                                    <div class="input-group" style="width: 200px; margin-bottom: 0;">
+                                        <span class="input-group-addon" style="background-color: #f4f4f4; border: 1px solid #ccc; color: #333; font-weight: bold;">Rp</span>
+                                        <input type="text" class="form-control" id="bulk_pir" name="pir" value="{{ $jabatands->first()->pir ?? 2500 }}" style="border-radius: 0; height: 34px; background-color: #fff; color: #333; border: 1px solid #ccc; font-weight: 600;">
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-flat btnSubmitBulk" style="height: 34px; line-height: 1.42857143; padding: 6px 12px; font-weight: bold;"><i class="fa fa-save"></i>&nbsp; Simpan PIR</button>
+                                </form>
                             </div>
                         </div>
                         <div class="col-md-12 table-responsive">
@@ -48,6 +68,7 @@
                                         <th style="text-align:center; vertical-align:middle">Grade</th>
                                         <th style=" vertical-align:middle">Harga Point DS</th>
                                         <th style="text-align:center; vertical-align:middle">Gaji BLU</th>
+                                        <th style="text-align:center; vertical-align:middle">PIR</th>
                                         <th style="text-align:center; vertical-align:middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -63,6 +84,7 @@
                                             <td style="text-align: center;">{{ $jabatands->grade ?? '-' }}</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatands->harga_point_ds)) ?? '-' }},-</td>
                                             <td style="text-align: center;">Rp. {{ number_format(($jabatands->gaji_blu )) ?? '-' }},-</td>
+                                            <td style="text-align: center;">Rp. {{ number_format(($jabatands->pir)) ?? '-' }},-</td>
                                             <td>
                                             <table>
                                                 <tr>
@@ -84,6 +106,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        
+
+
                     </div>
                 </div>
             </section>
@@ -115,6 +140,35 @@
                 form.submit();
                 }
             });
+        });
+
+        $(document).on('submit','.form-bulk-pir',function (event){
+            event.preventDefault();
+            var btn = $(this).find(".btnSubmitBulk");
+            btn.attr("disabled", true);
+            var originalHtml = btn.html();
+            btn.html('<i class="fa fa-spinner fa-spin"></i>&nbsp; Menyimpan');
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                typeData: "JSON",
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success : function(res) {
+                    toastr.success(res.text, 'Yeay, Berhasil');
+                    setTimeout(function () {
+                        window.location.href=res.url;
+                    } , 500);
+                },
+                error:function(xhr){
+                    toastr.error(xhr.responseJSON.text, 'Ooopps, Ada Kesalahan');
+                    setTimeout(function() {
+                        btn.prop('disabled', false);
+                        btn.html(originalHtml);
+                    }, 500);
+                }
+            })
         });
     </script>
 @endpush
