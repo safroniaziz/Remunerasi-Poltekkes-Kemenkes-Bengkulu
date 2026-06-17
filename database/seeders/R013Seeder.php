@@ -14,8 +14,14 @@ class R013Seeder extends Seeder
      */
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r013_orasi_ilmiah_narasumber_bidang_ilmus')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'internasional',
@@ -25,7 +31,7 @@ class R013Seeder extends Seeder
 
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'internasional',
@@ -34,7 +40,7 @@ class R013Seeder extends Seeder
             'point'                 =>  3,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'nasional',
@@ -43,7 +49,7 @@ class R013Seeder extends Seeder
             'point'                 =>  2,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'nasional',
@@ -52,7 +58,7 @@ class R013Seeder extends Seeder
             'point'                 =>  2,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'regional',
@@ -61,7 +67,7 @@ class R013Seeder extends Seeder
             'point'                 =>  1,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  'webinar',
             'tingkatan_ke'          =>  'regional',

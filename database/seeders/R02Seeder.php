@@ -25,6 +25,12 @@ class R02Seeder extends Seeder
 
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         $dosenData = Pegawai::all();
         foreach ($dosenData as $dosen) {
             $nip = $dosen['nip'];
@@ -38,7 +44,7 @@ class R02Seeder extends Seeder
 
             // Query untuk memasukkan data ke tabel r01perkulianteoris menggunakan Query Builder
             DB::table('r02_perkuliahan_praktikums')->insert([
-                'periode_id' => 1,
+                'periode_id' => $periodeId,
                 'nip' => $nip,
                 'nama_matkul' => $nama_matkul,
                 'jumlah_sks' => $jumlah_sks,

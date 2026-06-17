@@ -14,8 +14,14 @@ class R017Seeder extends Seeder
      */
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r017_naskah_buku_bahasa_terbit_edar_nas')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -25,7 +31,7 @@ class R017Seeder extends Seeder
 
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -34,7 +40,7 @@ class R017Seeder extends Seeder
             'point'                 =>  3,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -43,7 +49,7 @@ class R017Seeder extends Seeder
             'point'                 =>  3,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -52,7 +58,7 @@ class R017Seeder extends Seeder
             'point'                 =>  3,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',
@@ -61,7 +67,7 @@ class R017Seeder extends Seeder
             'point'                 =>  3,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_buku'            =>  'webinar',
             'isbn'                  =>  '01234',

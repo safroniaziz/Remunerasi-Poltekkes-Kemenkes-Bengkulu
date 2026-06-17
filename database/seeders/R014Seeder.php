@@ -14,8 +14,14 @@ class R014Seeder extends Seeder
      */
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r014_karya_inovasis')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -27,7 +33,7 @@ class R014Seeder extends Seeder
 
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
@@ -38,7 +44,7 @@ class R014Seeder extends Seeder
             'point'                 =>  1,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -49,7 +55,7 @@ class R014Seeder extends Seeder
             'point'                 =>  2.4,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
@@ -60,7 +66,7 @@ class R014Seeder extends Seeder
             'point'                 =>  0.8,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -71,7 +77,7 @@ class R014Seeder extends Seeder
             'point'                 =>  1.8,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',

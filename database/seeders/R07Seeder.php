@@ -11,8 +11,14 @@ class R07Seeder extends Seeder
 {
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r07_membimbing_skripsi_lta_la_profesis')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'jumlah_mahasiswa'      =>  4,
             'pembimbing_ke'         => 'pembimbing_utama',
@@ -22,7 +28,7 @@ class R07Seeder extends Seeder
 
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'jumlah_mahasiswa'      =>  8,
             'pembimbing_ke'         => 'pembimbing_utama',
@@ -31,7 +37,7 @@ class R07Seeder extends Seeder
             'point'                 =>  2,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'jumlah_mahasiswa'      =>  10,
             'pembimbing_ke'         => 'pembimbing_pendamping',
@@ -40,7 +46,7 @@ class R07Seeder extends Seeder
             'point'                 =>  2,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'jumlah_mahasiswa'      =>  12,
             'pembimbing_ke'         => 'pembimbing_utama',
@@ -49,7 +55,7 @@ class R07Seeder extends Seeder
             'point'                 =>  3,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'jumlah_mahasiswa'      =>  5,
             'pembimbing_ke'         => 'pembimbing_pendamping',
@@ -58,7 +64,7 @@ class R07Seeder extends Seeder
             'point'                 =>  1,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'jumlah_mahasiswa'      =>  15,
             'pembimbing_ke'         => 'pembimbing_pendamping',

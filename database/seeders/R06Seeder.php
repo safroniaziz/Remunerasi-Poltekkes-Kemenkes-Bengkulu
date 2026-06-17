@@ -11,8 +11,14 @@ class R06Seeder extends Seeder
 {
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r06_menguji_ujian_oscas')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'jumlah_mahasiswa'      =>  10,
             'is_bkd'                =>  0,
@@ -21,7 +27,7 @@ class R06Seeder extends Seeder
 
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'jumlah_mahasiswa'      =>  20,
             'is_bkd'                =>  0,
@@ -29,7 +35,7 @@ class R06Seeder extends Seeder
             'point'                 =>  4,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'jumlah_mahasiswa'      =>  30,
             'is_bkd'                =>  1,
@@ -37,7 +43,7 @@ class R06Seeder extends Seeder
             'point'                 =>  6,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'jumlah_mahasiswa'      =>  40,
             'is_bkd'                =>  0,
@@ -45,7 +51,7 @@ class R06Seeder extends Seeder
             'point'                 =>  8,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'jumlah_mahasiswa'      =>  50,
             'is_bkd'                =>  1,
@@ -53,7 +59,7 @@ class R06Seeder extends Seeder
             'point'                 =>  10,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'jumlah_mahasiswa'      =>  60,
             'is_bkd'                =>  0,

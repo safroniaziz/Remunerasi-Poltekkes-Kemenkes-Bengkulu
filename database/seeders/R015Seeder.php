@@ -11,8 +11,14 @@ class R015Seeder extends Seeder
 {
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r015_menulis_karya_ilmiah_dipublikasikans')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -24,7 +30,7 @@ class R015Seeder extends Seeder
 
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
@@ -35,7 +41,7 @@ class R015Seeder extends Seeder
             'point'                 =>  1.6,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -46,7 +52,7 @@ class R015Seeder extends Seeder
             'point'                 =>  3.6,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',
@@ -57,7 +63,7 @@ class R015Seeder extends Seeder
             'point'                 =>  1.2,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'utama',
@@ -68,7 +74,7 @@ class R015Seeder extends Seeder
             'point'                 =>  1.2,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul'                 => 'webinar',
             'penulis_ke'            => 'anggota',

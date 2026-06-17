@@ -14,8 +14,14 @@ class R029Seeder extends Seeder
      */
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r029_memperoleh_penghargaans')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_penghargaan'     =>  'dosen_berprestasi_nasional',
             'is_bkd'                =>  0,
@@ -23,7 +29,7 @@ class R029Seeder extends Seeder
             'point'                 =>  0.5
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_penghargaan'     =>  'dosen_berprestasi_nasional',
             'is_bkd'                =>  0,
@@ -31,7 +37,7 @@ class R029Seeder extends Seeder
             'point'                 =>  0.5
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_penghargaan'     =>  'reviewer_internasional_berscopus',
             'is_bkd'                =>  1,
@@ -39,7 +45,7 @@ class R029Seeder extends Seeder
             'point'                 =>  0.5
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_penghargaan'     =>  'dosen_berprestasi_nasional',
             'is_bkd'                =>  0,
@@ -47,7 +53,7 @@ class R029Seeder extends Seeder
             'point'                 =>  0.5
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_penghargaan'     =>  'reviewer_internasional_berscopus',
             'is_bkd'                =>  1,
@@ -55,7 +61,7 @@ class R029Seeder extends Seeder
             'point'                 =>  0.5,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_penghargaan'     =>  'reviewer_internasional_berscopus',
             'is_bkd'                =>  0,

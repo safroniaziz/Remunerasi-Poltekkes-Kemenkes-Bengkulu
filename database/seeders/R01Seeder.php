@@ -25,6 +25,12 @@ class R01Seeder extends Seeder
 
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         $dosenData = Pegawai::all();
         foreach ($dosenData as $dosen) {
             $nip = $dosen['nip'];
@@ -38,7 +44,7 @@ class R01Seeder extends Seeder
 
             // Query untuk memasukkan data ke tabel r01perkulianteoris menggunakan Query Builder
             DB::table('r01_perkuliahan_teoris')->insert([
-                'periode_id' => 1,
+                'periode_id' => $periodeId,
                 'nip' => $nip,
                 'nama_matkul' => $nama_matkul,
                 'jumlah_sks' => $jumlah_sks,
@@ -51,7 +57,7 @@ class R01Seeder extends Seeder
         }
         // $faker = \Faker\Factory::create();
         // DB::table('r01_perkuliahan_teoris')->insert(array([
-        //     'periode_id'            =>  1,
+        //     'periode_id'            =>  $periodeId,
         //     'nip'                   =>  198909032015041004,
         //     'nama_matkul'           =>  'kesehatan',
         //     'nama_matkul'           =>  'kesehatan',
@@ -64,7 +70,7 @@ class R01Seeder extends Seeder
 
         // ],
         // [
-        //     'periode_id'            =>  1,
+        //     'periode_id'            =>  $periodeId,
         //     'nip'                   =>  198909032015041004,
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  3,
@@ -75,7 +81,7 @@ class R01Seeder extends Seeder
         //     'point'                 =>  3,
         // ],
         // [
-        //     'periode_id'            =>  1,
+        //     'periode_id'            =>  $periodeId,
         //     'nip'                   =>  199308192022032013,
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  4,
@@ -86,7 +92,7 @@ class R01Seeder extends Seeder
         //     'point'                 =>  4,
         // ],
         // [
-        //     'periode_id'            =>  1,
+        //     'periode_id'            =>  $periodeId,
         //     'nip'                   =>  199308192022032013,
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  2,
@@ -97,7 +103,7 @@ class R01Seeder extends Seeder
         //     'point'                 =>  2,
         // ],
         // [
-        //     'periode_id'            =>  1,
+        //     'periode_id'            =>  $periodeId,
         //     'nip'                   =>  199201312019031010,
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  3,
@@ -108,7 +114,7 @@ class R01Seeder extends Seeder
         //     'point'                 =>  3,
         // ],
         // [
-        //     'periode_id'            =>  1,
+        //     'periode_id'            =>  $periodeId,
         //     'nip'                   =>  199201312019031010,
         //     'nama_matkul'           =>  'kesehatan',
         //     'jumlah_sks'            =>  4,

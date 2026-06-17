@@ -14,8 +14,14 @@ class R026Seeder extends Seeder
      */
     public function run(): void
     {
+        $periodeId = DB::table('periodes')->where('is_active', 1)->value('id');
+
+        if (! $periodeId) {
+            throw new \RuntimeException('Periode aktif tidak ditemukan.');
+        }
+
         DB::table('r026_pengelola_jurnal_buletins')->insert(array([
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'ketua',
@@ -25,7 +31,7 @@ class R026Seeder extends Seeder
             'point'                 =>  1,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  198909032015041004,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'ketua',
@@ -35,7 +41,7 @@ class R026Seeder extends Seeder
             'point'                 =>  1,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'ketua',
@@ -45,7 +51,7 @@ class R026Seeder extends Seeder
             'point'                 =>  1,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199308192022032013,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
@@ -55,7 +61,7 @@ class R026Seeder extends Seeder
             'point'                 => 0.25,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
@@ -65,7 +71,7 @@ class R026Seeder extends Seeder
             'point'                 =>  0.25,
         ],
         [
-            'periode_id'            =>  1,
+            'periode_id'            =>  $periodeId,
             'nip'                   =>  199201312019031010,
             'judul_kegiatan'        =>  60,
             'jabatan'               =>  'anggota',
