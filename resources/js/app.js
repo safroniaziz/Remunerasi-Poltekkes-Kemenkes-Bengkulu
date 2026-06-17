@@ -1,10 +1,39 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+// Expose AOS so Blade inline scripts & legacy files can use it safely.
+window.AOS = AOS;
+
+// Alpine `x-data="{ switcher: translationSwitcher() }"` is used on several
+// public pages. Define it here (bundled) so it is always available before
+// Alpine starts, regardless of legacy script load order/caching.
+if (localStorage.getItem('language-storage') === null) {
+    localStorage.setItem('language-storage', 0);
+}
+
+window.translationSwitcher = function () {
+    return {
+        selected: localStorage.getItem('language-storage'),
+        countries: [
+            { label: 'Indonesia', lang: 'id', flag: 'id' },
+        ],
+        menuToggle: false,
+    };
+};
 
 window.Alpine = Alpine;
 
 Alpine.start();
+
+const initAos = () => AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true });
+if (document.readyState !== 'loading') {
+    initAos();
+} else {
+    document.addEventListener('DOMContentLoaded', initAos);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-modal-toggle]').forEach((trigger) => {
